@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 — 05/11/2026
+
+- README: o repositório é privado; o Codex instala pelo endereço SSH.
+
 ## 1.0.0 — 05/11/2026
 
 - Plugin próprio, fora do Superflow, para Claude Code, Codex e Cursor.

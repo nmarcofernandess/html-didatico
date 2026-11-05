@@ -18,21 +18,22 @@ o quickstart do EscalaFlow (10/06/2026), é o documento de onde o estilo nasceu.
 
 ## Instalação
 
-Instale uma release identificada por tag.
+Instale uma release identificada por tag. O repositório é privado: o host
+precisa da sua credencial do GitHub. No Codex, use o endereço SSH.
 
 Codex:
 
-    codex plugin marketplace add nmarcofernandess/html-didatico --ref v1.0.0
+    codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v1.0.1
     codex plugin add html-didatico@html-didatico
 
 Claude Code:
 
-    claude plugin marketplace add nmarcofernandess/html-didatico@v1.0.0
+    claude plugin marketplace add nmarcofernandess/html-didatico@v1.0.1
     claude plugin install html-didatico@html-didatico
 
 Cursor:
 
-    agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v1.0.0
+    agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v1.0.1
 
 Depois, em `/plugin`, instale HTML Didático no escopo user.
 
