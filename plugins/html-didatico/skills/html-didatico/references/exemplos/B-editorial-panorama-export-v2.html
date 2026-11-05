@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Export V2 — o mapa da convergência</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+:root {
+  --paper: #FAF9F5; --paper-2: #F2F0E9; --ink: #161815; --ink-soft: #2E332F;
+  --muted: #6E7A72; --hair: #E3E2DA;
+  --accent: #0E9F6E; --accent-soft: rgba(14,159,110,.08);
+  --warn: #C8791E; --warn-soft: rgba(200,121,30,.10);
+  --alert: #C2493F; --alert-soft: #F9E5E2;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Instrument Sans", "Helvetica Neue", sans-serif;
+  --mono: "Spline Sans Mono", "SF Mono", ui-monospace, Menlo, monospace;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--sans);
+  font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(ellipse 120% 80% at 50% -10%, rgba(255,255,255,.6), transparent 55%); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 6vw 120px; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+@keyframes blink { 50% { opacity: 0 } }
+@media print { .reveal { opacity: 1 !important; transform: none !important; } .slice, .fig, .card { break-inside: avoid; } body { background: #fff; } }
+
+.plate { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--ink-soft);
+  text-transform: uppercase; border: 1px solid var(--ink); padding: 9px 14px; margin: 40px 0 44px; }
+.plate b { color: var(--accent); }
+
+.cover { padding: 8px 0 30px; }
+.kicker { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+.cover h1 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; font-size: clamp(46px, 8vw, 96px); line-height: .98; max-width: 15ch; margin: 18px 0 20px; }
+.cover h1 em { font-style: italic; color: var(--accent); }
+.cover .lead { font-size: 21px; max-width: 64ch; color: var(--ink-soft); }
+.cover .lead b { color: var(--ink); font-weight: 600; }
+
+.slice { position: relative; padding: 62px 0 24px; border-top: 1px solid var(--hair); margin-top: 40px; }
+.slice > .num { position: absolute; top: 30px; right: 0; font-family: var(--serif); font-size: clamp(120px, 17vw, 230px); line-height: 1; color: transparent; -webkit-text-stroke: 1px var(--hair); user-select: none; pointer-events: none; z-index: 0; }
+.slice:nth-of-type(even) > .num { right: auto; left: 0; }
+.slice > * { position: relative; z-index: 1; }
+.slice h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4.6vw, 50px); line-height: 1.04; max-width: 20ch; margin-bottom: 6px; }
+.slice h2 em { font-style: italic; color: var(--accent); }
+.slice .sub { color: var(--muted); font-size: 16px; margin-bottom: 30px; max-width: 68ch; }
+.slice p { max-width: 66ch; margin: 0 0 16px; }
+.slice p b { font-weight: 600; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: start; }
+.slice:nth-of-type(even) .split .txt { order: 2; }
+.slice:nth-of-type(even) .split .vis { order: 1; }
+@media (max-width: 820px) { .split { grid-template-columns: 1fr; gap: 28px; } .slice:nth-of-type(even) .split .txt, .slice:nth-of-type(even) .split .vis { order: initial; } }
+
+.pratica { border-left: 2px solid var(--accent); background: var(--accent-soft); padding: 18px 24px; margin: 24px 0 6px; }
+.pratica p { font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.35; max-width: 60ch; margin: 0; }
+
+.fig { position: relative; border: 1px solid var(--ink); background-color: #FFFFFC;
+  background-image: linear-gradient(rgba(22,24,21,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(22,24,21,.04) 1px, transparent 1px);
+  background-size: 22px 22px; padding: 30px 26px 34px; display: flex; flex-direction: column; gap: 13px; min-height: 240px; }
+.fig::after { content: attr(data-fig); position: absolute; bottom: -1px; right: -1px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; background: var(--ink); color: var(--paper); padding: 4px 12px; }
+.fig .cap { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.chip { font-family: var(--mono); font-size: 11px; border: 1.5px solid var(--ink); background: #fff; box-shadow: 3px 3px 0 rgba(22,24,21,.10); padding: 6px 12px; white-space: nowrap; }
+.chip.ok  { border-color: var(--accent); color: var(--accent); box-shadow: 3px 3px 0 var(--accent-soft); }
+.chip.warn{ border-color: var(--warn); color: var(--warn); box-shadow: 3px 3px 0 var(--warn-soft); }
+.chip.dead{ border-style: dashed; box-shadow: none; color: var(--muted); background: transparent; }
+.dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex: none; }
+.dot.g { background: var(--accent); } .dot.w { background: var(--warn); } .dot.k { background: var(--muted); }
+.estado { display: flex; align-items: center; gap: 13px; background: #fff; border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 rgba(22,24,21,.08); padding: 10px 15px; }
+.estado b { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; min-width: 150px; }
+.estado span { font-size: 14px; color: var(--muted); }
+.node { border: 1.5px solid var(--ink); background: #fff; padding: 7px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; white-space: nowrap; box-shadow: 3px 3px 0 rgba(22,24,21,.1); }
+.node.accent { border-color: var(--accent); color: var(--accent); }
+.node.warn { border-color: var(--warn); color: var(--warn); }
+.node.dead { border-style: dashed; box-shadow: none; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--alert); background: transparent; }
+.arrow { flex: none; width: 26px; height: 1.5px; background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 11px); }
+.arrowv { width: 1.5px; height: 18px; margin-left: 20px; background: repeating-linear-gradient(0deg, var(--ink) 0 5px, transparent 5px 10px); }
+
+.kit { border: 1.5px solid var(--accent); background: var(--accent-soft); padding: 12px 14px; }
+.kit .kh { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.dup { border: 1.5px solid var(--alert); background: var(--alert-soft); padding: 6px 11px; font-family: var(--mono); font-size: 11px; color: var(--alert); }
+.new { border: 1.5px solid var(--warn); background: var(--warn-soft); padding: 6px 11px; font-family: var(--mono); font-size: 11px; color: var(--warn); }
+
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.twocol .h { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.twocol .keep .h { color: var(--accent); } .twocol .pull .h { color: var(--warn); }
+.mini { font-family: var(--mono); font-size: 11px; padding: 5px 0; border-bottom: 1px dashed var(--hair); color: var(--ink-soft); }
+
+.callout { margin: 46px 0 8px; background: var(--ink); color: var(--paper); padding: 40px 38px; position: relative; overflow: hidden; }
+.callout::before { content:''; position: absolute; inset:0; background-image: linear-gradient(rgba(243,239,230,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(243,239,230,.05) 1px, transparent 1px); background-size: 22px 22px; }
+.callout > * { position: relative; }
+.callout .kicker { color: #7fd8b4; }
+.callout h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 4vw, 40px); margin: 10px 0 18px; line-height: 1.08; }
+.callout p { color: #d9d6cc; max-width: 72ch; }
+.callout .done { display:flex; gap:10px; align-items:flex-start; margin: 8px 0; font-size:15px; color:#e9e6dc; }
+.callout .done i { font-family: var(--mono); color:#7fd8b4; flex:none; }
+.callout .later { border-left: 3px solid var(--muted); padding: 4px 0 4px 14px; margin-top: 18px; font-size: 14px; color:#b9b6ac; }
+
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--hair); margin: 6px 0; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+.tbl th { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 9px 12px; border-bottom: 1.5px solid var(--ink); background: var(--paper-2); }
+.tbl td { padding: 10px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+.tbl tr:last-child td { border-bottom: none; }
+.st { font-family: var(--mono); font-size: 10px; letter-spacing: .03em; padding: 3px 8px; white-space: nowrap; display: inline-block; }
+.st.ok { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); }
+.st.warn { color: var(--warn); background: var(--warn-soft); border: 1px solid var(--warn); }
+
+.tasks { display: grid; gap: 12px; margin: 8px 0; }
+.task { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; border: 1.5px solid var(--ink); background: #fff; box-shadow: 3px 3px 0 rgba(22,24,21,.07); padding: 13px 16px; }
+.task .k { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--accent); font-weight: 500; padding-top: 2px; white-space: nowrap; }
+.task .b { font-size: 15px; }
+.task .b b { font-weight: 600; }
+.task .b small { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
+.task .ph { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--hair); padding: 4px 9px; white-space: nowrap; align-self: center; }
+
+.close { text-align: center; padding: 70px 0 20px; }
+.close .frase { font-family: var(--serif); font-style: italic; font-size: clamp(26px, 4vw, 38px); max-width: 24ch; margin: 0 auto 30px; line-height: 1.2; }
+.stamp { display: inline-grid; place-items: center; width: 172px; height: 172px; border-radius: 50%; border: 3px double var(--accent); color: var(--accent); transform: rotate(-7deg); font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; text-align: center; line-height: 1.9; }
+.stamp b { font-size: 15px; }
+footer { margin-top: 60px; border-top: 1px solid var(--ink); padding-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--muted); margin: 4px 0 26px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+
+/* ── prova · esqueleto a preencher ── */
+.ai-note { font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--ink-soft); border: 1.5px dashed var(--warn); background: var(--warn-soft); padding: 12px 14px; margin: 4px 0 18px; }
+.ai-note b { color: var(--warn); }
+.proofgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 10px 0; }
+@media (max-width: 820px) { .proofgrid { grid-template-columns: 1fr; } }
+.pcard { border: 1.5px solid var(--ink); background: #fff; box-shadow: 3px 3px 0 rgba(22,24,21,.07); padding: 13px 15px 15px; display: flex; flex-direction: column; gap: 9px; }
+.pcard.new { border-color: var(--accent); box-shadow: 3px 3px 0 var(--accent-soft); }
+.pcard .ph { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.pcard .nm { font-family: var(--serif); font-size: 22px; line-height: 1; }
+.pcard.new .nm { color: var(--accent); }
+.pcard .ty { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.pcard .rid { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.pcard .rid b { color: var(--ink); background: var(--warn-soft); padding: 1px 5px; }
+.pstatus { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--alert); color: var(--alert); background: var(--alert-soft); white-space: nowrap; align-self: center; }
+.pstatus.ok { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.shot { position: relative; border: 1.5px dashed var(--hair); background-color: #FFFFFC; background-image: linear-gradient(rgba(22,24,21,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(22,24,21,.04) 1px, transparent 1px); background-size: 22px 22px; overflow: hidden; }
+.shot .sl { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 5px 8px; border-bottom: 1px dashed var(--hair); }
+.shot img.pf { width: 100%; display: block; }
+.shot .empty { min-height: 128px; display: grid; place-items: center; text-align: center; font-family: var(--mono); font-size: 9.5px; line-height: 1.5; color: var(--muted); padding: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="plate">
+    <span>Panorama · <b>Export V2</b> · spec 055 · Rev.8</span>
+    <span>DietFlow · os 12 em código · reta da prova · jul/2026</span>
+  </div>
+
+  <!-- COVER -->
+  <header class="cover reveal">
+    <div class="kicker">Onde estamos, o que bate com o design, e o que falta</div>
+    <h1>Um <em>motor</em> de export.<br />Doze documentos. A reta da prova.</h1>
+    <p class="lead">A refundação está de pé e agora <b>os doze documentos existem em código</b>: mundo isolado em <code>src/export/</code>, um documento próprio por módulo, DTO calculado, motor pagedjs. <b>Cálculo e Antropometria — os 2 que faltavam — foram implementados e estão verdes na branch</b> (não esperei as maquetes: vesti o copy-texto no papel do kit, via <code>FieldGrid</code>). Falta uma coisa só: a <b>prova visual real dos 12</b>. Este panorama fecha nela — e é ela que vai pra uma IA menor.</p>
+  </header>
+
+  <div class="legend reveal">
+    <span><i class="dot g"></i> V2 em código na branch</span>
+    <span><i class="dot w"></i> falta a prova visual (Fase 3)</span>
+    <span><i class="dot k"></i> fora do escopo por natureza</span>
+    <span style="color:var(--alert)">▚ legado v1 (fase seguinte)</span>
+  </div>
+
+  <!-- 1 · ONDE O TRABALHO ESTÁ -->
+  <section class="slice reveal">
+    <div class="num">01</div>
+    <h2>Uma branch, um PR — e os <em>doze</em> documentos de pé</h2>
+    <p class="sub">A correção que você conferiu segue: 1 branch (<code>codex/export-v2-f3-final</code>), 1 PR único. A novidade desta rodada: Cálculo (F1) e Antropometria (F2) saíram de "manutenção" e foram <b>implementados</b> — verdes na branch. Falta só provar.</p>
+    <div class="split">
+      <div class="txt">
+        <p><b>Mergeado em <code>dev</code>:</b> F0 #696 · F1 #697 · F2 #698 · F3.1 #701. <b>Nesta branch, verdes e commitados:</b> Cálculo (kit→mapper→getter→componente→rota) e Antropometria (4 commits, <code>4ed7fb08…fee13f5b</code>). Typecheck 0, suítes da fase verdes, gate-check do maestro passou <b>arquivo-a-arquivo</b> — não por report de subagent.</p>
+        <p><b>Como ficaram os 2 novos:</b> export <b>simples</b> — o <i>Copiar texto</i> vestido no papel do kit, via <b>FieldGrid</b> (criado na F0). Sem gráfico, sem esperar maquete. Cálculo reusa o <code>ResumoNutricional</code> da Dieta pros cenários; Antropometria imprime medidas, composição, circunferências, dobras e bioimpedância.</p>
+        <div class="pratica"><p>A recon antes de codar pegou um bug que teria ido verde pra produção: o protocolo de %gordura é salvo como <code>ResultadoProtocolo</code> (números em <code>.valores</code>), não no shape flat que o plano assumia. Sem a leitura da fonte, o campo obrigatório sairia "—" no PDF com o teste passando.</p></div>
+      </div>
+      <div class="vis">
+        <figure class="fig" data-fig="Fig. 1 — a linha, agora">
+          <div class="cap">em dev · verde na branch · falta provar</div>
+          <div class="row"><span class="node accent">F0–F3.1 em dev</span></div>
+          <div class="arrowv"></div>
+          <div class="row"><span class="node accent">Cálculo ✓</span><span class="node accent">Antropometria ✓</span><span style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">verde na branch</span></div>
+          <div class="arrowv"></div>
+          <div class="row"><span class="node warn">Fase 3 · prova visual</span><span style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">→ IA menor</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · MAPA -->
+  <section class="slice reveal">
+    <div class="num">02</div>
+    <h2>Doze em V2, <em>um</em> de fora — código completo</h2>
+    <p class="sub">O balde de "manutenção" esvaziou de vez: cálculo e antropometria agora são código verde. Sobra a gestação, por ser de outra natureza. O que resta pros doze é comum: a prova.</p>
+    <div class="split">
+      <div class="vis">
+        <figure class="fig" data-fig="Fig. 2 — os baldes, agora">
+          <div class="cap">estado de cada export</div>
+          <div class="estado"><i class="dot g"></i><b>V2 em código · 12</b><span>dieta, receita, prescrição, textos, anamnese, forms, pedido-exames, cálculo, antropometria + 3 evoluções</span></div>
+          <div class="estado"><i class="dot w"></i><b>falta a prova · 12</b><span>fluxo real registro→Exportar→modal→PDF — o gate que você definiu</span></div>
+          <div class="estado"><i class="dot k"></i><b>fora · 1</b><span>gestação — série temporal, sem copy-texto; documento à parte</span></div>
+        </figure>
+      </div>
+      <div class="txt">
+        <p>Os <b>2 novos</b> ficaram deliberadamente enxutos: <b>Metric Band</b> no topo (TMB·GET·VET | Peso·IMC·%Gordura·Massa Magra) + <b>FieldGrid</b> flat com os campos, sem gráfico. É o mesmo conteúdo que a UFScar copiaria hoje pelo <i>Copiar texto</i> — impresso no padrão do sistema.</p>
+        <p>Antropometria <b>pontual</b> deixou de ser "sem export por design": ganhou o documento do registro único. A <b>série</b> (Evolução Corporal) segue sendo outro export — e o teste que garante que o pontual <b>não faz ponte</b> pra série foi preservado, não deletado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · CONGRUÊNCIA -->
+  <section class="slice reveal">
+    <div class="num">03</div>
+    <h2>O que eu fiz <em>bate</em> com a intenção?</h2>
+    <p class="sub">Comparei os 6 documentos que implementei contra os protótipos do Claude Design. Regra: o protótipo é intenção; o sistema real manda. Veredito: a casca está congruente em todos; os ajustes são pontuais — menos um.</p>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <tr><th>Documento</th><th>Veredito</th><th>Ajuste real</th></tr>
+        <tr><td><b>Prescrição</b></td><td><span class="st ok">congruente</span></td><td>assinatura vira primitivo shared (dedup byte-idêntico c/ Exames — só data, <b>não</b> há cidade)</td></tr>
+        <tr><td><b>Textos</b></td><td><span class="st ok">congruente</span></td><td>respiro entre parágrafos (7px vs 20px) — provar no PDF</td></tr>
+        <tr><td><b>Anamnese-registro</b></td><td><span class="st ok">congruente</span></td><td>wrapper flex pode não paginar rotina longa — provar</td></tr>
+        <tr><td><b>Forms</b></td><td><span class="st ok">acertou</span></td><td>o protótipo é que está velho (desenha preenchido; a decisão é em-branco). 1 conserto: descrição de seção no slot errado</td></tr>
+        <tr><td><b>Pedido de Exames</b></td><td><span class="st warn">miolo a ajustar</span></td><td>subitens de pack achatados (mexe DTO+mapper); título some no caso paciente; notas sem moldura</td></tr>
+        <tr><td><b>Anamnese-evolução</b></td><td><span class="st warn">timeline = retrabalho</span></td><td>gráficos OK; a linha do tempo reusa card de produto e destoa do editorial</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:20px"><b>O caso que mais ensina — Forms.</b> Eu implementei o formulário <b>em branco</b> (pra imprimir e preencher à mão). O protótipo desenha um formulário <b>preenchido</b>. Não errei: a <b>decisão do sistema</b> (Content FORM = template, sem respondente) é a verdade, e o protótipo é que ficou desatualizado. É a prova viva do teu axioma: <i>o design é intenção, o sistema manda.</i></p>
+  </section>
+
+  <!-- 4 · CHARTS -->
+  <section class="slice reveal">
+    <div class="num">04</div>
+    <h2>Gráficos: o <em>melhor dos dois mundos</em></h2>
+    <p class="sub">Você mandou cruzar. O resultado desmente a suspeita inicial: nos gráficos de exame, o código não é pior que o design — ele já passou o design. O design só lidera em uma coisa.</p>
+    <div class="split">
+      <div class="txt">
+        <p><b>O código ganha</b> (e mantém): faixas/zonas de referência graduadas, <b>contexto clínico ligado a dado real</b> (sexo/idade/ciclo — o design cortou isso do MVP achando que "não existe"; existe), e o <b>preto-e-branco</b> — o código põe hachura por zona + forma de ponto por direção clínica; o design só tem cor chapada (que colapsa em cinza). <code>grep</code> por hachura no design = zero.</p>
+        <p><b>O design ganha em uma coisa só:</b> <b>um</b> chip de status unificado (dot + rótulo) para header, tabela e legenda. O código fragmentou em 2–3 estilos de pill. Esse é o que puxamos do design.</p>
+        <p><b>Care × Export:</b> compartilham o <b>motor</b> de faixa/status (<code>status-engine.ts</code> — a fonte única token→cor/label), não o desenho. Care é Recharts escuro interativo; export é SVG de papel P&B. <b>Renderizadores distintos de propósito — não fundir.</b></p>
+        <div class="pratica"><p>O shared certo não é "puxar o Recharts do Care". É promover os primitivos que o código já tem — zonas, hachura, chip único — a peças do kit.</p></div>
+      </div>
+      <div class="vis">
+        <figure class="fig" data-fig="Fig. 3 — quem tem o quê">
+          <div class="cap">manter do código · adotar do design</div>
+          <div class="twocol">
+            <div class="keep">
+              <div class="h">código mantém ✓</div>
+              <div class="mini">faixas graduadas</div>
+              <div class="mini">contexto clínico real</div>
+              <div class="mini">hachura P&amp;B</div>
+              <div class="mini">forma de ponto/direção</div>
+              <div class="mini">bucket "sem referência"</div>
+            </div>
+            <div class="pull">
+              <div class="h">adotar do design →</div>
+              <div class="mini">1 chip de status único</div>
+              <div class="mini">regra "card só p/ gráfico"</div>
+              <div class="mini">SeriesScale fonte única</div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:8px"><span class="chip ok">motor status-engine = shared</span></div>
+          <div class="row"><span class="chip dead">fundir Recharts do Care · NÃO</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · KIT SHARED -->
+  <section class="slice reveal">
+    <div class="num">05</div>
+    <h2>Um kit, e as <em>costuras</em> a fechar</h2>
+    <p class="sub">A casca é reuso maduro. Os protótipos revelaram mais peças compartilhadas do que eu tinha visto — e corrigiram um erro meu: nem todo "órfão" é lixo.</p>
+    <div class="split">
+      <div class="vis">
+        <figure class="fig" data-fig="Fig. 4 — o kit e o que falta nele">
+          <div class="kit">
+            <div class="kh">casca — reuso maduro ✓</div>
+            <div class="row"><span class="chip ok">ExportDocument</span><span class="chip ok">Masthead</span><span class="chip ok">SectionHeading</span></div>
+            <div class="row" style="margin-top:8px"><span class="chip ok">EmissaoBanda</span><span class="chip ok">Observacao</span><span class="chip ok">ClinicalChartHeader</span></div>
+          </div>
+          <div class="cap" style="margin-top:12px;margin-bottom:3px">o que falta no kit · S1 fundação 6/8 · S2 charts 0/3</div>
+          <div class="row"><span class="chip ok">✓ FieldGrid · Presc migrada (−42), R2 provado</span></div>
+          <div class="row"><span class="chip ok">✓ Assinatura · dedup Presc≡Exames morto</span></div>
+          <div class="row"><span class="chip ok">✓ BlockHead+consts · SUBLABEL/COL_LABEL no kit</span></div>
+          <div class="row"><span class="chip ok">✓ helpers · footerBrand+runningPatient (bug de data morto)</span></div>
+          <div class="row"><span class="chip ok">✓ tabela-shell · SplittableTable (contrato de quebra)</span></div>
+          <div class="row"><span class="chip ok">✓ body-fold dobrado no ExportDocument (F0.2)</span></div>
+          <div class="row"><span class="chip ok">✓ SectionHeading paddingTop (F0.1)</span></div>
+          <div class="row"><span class="new">criar · timeline nativa — S2 charts (plano à parte)</span></div>
+          <div class="row"><span class="new">criar · StatusChip único (chart · cosmético)</span></div>
+          <div class="row"><span class="new">criar · ZoneHatch + EndpointMarker (cosmético)</span></div>
+          <div class="row" style="margin-top:6px"><span class="chip dead">CenarioMacroMicro · deletado (0 uso)</span><span class="chip ok">✓ Cálculo usa ResumoNutricional</span></div>
+        </figure>
+      </div>
+      <div class="txt">
+        <p><b>Extrair (já duplicado):</b> a <b>Assinatura</b> é byte-idêntica entre Prescrição e Pedido de Exames — vira primitivo (só data, <b>não</b> há cidade; corrigi essa premissa). O <b>BlockHead</b> idem (variante por prop <code>indice?</code>). E o achado de maior valor: o <b>formato de data do rodapé diverge</b> — 5 módulos imprimem "03 de julho" com bug de fuso latente, 5 imprimem "3 de julho" pelo kit. Convergir mata a inconsistência que já sai no PDF.</p>
+        <p><b>Feito — o <code>FieldGrid</code> (era o pré-requisito).</b> Cálculo e Antropometria são <b>dominados por grades label:valor</b> (circunferências, dobras, bioimpedância, dados de entrada). O kit V2 não tinha FieldGrid — o legado puxava <code>ExportField</code> do mundo <i>antigo</i>. Criei o <code>FieldGrid columns</code> na F0.3 (keystone, review Approved); é sobre ele que os 2 novos sobem. Era a resposta ao teu "tem mais shared?" — e foi resolvido antes de codar os módulos.</p>
+        <p><b>Ainda por criar (os protótipos pedem, mas é S2 — plano à parte):</b> o <b>StatusChip único</b> dos gráficos, o <b>ZoneHatch/EndpointMarker</b> (double-encoding P&B, hoje preso dentro do gráfico de exames), e uma <b>timeline nativa do kit</b> — é ela que fecha o <i>seam</i> da anamnese-evolução. Nada disso bloqueia Cálculo/Antropometria (que não têm gráfico).</p>
+        <p><b>Correção da Rev.4:</b> o <code>CenarioMacroMicro</code> acabou <b>deletado</b> (grep-zero, 0 consumidores) — a decisão foi o Cálculo reusar o <code>ResumoNutricional</code> da Dieta pros cenários, o mesmo primitivo de macros que você já aprova. Menos código órfão, mais reuso real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · PROVA + DoD -->
+  <section class="slice reveal">
+    <div class="num">06</div>
+    <h2>Bancada não é prova — e o <em>DoD</em> que destrava</h2>
+    <p class="sub">Você resolveu a escolha de sequenciamento: o PR pra dev sai com uma prova leve (print navegando), não com o CI canônico. O pesado vem depois.</p>
+    <div class="split">
+      <div class="vis">
+        <figure class="fig" data-fig="Fig. 5 — o DoD do PR">
+          <div class="cap">o que fecha o PR pra dev</div>
+          <div class="row"><span class="dot g"></span><span style="font-size:13.5px">shared ajustado (Assinatura, BlockHead, callout…)</span></div>
+          <div class="row"><span class="dot g"></span><span style="font-size:13.5px">12 exports com <b>modal</b> + <b>lab</b> (inclui os 2 novos)</span></div>
+          <div class="row"><span class="dot g"></span><span style="font-size:13.5px">prova = print navegando → dossiê HTML simples</span></div>
+          <div class="row"><span class="dot g"></span><span style="font-size:13.5px">piso verde honesto: typecheck · jest · architecture não quebram</span></div>
+          <hr style="border:none;border-top:1px dashed var(--hair);margin:10px 0" />
+          <div class="cap" style="color:var(--muted)">fase canônica seguinte</div>
+          <div class="row"><span class="chip dead">bulk V2 #637</span><span class="chip dead">limpeza v1</span></div>
+          <div class="row"><span class="chip dead">docs #630</span><span class="chip dead">CI canônico</span></div>
+        </figure>
+      </div>
+      <div class="txt">
+        <p><b>A distinção que importa:</b> o <b>lab</b> (mock) serve pra você julgar layout — e quase tudo já tem. A <b>prova</b> é o fluxo real: abrir registro → Exportar → modal → PDF. Os PNGs que te mandei da F3.2 eram lab-mock (pulam o modal) — não contam como prova de modal.</p>
+        <p><b>O dossiê "mais simples":</b> eu navego os 12 exports, tiro print do modal + da folha A4, e monto um HTML de prova. Sem esperar CI pesado. É o que fecha o PR.</p>
+        <div class="pratica"><p>Depois do merge vem o canônico: bulk, limpeza do v1 morto, docs verdadeiras e o CI organizado. Um PR de cada vez.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · TASKS -->
+  <section class="slice reveal">
+    <div class="num">07</div>
+    <h2>O plano, atualizado</h2>
+    <p class="sub">O que este review adiciona, organizado pelo DoD (entra no PR) e pela fase canônica (depois).</p>
+    <div class="tasks">
+      <div class="task"><span class="k">✓ FEITO</span><span class="b"><b>Cálculo + Antropometria implementados (V2 simples)</b><small>FieldGrid criado no kit (F0.3). DTO calculado + Metric Band + FieldGrid; Cálculo reusa ResumoNutricional (CenarioMacroMicro deletado). Verde na branch: typecheck 0, suítes da fase verdes, keystone (mapper→componente) verificada arquivo-a-arquivo pelo maestro. Commits <code>4ed7fb08…fee13f5b</code>.</small></span><span class="ph">verde</span></div>
+      <div class="task"><span class="k">DoD</span><span class="b"><b>Extrair shared: Assinatura, BlockHead+consts, tabela-shell, helpers</b><small>Dedup real Prescrição×Exames (só data, sem cidade). + bug de data no footer (03≠3, fuso latente), footerBrand, runningPatient, buildClinicalHeader. Régua R1–R7 aplicada peça-a-peça no PLANO-CONVERGENCIA-SHARED.md.</small></span><span class="ph">shared</span></div>
+      <div class="task"><span class="k">DoD</span><span class="b"><b>Ajustes de congruência dos 6</b><small>Exames: subitens de pack (DTO+mapper), título-no-caso-paciente, notas com moldura, nome consistente. Forms: descrição de seção + forçar <code>patient=null</code> no DTO (FORM é template — sem isso um paciente solto vira "Preparado para {nome}"). Anamnese-evo: linguagem clínica no header + heading órfão.</small></span><span class="ph">ajuste</span></div>
+      <div class="task"><span class="k">DoD</span><span class="b"><b>Charts: StatusChip único + promover ZoneHatch/EndpointMarker/SeriesScale ao kit</b><small>Manter faixas/contexto/P&B do código; adotar o chip unificado do design. Motor status-engine já é shared.</small></span><span class="ph">shared</span></div>
+      <div class="task"><span class="k">DoD</span><span class="b"><b>Timeline nativa do kit (fecha o seam da anamnese-evolução)</b><small>Substitui o card de produto legado por bloco editorial do kit + contrato de quebra correto.</small></span><span class="ph">shared</span></div>
+      <div class="task"><span class="k">→ IA MENOR</span><span class="b"><b>Fase 3: fixtures reais + modal dos 12 + dossiê de prova</b><small>É o que resta e o que destrava o PR. Fixtures ricas no DEV (Cálculo com cenários+meta+treinos; Antropo com protocolo de %gordura, senão a composição sai vazia). Fluxo real registro→Exportar→modal→PDF nos 12 + dossiê HTML. Prompt self-contained no repo: <code>docs/superpowers/plans/2026-07-08-export-v2-FASE3-PROVA-handoff.md</code>.</small></span><span class="ph">ativo</span></div>
+      <div class="task"><span class="k">DEPOIS</span><span class="b"><b>Fase canônica</b><small>Bulk V2 (#637) · limpeza do legado v1 (cadeia de render morta) · docs canônicas (#630) · CI organizado. Não bloqueiam este PR.</small></span><span class="ph">pós-merge</span></div>
+    </div>
+  </section>
+
+  <!-- 8 · PROVA (esqueleto a preencher) -->
+  <section class="slice reveal">
+    <div class="num">08</div>
+    <h2>A <em>prova</em> — o esqueleto a preencher</h2>
+    <p class="sub">Os 12 documentos, cada um com dois prints: o <b>modal</b> de export (registro → botão Exportar → modal + toggles) e a <b>folha A4</b> gerada. Vermelho = falta; verde = provado. Uma IA menor preenche isto navegando o app <b>real</b> (não mock). Os 2 verdes (Cálculo, Antropometria) pedem conferência de <b>dado</b>, não só render.</p>
+
+    <div class="ai-note">
+      <b>PARA A IA QUE VAI PREENCHER:</b> salve cada print em <code>proofs-export-v2/&lt;slug&gt;-modal.png</code> e <code>&lt;slug&gt;-a4.png</code> (pasta irmã deste arquivo, em <code>~/Desktop/Dietflow/</code>). Os <code>&lt;img&gt;</code> já apontam pra esses nomes — a imagem aparece sozinha quando o arquivo existir. Depois, por card: troque <code>{{RID:slug}}</code> pelo recordId (ou patientId) usado, e mude <code>class="pstatus"</code>→<code>"pstatus ok"</code> com o texto <code>provado</code>. <b>Print de tela de login, 404 ou "Erro ao carregar" NÃO conta como prova.</b>
+    </div>
+
+    <div class="proofgrid">
+      <!-- content (9) -->
+      <div class="pcard">
+        <div class="ph"><span class="nm">Dieta</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-diet-01</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/dieta-modal.png" alt="modal Dieta" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/dieta-a4.png" alt="A4 Dieta" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Receita</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>00000000-0000-4000-8000-000000000301</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/receita-modal.png" alt="modal Receita" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/receita-a4.png" alt="A4 Receita" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Prescrição</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-presc-01</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/prescricao-modal.png" alt="modal Prescrição" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/prescricao-a4.png" alt="A4 Prescrição" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Textos</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-text-template-01</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/textos-modal.png" alt="modal Textos" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/textos-a4.png" alt="A4 Textos" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Anamnese</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-anam-01</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/anamnese-modal.png" alt="modal Anamnese" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/anamnese-a4.png" alt="A4 Anamnese" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Formulário</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>ck0iwxoc686kvrew5tw4nrcbq</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/forms-modal.png" alt="modal Formulário" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/forms-a4.png" alt="A4 Formulário" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Pedido de Exames</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-exam-01</b> · <span class="ty">content</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/exames-pedido-modal.png" alt="modal Pedido de Exames" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/exames-pedido-a4.png" alt="A4 Pedido de Exames" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard new">
+        <div class="ph"><span class="nm">Cálculo ★</span><span class="pstatus ok">kcal inteiro · provado</span></div>
+        <div class="rid">registro real <b>00000000-0000-4000-8000-000000000401</b> · <span class="ty">content · novo</span> · patient <b>cco273…577e</b></div>
+        <div class="ai-note" style="margin:2px 0 8px;border-color:var(--ok)"><b>Prova real (commit <code>9b77f3c83</code>):</b> kcal SEMPRE inteiro como UI/copy-texto — TMB <b>1.773</b> · GET <b>2.422</b> · VET <b>9.780</b> · VET/kg <b>113,1</b> · PTN <b>199,1 g</b> · peso <b>86,5</b>. Zero meia-caloria. <b>Magnitudes</b> (VET ~9.780) ainda vêm do bug de SAVE — formatação export fechada. A4 lab (mock golden) à direita.</div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal · real · kcal inteiro</div><img class="pf" style="display:none" src="proofs-export-v2/calculo-modal.png" alt="modal Cálculo" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4 · lab limpo</div><img class="pf" style="display:none" src="proofs-export-v2/calculo-a4.png" alt="A4 Cálculo" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard new">
+        <div class="ph"><span class="nm">Antropometria ★</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">registro <b>cnt-carlos-antro-01</b> · <span class="ty">content · novo · protocolo de %gordura DEVE aparecer</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/antropometria-modal.png" alt="modal Antropometria" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/antropometria-a4.png" alt="A4 Antropometria" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <!-- patient-series (3) -->
+      <div class="pcard">
+        <div class="ph"><span class="nm">Evolução Corporal</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">paciente <b>cco273p1qw96cx8xegalo577e</b> · <span class="ty">série</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/evolucao-corporal-modal.png" alt="modal Evolução Corporal" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/evolucao-corporal-a4.png" alt="A4 Evolução Corporal" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Anamnese-evolução</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">paciente <b>cco273p1qw96cx8xegalo577e</b> · <span class="ty">série</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/anamnese-evolucao-modal.png" alt="modal Anamnese-evolução" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/anamnese-evolucao-a4.png" alt="A4 Anamnese-evolução" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="ph"><span class="nm">Exames-evolução</span><span class="pstatus ok">provado</span></div>
+        <div class="rid">paciente <b>cco273p1qw96cx8xegalo577e</b> · <span class="ty">série</span></div>
+        <div class="shots">
+          <div class="shot"><div class="sl">Modal</div><img class="pf" style="display:none" src="proofs-export-v2/exames-evolucao-modal.png" alt="modal Exames-evolução" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print do modal</div></div>
+          <div class="shot"><div class="sl">Folha A4</div><img class="pf" style="display:none" src="proofs-export-v2/exames-evolucao-a4.png" alt="A4 Exames-evolução" onload="this.style.display='block';this.nextElementSibling.style.display='none';"><div class="empty">aguardando<br>print da folha</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <div class="close reveal">
+    <p class="frase">Os doze estão em código e verdes. Só falta imprimir a prova.</p>
+    <div class="stamp"><span>· export v2 ·<br /><b>reta da prova</b><br />jul / 2026</span></div>
+  </div>
+
+  <footer>
+    <span>Panorama Rev.8 · Modal Cálculo kcal inteiro (1.773 · 2.422 · 9.780) · paridade UI/copy-texto · specs 055/054</span>
+    <span>12 em código · falta a prova · 1 fora</span>
+  </footer>
+
+</div>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add('in')), { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

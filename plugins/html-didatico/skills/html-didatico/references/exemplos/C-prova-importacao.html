@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proof · Importação — os regimes não-favorito, com o universo do produto</title>
+<style>
+  :root {
+    --paper: #f3efe6;
+    --paper-2: #ece7da;
+    --ink: #191613;
+    --ink-soft: #4f4a42;
+    --ink-faint: #8a8377;
+    --signal: #e84e0f;
+    --signal-soft: #f9ddd0;
+    --ok: #2c6e49;
+    --ok-soft: #d8f0e4;
+    --warn: #a9781a;
+    --warn-soft: #f5ead0;
+    --alert: #c2493f;
+    --alert-soft: #fde8e6;
+    --rule: #d6cfc0;
+    --display: 'Futura', 'Avenir Next', 'Century Gothic', 'Trebuchet MS', sans-serif;
+    --mono: 'SF Mono', 'Menlo', 'Cascadia Code', 'Consolas', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--display);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 2px, rgba(25,22,19,.012) 2px 4px),
+      radial-gradient(ellipse 120% 90% at 50% -10%, rgba(255,255,255,.5), transparent 60%);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 920px; margin: 0 auto; padding: 0 28px 96px; }
+  code { font-family: var(--mono); font-size: .88em; }
+
+  .doc-plate {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-soft);
+    border: 1px solid var(--ink); padding: 8px 14px; margin-top: 28px;
+  }
+  .doc-plate b { color: var(--signal); }
+
+  .cover { padding: 40px 0 28px; border-bottom: 3px solid var(--ink); }
+  .cover .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--signal); margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-size: clamp(28px, 5.5vw, 44px); font-weight: 700;
+    letter-spacing: -.02em; line-height: 1.05; max-width: 18ch;
+  }
+  .cover .proves {
+    margin-top: 14px; font-size: 15.5px; color: var(--ink-soft); max-width: 62ch;
+  }
+  .verdict-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px;
+  }
+  .summary { color: var(--ink-soft); font-size: 14px; max-width: 56ch; }
+
+  .status-slot {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+    text-transform: uppercase; border: 1.5px solid var(--ink-faint);
+    color: var(--ink-faint); padding: 4px 10px; background: transparent;
+    white-space: nowrap;
+  }
+  .status-slot.passed { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+  .status-slot.failed { border-color: var(--alert); color: var(--alert); background: var(--alert-soft); }
+  .status-slot.partial, .status-slot.skipped {
+    border-color: var(--warn); color: var(--warn); background: var(--warn-soft);
+  }
+
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;
+    margin: 22px 0 0; padding: 14px; border: 1.5px solid var(--ink); background: #fff;
+    box-shadow: 4px 4px 0 rgba(25,22,19,.08);
+  }
+  .meta-strip div {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .meta-strip strong {
+    display: block; margin-top: 4px; font-size: 12px; color: var(--ink);
+    text-transform: none; letter-spacing: 0; word-break: break-all; font-weight: 600;
+  }
+
+  .runtime-caveat, .gate {
+    margin: 18px 0 0; padding: 12px 16px; font-family: var(--mono);
+    font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .runtime-caveat {
+    border: 2px dashed var(--warn); background: var(--warn-soft); color: var(--ink);
+  }
+  .runtime-caveat b { color: var(--warn); }
+  .gate {
+    display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline;
+    border: 1.5px solid var(--ink); background: #fff;
+  }
+  .gate-clean { border-color: var(--ok); background: var(--ok-soft); }
+  .gate-dirty { border-color: var(--alert); background: var(--alert-soft); }
+  .gate-missing { border-style: dashed; border-color: var(--warn); background: var(--warn-soft); }
+  .gate b { letter-spacing: .08em; }
+  .gate-counter.hot { font-weight: 700; text-decoration: underline; }
+  .gate-violations {
+    flex-basis: 100%; margin: 4px 0 0; padding-left: 18px;
+    text-transform: none; letter-spacing: 0; font-size: 12px;
+  }
+
+  .rail {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    border: 1px solid var(--ink); border-top: none; margin-bottom: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+  }
+  .rail a {
+    color: var(--ink-soft); text-decoration: none; padding: 10px 8px 12px;
+    border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .rail a b { display: block; font-size: 13px; color: var(--ink); margin-bottom: 2px; }
+  .rail a:hover { background: var(--ink); color: var(--paper); }
+  .rail a:hover b { color: var(--signal); }
+
+  .bloc { padding: 40px 0 8px; border-bottom: 1px solid var(--rule); }
+  .bloc:last-of-type { border-bottom: none; }
+  .bloc-head { margin-bottom: 4px; }
+  .bloc h2 {
+    font-size: clamp(18px, 2.8vw, 24px); text-transform: uppercase;
+    letter-spacing: .02em; line-height: 1.15;
+  }
+  .bloc-sub {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px;
+  }
+  .coverage { padding: 34px 0; border-bottom: 2px solid var(--ink); }
+  .coverage h2 { font-size: 24px; text-transform: uppercase; }
+  .coverage > p { color: var(--ink-soft); margin: 8px 0 16px; }
+  .table-wrap { overflow-x: auto; border: 1.5px solid var(--ink); background: #fff; }
+  .coverage table { width: 100%; border-collapse: collapse; min-width: 900px; font-size: 12px; }
+  .coverage th, .coverage td { padding: 9px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  .coverage th { font-family: var(--mono); text-transform: uppercase; font-size: 10px; background: var(--paper-2); }
+  .test-ref { color: var(--ink-soft); overflow-wrap: anywhere; text-decoration-thickness: 1px; }
+  .test-ref:hover { color: var(--signal); }
+  .motor { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0; padding: 12px; border: 1px solid var(--ink); background: var(--paper-2); font-family: var(--mono); font-size: 11px; }
+  .motor span { color: var(--signal); font-weight: 800; }
+  .identity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .identity-grid > div { display: flex; flex-direction: column; gap: 5px; padding: 12px; border: 1.5px solid var(--ink); background: #fff; }
+  .identity-grid code { color: var(--ink-soft); }
+  .identity-grid span { color: var(--signal); font-family: var(--mono); }
+  .run-context { margin: 24px 0; padding: 18px; border: 1.5px solid var(--ink); background: #fff; }
+  .run-context h2 { text-transform: uppercase; margin-bottom: 8px; }
+  .run-context h3 { margin-top: 12px; font-size: 13px; text-transform: uppercase; }
+  .run-context ul { padding-left: 20px; color: var(--ink-soft); }
+  .gaps-empty { color: var(--ok); font-weight: 700; margin-top: 12px; }
+
+  /* card .prova — html-didatico Direção C */
+  .prova {
+    border: 1.5px solid var(--ink); background: #fff;
+    box-shadow: 4px 4px 0 rgba(25,22,19,.1); margin-bottom: 18px;
+    scroll-margin-top: 12px;
+  }
+  .prova.step-failed { border-color: var(--alert); }
+  .prova-head {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    border-bottom: 1.5px solid var(--ink); padding: 10px 14px; flex-wrap: wrap;
+  }
+  .prova-head .pid {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .prova-head .pid b { color: var(--signal); }
+  .step-ms { color: var(--ink-faint); font-weight: 400; margin-left: 6px; }
+  .prova-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 42%); gap: 0; }
+  .prova-text { min-width: 0; padding: 14px 16px; font-size: 14.5px; color: var(--ink-soft); overflow-wrap: anywhere; }
+  .prova-text .what { color: var(--ink); line-height: 1.45; }
+  .evidence-kicker, .machine-facts h3 {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .evidence-kicker { margin-bottom: 4px; }
+  .machine-facts { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .machine-facts h3 { margin-bottom: 4px; }
+  .fact-row {
+    display: grid; grid-template-columns: minmax(110px, .8fr) minmax(0, 1.2fr);
+    gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--rule);
+  }
+  .fact-row span { color: var(--ink-faint); }
+  .fact-row strong { color: var(--ink); overflow-wrap: anywhere; }
+  .checks { margin: 12px 0 0; padding: 0; list-style: none; font-size: 13px; }
+  .checks li { padding-left: 18px; position: relative; margin: 4px 0; }
+  .checks li::before { content: "✓"; position: absolute; left: 0; color: var(--ok); font-weight: 700; }
+  .checks-none { margin-top: 10px; font-size: 12px; color: var(--warn); }
+  .where {
+    margin-top: 12px; font-family: var(--mono); font-size: 11px; color: var(--ink);
+    background: var(--paper-2); border-left: 3px solid var(--signal); padding: 6px 12px;
+    display: inline-block; max-width: 100%;
+  }
+  .where span { color: var(--ink-faint); }
+  .evidence-link { margin-left: 8px; color: var(--signal); font-weight: 700; }
+  .print-slot {
+    border-left: 1.5px dashed var(--ink-faint); display: flex; align-items: center;
+    min-height: 140px; padding: 12px; background: #faf9f7;
+  }
+  .print-open {
+    display: block; width: 100%; cursor: zoom-in; text-decoration: none; color: inherit;
+  }
+  .print-open:hover img { outline: 2px solid var(--signal); outline-offset: 2px; }
+  .print-slot img {
+    display: block; width: 100%; height: auto; object-fit: contain;
+    border: 1px solid var(--rule); background: #fff;
+  }
+  /* lightbox — JS intercepta (classe .open, sem scroll-jump); :target é o fallback no-JS */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .lightbox:target, .lightbox.open { display: flex; }
+  .lb-backdrop {
+    position: absolute; inset: 0; background: rgba(25,22,19,.88); cursor: zoom-out;
+  }
+  .lb-frame {
+    position: relative; z-index: 1; margin: 0;
+    max-width: min(1100px, 96vw); max-height: 94vh;
+    background: #fff; border: 1.5px solid var(--ink);
+    box-shadow: 8px 8px 0 rgba(25,22,19,.25);
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .lb-frame figcaption {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 14px; border-bottom: 1.5px solid var(--ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .lb-close {
+    display: grid; place-items: center; width: 28px; height: 28px;
+    border: 1.5px solid var(--ink); color: var(--ink); text-decoration: none;
+    font-size: 14px; background: var(--paper);
+  }
+  .lb-close:hover { background: var(--signal); color: #fff; border-color: var(--signal); }
+  .lb-frame img {
+    display: block; max-width: 100%; max-height: calc(94vh - 52px);
+    width: auto; height: auto; margin: 0 auto; object-fit: contain;
+  }
+  #_ { display: none; }
+
+  .proof-review {
+    margin: 36px 0; border: 1.5px solid var(--ink); border-left: 4px solid var(--signal);
+    background: #fff; padding: 18px 20px; box-shadow: 4px 4px 0 rgba(25,22,19,.08);
+  }
+  .proof-review h2 { font-size: 16px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .proof-review .meta-line { font-size: 13px; color: var(--ink-soft); margin-bottom: 10px; }
+  .proof-review li { font-size: 14px; margin: 6px 0; }
+  .review-fail { color: var(--alert); } .review-warn { color: var(--warn); }
+  .review-none { color: var(--ok); font-size: 14px; }
+
+  .notes { margin: 28px 0; font-size: 13px; color: var(--ink-soft); }
+  .notes li { overflow-wrap: anywhere; }
+  .notes h2 {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink); margin-bottom: 8px;
+  }
+
+  .ia {
+    margin: 48px 0 0; background: var(--ink); color: var(--paper);
+    padding: 36px 32px; position: relative; overflow: hidden;
+  }
+  .ia::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(243,239,230,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(243,239,230,.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .ia > * { position: relative; }
+  .ia .ia-kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--signal); margin-bottom: 10px;
+  }
+  .ia p { font-size: 14px; line-height: 1.5; max-width: 62ch; color: var(--paper); opacity: .92; }
+  .ia .msg {
+    margin-top: 12px; font-family: var(--mono); font-size: 12px;
+    background: rgba(243,239,230,.08); border: 1px solid rgba(243,239,230,.18);
+    border-left: 3px solid var(--signal); padding: 10px 14px;
+  }
+  .ia .msg::before { content: '> '; color: var(--signal); }
+
+  footer.regen {
+    margin-top: 40px; border-top: 1px solid var(--rule); padding-top: 16px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-faint);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer.regen code {
+    text-transform: none; letter-spacing: 0; color: var(--ink-soft);
+    background: var(--paper-2); border: 1px solid var(--rule); padding: 1px 6px;
+  }
+
+  @media (max-width: 760px) {
+    .prova-body { grid-template-columns: 1fr; }
+    .print-slot { border-left: none; border-top: 1.5px dashed var(--ink-faint); }
+    .rail { grid-template-columns: 1fr 1fr; }
+    .fact-row { grid-template-columns: 1fr; gap: 2px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .prova, .bloc { break-inside: avoid; }
+    .lightbox, .lb-backdrop { display: none !important; }
+    .rail a:hover { background: transparent; color: var(--ink-soft); }
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="doc-plate">
+    <span>Proof Pack · <b>jornadas/importacao</b></span>
+    <span>Jornada transversal · 27/09/2026 23:51 UTC</span>
+  </div>
+
+  <header class="cover">
+    <div class="kicker">DietFlow · prova visual canônica</div>
+    <h1>Importação — os regimes não-favorito, com o universo do produto</h1>
+    <p class="proves">Os dois regimes de importação que não têm fonte favorito são percorridos no browser pela porta real: catálogo/bulk com placement, porta fechada, autocomplete, cesta e ordem de aplicação nos dois módulos que possuem modal de massa; e as seis relações record→record declaradas em module-relations-config.ts, cinco funcionais e a negativa Prescrição ← Exames preservada como ausência explícita. Importar favorito NÃO executa aqui: o regime tem dono no gate de Favoritos e entra por referência ao mesmo receipt, sem rerun.</p>
+    <div class="verdict-row">
+      <span class="status-slot passed">PROVADO</span>
+      <span class="summary">14/14 steps verdes; gate de validade sem disparos; revisão visual passed.</span>
+    </div>
+
+    <div class="meta-strip">
+      <div>Branch<strong>codex/123-04-calculo-transversal</strong></div>
+      <div>Commit<strong>b355b705fed975183953f3b5ecdd4f3c14790dcb</strong></div>
+      <div>Run<strong>1790553106582-60796</strong></div>
+      <div>Pack SHA<strong>64b8298bf391b1cebe7777fb44097991c475ad44c5fbfec79604f91e4ac60955</strong></div>
+      <div>Runtime<strong>next start (prod build)</strong></div>
+      <div>Fonte<strong>golden · e2e/local/flows/golden/importacao-bulk-flow.spec.ts</strong></div>
+      <div>Steps<strong>14</strong></div>
+    </div>
+  </header>
+
+  <div class="gate gate-clean">
+<b>gate limpo.</b>
+<span class="gate-counter">console.error 0</span>
+<span class="gate-counter">pageerror 0</span>
+<span class="gate-counter">HTTP 5xx 0</span>
+<span class="gate-counter">login-redirect 0</span>
+<span class="gate-counter">404/erro 0</span>
+<span class="gate-counter">skeleton 0</span>
+
+
+</div>
+
+  <nav class="rail" aria-label="Passos da prova">
+<a href="#modais.prescricao.import-leading-selection"><b>01</b>Prescrição — checkbox leading sem salto de card</a>
+<a href="#modais.prescricao.bulk-porta-fechada"><b>02</b>Bulk — a porta não oferece a duplicata</a>
+<a href="#modais.prescricao.bulk-sem-decisao"><b>03</b>A forma livre entra direto — não há decisão a tomar</a>
+<a href="#modais.exames.bulk-porta-fechada"><b>04</b>Bulk de Exames — a mesma porta fechada da Prescrição</a>
+<a href="#modais.exames.autocomplete-mostra"><b>05</b>Autocomplete de Exames — a opção aparece</a>
+<a href="#modais.prescricao.dashboard-selecao-sobrevive-filtro"><b>06</b>Dashboard — a cesta sobrevive ao filtro e à troca de aba</a>
+<a href="#modais.prescricao.dashboard-apply-ordem-clique"><b>07</b>Dashboard — apply na ordem de clique (A, B)</a>
+<a href="#modais.exames.import-trailing-selection"><b>08</b>Exames — checkbox trailing sem salto de card</a>
+<a href="#c2.calculo-antropometria"><b>09</b>Cálculo ← Antropometria</a>
+<a href="#c2.dieta-antropometria"><b>10</b>Dieta ← Antropometria</a>
+<a href="#c2.dieta-calculo"><b>11</b>Dieta ← Cálculo</a>
+<a href="#c2.prescricao-exames"><b>12</b>Prescrição ← Exames · TODO</a>
+<a href="#c2.exames-exames"><b>13</b>Exames ← Exames</a>
+<a href="#c2.gestacao-antropometria"><b>14</b>Gestação ← Antropometria</a>
+  </nav>
+
+
+
+<section class="bloc" id="sec-selection-placement-leading">
+<div class="bloc-head"><h2>Selection placement — leading</h2></div>
+<p class="bloc-sub">1 passo</p>
+<article class="prova step-passed" id="modais.prescricao.import-leading-selection">
+<div class="prova-head">
+<span class="pid"><b>01</b> · Prescrição — checkbox leading sem salto de card <span class="step-ms">165 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">A porta de importação de Prescrição usa `selectionPlacement=leading`: o checkbox entra no fluxo antes do visual, sem roubar o canto das ações densas, e selecionar o favorito não altera a geometria do card. Esta porta não possui ações individuais; isso é N/A, não uma ausência a interpretar.</p>
+<ul class="checks"><li>checkbox no fluxo, antes do visual, com `shrink-0 self-start` e sem `absolute`</li><li>largura, altura e posição do card permanecem estáveis ao selecionar</li><li>ações individuais: N/A — a porta só oferece seleção e Importar</li></ul>
+
+<div class="where"><span>passo →</span> 01 / 14 · <code>modais.prescricao.import-leading-selection</code> <a class="evidence-link" href="evidence/modais.prescricao.import-leading-selection.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.prescricao.import-leading-selection" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Prescrição — checkbox leading sem salto de card" src="screenshots/modais.prescricao.import-leading-selection.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="bloc" id="sec-bulk-a-porta-fechou">
+<div class="bloc-head"><h2>Bulk — a porta fechou</h2></div>
+<p class="bloc-sub">3 passos</p>
+<article class="prova step-passed" id="modais.prescricao.bulk-porta-fechada">
+<div class="prova-head">
+<span class="pid"><b>02</b> · Bulk — a porta não oferece a duplicata <span class="step-ms">35 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">A forma que já está no card-alvo aparece desabilitada, com o motivo no nome acessível e no tooltip. O clique chega e não abre nada: a duplicata deixou de ser algo a decidir depois porque deixou de ser oferecida. A porta fecha na FORMA — o Ergocalciferol continua livre com o Colecalciferol fechado.</p>
+<ul class="checks"><li>um só dialog no DOM — o bulk nunca empilha janela</li><li>&#39;Vitamina D (Colecalciferol (D3))&#39; desabilitada, com o motivo &#39;Já está neste card&#39; no nome acessível</li><li>&#39;Vitamina D (Ergocalciferol (D2))&#39; — a forma irmã do mesmo marcador segue selecionável</li><li>clicar na linha fechada não marca nada e o CTA continua desabilitado</li><li>o chip &#39;Já no card&#39; não existe mais: o motivo é do estado</li></ul>
+
+<div class="where"><span>passo →</span> 02 / 14 · <code>modais.prescricao.bulk-porta-fechada</code> <a class="evidence-link" href="evidence/modais.prescricao.bulk-porta-fechada.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.prescricao.bulk-porta-fechada" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Bulk — a porta não oferece a duplicata" src="screenshots/modais.prescricao.bulk-porta-fechada.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="modais.prescricao.bulk-sem-decisao">
+<div class="prova-head">
+<span class="pid"><b>03</b> · A forma livre entra direto — não há decisão a tomar <span class="step-ms">366 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">Escolher a forma irmã e confirmar aplica o lote sem fase de decisão: o que a porta deixou passar não colide, por construção. A conversa de duplicata continua existindo no save e como rede de segurança do apply — só deixou de ser o caminho normal de quem escolhe em massa.</p>
+<ul class="checks"><li>nenhuma fase de decisão aparece ao confirmar</li><li>o modal fecha e o editor volta com o card-alvo em foco</li><li>o card-alvo passa a mostrar as duas formas do mesmo marcador</li></ul>
+
+<div class="where"><span>passo →</span> 03 / 14 · <code>modais.prescricao.bulk-sem-decisao</code> <a class="evidence-link" href="evidence/modais.prescricao.bulk-sem-decisao.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.prescricao.bulk-sem-decisao" title="Abrir print">
+<img loading="lazy" alt="Screenshot: A forma livre entra direto — não há decisão a tomar" src="screenshots/modais.prescricao.bulk-sem-decisao.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="modais.exames.bulk-porta-fechada">
+<div class="prova-head">
+<span class="pid"><b>04</b> · Bulk de Exames — a mesma porta fechada da Prescrição <span class="step-ms">29 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">O exame que já está no card-alvo é uma linha desabilitada com o mesmo motivo acessível da Prescrição — o legado sem markerId continua sendo reconhecido pelo nome contra o catálogo. A parede muda de 2026-08-16 não voltou: o que existe agora é uma porta que diz por que não abre. A trava de composição (absorção pack↔subitem) segue no eixo dela.</p>
+<ul class="checks"><li>&#39;Glicemia de Jejum&#39; desabilitada, com o motivo &#39;Já está neste card&#39; no nome acessível</li><li>clicar na linha fechada não marca nada e o CTA continua desabilitado</li><li>a linha e o motivo são os MESMOS da Prescrição — simetria por primitivo, não por coincidência</li></ul>
+
+<div class="where"><span>passo →</span> 04 / 14 · <code>modais.exames.bulk-porta-fechada</code> <a class="evidence-link" href="evidence/modais.exames.bulk-porta-fechada.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.exames.bulk-porta-fechada" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Bulk de Exames — a mesma porta fechada da Prescrição" src="screenshots/modais.exames.bulk-porta-fechada.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="bloc" id="sec-autocomplete-a-oculta-o-caiu">
+<div class="bloc-head"><h2>Autocomplete — a ocultação caiu</h2></div>
+<p class="bloc-sub">1 passo</p>
+<article class="prova step-passed" id="modais.exames.autocomplete-mostra">
+<div class="prova-head">
+<span class="pid"><b>05</b> · Autocomplete de Exames — a opção aparece <span class="step-ms">35 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">Buscar um exame que já está no card devolve a opção do catálogo. O filtro por nome, que ignorava amostra e condição e fazia a &quot;Glicemia Jejum 8h&quot; sumir por causa de uma &quot;Jejum 12h&quot;, morreu — junto das recusas silenciosas que o acompanhavam.</p>
+<ul class="checks"><li>a lista de sugestões abre e responde à busca</li><li>o exame do catálogo já presente no card APARECE entre as opções</li><li>nada é inserido só por aparecer — o registro não muda</li></ul>
+
+<div class="where"><span>passo →</span> 05 / 14 · <code>modais.exames.autocomplete-mostra</code> <a class="evidence-link" href="evidence/modais.exames.autocomplete-mostra.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.exames.autocomplete-mostra" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Autocomplete de Exames — a opção aparece" src="screenshots/modais.exames.autocomplete-mostra.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="bloc" id="sec-dashboard-cesta-e-ordem">
+<div class="bloc-head"><h2>Dashboard — cesta e ordem</h2></div>
+<p class="bloc-sub">2 passos</p>
+<article class="prova step-passed" id="modais.prescricao.dashboard-selecao-sobrevive-filtro">
+<div class="prova-head">
+<span class="pid"><b>06</b> · Dashboard — a cesta sobrevive ao filtro e à troca de aba <span class="step-ms">110 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">Selecionar A e B em Formulações Individuais, filtrar até os dois sumirem da janela e trocar de aba (Completas) e voltar não apaga a seleção: o contador do rodapé continua &quot;2 selecionados&quot; o tempo todo — a cesta mora no universo, a busca e a aba são só janela de display (D18).</p>
+<ul class="checks"><li>contador &quot;2 selecionados&quot; logo após selecionar A e B</li><li>filtro sem match esconde os dois cards da janela sem esvaziar o contador</li><li>trocar de aba e voltar preserva &quot;2 selecionados&quot;</li></ul>
+
+<div class="where"><span>passo →</span> 06 / 14 · <code>modais.prescricao.dashboard-selecao-sobrevive-filtro</code> <a class="evidence-link" href="evidence/modais.prescricao.dashboard-selecao-sobrevive-filtro.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.prescricao.dashboard-selecao-sobrevive-filtro" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Dashboard — a cesta sobrevive ao filtro e à troca de aba" src="screenshots/modais.prescricao.dashboard-selecao-sobrevive-filtro.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="modais.prescricao.dashboard-apply-ordem-clique">
+<div class="prova-head">
+<span class="pid"><b>07</b> · Dashboard — apply na ordem de clique (A, B) <span class="step-ms">0 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">O payload que a navegação carrega (`?importTemplate=A&amp;importTemplate=B`) preserva a ordem em que A e B foram clicados — mesmo depois do round-trip de filtro e troca de aba. A tela de destino fica fora do escopo desta prova.</p>
+<ul class="checks"><li>a URL de destino traz os dois `importTemplate` na ordem A, B</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>URL importTemplate[]</span><strong>a7416c56-c537-48ec-8062-5e67d0662f79 → 161f0264-e5a0-4b0e-8b8a-66e31c6fc2ed</strong></div></aside>
+<div class="where"><span>passo →</span> 07 / 14 · <code>modais.prescricao.dashboard-apply-ordem-clique</code> <a class="evidence-link" href="evidence/modais.prescricao.dashboard-apply-ordem-clique.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.prescricao.dashboard-apply-ordem-clique" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Dashboard — apply na ordem de clique (A, B)" src="screenshots/modais.prescricao.dashboard-apply-ordem-clique.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="bloc" id="sec-selection-placement-trailing">
+<div class="bloc-head"><h2>Selection placement — trailing</h2></div>
+<p class="bloc-sub">1 passo</p>
+<article class="prova step-passed" id="modais.exames.import-trailing-selection">
+<div class="prova-head">
+<span class="pid"><b>08</b> · Exames — checkbox trailing sem salto de card <span class="step-ms">999 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+
+<p class="what">A porta de importação de Exames usa selectionPlacement=&quot;trailing&quot;: o checkbox fica sobreposto no canto superior direito e selecionar o item não altera a geometria do card. Esta porta não possui ações individuais; isso é N/A, não uma ausência a interpretar.</p>
+<ul class="checks"><li>checkbox overlay no canto superior direito do card, com as classes trailing canônicas</li><li>largura, altura e posição do card permanecem estáveis ao selecionar</li><li>ações individuais: N/A — a porta só oferece seleção e Importar</li></ul>
+
+<div class="where"><span>passo →</span> 08 / 14 · <code>modais.exames.import-trailing-selection</code> <a class="evidence-link" href="evidence/modais.exames.import-trailing-selection.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-modais.exames.import-trailing-selection" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Exames — checkbox trailing sem salto de card" src="screenshots/modais.exames.import-trailing-selection.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="bloc" id="sec-c2-rela-es-cross-module">
+<div class="bloc-head"><h2>C2 · relações cross-module</h2></div>
+<p class="bloc-sub">6 passos</p>
+<article class="prova step-passed" id="c2.calculo-antropometria">
+<div class="prova-head">
+<span class="pid"><b>09</b> · Cálculo ← Antropometria <span class="step-ms">2113 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação calculo&lt;-antropometria usa a porta cross-module real, fonte RECORD sem tags, busca declarada e seleção single. O callback aplica a fonte ao draft e verifica os valores observáveis do destino; o screenshot congela a superfície resultante.</p>
+<ul class="checks"><li>fonte RECORD, sem tags e seleção single foram resolvidas pelo resolver vivo</li><li>a aplicação ocorreu no draft do módulo de destino</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>calculo&lt;-antropometria</strong></div><div class="fact-row"><span>classificação</span><strong>functional</strong></div><div class="fact-row"><span>readiness</span><strong>functional</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 09 / 14 · <code>c2.calculo-antropometria</code> <a class="evidence-link" href="evidence/c2.calculo-antropometria.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.calculo-antropometria" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Cálculo ← Antropometria" src="screenshots/c2.calculo-antropometria.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="c2.dieta-antropometria">
+<div class="prova-head">
+<span class="pid"><b>10</b> · Dieta ← Antropometria <span class="step-ms">1738 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação dieta&lt;-antropometria usa a porta cross-module real, fonte RECORD sem tags, busca declarada e seleção single. O callback aplica a fonte ao draft e verifica os valores observáveis do destino; o screenshot congela a superfície resultante.</p>
+<ul class="checks"><li>fonte RECORD, sem tags e seleção single foram resolvidas pelo resolver vivo</li><li>a aplicação ocorreu no draft do módulo de destino</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>dieta&lt;-antropometria</strong></div><div class="fact-row"><span>classificação</span><strong>functional</strong></div><div class="fact-row"><span>readiness</span><strong>functional</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 10 / 14 · <code>c2.dieta-antropometria</code> <a class="evidence-link" href="evidence/c2.dieta-antropometria.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.dieta-antropometria" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Dieta ← Antropometria" src="screenshots/c2.dieta-antropometria.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="c2.dieta-calculo">
+<div class="prova-head">
+<span class="pid"><b>11</b> · Dieta ← Cálculo <span class="step-ms">1705 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação dieta&lt;-calculo usa a porta cross-module real, fonte RECORD sem tags, busca declarada e seleção single. O callback aplica a fonte ao draft e verifica os valores observáveis do destino; o screenshot congela a superfície resultante.</p>
+<ul class="checks"><li>fonte RECORD, sem tags e seleção single foram resolvidas pelo resolver vivo</li><li>a aplicação ocorreu no draft do módulo de destino</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>dieta&lt;-calculo</strong></div><div class="fact-row"><span>classificação</span><strong>functional</strong></div><div class="fact-row"><span>readiness</span><strong>functional</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 11 / 14 · <code>c2.dieta-calculo</code> <a class="evidence-link" href="evidence/c2.dieta-calculo.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.dieta-calculo" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Dieta ← Cálculo" src="screenshots/c2.dieta-calculo.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="c2.prescricao-exames">
+<div class="prova-head">
+<span class="pid"><b>12</b> · Prescrição ← Exames · TODO <span class="step-ms">179 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação declarada como @future/TODO não oferece uma porta falsa: a superfície de Prescrição não mostra Resultados de Exames nem abre um diálogo inexistente. Esta captura prova a negativa; o fato de readiness e razão ficam no coverage do manifest.</p>
+<ul class="checks"><li>readiness future e razão TODO foram lidos da relação viva</li><li>nenhum botão/diálogo de Resultados de Exames apareceu em Prescrição</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>prescricao&lt;-exames</strong></div><div class="fact-row"><span>classificação</span><strong>future-negative</strong></div><div class="fact-row"><span>readiness</span><strong>future</strong></div><div class="fact-row"><span>razão</span><strong>O consumer Prescrição ← Exames ainda não foi implementado.</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 12 / 14 · <code>c2.prescricao-exames</code> <a class="evidence-link" href="evidence/c2.prescricao-exames.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.prescricao-exames" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Prescrição ← Exames · TODO" src="screenshots/c2.prescricao-exames.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="c2.exames-exames">
+<div class="prova-head">
+<span class="pid"><b>13</b> · Exames ← Exames <span class="step-ms">1895 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação exames&lt;-exames usa a porta cross-module real, fonte RECORD sem tags, busca declarada e seleção single. O callback aplica a fonte ao draft e verifica os valores observáveis do destino; o screenshot congela a superfície resultante.</p>
+<ul class="checks"><li>fonte RECORD, sem tags e seleção single foram resolvidas pelo resolver vivo</li><li>a aplicação ocorreu no draft do módulo de destino</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>exames&lt;-exames</strong></div><div class="fact-row"><span>classificação</span><strong>functional</strong></div><div class="fact-row"><span>readiness</span><strong>functional</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 13 / 14 · <code>c2.exames-exames</code> <a class="evidence-link" href="evidence/c2.exames-exames.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.exames-exames" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Exames ← Exames" src="screenshots/c2.exames-exames.png" />
+</a>
+</div>
+</div>
+</article>
+<article class="prova step-passed" id="c2.gestacao-antropometria">
+<div class="prova-head">
+<span class="pid"><b>14</b> · Gestação ← Antropometria <span class="step-ms">1763 ms</span></span>
+<span class="status-slot passed">passed ✓</span>
+</div>
+<div class="prova-body">
+<div class="prova-text">
+<p class="evidence-kicker">O que o print mostra</p>
+<p class="what">A relação gestacao&lt;-antropometria usa a porta cross-module real, fonte RECORD sem tags, busca declarada e seleção single. O callback aplica a fonte ao draft e verifica os valores observáveis do destino; o screenshot congela a superfície resultante.</p>
+<ul class="checks"><li>fonte RECORD, sem tags e seleção single foram resolvidas pelo resolver vivo</li><li>a aplicação ocorreu no draft do módulo de destino</li><li>a página terminou saudável, sem login, 404 ou 500</li></ul>
+<aside class="machine-facts"><h3>Evidência de máquina</h3><div class="fact-row"><span>relação</span><strong>gestacao&lt;-antropometria</strong></div><div class="fact-row"><span>classificação</span><strong>functional</strong></div><div class="fact-row"><span>readiness</span><strong>functional</strong></div><div class="fact-row"><span>surface</span><strong>record · unsupported · single</strong></div></aside>
+<div class="where"><span>passo →</span> 14 / 14 · <code>c2.gestacao-antropometria</code> <a class="evidence-link" href="evidence/c2.gestacao-antropometria.json">JSON do cenário</a></div>
+</div>
+<div class="print-slot">
+<a class="print-open" href="#lb-c2.gestacao-antropometria" title="Abrir print">
+<img loading="lazy" alt="Screenshot: Gestação ← Antropometria" src="screenshots/c2.gestacao-antropometria.png" />
+</a>
+</div>
+</div>
+</article>
+</section>
+<section class="proof-review ai-review" id="ai-review">
+<h2>Revisão por IA</h2>
+<p class="meta-line">Estado <code>REVIEWED_BY_AI</code> · revisado em 27/09/2026 23:53 UTC · modelo Codex GPT-6 (revisão visual dos 14 PNGs e pares do ticket 20260927234559-9d066106) · veredito <span class="status-slot passed">PROVADO</span></p>
+<p class="meta-line">14/14 imagens revisadas no mesmo run/SHA.</p>
+<p class="review-none">Sem achados — congruência print a print ok.</p>
+</section>
+
+
+
+  <div class="ia">
+    <div class="ia-kicker">regeneração</div>
+    <p>Este HTML é gerado. Não edite à mão. Mudou o layout? mude o renderer e rode o pack de novo.</p>
+    <div class="msg">npm run ci:queue -- proof-importacao --wait</div>
+  </div>
+
+  <footer class="regen">
+    <span>pack <code>jornadas/importacao</code> · layout html-didatico C · JS mínimo de fechamento (✕/ESC/fora) · clique no print abre</span>
+    <span>contrato · <code>docs/proofs/CONTRATO-PROOF-PACK.md</code></span>
+  </footer>
+
+</div>
+<div id="_"></div>
+<div class="lightbox" id="lb-modais.prescricao.import-leading-selection">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Prescrição — checkbox leading sem salto de card</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Prescrição — checkbox leading sem salto de card" src="screenshots/modais.prescricao.import-leading-selection.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.prescricao.bulk-porta-fechada">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Bulk — a porta não oferece a duplicata</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Bulk — a porta não oferece a duplicata" src="screenshots/modais.prescricao.bulk-porta-fechada.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.prescricao.bulk-sem-decisao">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>A forma livre entra direto — não há decisão a tomar</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="A forma livre entra direto — não há decisão a tomar" src="screenshots/modais.prescricao.bulk-sem-decisao.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.exames.bulk-porta-fechada">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Bulk de Exames — a mesma porta fechada da Prescrição</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Bulk de Exames — a mesma porta fechada da Prescrição" src="screenshots/modais.exames.bulk-porta-fechada.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.exames.autocomplete-mostra">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Autocomplete de Exames — a opção aparece</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Autocomplete de Exames — a opção aparece" src="screenshots/modais.exames.autocomplete-mostra.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.prescricao.dashboard-selecao-sobrevive-filtro">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Dashboard — a cesta sobrevive ao filtro e à troca de aba</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Dashboard — a cesta sobrevive ao filtro e à troca de aba" src="screenshots/modais.prescricao.dashboard-selecao-sobrevive-filtro.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.prescricao.dashboard-apply-ordem-clique">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Dashboard — apply na ordem de clique (A, B)</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Dashboard — apply na ordem de clique (A, B)" src="screenshots/modais.prescricao.dashboard-apply-ordem-clique.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-modais.exames.import-trailing-selection">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Exames — checkbox trailing sem salto de card</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Exames — checkbox trailing sem salto de card" src="screenshots/modais.exames.import-trailing-selection.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.calculo-antropometria">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Cálculo ← Antropometria</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Cálculo ← Antropometria" src="screenshots/c2.calculo-antropometria.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.dieta-antropometria">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Dieta ← Antropometria</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Dieta ← Antropometria" src="screenshots/c2.dieta-antropometria.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.dieta-calculo">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Dieta ← Cálculo</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Dieta ← Cálculo" src="screenshots/c2.dieta-calculo.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.prescricao-exames">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Prescrição ← Exames · TODO</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Prescrição ← Exames · TODO" src="screenshots/c2.prescricao-exames.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.exames-exames">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Exames ← Exames</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Exames ← Exames" src="screenshots/c2.exames-exames.png" />
+</figure>
+</div>
+<div class="lightbox" id="lb-c2.gestacao-antropometria">
+<a class="lb-backdrop" href="#_" aria-label="Fechar"></a>
+<figure class="lb-frame">
+<figcaption>
+<span>Gestação ← Antropometria</span>
+<a class="lb-close" href="#_" title="Fechar">✕</a>
+</figcaption>
+<img alt="Gestação ← Antropometria" src="screenshots/c2.gestacao-antropometria.png" />
+</figure>
+</div>
+<script>
+(function () {
+  'use strict'
+  var open = null
+  function close() {
+    if (open) { open.classList.remove('open'); open = null }
+    // fallback :target aberto por hash direto (link colado): limpa sem scroll-jump
+    if (location.hash && location.hash !== '#_' && document.querySelector('.lightbox:target')) {
+      history.replaceState(null, '', location.pathname + location.search)
+      // :target não re-avalia com replaceState em todos os engines — força display
+      document.querySelectorAll('.lightbox:target').forEach(function (el) { el.classList.remove('open'); el.style.display = 'none' })
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target instanceof Element ? e.target.closest('a') : null
+    if (!a) return
+    var href = a.getAttribute('href') || ''
+    if (href.indexOf('#lb-') === 0) {
+      var lb = document.getElementById(href.slice(1))
+      if (lb) { e.preventDefault(); close(); lb.style.display = ''; lb.classList.add('open'); open = lb }
+    } else if (href === '#_') {
+      e.preventDefault(); close()
+    }
+  })
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close()
+  })
+})()
+</script>
+</body>
+</html>

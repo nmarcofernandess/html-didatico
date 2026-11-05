@@ -1,0 +1,20 @@
+{
+  "name": "html-didatico",
+  "version": "1.0.0",
+  "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+  "author": {
+    "name": "Marco Antonio",
+    "url": "https://github.com/nmarcofernandess"
+  },
+  "repository": "https://github.com/nmarcofernandess/html-didatico",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "html",
+    "didactic",
+    "diagrams",
+    "proof",
+    "documentation"
+  ],
+  "skills": "./skills/"
+}

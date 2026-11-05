@@ -1,0 +1,34 @@
+{
+  "name": "html-didatico",
+  "description": "Plugin portátil para documentos HTML didáticos, explicações de sistema e HTMLs de proof.",
+  "owner": {
+    "name": "Marco Antonio",
+    "url": "https://github.com/nmarcofernandess"
+  },
+  "plugins": [
+    {
+      "name": "html-didatico",
+      "source": "./plugins/html-didatico",
+      "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Marco Antonio",
+        "url": "https://github.com/nmarcofernandess"
+      },
+      "repository": "https://github.com/nmarcofernandess/html-didatico",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "agent-skills",
+        "html",
+        "didactic",
+        "diagrams",
+        "proof",
+        "documentation"
+      ]
+    }
+  ],
+  "metadata": {
+    "description": "Plugin portátil para documentos HTML didáticos, explicações de sistema e HTMLs de proof."
+  }
+}

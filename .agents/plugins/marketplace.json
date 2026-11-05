@@ -1,0 +1,22 @@
+{
+  "name": "html-didatico",
+  "interface": {
+    "displayName": "HTML Didático"
+  },
+  "plugins": [
+    {
+      "name": "html-didatico",
+      "version": "1.0.0",
+      "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+      "source": {
+        "source": "local",
+        "path": "./plugins/html-didatico"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

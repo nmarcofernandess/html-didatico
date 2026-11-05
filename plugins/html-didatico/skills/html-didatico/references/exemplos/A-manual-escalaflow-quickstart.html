@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EscalaFlow · Manual de Primeira Escala</title>
+<style>
+  :root {
+    --paper: #f3efe6;
+    --paper-2: #ece7da;
+    --ink: #191613;
+    --ink-soft: #4f4a42;
+    --ink-faint: #8a8377;
+    --signal: #e84e0f;
+    --signal-soft: #f9ddd0;
+    --ok: #2c6e49;
+    --rule: #d6cfc0;
+    --display: 'Futura', 'Avenir Next', 'Century Gothic', 'Trebuchet MS', sans-serif;
+    --mono: 'SF Mono', 'Menlo', 'Cascadia Code', 'Consolas', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--display);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 2px, rgba(25,22,19,.012) 2px 4px),
+      radial-gradient(ellipse 120% 90% at 50% -10%, rgba(255,255,255,.5), transparent 60%);
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px 96px;
+  }
+
+  /* ── reveal animation ── */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .r { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .d1 { animation-delay: .05s } .d2 { animation-delay: .15s } .d3 { animation-delay: .25s }
+  .d4 { animation-delay: .35s } .d5 { animation-delay: .45s }
+
+  /* ── header / cover ── */
+  header {
+    padding: 56px 0 40px;
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+  }
+  .doc-plate {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    padding: 8px 14px;
+    margin-bottom: 48px;
+  }
+  .doc-plate b { color: var(--signal); font-weight: 700; }
+
+  h1 {
+    font-size: clamp(44px, 8vw, 76px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: .95;
+    text-transform: uppercase;
+  }
+  h1 .thin { font-weight: 400; display: block; font-size: .42em; letter-spacing: .14em; margin-top: 14px; color: var(--ink-soft); }
+  .header-sub {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 520px;
+  }
+  .header-sub .dot { width: 10px; height: 10px; background: var(--signal); flex: none; }
+
+  /* ── trajetória (progress rail) ── */
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border: 1px solid var(--ink);
+    border-top: none;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .rail a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 10px 6px 12px;
+    text-align: center;
+    border-right: 1px solid var(--rule);
+    transition: background .15s, color .15s;
+  }
+  .rail a:last-child { border-right: none; }
+  .rail a b { display: block; font-size: 15px; color: var(--ink); margin-bottom: 2px; }
+  .rail a:hover { background: var(--ink); color: var(--paper); }
+  .rail a:hover b { color: var(--signal); }
+
+  /* ── steps ── */
+  .step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+  }
+  .step:nth-child(even) .step-text { order: 2; }
+  .step:nth-child(even) .step-vis  { order: 1; }
+
+  .step-num {
+    font-size: 88px;
+    font-weight: 700;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+    letter-spacing: -.03em;
+  }
+  .step h2 {
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 10px 0 12px;
+  }
+  .step h2 em { font-style: normal; color: var(--signal); }
+  .step p {
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    max-width: 360px;
+  }
+  .where {
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--ink);
+    background: var(--paper-2);
+    border-left: 3px solid var(--signal);
+    padding: 8px 12px;
+    display: inline-block;
+  }
+  .where span { color: var(--ink-faint); }
+
+  /* ── diagram canvas ── */
+  .vis {
+    border: 1px solid var(--ink);
+    background:
+      linear-gradient(rgba(25,22,19,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(25,22,19,.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-color: #faf7f0;
+    padding: 30px 26px;
+    position: relative;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+  .vis::after {
+    content: attr(data-fig);
+    position: absolute;
+    bottom: -1px; right: -1px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .1em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+
+  /* diagram primitives */
+  .ui-card {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(25,22,19,.12);
+    padding: 14px 16px;
+  }
+  .ui-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .ui-input {
+    border-bottom: 2px solid var(--ink);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px 0 4px;
+  }
+  .ui-input .caret { display: inline-block; width: 2px; height: 16px; background: var(--signal); vertical-align: -2px; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0 } }
+
+  .ui-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+  }
+  .ui-btn.primary { background: var(--signal); color: #fff; }
+
+  .pills { display: flex; gap: 8px; }
+  .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    border: 1.5px solid var(--ink);
+    padding: 6px 14px;
+    color: var(--ink-soft);
+    background: #fff;
+  }
+  .pill.on { background: var(--signal); border-color: var(--signal); color: #fff; font-weight: 700; }
+
+  .hours-bar { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; }
+  .hours-track { flex: 1; height: 14px; border: 1.5px solid var(--ink); position: relative; background: #fff; }
+  .hours-fill { position: absolute; left: 28%; right: 12%; top: 2px; bottom: 2px; background: repeating-linear-gradient(45deg, var(--ink) 0 4px, transparent 4px 8px); }
+
+  .chip-row { display: flex; align-items: center; gap: 10px; }
+  .posto-chip {
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    flex: 1;
+  }
+  .posto-chip small { display: block; font-family: var(--mono); font-size: 9.5px; font-weight: 400; color: var(--ink-faint); letter-spacing: .06em; margin-top: 2px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .person { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    display: grid; place-items: center;
+    font-size: 12px; font-weight: 700;
+    flex: none;
+  }
+  .person .link { flex: 1; height: 1.5px; background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 11px); }
+  .person .dest { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; background: #fff; border: 1.5px solid var(--ink); padding: 5px 10px; }
+
+  .bars { display: flex; align-items: flex-end; gap: 10px; height: 120px; padding-top: 8px; }
+  .bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; height: 100%; }
+  .bar i {
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    border-bottom-width: 3px;
+    display: block;
+  }
+  .bar.hot i { background: var(--signal-soft); border-color: var(--signal); }
+  .bar b { font-size: 12px; }
+  .bar span { font-family: var(--mono); font-size: 9.5px; color: var(--ink-faint); }
+
+  .grid7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .grid7 .h { font-family: var(--mono); font-size: 9px; text-align: center; color: var(--ink-faint); padding-bottom: 2px; }
+  .cell {
+    aspect-ratio: 1;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    display: grid; place-items: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+  .cell.f { background: var(--signal); border-color: var(--signal); color: #fff; }
+
+  /* ── IA callout ── */
+  .ia {
+    margin: 72px 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 44px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ia::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(243,239,230,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(243,239,230,.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .ia > * { position: relative; }
+  .ia .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; color: var(--signal); text-transform: uppercase; margin-bottom: 12px; }
+  .ia h3 { font-size: 30px; text-transform: uppercase; letter-spacing: .01em; line-height: 1.1; max-width: 420px; }
+  .ia p { margin-top: 12px; color: #b9b2a4; font-size: 14.5px; max-width: 440px; }
+  .ia .chat { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; max-width: 460px; }
+  .ia .msg {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: rgba(243,239,230,.08);
+    border: 1px solid rgba(243,239,230,.18);
+    border-left: 3px solid var(--signal);
+    padding: 10px 14px;
+  }
+  .ia .msg::before { content: '> '; color: var(--signal); }
+
+  /* ── checklist ── */
+  .check {
+    margin-top: 72px;
+    border: 1.5px solid var(--ink);
+  }
+  .check-head {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .check-head b { color: var(--signal); }
+  .check ul { list-style: none; }
+  .check li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+  }
+  .check li:last-child { border-bottom: none; }
+  .check .box {
+    width: 18px; height: 18px;
+    border: 2px solid var(--ink);
+    flex: none;
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: background .15s;
+  }
+  .check li.done .box { background: var(--ok); border-color: var(--ok); }
+  .check li.done .box::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
+  .check li.done span { color: var(--ink-faint); text-decoration: line-through; }
+  .check li code { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-left: auto; }
+
+  /* ── avisos ── */
+  .alerts { margin-top: 72px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .alert {
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    padding: 18px 16px;
+  }
+  .alert .sig {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  .alert .sig.warn { background: #d98e04; }
+  .alert .sig.err  { background: #b3261e; }
+  .alert .sig.info { background: var(--ink); }
+  .alert b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .alert p { font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ── stamp / conquista ── */
+  .finish {
+    margin-top: 88px;
+    text-align: center;
+    padding: 40px 0 0;
+    position: relative;
+  }
+  .stamp {
+    display: inline-grid;
+    place-items: center;
+    width: 190px; height: 190px;
+    border-radius: 50%;
+    border: 3px double var(--signal);
+    color: var(--signal);
+    transform: rotate(-8deg);
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: 12px;
+    line-height: 1.7;
+    animation: stampIn .6s cubic-bezier(.2,1.6,.4,1) .4s both;
+  }
+  @keyframes stampIn {
+    from { opacity: 0; transform: rotate(-8deg) scale(1.6); }
+    to   { opacity: 1; transform: rotate(-8deg) scale(1); }
+  }
+  .stamp b { font-size: 17px; letter-spacing: .08em; }
+  .finish p { margin-top: 24px; font-size: 14px; color: var(--ink-soft); }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 18px;
+    border-top: 3px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 680px) {
+    .step { grid-template-columns: 1fr; gap: 24px; padding: 44px 0; }
+    .step:nth-child(even) .step-text { order: 1; }
+    .step:nth-child(even) .step-vis  { order: 2; }
+    .alerts { grid-template-columns: 1fr; }
+    .rail { grid-template-columns: repeat(3, 1fr); }
+    .rail a:nth-child(3) { border-right: none; }
+    .rail a:nth-child(-n+3) { border-bottom: 1px solid var(--rule); }
+  }
+
+  @media print {
+    .r, .stamp { animation: none !important; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="r">
+    <div class="doc-plate">
+      <span>Manual de operação <b>EF-QS-001</b></span>
+      <span>Rev. 1.10 · 2026</span>
+    </div>
+    <h1>
+      Primeira<br>Escala
+      <span class="thin">EscalaFlow · do zero ao rodízio em 6 passos</span>
+    </h1>
+    <div class="header-sub">
+      <span class="dot"></span>
+      <span>Siga a sequência. Cada passo leva minutos. No fim, o motor monta a escala — e as folgas caem no lugar sozinhas.</span>
+    </div>
+  </header>
+
+  <nav class="rail r d1" aria-label="Passos">
+    <a href="#p1"><b>01</b>Empresa</a>
+    <a href="#p2"><b>02</b>Setor</a>
+    <a href="#p3"><b>03</b>Postos</a>
+    <a href="#p4"><b>04</b>Equipe</a>
+    <a href="#p5"><b>05</b>Demanda</a>
+    <a href="#p6"><b>06</b>Gerar</a>
+  </nav>
+
+  <!-- 01 EMPRESA -->
+  <section class="step r d2" id="p1">
+    <div class="step-text">
+      <div class="step-num">01</div>
+      <h2>Empresa</h2>
+      <p>Clique no nome da empresa, no topo do menu. Preencha o nome e a semana de trabalho. Uma vez só — nunca mais volta aqui.</p>
+      <div class="where"><span>onde →</span> Menu lateral · topo · Empresa</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 1 — cadastro">
+        <div class="ui-card">
+          <div class="ui-label">Nome da empresa</div>
+          <div class="ui-input">Mercado Central<span class="caret"></span></div>
+        </div>
+        <div><span class="ui-btn">Salvar</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 SETOR -->
+  <section class="step r d3" id="p2">
+    <div class="step-text">
+      <div class="step-num">02</div>
+      <h2>Setor</h2>
+      <p>Crie o setor onde a escala vai viver. Defina o horário de funcionamento e o regime: <strong>5x2</strong> (5 dias + 2 folgas) ou <strong>6x1</strong> (6 dias + 1 folga, o padrão do varejo).</p>
+      <div class="where"><span>onde →</span> Setores · Novo Setor</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 2 — setor">
+        <div class="ui-card">
+          <div class="ui-label">Setor</div>
+          <div class="ui-input" style="border:none;padding:0">Padaria</div>
+        </div>
+        <div class="hours-bar">
+          <span>06h</span>
+          <div class="hours-track"><div class="hours-fill"></div></div>
+          <span>22h</span>
+        </div>
+        <div class="ui-label" style="margin:4px 0 0">Regime</div>
+        <div class="pills">
+          <span class="pill">5X2</span>
+          <span class="pill on">6X1</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 POSTOS -->
+  <section class="step r d4" id="p3">
+    <div class="step-text">
+      <div class="step-num">03</div>
+      <h2>Postos</h2>
+      <p>Dentro do setor, crie os postos de trabalho. Cada posto carrega um tipo de contrato — os contratos já vêm prontos de fábrica.</p>
+      <div class="where"><span>onde →</span> Setores · seu setor · Postos</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 3 — postos">
+        <div class="chip-row">
+          <div class="posto-chip">Atendimento<small>Posto 1</small></div>
+          <span class="tag">CLT 44h 6x1</span>
+        </div>
+        <div class="chip-row">
+          <div class="posto-chip">Produção<small>Posto 2</small></div>
+          <span class="tag">CLT 44h 6x1</span>
+        </div>
+        <div class="chip-row">
+          <div class="posto-chip">Caixa<small>Posto 3</small></div>
+          <span class="tag">CLT 36h 6x1</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 EQUIPE -->
+  <section class="step r d4" id="p4">
+    <div class="step-text">
+      <div class="step-num">04</div>
+      <h2>Equipe</h2>
+      <p>Cadastre as pessoas. Cada uma entra no setor e assume um posto. Folgas preferidas e horários? Depois — o básico já gera escala.</p>
+      <div class="where"><span>onde →</span> Colaboradores · Novo</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 4 — equipe">
+        <div class="person"><span class="avatar">AN</span><span class="link"></span><span class="dest">ATENDIMENTO</span></div>
+        <div class="person"><span class="avatar">BE</span><span class="link"></span><span class="dest">ATENDIMENTO</span></div>
+        <div class="person"><span class="avatar">CA</span><span class="link"></span><span class="dest">PRODUÇÃO</span></div>
+        <div class="person"><span class="avatar">DI</span><span class="link"></span><span class="dest">CAIXA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 DEMANDA -->
+  <section class="step r d5" id="p5">
+    <div class="step-text">
+      <div class="step-num">05</div>
+      <h2>Demanda</h2>
+      <p>Diga quantas pessoas você precisa, por dia e por horário. O motor garante essa cobertura na hora de distribuir a equipe.</p>
+      <div class="where"><span>onde →</span> Setores · seu setor · Demanda</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 5 — cobertura mínima">
+        <div class="bars">
+          <div class="bar"><b>2</b><i style="height:40%"></i><span>SEG</span></div>
+          <div class="bar"><b>2</b><i style="height:40%"></i><span>TER</span></div>
+          <div class="bar"><b>2</b><i style="height:40%"></i><span>QUA</span></div>
+          <div class="bar"><b>2</b><i style="height:40%"></i><span>QUI</span></div>
+          <div class="bar hot"><b>3</b><i style="height:62%"></i><span>SEX</span></div>
+          <div class="bar hot"><b>4</b><i style="height:84%"></i><span>SAB</span></div>
+          <div class="bar"><b>2</b><i style="height:40%"></i><span>DOM</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 GERAR -->
+  <section class="step r d5" id="p6">
+    <div class="step-text">
+      <div class="step-num">06</div>
+      <h2>Gerar <em>&amp; oficializar</em></h2>
+      <p>Escolha o período e clique em <strong>Gerar Escala</strong>. O motor monta tudo em segundos e respeita as 20 regras da CLT. Revise o rascunho. Gostou? Oficialize.</p>
+      <div class="where"><span>onde →</span> Setores · seu setor · Gerar Escala</div>
+    </div>
+    <div class="step-vis">
+      <div class="vis" data-fig="Fig. 6 — resultado">
+        <div><span class="ui-btn primary">Gerar Escala</span></div>
+        <div class="grid7">
+          <div class="h">S</div><div class="h">T</div><div class="h">Q</div><div class="h">Q</div><div class="h">S</div><div class="h">S</div><div class="h">D</div>
+          <div class="cell">T</div><div class="cell">T</div><div class="cell f">F</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div>
+          <div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell f">F</div>
+          <div class="cell f">F</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div><div class="cell">T</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA -->
+  <aside class="ia r">
+    <div class="kicker">Atalho de comandante</div>
+    <h3>Preguiça de clicar? Fale com o assistente.</h3>
+    <p>O Assistente IA (menu lateral) faz cada passo deste manual por conversa — cadastra, configura, gera e explica.</p>
+    <div class="chat">
+      <div class="msg">Crie o setor Padaria, 6x1, das 6h às 22h</div>
+      <div class="msg">Cadastra a Maria, CLT 44h, no posto Caixa</div>
+      <div class="msg">Gera a escala de março e me mostra as folgas</div>
+    </div>
+  </aside>
+
+  <!-- CHECKLIST -->
+  <section class="check r" id="checklist">
+    <div class="check-head"><span>Pré-voo · pronto para gerar quando</span><b id="check-count">0/5</b></div>
+    <ul>
+      <li><span class="box"></span><span>Empresa salva</span><code>01</code></li>
+      <li><span class="box"></span><span>Setor com horário e regime</span><code>02</code></li>
+      <li><span class="box"></span><span>Pelo menos 1 posto criado</span><code>03</code></li>
+      <li><span class="box"></span><span>Pessoas ligadas aos postos</span><code>04</code></li>
+      <li><span class="box"></span><span>Demanda definida</span><code>05</code></li>
+    </ul>
+  </section>
+
+  <!-- AVISOS -->
+  <section class="alerts r">
+    <div class="alert">
+      <span class="sig warn">Faixa laranja</span>
+      <b>"Escala gerada com ajustes"</b>
+      <p>Normal. O sistema flexibilizou regras internas para fechar a conta. A escala continua dentro da CLT — revise e siga.</p>
+    </div>
+    <div class="alert">
+      <span class="sig err">Vermelho</span>
+      <b>"Impossível gerar"</b>
+      <p>Falta gente para a demanda pedida. Reduza a cobertura mínima ou cadastre mais pessoas.</p>
+    </div>
+    <div class="alert">
+      <span class="sig info">Lembrete</span>
+      <b>Rascunho não vale</b>
+      <p>A escala só conta depois de Oficializar. Até lá, gere quantas versões quiser.</p>
+    </div>
+  </section>
+
+  <!-- CONQUISTA -->
+  <div class="finish r">
+    <div class="stamp">
+      <span>★ ★ ★<br><b>Primeira escala</b><br>conquistada<br>★ ★ ★</span>
+    </div>
+    <p>Daqui em diante é manutenção: férias, trocas e dias avulsos — tudo na própria grade ou pelo assistente.</p>
+  </div>
+
+  <footer>
+    <span>EscalaFlow · escalas CLT sem dor</span>
+    <span>Funciona 100% offline</span>
+  </footer>
+
+</div>
+
+<script>
+  // checklist interativo (offline, sem dependências)
+  const itens = document.querySelectorAll('.check li')
+  const count = document.getElementById('check-count')
+  const update = () => {
+    const done = document.querySelectorAll('.check li.done').length
+    count.textContent = done + '/5'
+    if (done === 5) count.textContent = '5/5 ✓'
+  }
+  itens.forEach(li => li.addEventListener('click', () => { li.classList.toggle('done'); update() }))
+</script>
+</body>
+</html>

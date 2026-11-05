@@ -1,0 +1,29 @@
+{
+  "name": "html-didatico",
+  "version": "1.0.0",
+  "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+  "author": {
+    "name": "Marco Antonio",
+    "url": "https://github.com/nmarcofernandess"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "HTML Didático",
+    "shortDescription": "HTML editorial com dioramas, explicações de sistema e proofs",
+    "longDescription": "Três skills. html-didatico desenha documentos HTML autocontidos em quatro direções (manual, editorial, prova final, prancha de decisão), com explorer de IDE, editor, chaves, árvores e camadas para explicar sistemas, e define o visual de HTMLs de proof — à mão no wireframe, ou pelo renderer oficial quando o projeto tem um. explain-clearly reconstrói o significado antes do desenho; writing-clearly-and-concisely revisa cada frase.",
+    "developerName": "Marco Antonio",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Transforme esta explicação técnica num HTML didático autocontido: situe o leitor, mostre onde as coisas moram, como funcionam e por quê, com um diorama por seção."
+  },
+  "repository": "https://github.com/nmarcofernandess/html-didatico",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "html",
+    "didactic",
+    "diagrams",
+    "proof",
+    "documentation"
+  ]
+}
