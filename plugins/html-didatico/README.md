@@ -5,7 +5,7 @@ entende sem tradutor.
 
 | Skill | Papel |
 |---|---|
-| `html-didatico` | O desenho: HTML autocontido, estilo impresso, um diorama de CSS por seção. Quatro direções — A manual de operação, B editorial, C prova final, D prancha de decisão — e primitivos para explicar sistemas (explorer de IDE, editor, chave, árvore, camadas). |
+| `html-didatico` | O desenho: HTML autocontido com anatomia visual própria. Cinco direções — A manual de operação, B editorial, C prova final, D prancha de decisão, E blueprint de composição — e primitivos para explicar sistemas (explorer de IDE, editor, chave, árvore, camadas). |
 | `explain-clearly` | O significado: reconstrói objetos, causas e consequências a partir das fontes antes de qualquer frase. |
 | `writing-clearly-and-concisely` | A frase: voz ativa, termos concretos, só as palavras necessárias. |
 
@@ -18,6 +18,14 @@ Veja o README da raiz do repositório.
 `skills/html-didatico/references/exemplos/` guarda um HTML real por direção. O
 primeiro, `A-manual-escalaflow-quickstart.html` (10/06/2026), é o documento de
 onde o estilo nasceu: o manual de primeira escala do EscalaFlow.
+
+## Blueprint de composição
+
+A Direção E tem [playbook próprio](skills/html-didatico/references/blueprint-componentes.md)
+e [receita HTML exemplar](skills/html-didatico/references/exemplos/E-blueprint-componentes.html).
+Ela reconstrói a composição real, desenha `children` e slots dentro de suas
+fronteiras e acompanha cada camada com tipos, props, mods e fontes. Propostas
+são marcadas no ponto exato da mudança.
 
 ## HTMLs de proof
 
@@ -37,3 +45,4 @@ Estas skills viviam no plugin Superflow (`nmarcofernandess/superflow`,
 clareza sem burocracia, sub-skills de significado e escrita) e acrescenta, em
 05/11/2026, a narrativa para explicar sistemas, os primitivos de sistema
 (`receita.md` §12) e a referência de HTML de proof.
+

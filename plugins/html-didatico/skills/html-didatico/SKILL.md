@@ -1,9 +1,18 @@
 ---
 name: html-didatico
-description: Cria documentos HTML visuais e didáticos — manuais, quickstarts, one-pagers, murais de status, explicações de feature ou de projeto para sócio, cliente, equipe ou família — no estilo editorial impresso com "dioramas" — mini-interfaces falsas desenhadas em CSS puro (fichas, modais, toggles, toasts, fluxos, carimbos) que tornam o documento fofo e fácil de entender. Use sempre que o usuário pedir um HTML bonito/fofo/didático, um manual visual, um quickstart, um documento para leigo entender algo técnico, um resumo de sprint/feature em página única, ou mencionar "aquele estilo de HTML com figurinhas/dioramas". Também quando pedir para transformar uma explicação técnica em algo apresentável. Inclui também a Direção C — um wireframe de "prova final" (checklist de verificação pós-merge que vira o próprio relatório de prova quando preenchido) — use quando o pedido for "monta um checklist de verificação dos PRs", "wireframe de prova final", "documento pra provar que os merges funcionam de verdade", ou qualquer variação de organizar a re-verificação de trabalho já mergeado antes de fechar decisões. Inclui também a Direção D — a "prancha de decisão", um wireframe que desenha N formas da MESMA estrutura lado a lado para o leitor escolher — use quando o pedido for "faz um wireframe disso", "me mostra as opções", "onde isso deveria ficar", "qual layout faz mais sentido", ou quando a conversa travou porque as partes não estão vendo a mesma estrutura na cabeça. Cobre também HTMLs de proof — a página que mostra, com prints e asserções, que algo funciona de verdade — tanto o wireframe manual quanto o visual do renderer oficial de um projeto (use em "HTML de proof", "proof pack", "relatório de prova", "mexer no visual dos proofs"). E explica sistemas para quem nunca os viu — onde as coisas moram, que chave liga o quê, quem contém quem — com explorer de IDE, editor de código, chaves, árvores e camadas desenhados em CSS.
+description: Use when the user requests an HTML didático, visual manual, quickstart, one-pager, system explanation, wireframe, decision board, proof HTML, or component blueprint showing primitives, features, children, slots, types and props.
 ---
 
 # HTML Didático — documentos editoriais com dioramas de CSS
+
+**Blueprint de composição:** quando o pedido for mostrar como componentes se
+montam dos primitivos ao específico, siga a **Direção E** em
+[`references/blueprint-componentes.md`](references/blueprint-componentes.md).
+Ela define sua própria anatomia: árvore de arquivos, composição progressiva à
+esquerda e contratos à direita. Leia o playbook e a receita exemplar antes de
+desenhar. As regras de narrativa, zigue-zague, diorama e decoração de A/B não
+substituem o contrato de E. Para E, o playbook substitui o processo visual
+geral abaixo. Fonte real, clareza e arquivo autocontido continuam obrigatórios.
 
 Um documento desse estilo tem duas metades inseparáveis: **layout de impresso** (papel,
 tinta, tipografia com caráter, hairlines, numerais gigantes) e **dioramas** — pequenas
@@ -89,7 +98,9 @@ Regras da narrativa:
 
 ### 2. Escolher direção estética e COMPROMETER
 
-Três anatomias prontas em `references/receita.md` (ler antes de codar):
+Cinco direções: A–D em `references/receita.md`; E em
+`references/blueprint-componentes.md` e na receita HTML exemplar. Leia a
+referência da direção escolhida antes de codar:
 
 | Direção | Vibe | Quando |
 |---|---|---|
@@ -97,6 +108,7 @@ Três anatomias prontas em `references/receita.md` (ler antes de codar):
 | **B — Editorial serif** | Revista calma: serif com caráter em títulos grandes, numerais fantasma vazados, hairlines, faixa "na prática" em itálico, carimbo no fechamento | Narrativa (problema→solução), relato de sprint, pitch, explicação de decisão |
 | **C — Prova final / Wireframe de verificação** | Delta sobre a Direção A: mesmos tokens/rail/callout, mas o documento nasce VAZIO (slots `▢`) organizado por PR/merge real, e o MESMO arquivo vira a prova preenchida depois — ver §2.1 | Checklist de re-verificação de trabalho já mergeado, antes de ratificar decisões ou fechar uma rodada |
 | **D — Prancha de decisão** | Planta baixa, não impresso: papel técnico, linha de construção 1px, UMA cor de revisão. N opções da MESMA estrutura desenhadas lado a lado em caixas cinzas, com a região em disputa hachurada e o custo de cada uma embaixo — ver §2.2 | Escolher entre formas de organizar algo que ainda não existe: onde mora uma informação, o que uma aba promete, qual layout uma feature ganha |
+| **E — Blueprint de composição** | Folha técnica contínua: árvore de arquivos, componentes aninhados à esquerda, types/props à direita, montagem progressiva e deltas novos em verde | Provar como primitivos, children, features e consumidores se encaixam; investigar uma arquitetura existente ou proposta |
 
 Misturar A e B é permitido; ficar em cima do muro não. Escolher UMA dominante. A
 Direção C é sempre um delta explícito sobre a A (não escolher "C pura" do zero —
@@ -207,10 +219,30 @@ Regras do gênero:
   sistema, sempre. Copiar o desenho da prancha para dentro do produto gera
   botão que não existe e layout que ninguém tem — mesma armadilha do mockup.
 
+#### 2.3 Direção E em detalhe — o gênero "blueprint de composição"
+
+A pergunta é **como esta peça é montada**, não qual de N layouts escolher.
+Investigue do consumidor ao primitivo; apresente do primitivo ao específico.
+Leia os mapas e patterns do projeto, siga imports/JSX/types e prove cada encaixe.
+O caminho físico, o papel arquitetural e o conteúdo renderizado são informações
+diferentes: a árvore mostra onde mora; a figura mostra quem contém quem.
+
+A receita é uma página contínua com componente à esquerda e contrato alinhado
+à direita. Cada faixa acrescenta uma camada reconhecível. `children`, slots,
+contexto, helpers e adapters têm origem identificada. O que é novo aparece em
+verde com rótulo de proposta; verde não é prova de implementação.
+
+Leia [o playbook completo](references/blueprint-componentes.md) e abra
+[a receita exemplar](references/exemplos/E-blueprint-componentes.html).
+Ela tem vocabulário próprio: traços finos, papel off-white, poucos rótulos e
+aninhamento real. Não exige numerais gigantes, sombras, narrativa em parágrafos,
+N opções nem uma pergunta final. O desenho pode conter várias camadas quando
+essa contenção for o próprio assunto, sem tratar isso como cards decorativos.
+
 ### 3. Montar o esqueleto
 
 Anatomia comum às duas direções principais (A e B; C é delta sobre A, ver §2.1;
-**D tem anatomia própria — ver §2.2 e `receita.md` §11**):
+**D e E têm anatomias próprias — ver §2.2 e §2.3**):
 
 ```
 header/doc-plate (metadata mono)  →  capa (título gigante + 1 parágrafo)
@@ -221,6 +253,8 @@ header/doc-plate (metadata mono)  →  capa (título gigante + 1 parágrafo)
 ```
 
 ### 4. Desenhar 1 diorama por seção
+
+Este passo descreve A/B/C. Para E, monte as faixas de composição do playbook.
 
 > **Antes: é diorama ou é prancha?** Diorama conta UMA cena de algo que existe,
 > com texto real dentro. Se o que você precisa mostrar são **opções comparáveis
@@ -267,12 +301,19 @@ O diorama é a alma. Regras que fazem ele funcionar:
   exatamente uma recomendação? O documento fecha com a pergunta numerada?
 - Na Direção C: todo `.prova` tem comando real + critério de aceite real? Nenhum
   slot foi preenchido com dado inventado?
+- Na Direção E: árvore, encaixes e contratos apontam para fontes? Cada faixa
+  incorpora as anteriores? `import` foi separado de renderização? Novas props
+  e mods estão marcados localmente? A receita passou por inspeção visual?
 - Em proof com renderer: nenhum byte do HTML oficial foi escrito à mão?
-- Explicando um sistema: a ordem é onde mora → mecanismo → por quê → quem usa →
+- Explicando um sistema em A/B: a ordem é onde mora → mecanismo → por quê → quem usa →
   caso real → o que fazer? Termos ambíguos foram separados antes do uso? Datas
   absolutas e números com limite declarado?
 
 ## As leis do estilo
+
+A Direção E usa os tokens e a anatomia próprios do playbook. As regras de
+tipografia, bordas, numerais e decoração abaixo descrevem A–D; não sobrescrevem
+a folha técnica de E. A regra de arquivo autocontido vale para todas.
 
 1. **Tipografia com caráter.** Nunca Inter/Roboto/Arial/system genérica. Direção A:
    display geométrica (Futura, Avenir Next) + mono de verdade. Direção B: serif
@@ -323,7 +364,8 @@ publicado por renderer segue a mesma regra: CSS embutido e caminhos relativos ao
   deliberada:** o `.print-slot` da Direção C, na Rev. 1 preenchida — ali o
   screenshot real É o conteúdo, não um substituto de diorama (ver §2.1).
 - Diorama que não conta cena (caixas com lorem ipsum conceitual).
-- Card dentro de card, 5 cores competindo, gradiente roxo sobre branco.
+- Cards decorativos dentro de cards, 5 cores competindo, gradiente roxo sobre
+  branco. Em E, caixas aninhadas representam contenção comprovada, não decoração.
 - Tom de manual corporativo. Didático fala como gente: "uma vez só — nunca mais
   volta aqui".
 - Parágrafos longos. O texto acompanha o diorama, não compete com ele.
@@ -335,7 +377,7 @@ publicado por renderer segue a mesma regra: CSS embutido e caminhos relativos ao
 ## Referência obrigatória
 
 Antes de escrever o CSS, ler **`references/receita.md`** (Direção D: §11;
-primitivos de sistema: §12) — contém os tokens das direções, o CSS completo do
+primitivos de sistema: §12; blueprint E: §13 e seu playbook) — contém os tokens das direções, o CSS completo do
 canvas de diorama, o catálogo de primitivos prontos para copiar (incluindo o
 card `.prova` da Direção C) e a anatomia de página de cada uma.
 
@@ -350,6 +392,8 @@ escolhida antes de codar; eles são a fonte de onde a receita foi destilada:
 | `B-editorial-panorama-export-v2.html` | B | Narrativa serif da convergência do Export V2, numerais fantasma, carimbo de fechamento |
 | `C-prova-importacao.html` | C | Prova preenchida (Rev. 1) do gate de importação: `.prova`, prints reais, gate de validade |
 | `D-prancha-unidade-exames.html` | D | Prancha `WIREFRAME · REV 2` em IBM Plex: opções da mesma tela lado a lado, custo e pergunta |
+| `E-blueprint-componentes.html` | E | Receita de composição progressiva: árvore real, primitivos até consumidores, children aninhados, contratos laterais e deltas propostos |
 
 Sub-skills deste plugin: `explain-clearly` (reconstrói o significado antes de
 desenhar) e `writing-clearly-and-concisely` (revisa cada frase antes de entregar).
+

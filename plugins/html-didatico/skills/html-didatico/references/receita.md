@@ -901,3 +901,25 @@ em serif em cima de cada barra e o rótulo mono embaixo. Barra que representa
 
 A cor da borda é o dado: vermelho = o erro nasce, verde = último bom, amarelo = o
 gatilho, cinza = o silêncio, azul = a descoberta. Datas sempre `dd/mm/aaaa`.
+
+
+
+## 13. Anatomia E — Blueprint de composição
+
+Use [o playbook de composição](blueprint-componentes.md) e abra
+[a receita HTML exemplar](exemplos/E-blueprint-componentes.html). O playbook
+orienta a investigação no mapa, patterns, componentes e contratos do projeto.
+O HTML é a referência executável de tokens, hierarquia, proporções e impressão.
+
+A página tem uma árvore de arquivos e uma sequência vertical de montagens.
+Em cada faixa, o componente fica à esquerda e seu contrato à direita. Os
+contornos mostram `children`/slots reais; hooks e helpers ficam na lateral.
+A peça já desenhada reaparece dentro da próxima composição, até o consumidor.
+
+E tem traços finos, papel off-white e tipografia técnica. A estrutura usa
+grafite ou azul técnico; verde com `+ PROPOSTA` identifica somente o delta novo. A/B usam
+sombra e diorama; D compara layouts; E mostra a montagem. Não importe essas
+outras anatomias para completar artificialmente a receita.
+
+Preserve os exemplos A–D. Um blueprint novo é outro arquivo, com suas próprias
+fontes, revisão e limites de verificação.

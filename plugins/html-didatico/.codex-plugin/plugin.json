@@ -1,6 +1,6 @@
 {
   "name": "html-didatico",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
   "author": {
     "name": "Marco Antonio",
@@ -9,8 +9,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "HTML Didático",
-    "shortDescription": "HTML editorial com dioramas, explicações de sistema e proofs",
-    "longDescription": "Três skills. html-didatico desenha documentos HTML autocontidos em quatro direções (manual, editorial, prova final, prancha de decisão), com explorer de IDE, editor, chaves, árvores e camadas para explicar sistemas, e define o visual de HTMLs de proof — à mão no wireframe, ou pelo renderer oficial quando o projeto tem um. explain-clearly reconstrói o significado antes do desenho; writing-clearly-and-concisely revisa cada frase.",
+    "shortDescription": "HTML didático, composição de componentes e proofs",
+    "longDescription": "Três skills. html-didatico desenha documentos HTML autocontidos em cinco direções: manual, editorial, prova final, prancha de decisão e blueprint de composição. Inclui árvore de arquivos, componentes aninhados, children/slots, contratos laterais e deltas propostos, além dos primitivos de sistema e do visual de HTMLs de proof. explain-clearly reconstrói o significado antes do desenho; writing-clearly-and-concisely revisa cada frase.",
     "developerName": "Marco Antonio",
     "category": "Productivity",
     "capabilities": [],

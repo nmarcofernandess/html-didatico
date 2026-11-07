@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 — 07/11/2026
+
+- Direção E: blueprint de composição com investigação em mapas, patterns,
+  componentes, JSX e contratos.
+- Playbook para árvore de arquivos, montagem progressiva dos primitivos ao
+  consumidor, children/slots e contratos laterais.
+- Receita HTML exemplar com deltas novos identificados como propostas.
+- Roteamento e referências atualizados; exemplos A–D preservados.
+
 ## 1.0.1 — 05/11/2026
 
 - README: o repositório é privado; o Codex instala pelo endereço SSH.
@@ -15,3 +24,4 @@
   leis da prova.
 - Regras para HTML aberto por arquivo (`file://`).
 - Exemplos reais por direção.
+
