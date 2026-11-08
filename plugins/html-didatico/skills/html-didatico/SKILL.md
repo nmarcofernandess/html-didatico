@@ -14,6 +14,22 @@ desenhar. As regras de narrativa, zigue-zague, diorama e decoração de A/B não
 substituem o contrato de E. Para E, o playbook substitui o processo visual
 geral abaixo. Fonte real, clareza e arquivo autocontido continuam obrigatórios.
 
+## Entradas diretas
+
+Quando o usuário já escolheu um recurso, use a entrada correspondente, sem
+reabrir a escolha da direção. Todas leem as referências canônicas deste plugin:
+
+- [manual-operacao](../manual-operacao/SKILL.md): Direção A.
+- [editorial](../editorial/SKILL.md): Direção B.
+- [prova-final](../prova-final/SKILL.md): Direção C.
+- [prancha-decisao](../prancha-decisao/SKILL.md): Direção D.
+- [blueprint-componentes](../blueprint-componentes/SKILL.md): Direção E.
+- [explicar-sistema](../explicar-sistema/SKILL.md): narrativa e primitivos de sistema.
+- [proof-html](../proof-html/SKILL.md): renderer oficial ou prova manual.
+
+Ao chegar aqui por uma dessas entradas, leia as regras compartilhadas e siga
+a direção já selecionada; não reinicie o roteamento nem carregue todos os modos.
+
 Um documento desse estilo tem duas metades inseparáveis: **layout de impresso** (papel,
 tinta, tipografia com caráter, hairlines, numerais gigantes) e **dioramas** — pequenas
 cenas de interface desenhadas só com HTML+CSS, que mostram o conceito em vez de

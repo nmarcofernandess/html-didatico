@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 — 08/11/2026
+
+- Sete entradas diretas: `manual-operacao`, `editorial`, `prova-final`,
+  `prancha-decisao`, `blueprint-componentes`, `explicar-sistema` e `proof-html`.
+- Dez skills descobertas no plugin, incluindo as três anteriores.
+- Entradas especializadas reutilizam os playbooks e receitas canônicos.
+- Blueprint da 1.1.0 e exemplos A–E preservados; nenhum HTML de proof reescrito.
+- Versão sincronizada nos três manifestos e nos três marketplaces.
+
 ## 1.1.0 — 07/11/2026
 
 - Direção E: blueprint de composição com investigação em mapas, patterns,

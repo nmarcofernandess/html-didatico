@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "html-didatico",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
       "source": {
         "source": "local",

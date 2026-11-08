@@ -1,13 +1,34 @@
 # HTML Didático
 
-Plugin com três skills para transformar explicação técnica em documento que se
+Plugin com dez skills para transformar explicação técnica em documento que se
 entende sem tradutor.
 
-| Skill | Papel |
+| Skill | Responsabilidade |
 |---|---|
-| `html-didatico` | O desenho: HTML autocontido com anatomia visual própria. Cinco direções — A manual de operação, B editorial, C prova final, D prancha de decisão, E blueprint de composição — e primitivos para explicar sistemas (explorer de IDE, editor, chave, árvore, camadas). |
-| `explain-clearly` | O significado: reconstrói objetos, causas e consequências a partir das fontes antes de qualquer frase. |
-| `writing-clearly-and-concisely` | A frase: voz ativa, termos concretos, só as palavras necessárias. |
+| [html-didatico](skills/html-didatico/SKILL.md) | Entrada geral: escolhe a direção adequada ao pedido. |
+| [manual-operacao](skills/manual-operacao/SKILL.md) | Direção A: manuais, onboarding, quickstarts e runbooks. |
+| [editorial](skills/editorial/SKILL.md) | Direção B: narrativa técnica, problema e decisão. |
+| [prova-final](skills/prova-final/SKILL.md) | Direção C: wireframe Rev. 0 e evidência real na Rev. 1. |
+| [prancha-decisao](skills/prancha-decisao/SKILL.md) | Direção D: alternativas da mesma estrutura e seus custos. |
+| [blueprint-componentes](skills/blueprint-componentes/SKILL.md) | Direção E: árvore, montagem dos primitivos ao específico e contratos laterais. |
+| [explicar-sistema](skills/explicar-sistema/SKILL.md) | Onde mora, como funciona, por que existe e quem usa; primitivos de sistema. |
+| [proof-html](skills/proof-html/SKILL.md) | Renderer oficial ou prova manual; anatomia e integridade das evidências. |
+| [explain-clearly](skills/explain-clearly/SKILL.md) | Reconstrução de significado, causas e consequências a partir das fontes. |
+| [writing-clearly-and-concisely](skills/writing-clearly-and-concisely/SKILL.md) | Revisão de frases, títulos, labels e legendas. |
+
+## Chamada direta
+
+No Codex, selecione a skill pelo `$` e pelo nome do plugin. Exemplos:
+
+    $html-didatico:blueprint-componentes Mostre como este componente é montado.
+    $html-didatico:proof-html Revise a apresentação do renderer deste pack.
+    $html-didatico:prancha-decisao Compare estas duas estruturas.
+    $html-didatico:explicar-sistema Explique a organização dos testes deste projeto.
+
+Os demais nomes da tabela seguem o mesmo namespace `html-didatico`.
+No Claude Code, use `/html-didatico:nome-da-skill`. A apresentação do seletor
+pode variar por host. As entradas diretas usam os mesmos playbooks e receitas;
+não são cópias independentes. `html-didatico` continua disponível como entrada geral.
 
 ## Instalar
 
@@ -29,7 +50,7 @@ são marcadas no ponto exato da mudança.
 
 ## HTMLs de proof
 
-`references/proof-html.md` descreve os dois modos:
+[`proof-html`](skills/proof-html/SKILL.md) dá acesso direto à [referência](skills/html-didatico/references/proof-html.md), que descreve os dois modos:
 
 1. **Projeto com renderer oficial** (DietFlow: `scripts/proof/render-pack.ts` +
    `proof-pack.css`). O HTML publicado nunca é escrito à mão; a skill orienta o
