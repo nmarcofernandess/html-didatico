@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.0 — 09/11/2026
+
+- Breaking: dez entradas públicas reorganizadas em cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza. IDs antigos removidos, sem aliases.
+- Manual, editorial e sistemas são modos internos; prova-final e proof-html têm um único contrato.
+- Fontes, escrita e portabilidade extraídas; receitas divididas por uso e playbooks independentes, sem leitura integral da skill principal.
+- Elements of Style vira recurso interno progressivo; texto e créditos preservados.
+- Proof decide pelo renderer existente, mesmo quando o pack ainda não foi gerado.
+- Exemplos históricos A–E preservados; novos casos separados para cada skill e ambiguidades.
+- Manifesto portátil e metadados legíveis por skill; versões e marketplaces sincronizados.
+
+
 ## 1.2.0 — 08/11/2026
 
 - Sete entradas diretas: `manual-operacao`, `editorial`, `prova-final`,

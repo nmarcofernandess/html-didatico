@@ -1,100 +1,122 @@
 # HTML Didático
 
-Plugin portátil para transformar explicação técnica em documento HTML que se
-entende sem tradutor: manuais, murais, explicações de sistema, pranchas de
-decisão e HTMLs de proof. Funciona em Claude Code, Codex e Cursor.
+Plugin portátil para explicar, desenhar interfaces, mostrar composição e
+apresentar evidências. Cinco entradas públicas, escolhidas pelo resultado.
+Funciona em Codex, Claude Code e Cursor, conforme o suporte do host.
 
-## O que o plugin exporta
+## Escolha o resultado
 
-| Skill | Responsabilidade |
+| Nome no seletor | ID da skill | Use para |
+|---|---|---|
+| **HTML Didático** | [html-didatico](plugins/html-didatico/skills/html-didatico/SKILL.md) | Explicações, manuais, quickstarts e narrativas de sistemas. Manual, editorial e sistemas são modos internos. |
+| **HTML Wireframe** | [html-wireframe](plugins/html-didatico/skills/html-wireframe/SKILL.md) | Maquetes e comparação de layouts/comportamentos, com propostas identificadas. |
+| **HTML Blueprint** | [html-blueprint](plugins/html-didatico/skills/html-blueprint/SKILL.md) | Composição dos primitivos às features e consumidores: árvore, children, slots, types, props e contratos. |
+| **HTML Proof** | [html-proof](plugins/html-didatico/skills/html-proof/SKILL.md) | Evidências e resultados, respeitando o renderer oficial quando existir. |
+| **Explicar com Clareza** | [explain-clearly](plugins/html-didatico/skills/explain-clearly/SKILL.md) | Reconstruir significado e explicar causas/consequências em texto ou no meio pedido. HTML é opcional. |
+
+No Codex, os nomes legíveis vêm de `agents/openai.yaml`; outros hosts podem
+mostrar os IDs. São as mesmas cinco skills, sem aliases adicionais.
+
+```text
+$html-didatico:html-didatico Explique em HTML como os testes se organizam.
+$html-didatico:html-wireframe Compare dois lugares para a ação de salvar.
+$html-didatico:html-blueprint Mostre a montagem deste componente e seus contratos.
+$html-didatico:html-proof Apresente os resultados pelo renderer deste projeto.
+$html-didatico:explain-clearly Explique este relatório em texto para um iniciante.
+```
+
+No Claude Code, use `/html-didatico:nome-da-skill`. Para ambiguidade e pedidos
+mistos, consulte o [roteamento por resultado](plugins/html-didatico/references/roteamento.md).
+
+## Regras e leitura progressiva
+
+Cada entrada tem seu fluxo e playbook. Nenhuma depende de ler integralmente a
+skill HTML Didático. Fontes/limites, escrita e portabilidade têm owners comuns;
+tokens, anatomias e primitivos são carregados só para o formato em uso.
+
+- [Fontes e limites](plugins/html-didatico/references/fundamentos.md).
+- [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
+- [Guia interno de escrita](plugins/html-didatico/references/escrita/guia.md): síntese e consulta progressiva ao texto de Strunk, sem entrada pública.
+- [Contrato de proof](plugins/html-didatico/references/playbooks/proof.md): pack ausente não significa renderer ausente. Nunca se fabrica prova ou edita saída oficial à mão.
+
+Os [exemplos históricos A–E](plugins/html-didatico/references/exemplos/) mantêm
+sua origem e seus bytes. São referência de gramática visual; seus status,
+comandos e APIs não comprovam o estado atual de outros projetos. Alguns citam
+prints/JSON externos que não fazem parte deste repositório.
+
+## Migração da 1.2.0
+
+A versão 2.0.0 remove nomes públicos antigos; atualize chamadas salvas.
+
+| Entrada anterior | Destino |
 |---|---|
-| [html-didatico](plugins/html-didatico/skills/html-didatico/SKILL.md) | Entrada geral: escolhe a direção adequada ao pedido. |
-| [manual-operacao](plugins/html-didatico/skills/manual-operacao/SKILL.md) | Direção A: manuais, onboarding, quickstarts e runbooks. |
-| [editorial](plugins/html-didatico/skills/editorial/SKILL.md) | Direção B: narrativa técnica, problema e decisão. |
-| [prova-final](plugins/html-didatico/skills/prova-final/SKILL.md) | Direção C: wireframe Rev. 0 e evidência real na Rev. 1. |
-| [prancha-decisao](plugins/html-didatico/skills/prancha-decisao/SKILL.md) | Direção D: alternativas da mesma estrutura e seus custos. |
-| [blueprint-componentes](plugins/html-didatico/skills/blueprint-componentes/SKILL.md) | Direção E: árvore, montagem dos primitivos ao específico e contratos laterais. |
-| [explicar-sistema](plugins/html-didatico/skills/explicar-sistema/SKILL.md) | Onde mora, como funciona, por que existe e quem usa; primitivos de sistema. |
-| [proof-html](plugins/html-didatico/skills/proof-html/SKILL.md) | Renderer oficial ou prova manual; anatomia e integridade das evidências. |
-| [explain-clearly](plugins/html-didatico/skills/explain-clearly/SKILL.md) | Reconstrução de significado, causas e consequências a partir das fontes. |
-| [writing-clearly-and-concisely](plugins/html-didatico/skills/writing-clearly-and-concisely/SKILL.md) | Revisão de frases, títulos, labels e legendas. |
+| html-didatico | HTML Didático, agora com escopo específico de explicação. |
+| manual-operacao | Modo manual de HTML Didático. |
+| editorial | Modo editorial de HTML Didático. |
+| explicar-sistema | Modo sistemas de HTML Didático. |
+| prancha-decisao | HTML Wireframe. |
+| blueprint-componentes | HTML Blueprint. |
+| prova-final | HTML Proof, fluxo manual somente sem renderer confirmado. |
+| proof-html | HTML Proof, incluindo renderer oficial. |
+| explain-clearly | Explicar com Clareza, preservando o ID. |
+| writing-clearly-and-concisely | Recurso interno compartilhado; texto e créditos preservados. |
 
-Um HTML real por direção fica em
-`plugins/html-didatico/skills/html-didatico/references/exemplos/`. O primeiro,
-o quickstart do EscalaFlow (10/06/2026), é o documento de onde o estilo nasceu.
+## Instalação da release 2.0.0
 
-## Blueprint de composição
-
-A Direção E investiga mapas e patterns do projeto e mostra a montagem dos
-primitivos ao consumidor específico. Componentes aninhados ficam à esquerda;
-contratos, props e mods, à direita. Novas peças e props aparecem como propostas.
-
-- [Playbook](plugins/html-didatico/skills/html-didatico/references/blueprint-componentes.md)
-- [Receita HTML exemplar](plugins/html-didatico/skills/html-didatico/references/exemplos/E-blueprint-componentes.html)
-
-O HTML é documentação visual, não código de produto nem prova de runtime.
-
-## Chamada direta
-
-No Codex, selecione a skill pelo `$` e pelo nome do plugin. Exemplos:
-
-    $html-didatico:blueprint-componentes Mostre como este componente é montado.
-    $html-didatico:proof-html Revise a apresentação do renderer deste pack.
-    $html-didatico:prancha-decisao Compare estas duas estruturas.
-    $html-didatico:explicar-sistema Explique a organização dos testes deste projeto.
-
-Os demais nomes da tabela seguem o mesmo namespace `html-didatico`.
-No Claude Code, use `/html-didatico:nome-da-skill`. A apresentação do seletor
-pode variar por host. As entradas diretas usam os mesmos playbooks e receitas;
-não são cópias independentes. `html-didatico` continua disponível como entrada geral.
-
-## Instalação
-
-Os comandos abaixo instalam a tag `v1.2.0` depois de ela ser publicada.
-O número nos manifestos e o commit em `main` não criam essa tag automaticamente.
-O repositório é privado: o host precisa da sua credencial do GitHub. No Codex,
-use o endereço SSH já autorizado para sua conta (incluindo seu alias, se houver).
+O repositório é privado. Use a credencial já autorizada e, no SSH, seu alias de
+conta quando necessário. Tag, versão em `main` e instalação são estados distintos.
 
 Codex:
 
-    codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v1.2.0
-    codex plugin add html-didatico@html-didatico
+```sh
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.0.0
+codex plugin add html-didatico@html-didatico
+codex plugin list --marketplace html-didatico --json
+```
+
+Para atualizar o marketplace já existente, o comando `marketplace add` com a
+mesma origem e a nova `--ref` atualiza sua referência no Codex. Depois rode
+`codex plugin marketplace upgrade html-didatico` e confira o plugin instalado.
+Verifique o comportamento no `--help` da versão do host em uso.
 
 Claude Code:
 
-    claude plugin marketplace add nmarcofernandess/html-didatico@v1.2.0
-    claude plugin install html-didatico@html-didatico
+```sh
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.0.0
+claude plugin install html-didatico@html-didatico
+claude plugin list
+```
 
-Cursor:
+Em instalação existente, confira a referência do marketplace. Use os comandos
+suportados pelo host para apontar para a tag nova, preservando remoto e escopo;
+atualize o marketplace e execute `claude plugin update html-didatico@html-didatico`.
 
-    agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v1.2.0
+Cursor, quando disponível:
 
-Depois, em `/plugin`, instale HTML Didático no escopo user.
+```sh
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.0.0
+```
 
-## Atualizar uma instalação existente
+Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.
 
-Confira a referência registrada no marketplace antes de atualizar. Uma instalação
-fixada em `v1.0.0` ou `v1.0.1` continua nessa tag mesmo que `main` já tenha versão
-nova. Um bump de versão não move tags antigas.
+Confira os caminhos e **as cinco skills** da instalação, separadamente do Git.
+Abra nova task/sessão para carregar o catálogo novo. Uma skill avulsa ou cópia
+em outro marketplace pode coexistir: identifique sua origem e relate a diferença;
+não apague nem substitua instalações independentes por suposição.
 
-Para passar a uma nova release, mude a referência do marketplace para a tag
-publicada usando o fluxo suportado pelo host, preservando o remoto e o escopo.
-Depois atualize o marketplace e o plugin:
+## Verificação e manutenção
 
-- Codex: `codex plugin marketplace upgrade html-didatico`.
-- Claude Code: `claude plugin marketplace update html-didatico` e
-  `claude plugin update html-didatico@html-didatico`.
-- Cursor: `agent plugin marketplace update` e a atualização em `/plugin`.
+Execute `python3 scripts/validate-package.py` para catálogo, versões e links.
+Os [casos de uso](tests/cases.md) cobrem as cinco saídas e roteamento ambíguo;
+a [verificação da 2.0.0](docs/verification-2.0.0.md) registra o que foi observado.
+A validação estrutural não simula a resposta de outro modelo ou o seletor de um
+host. A publicação segue [AGENTS.md](AGENTS.md).
 
-Confira a versão efetiva do plugin e as dez skills do catálogo, não apenas o
-README do checkout. Abra uma nova task/sessão para recarregar o catálogo.
-Uma skill avulsa antiga com o mesmo nome pode coexistir com o plugin: confira
-qual caminho o seletor usa antes de editar ou remover qualquer cópia.
+## Origem e créditos
 
-## Origem
-
-As skills viveram no Superflow (`plugins/superflow/skills/`) de 06/07/2026 a
-13/09/2026, quando o commit `04644e7` as removeu. Esta versão parte da última
-revisão de lá e acrescenta a narrativa para explicar sistemas, os primitivos de
-sistema, a referência de HTML de proof e as regras para HTML aberto por arquivo.
-
+As três skills originais viveram em `nmarcofernandess/superflow`, em
+`plugins/superflow/skills/`, de 06/07/2026 a 13/09/2026; o commit `04644e7` as
+removeu. O manual EscalaFlow de 10/06/2026 originou a gramática visual.
+A reorganização preserva os cinco exemplos e o material de escrita.
+*The Elements of Style* (1918), de William Strunk Jr., é texto de domínio público
+incluído com seus créditos em `references/escrita/elements-of-style.md` no plugin.

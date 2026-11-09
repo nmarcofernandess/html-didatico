@@ -1,7 +1,7 @@
 {
   "name": "html-didatico",
-  "version": "1.2.0",
-  "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+  "version": "2.0.0",
+  "description": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza.",
   "author": {
     "name": "Marco Antonio",
     "url": "https://github.com/nmarcofernandess"
@@ -9,8 +9,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "HTML Didático",
-    "shortDescription": "HTML didático, composição de componentes e proofs",
-    "longDescription": "Dez skills com chamada direta: html-didatico, manual-operacao, editorial, prova-final, prancha-decisao, blueprint-componentes, explicar-sistema, proof-html, explain-clearly e writing-clearly-and-concisely. Reúnem as cinco direções visuais, a narrativa de sistemas e o contrato de proofs, usando as mesmas referências e exemplos do plugin.",
+    "shortDescription": "HTML e explicações claras",
+    "longDescription": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza. Regras compartilhadas e playbooks carregados por formato; escrita e Elements of Style são recursos internos.",
     "developerName": "Marco Antonio",
     "category": "Productivity",
     "capabilities": [],

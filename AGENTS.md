@@ -1,12 +1,21 @@
 # HTML Didático · instruções de manutenção
 
-O conteúdo das skills mora em `plugins/html-didatico/skills/`. Os três manifestos
-do plugin (`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`) e os três
-marketplaces da raiz declaram a mesma versão; mude todos juntos.
+Skills públicas ficam em `plugins/html-didatico/skills/`: somente as cinco
+entradas documentadas no README. Recursos compartilhados e playbooks ficam em
+`plugins/html-didatico/references/`, sem `SKILL.md` interno ou aliases públicos.
+Cada regra tem um owner; carregue receitas e referências conforme a tarefa.
 
-Toda atualização termina em release: suba a versão nos seis arquivos, registre
-no CHANGELOG, faça a tag `vX.Y.Z` e publique a release. Depois atualize a
-instalação local e confira a versão efetiva em cada host.
+O manifesto portátil `plugin.json`, os três manifestos de compatibilidade
+(`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`) e os três marketplaces da
+raiz declaram a mesma versão; mude os sete arquivos juntos. Metadados Codex de
+cada skill usam `agents/openai.yaml` para o nome legível, mantendo IDs portáteis.
 
-Exemplos em `references/exemplos/` são documentos reais. Não os reescreva para
-ilustrar uma regra nova; acrescente um exemplo novo quando a regra pedir.
+Toda atualização termina em release: sincronize versões, registre no CHANGELOG,
+valide o pacote, faça a tag `vX.Y.Z` e publique a release. Depois atualize a
+instalação local pelo fluxo suportado e confira separadamente versão efetiva,
+origem e skills de cada host disponível. Não edite caches nem declare que uma
+sessão aberta recarregou o catálogo sem observação. Relate hosts indisponíveis.
+
+Exemplos em `references/exemplos/` são documentos históricos reais. Preserve
+seus bytes; não os reescreva para ilustrar regra nova nem trate seus status como
+fatos atuais. Acrescente exemplos de teste separados quando necessário.

@@ -1,69 +1,41 @@
 # HTML Didático
 
-Plugin com dez skills para transformar explicação técnica em documento que se
-entende sem tradutor.
+Cinco skills públicas por resultado:
 
-| Skill | Responsabilidade |
+| Nome | Entrada |
 |---|---|
-| [html-didatico](skills/html-didatico/SKILL.md) | Entrada geral: escolhe a direção adequada ao pedido. |
-| [manual-operacao](skills/manual-operacao/SKILL.md) | Direção A: manuais, onboarding, quickstarts e runbooks. |
-| [editorial](skills/editorial/SKILL.md) | Direção B: narrativa técnica, problema e decisão. |
-| [prova-final](skills/prova-final/SKILL.md) | Direção C: wireframe Rev. 0 e evidência real na Rev. 1. |
-| [prancha-decisao](skills/prancha-decisao/SKILL.md) | Direção D: alternativas da mesma estrutura e seus custos. |
-| [blueprint-componentes](skills/blueprint-componentes/SKILL.md) | Direção E: árvore, montagem dos primitivos ao específico e contratos laterais. |
-| [explicar-sistema](skills/explicar-sistema/SKILL.md) | Onde mora, como funciona, por que existe e quem usa; primitivos de sistema. |
-| [proof-html](skills/proof-html/SKILL.md) | Renderer oficial ou prova manual; anatomia e integridade das evidências. |
-| [explain-clearly](skills/explain-clearly/SKILL.md) | Reconstrução de significado, causas e consequências a partir das fontes. |
-| [writing-clearly-and-concisely](skills/writing-clearly-and-concisely/SKILL.md) | Revisão de frases, títulos, labels e legendas. |
+| HTML Didático | [html-didatico](skills/html-didatico/SKILL.md): explicações, manual, editorial e sistemas. |
+| HTML Wireframe | [html-wireframe](skills/html-wireframe/SKILL.md): maquetes e alternativas de interface. |
+| HTML Blueprint | [html-blueprint](skills/html-blueprint/SKILL.md): montagem, árvore e contratos. |
+| HTML Proof | [html-proof](skills/html-proof/SKILL.md): evidência e renderer oficial ou fluxo manual permitido. |
+| Explicar com Clareza | [explain-clearly](skills/explain-clearly/SKILL.md): significado e explicação, inclusive em texto. |
 
-## Chamada direta
+Use o namespace `html-didatico` seguido do ID. Nomes legíveis dependem do host;
+os metadados Codex estão em `agents/openai.yaml` de cada entrada.
 
-No Codex, selecione a skill pelo `$` e pelo nome do plugin. Exemplos:
+[Roteamento](references/roteamento.md), [fontes](references/fundamentos.md),
+[HTML portátil](references/html-portatil.md) e [escrita interna](references/escrita/guia.md)
+são recursos compartilhados. Playbooks e receitas ficam em `references/`, fora
+da descoberta de skills. Carregue só o formato pertinente. Não existem aliases
+públicos para os modos ou para `writing-clearly-and-concisely`.
 
-    $html-didatico:blueprint-componentes Mostre como este componente é montado.
-    $html-didatico:proof-html Revise a apresentação do renderer deste pack.
-    $html-didatico:prancha-decisao Compare estas duas estruturas.
-    $html-didatico:explicar-sistema Explique a organização dos testes deste projeto.
+O [playbook Proof](references/playbooks/proof.md) governa provas: pack ainda não
+gerado não demonstra ausência de renderer. Nunca edite à mão saída oficial.
+Os [exemplos A–E](references/exemplos/) são históricos, preservados sem alterações;
+seus assets externos e status não comprovam o estado atual dos projetos.
 
-Os demais nomes da tabela seguem o mesmo namespace `html-didatico`.
-No Claude Code, use `/html-didatico:nome-da-skill`. A apresentação do seletor
-pode variar por host. As entradas diretas usam os mesmos playbooks e receitas;
-não são cópias independentes. `html-didatico` continua disponível como entrada geral.
+Na migração da 1.2.0, manual-operacao, editorial e explicar-sistema viram modos de
+HTML Didático; prancha-decisao vira HTML Wireframe; blueprint-componentes vira
+HTML Blueprint; prova-final e proof-html se unem em HTML Proof. O ID explain-clearly
+permanece. A remoção dos antigos IDs motiva a versão 2.0.0.
 
-## Instalar
+Instale pela tag `v2.0.0` do repositório
+[nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
+usando o marketplace suportado pelo host e sua credencial. Confira versão,
+origem e cinco skills instaladas, e recarregue a sessão; o checkout sozinho não
+comprova atualização do catálogo.
 
-Veja o README da raiz do repositório.
-
-## Exemplos de origem
-
-`skills/html-didatico/references/exemplos/` guarda um HTML real por direção. O
-primeiro, `A-manual-escalaflow-quickstart.html` (10/06/2026), é o documento de
-onde o estilo nasceu: o manual de primeira escala do EscalaFlow.
-
-## Blueprint de composição
-
-A Direção E tem [playbook próprio](skills/html-didatico/references/blueprint-componentes.md)
-e [receita HTML exemplar](skills/html-didatico/references/exemplos/E-blueprint-componentes.html).
-Ela reconstrói a composição real, desenha `children` e slots dentro de suas
-fronteiras e acompanha cada camada com tipos, props, mods e fontes. Propostas
-são marcadas no ponto exato da mudança.
-
-## HTMLs de proof
-
-[`proof-html`](skills/proof-html/SKILL.md) dá acesso direto à [referência](skills/html-didatico/references/proof-html.md), que descreve os dois modos:
-
-1. **Projeto com renderer oficial** (DietFlow: `scripts/proof/render-pack.ts` +
-   `proof-pack.css`). O HTML publicado nunca é escrito à mão; a skill orienta o
-   renderer, que já usa a Direção A/C.
-2. **Sem renderer.** Direção C: o wireframe Rev. 0 nasce antes da execução e o
-   mesmo arquivo vira a prova preenchida (Rev. 1).
-
-## Origem
-
-Estas skills viviam no plugin Superflow (`nmarcofernandess/superflow`,
-`plugins/superflow/skills/`) de 06/07/2026 até 13/09/2026, quando o commit
-`04644e7` as removeu. Esta versão parte da última revisão de lá (Direções A–D,
-clareza sem burocracia, sub-skills de significado e escrita) e acrescenta, em
-05/11/2026, a narrativa para explicar sistemas, os primitivos de sistema
-(`receita.md` §12) e a referência de HTML de proof.
-
+Origem: Superflow, `plugins/superflow/skills/` (06/07/2026–13/09/2026, remoção
+`04644e7`); gramática visual do manual EscalaFlow (10/06/2026). William Strunk Jr.,
+*The Elements of Style* (1918), domínio público, permanece integral em
+[references/escrita/elements-of-style.md](references/escrita/elements-of-style.md).

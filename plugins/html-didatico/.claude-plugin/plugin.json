@@ -1,7 +1,7 @@
 {
   "name": "html-didatico",
-  "version": "1.2.0",
-  "description": "Documentos HTML didáticos com dioramas de CSS: manuais, explicações de sistemas, pranchas de decisão e HTMLs de proof.",
+  "version": "2.0.0",
+  "description": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza.",
   "author": {
     "name": "Marco Antonio",
     "url": "https://github.com/nmarcofernandess"

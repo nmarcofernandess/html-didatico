@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "html-didatico",
+  "version": "2.0.0",
+  "description": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza.",
+  "author": {
+    "name": "Marco Antonio",
+    "url": "https://github.com/nmarcofernandess"
+  },
+  "repository": "https://github.com/nmarcofernandess/html-didatico",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "html",
+    "didactic",
+    "diagrams",
+    "proof",
+    "documentation"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HTML Didático",
+        "shortDescription": "HTML e explicações claras",
+        "longDescription": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza. Regras compartilhadas e playbooks carregados por formato; escrita e Elements of Style são recursos internos.",
+        "developerName": "Marco Antonio",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Transforme esta explicação técnica num HTML didático autocontido: situe o leitor, mostre onde as coisas moram, como funcionam e por quê, com um diorama por seção."
+      }
+    }
+  }
+}
