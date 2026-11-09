@@ -74,10 +74,20 @@ codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
 
-Para atualizar o marketplace já existente, o comando `marketplace add` com a
-mesma origem e a nova `--ref` atualiza sua referência no Codex. Depois rode
-`codex plugin marketplace upgrade html-didatico` e confira o plugin instalado.
-Verifique o comportamento no `--help` da versão do host em uso.
+Para trocar uma tag fixa em instalação existente, o CLI Codex usado na
+verificação exige remover e adicionar novamente **a fonte desse marketplace**.
+Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
+
+```sh
+codex plugin marketplace remove html-didatico
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.0.0
+codex plugin marketplace upgrade html-didatico
+codex plugin add html-didatico@html-didatico
+```
+
+Confira `codex plugin list --marketplace html-didatico --json` e os cinco
+`SKILL.md` no caminho instalado. Verifique o `--help` do host antes de adaptar
+os comandos a outra versão.
 
 Claude Code:
 
@@ -87,9 +97,13 @@ claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
 
-Em instalação existente, confira a referência do marketplace. Use os comandos
-suportados pelo host para apontar para a tag nova, preservando remoto e escopo;
-atualize o marketplace e execute `claude plugin update html-didatico@html-didatico`.
+Em instalação existente, confira a referência e sua declaração. Na verificação,
+`extraKnownMarketplaces.html-didatico.source.ref` em `~/.claude/settings.json`
+fixava a tag antiga. Foi necessário mudar somente essa referência para `v2.0.0`
+antes de adicionar a mesma origem com a tag nova, preservando remoto e escopo.
+Depois rode `claude plugin marketplace update html-didatico` e
+`claude plugin update html-didatico@html-didatico`. Respeite declarações gerenciadas;
+um erro de origem precisa ser resolvido na declaração responsável.
 
 Cursor, quando disponível:
 

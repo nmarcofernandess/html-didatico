@@ -65,5 +65,29 @@ assets externos não incluídos; não foram usados como evidência atual.
 
 ## Publicação e instalação
 
-Pendente de execução no fechamento desta candidata. O checkout validado não
-comprova release publicada nem catálogo de host atualizado.
+A candidata foi commitada em `34b1d93`, publicada em `main` e identificada pela
+tag anotada `v2.0.0`. O ZIP portátil contém somente o plugin: cinco SKILL.md,
+referências, licença e manifestos, sem marketplaces nem fixtures de teste.
+O registro de fechamento é um commit documental posterior em `main`; o payload
+do plugin permanece byte a byte igual ao da tag. A release GitHub encerra essa
+mesma publicação; sua criação é verificada separadamente.
+
+| Destino | Resultado observado no fechamento |
+|---|---|
+| Codex, marketplace Git | 2.0.0 habilitada; origem SSH preservada, ref `v2.0.0`; cinco SKILL.md conferidos no diretório instalado. CLI exigiu remover/adicionar a fonte do marketplace para trocar a tag. |
+| Claude Code | Atualizado de 1.0.0 para 2.0.0 no escopo user; SHA instalado `34b1d93`; cinco SKILL.md conferidos. Declaração user da referência atualizada antes do fluxo oficial. O CLI informa reinício necessário. |
+| Plugin pessoal remoto | Mesmo ID e escopo USER/PRIVATE, release `pluginrel_6af13bac5cc0819193c8021356d607ba`, versão 2.0.0. Inventário relido: cinco skills, oito caminhos antigos removidos; autoria e defaultPrompt preservados. |
+| Cache Codex da origem pessoal remota | Continua em 1.0.1 no caminho observado. Publicação remota foi confirmada, atualização desse cache não foi observada. |
+| Catálogo carregado neste chat | Foi carregado antes da atualização. Não se declara recarga nem mudança do seletor desta sessão. |
+| Skill avulsa e Cursor | Avulsa preservada; Cursor indisponível. Não foram declarados atualizados. |
+
+A atribuição e o developerName específicos da conta pessoal foram preservados no
+ZIP dessa origem; sua lógica e referências vêm exclusivamente da tag Git publicada.
+Não houve edição manual de cache ou remoção da skill avulsa. O CLI Codex não lista
+a origem pessoal remota como marketplace configurado; ela é distribuída pelo host.
+Uma nova sessão/recarga ainda precisa confirmar o catálogo dessa origem.
+
+Os comandos corretos para trocar referências fixas foram incorporados ao README.
+As falhas iniciais de `marketplace add` eram divergências de referência/declaracão,
+não de permissão de edição do plugin. Não houve bypass de gate nem troca de conta
+GitHub: a API efetiva e o transporte da publicação usaram nmarcofernandess.
