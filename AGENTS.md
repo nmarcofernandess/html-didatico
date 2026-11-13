@@ -19,3 +19,10 @@ sessão aberta recarregou o catálogo sem observação. Relate hosts indisponív
 Exemplos em `references/exemplos/` são documentos históricos reais. Preserve
 seus bytes; não os reescreva para ilustrar regra nova nem trate seus status como
 fatos atuais. Acrescente exemplos de teste separados quando necessário.
+
+O sistema visual de HTML Didático tem fonte única em
+`plugins/html-didatico/references/kit/` (`kit.css`, `kit.js`, `sprite.svg`).
+Depois de mudá-la, rode `node plugins/html-didatico/scripts/montar.mjs` para
+regerar `starter.html` e `pecas.html`, atualize os exemplos-ouro com
+`--atualizar` e rode `scripts/check.mjs` nos três. Os exemplos-ouro em
+`references/kit/ouro/` são vivos e acompanham o kit; os históricos A–E não.

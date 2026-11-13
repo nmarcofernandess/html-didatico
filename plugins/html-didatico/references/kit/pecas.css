@@ -1,0 +1,21 @@
+/* Folha de peças: catálogo, não composição. Para compor, parta de um exemplo-ouro em ouro/. */
+.looks { display: flex; gap: var(--gap-inside); margin-top: var(--gap-block); }
+.looks button { cursor: pointer; }
+.specimens { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--gap-block); align-items: start; }
+.specimens--wide { grid-template-columns: minmax(0, 1fr); }
+.scale { display: grid; gap: var(--gap-inside); font-size: var(--text-small); }
+.scale > li { display: grid; grid-template-columns: 8.5rem 1.5rem 6rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: center; }
+.scale > li > code { justify-self: start; }
+.scale > li > i { display: block; height: var(--s-3); width: var(--v); background: var(--color-ink); }
+.scale > li > span { color: var(--color-ink-2); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: var(--gap-pieces); font-size: var(--text-micro); }
+.swatches > li { display: grid; gap: var(--gap-tied); }
+.swatches > li > i { display: block; height: var(--s-7); border: var(--line) solid var(--color-rule); border-radius: var(--radius-s); background: var(--c); }
+.roles { display: grid; gap: var(--gap-text); }
+.roles > li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; }
+.roles > li > code { justify-self: start; }
+@media (max-width: 46rem) {
+  .scale > li { grid-template-columns: 8.5rem 1.5rem minmax(0, 1fr); }
+  .scale > li > i { display: none; }
+  .roles > li { grid-template-columns: minmax(0, 1fr); gap: var(--gap-tied); }
+}

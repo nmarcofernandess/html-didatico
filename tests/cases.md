@@ -12,6 +12,11 @@ das instruções e as saídas produzidas nesta revisão.
 | HTML Proof | “Apresente o resultado da validação deste pacote.” | `python3 scripts/validate-package.py`; [exemplo](examples/proof.html) apresenta saída de máquina observada, sem screenshot inventado e com limites do teste. |
 | Explicar com Clareza | “Explique por que uma tag nova não atualiza uma instalação fixada na antiga, em texto.” | Referência fixa do marketplace; [resposta](examples/clareza.md) mantém cadeia causal e não gera HTML. |
 
+Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html)
+e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), são o caso de regressão visual:
+`node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos dois e na
+[folha de peças](../plugins/html-didatico/references/kit/pecas.html).
+
 ## Casos de fronteira
 
 | Pedido/contexto | Rota e resultado esperado |

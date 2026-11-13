@@ -1,0 +1,27 @@
+<div class="page">
+
+  <header class="cover">
+    <div class="plate"><span>{{tipo do documento}} <b>{{identificador}}</b></span><span>{{data}}</span></div>
+    <h1>{{título}}</h1>
+    <p class="cover__sub">{{o que é, em uma linha}}</p>
+    <p class="cover__lead">{{o que o leitor consegue fazer quando terminar}}</p>
+  </header>
+
+  <main>
+    <!-- Escreva só aqui. A marcação de cada peça está em references/kit/pecas.html; o exemplo-ouro
+         mais próximo em references/kit/ouro/ mostra a composição. Uma parte = um assunto, um título, uma figura. -->
+    <section class="part part--side" id="{{id}}">
+      <div class="prose">
+        <h2>{{título da parte}}</h2>
+        <p>{{texto}}</p>
+      </div>
+      <figure class="fig">
+        <div class="fig__stage">{{cena}}</div>
+        <figcaption>{{o que a figura mostra}}</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <footer class="foot"><span>{{produto ou projeto}}</span><span>{{identificador}} · {{data}}</span></footer>
+
+</div>

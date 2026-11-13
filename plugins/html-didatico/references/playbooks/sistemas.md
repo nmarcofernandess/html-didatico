@@ -15,8 +15,10 @@ Desambigue termos antes de usá-los. Use 1–2 frases por bloco quando bastar; o
 mecanismo carrega os detalhes. Números e caminhos vêm das fontes; aproximações
 são identificadas. O que existe mas não roda aparece como limite/tracejado.
 
-Leia os [primitivos de sistema](../visual/sistemas.md) conforme a figura necessária:
-explorer, editor com linhas marcadas, chave, árvore, camadas, barras com contagem
-real e linha do tempo. Ícones em CSS/SVG de traço; trechos de código literais,
-abreviados com indicação de recorte. Para anatomia com children/slots/types,
-o resultado específico pertence a HTML Blueprint.
+Monte as figuras com as peças de esquema do [kit](../kit/pecas.html), conforme a
+figura necessária: explorer (`files`), editor com linhas marcadas (`code`), chave
+(`toggle`), árvore (`tree`), camadas (`layers`), barras com contagem real (`bars`)
+e linha do tempo (`timeline`). As regras de cada uma estão em
+[Design](../visual/design.md#esquema). Ícones do sprite do kit; trechos de código
+literais, abreviados com indicação de recorte. Para anatomia com
+children/slots/types, o resultado específico pertence a HTML Blueprint.

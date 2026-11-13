@@ -1,0 +1,9 @@
+{
+  "name": "html-didatico-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Dependência do check: npm install nesta pasta, depois npx playwright install chromium.",
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

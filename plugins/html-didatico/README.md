@@ -19,6 +19,11 @@ são recursos compartilhados. Playbooks e receitas ficam em `references/`, fora
 da descoberta de skills. Carregue só o formato pertinente. Não existem aliases
 públicos para os modos ou para `writing-clearly-and-concisely`.
 
+HTML Didático nasce do [kit](references/kit/pecas.html): copia-se o [starter](references/kit/starter.html),
+escreve-se só a página e roda-se o [check](scripts/check.mjs). [Conteúdo](references/conteudo.md)
+e [design](references/visual/design.md) dizem o que escrever e como desenhar; os
+[exemplos-ouro](references/kit/ouro/) são o padrão de qualidade.
+
 O [playbook Proof](references/playbooks/proof.md) governa provas: pack ainda não
 gerado não demonstra ausência de renderer. Nunca edite à mão saída oficial.
 Os [exemplos A–E](references/exemplos/) são históricos, preservados sem alterações;
@@ -29,7 +34,7 @@ HTML Didático; prancha-decisao vira HTML Wireframe; blueprint-componentes vira
 HTML Blueprint; prova-final e proof-html se unem em HTML Proof. O ID explain-clearly
 permanece. A remoção dos antigos IDs motiva a versão 2.0.0.
 
-Instale pela tag `v2.0.0` do repositório
+Instale pela tag `v2.1.0` do repositório
 [nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
 usando o marketplace suportado pelo host e sua credencial. Confira versão,
 origem e cinco skills instaladas, e recarregue a sessão; o checkout sozinho não
