@@ -39,5 +39,10 @@ HTML e assets como pacote. Não altere saída gerada para satisfazer esta receit
    de produto apenas para revisar apresentação: a seleção segue a propriedade
    e o contrato do projeto.
 
+Em HTML Didático, o [check](../scripts/check.mjs) executa a parte mensurável dos
+passos 1 e 2: renderiza em 390, 768 e 1280 px, salva os screenshots e mede texto
+pequeno, contraste, cortes, vazamentos e densidade. Olhar os screenshots continua
+sendo trabalho do autor.
+
 A [base visual](visual/base.md) e o [motion](visual/motion.md) oferecem snippets
-opcionais. Adapte reveal para manter a leitura sem JS e em movimento reduzido.
+opcionais para os formatos que ainda não usam o [kit](kit/pecas.html). Adapte reveal para manter a leitura sem JS e em movimento reduzido.
