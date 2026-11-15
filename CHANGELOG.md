@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 — 13/11/2026
+## 2.1.0 — 15/11/2026
 
 - HTML Didático nasce de um kit: `references/kit/` traz tokens, dois looks (manual e editorial), peças de página, de cena e de esquema, o starter e a folha de peças. Espaço por função em escala de base 4; toda cor em token.
 - Dois exemplos-ouro em `references/kit/ouro/`: passo a passo (o manual do EscalaFlow refeito no kit) e explicação.
@@ -8,6 +8,7 @@
 - `scripts/check.mjs` renderiza em três larguras e mede; `scripts/montar.mjs` regera starter e folha de peças a partir de `kit.css`.
 - Playbook didático reescrito como processo de sete passos. O modo sistemas usa as peças do kit.
 - Saem `visual/sistemas.md`, `visual/tokens-editorial.md` e `visual/anatomia-editorial.md`, substituídos pelo kit. Tokens e anatomia de manual, dioramas, base e motion permanecem para HTML Proof.
+- `tools/design-system/gerar.mjs` gera, a partir do kit, os arquivos do design system no Claude; `docs/MANUTENCAO.md` descreve o ciclo de atualização. Os dois ficam fora do pacote instalado.
 - Mudanças visuais sobre a gramática do exemplo A: rótulos em caixa de frase, texto de 12px ou mais, contraste AA, texto sempre na mesma coluna, superfícies com fio no lugar da sombra deslocada, legenda sob a figura com numeração automática. Exemplos históricos A–E preservados.
 
 ## 2.0.0 — 09/11/2026
