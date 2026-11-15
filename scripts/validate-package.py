@@ -39,8 +39,13 @@ def anchors(path):
     return found
 
 
+def packaged(root, pattern):
+    # node_modules (dependência local do check) fica fora do Git e do pacote.
+    return [p for p in root.rglob(pattern) if "node_modules" not in p.parts]
+
+
 def validate():
-    discovered = sorted(PLUGIN.rglob("SKILL.md"))
+    discovered = sorted(packaged(PLUGIN, "SKILL.md"))
     assert {p.parent.name for p in discovered} == set(EXPECTED), discovered
     assert len(discovered) == 5, discovered
     for skill in discovered:
@@ -79,7 +84,7 @@ def validate():
         assert (ROOT / source).resolve() == PLUGIN, marketplace
 
     links = 0
-    for document in ROOT.rglob("*.md"):
+    for document in packaged(ROOT, "*.md"):
         if ".git" in document.parts:
             continue
         # Inline code and fenced examples are not Markdown links.
