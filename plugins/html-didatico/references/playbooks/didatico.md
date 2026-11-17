@@ -48,7 +48,7 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 
 ## Variações
 
-Uma base e três parâmetros. Nenhum deles é uma nova entrada pública.
+Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
 
 - **Look** é um bloco de tokens: `manual` para operação, onboarding, quickstart e
   runbook; `editorial` para problema, mecanismo, decisão e narrativa. Um look
@@ -61,6 +61,8 @@ Uma base e três parâmetros. Nenhum deles é uma nova entrada pública.
 - **Anatomia** vem da pergunta do leitor e do exemplo-ouro correspondente.
 - **Sistemas** soma a sequência narrativa do [modo sistemas](sistemas.md) e usa
   as peças de esquema do kit.
+- **Aula** consolida um assunto em construção, com tabs abertas pelo pedido; a
+  gramática está no [playbook Aula](aula.md).
 
 ## Entrega
 

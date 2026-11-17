@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "html-didatico",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "description": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza.",
       "source": {
         "source": "local",

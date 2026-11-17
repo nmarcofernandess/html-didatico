@@ -57,6 +57,8 @@ for (const w of widths) {
   const page = await ctx.newPage()
   await page.goto(pathToFileURL(resolve(file)).href)
   await page.waitForTimeout(250)
+  // Abas: o check lê todas as camadas, uma abaixo da outra, como na impressão.
+  await page.evaluate(() => document.querySelectorAll('.tabs__panel[hidden]').forEach(p => { p.hidden = false }))
   const shot = resolve(outDir, `${nome}-${w}.png`)
   await page.screenshot({ path: shot, fullPage: true })
 

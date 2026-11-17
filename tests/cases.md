@@ -33,6 +33,10 @@ e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), 
 | Mesmo projeto, resultado real obtido | Preencher o mesmo arquivo e atualizar revisão/veredito. |
 | “Faça um mural e cite este pack” | HTML Didático, link para o pack; mural não vira proof. |
 | “Revise só a pontuação” | Recurso interno de escrita; sem HTML obrigatório. |
+| “Faça uma aula de como a dose é calculada” | HTML Didático, playbook Aula: só a tab Aula, sem barra de tabs. |
+| “Uma aula e um teste do pedido de exames” | Playbook Aula com Aula e Na tela; o protótipo funciona no clique e mostra só o decidido. |
+| “Estou entre duas faixas para o Triglicerídeos” | Playbook Aula com Aula e Dúvidas: uma subtab, três passos, recomendada marcada, “Responda no chat”. |
+| Aula existente; o usuário respondeu “2A” | Mesmo documento: a dúvida sai, a lei entra datada, Aula e Na tela refletem; nada contradiz uma lei sem nova decisão. |
 
 Avalie as rotas contra `references/roteamento.md` no pacote. Exercite a regressão
 do renderer com fontes que comprovem sua existência e ausência do pack; o título

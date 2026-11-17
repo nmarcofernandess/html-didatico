@@ -46,6 +46,7 @@ if (i >= 0) {
   if (a < 0 || b < 0) { console.error('Este arquivo não tem os marcadores do kit.'); process.exit(1) }
   html = html.slice(0, a) + INI + '\n' + css + '\n' + html.slice(b)
   html = html.replace(/<svg class="sprite"[\s\S]*?<\/svg>/, sprite)
+  html = html.replace(/<script>\n\/\/ html-didatico · kit[\s\S]*?<\/script>/, () => `<script>\n${js}\n</script>`)
   writeFileSync(alvo, html)
   console.log('kit atualizado em', alvo)
 } else {

@@ -100,6 +100,26 @@
         <div class="tabs__panel" id="aba-arquitetura" role="tabpanel"><section class="part"><div class="prose"><p>A camada de arquitetura: a árvore de arquivos e um caso seguido da tela até a gravação.</p></div></section></div>
       </div>
 
+      <div class="tabs">
+        <div class="tabs__list" role="tablist">
+          <button role="tab" type="button" aria-controls="aba-aula">Aula</button>
+          <button role="tab" type="button" aria-controls="aba-duvidas">Dúvidas</button>
+        </div>
+        <div class="tabs__panel" id="aba-aula" role="tabpanel"><section class="part"><div class="prose"><p>Abas de uma aula. A dúvida aberta é citada por link: <a href="#duvida-2">dúvida 2</a>.</p></div></section></div>
+        <div class="tabs__panel" id="aba-duvidas" role="tabpanel">
+          <section class="part">
+            <div class="tabs tabs--sub">
+              <div class="tabs__list" role="tablist">
+                <button role="tab" type="button" aria-controls="duvida-1">1 · Uma dúvida</button>
+                <button role="tab" type="button" aria-controls="duvida-2">2 · Outra dúvida</button>
+              </div>
+              <div class="tabs__panel" id="duvida-1" role="tabpanel"><div class="prose"><p><code>tabs tabs--sub</code>: abas dentro de uma aba, uma por dúvida.</p></div></div>
+              <div class="tabs__panel" id="duvida-2" role="tabpanel"><div class="prose"><p>O endereço <code>#duvida-2</code> abre a aba Dúvidas e esta subtab.</p></div></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
       <aside class="band">
         <div class="prose"><h2>Faixa</h2><p>Um caminho alternativo. No máximo uma por documento.</p></div>
         <div class="stack"><code>um comando ou uma frase digitada</code></div>

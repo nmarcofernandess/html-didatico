@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0 — 17/11/2026
+
+- Playbook Aula em HTML Didático: um assunto em construção consolidado em um HTML, com as tabs que o pedido pede. Aula existe sempre, em quadros-pergunta; Na tela é um protótipo funcional do estado decidido; Dúvidas tem uma subtab por dúvida, com a comparação e a recomendada; Leis guarda só as decisões do usuário, datadas, contra regressão; Roadmap entra quando pedido ou quando uma lei muda o produto.
+- Kit: abas dentro de abas (`tabs tabs--sub`) e endereço `#id` que abre as abas que contêm o alvo. A folha de peças mostra as subtabs.
+- `scripts/check.mjs` lê todas as abas de um documento, uma abaixo da outra.
+- `scripts/montar.mjs --atualizar` passa a reembutir também o `kit.js`.
+- Roteamento, Conteúdo e casos de teste reconhecem a aula como modo de HTML Didático.
+
 ## 2.1.0 — 15/11/2026
 
 - HTML Didático nasce de um kit: `references/kit/` traz tokens, dois looks (manual e editorial), peças de página, de cena e de esquema, o starter e a folha de peças. Espaço por função em escala de base 4; toda cor em token.

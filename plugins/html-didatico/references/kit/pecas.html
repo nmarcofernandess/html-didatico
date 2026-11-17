@@ -245,6 +245,9 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 .tabs__list button { appearance: none; background: none; border: 0; border-bottom: var(--line-strong) solid transparent; margin-bottom: calc(-1 * var(--line)); padding: var(--s-3) 0; font: 600 var(--text-body)/1.3 var(--font-body); color: var(--color-ink-3); cursor: pointer; }
 .tabs__list button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
 .js .tabs__panel[hidden] { display: none; }
+/* Subtabs: abas dentro de uma aba, uma por item da mesma lista (as dúvidas de uma aula). */
+.tabs--sub > .tabs__list { gap: var(--s-4); margin-bottom: var(--gap-block); }
+.tabs--sub > .tabs__list button { font-size: var(--text-small); }
 
 /* Colunas: duas coisas equivalentes lado a lado, como uma comparação. Empilham no celular. */
 .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-block); align-items: start; }
@@ -635,6 +638,26 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
         <div class="tabs__panel" id="aba-arquitetura" role="tabpanel"><section class="part"><div class="prose"><p>A camada de arquitetura: a árvore de arquivos e um caso seguido da tela até a gravação.</p></div></section></div>
       </div>
 
+      <div class="tabs">
+        <div class="tabs__list" role="tablist">
+          <button role="tab" type="button" aria-controls="aba-aula">Aula</button>
+          <button role="tab" type="button" aria-controls="aba-duvidas">Dúvidas</button>
+        </div>
+        <div class="tabs__panel" id="aba-aula" role="tabpanel"><section class="part"><div class="prose"><p>Abas de uma aula. A dúvida aberta é citada por link: <a href="#duvida-2">dúvida 2</a>.</p></div></section></div>
+        <div class="tabs__panel" id="aba-duvidas" role="tabpanel">
+          <section class="part">
+            <div class="tabs tabs--sub">
+              <div class="tabs__list" role="tablist">
+                <button role="tab" type="button" aria-controls="duvida-1">1 · Uma dúvida</button>
+                <button role="tab" type="button" aria-controls="duvida-2">2 · Outra dúvida</button>
+              </div>
+              <div class="tabs__panel" id="duvida-1" role="tabpanel"><div class="prose"><p><code>tabs tabs--sub</code>: abas dentro de uma aba, uma por dúvida.</p></div></div>
+              <div class="tabs__panel" id="duvida-2" role="tabpanel"><div class="prose"><p>O endereço <code>#duvida-2</code> abre a aba Dúvidas e esta subtab.</p></div></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
       <aside class="band">
         <div class="prose"><h2>Faixa</h2><p>Um caminho alternativo. No máximo uma por documento.</p></div>
         <div class="stack"><code>um comando ou uma frase digitada</code></div>
@@ -838,8 +861,10 @@ for (const box of document.querySelectorAll('.check')) {
 }
 
 // Abas: uma camada por vez. Sem script, todas as camadas ficam visíveis, uma abaixo da outra.
-for (const abas of document.querySelectorAll('.tabs')) {
-  const botoes = [...abas.querySelectorAll('[role=tab]')]
+// Cada .tabs controla só a própria lista, então abas dentro de abas (subtabs) funcionam.
+const abas = [...document.querySelectorAll('.tabs')].map(caixa => {
+  const lista = caixa.querySelector(':scope > .tabs__list')
+  const botoes = lista ? [...lista.querySelectorAll('[role=tab]')] : []
   const abre = id => botoes.forEach(b => {
     const ativo = b.getAttribute('aria-controls') === id
     b.setAttribute('aria-selected', String(ativo))
@@ -847,7 +872,20 @@ for (const abas of document.querySelectorAll('.tabs')) {
   })
   botoes.forEach(b => b.addEventListener('click', () => abre(b.getAttribute('aria-controls'))))
   if (botoes[0]) abre(botoes[0].getAttribute('aria-controls'))
+  return { botoes, abre }
+})
+
+// Endereço: #id abre as abas que contêm o alvo, de fora para dentro, e rola até ele.
+const irPara = () => {
+  const alvo = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+  if (!alvo) return
+  const paineis = []
+  for (let el = alvo; el; el = el.parentElement) if (el.matches('.tabs__panel')) paineis.unshift(el)
+  for (const p of paineis) for (const a of abas) if (a.botoes.some(b => b.getAttribute('aria-controls') === p.id)) a.abre(p.id)
+  alvo.scrollIntoView()
 }
+addEventListener('hashchange', irPara)
+irPara()
 </script>
 </body>
 </html>

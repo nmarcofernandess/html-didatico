@@ -29,6 +29,7 @@ Defina quem lê, o que já sabe e o que precisa conseguir fazer quando terminar.
 | Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | [passo a passo](kit/ouro/passo-a-passo.html) |
 | Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | [explicação](kit/ouro/explicacao.html) |
 | Onde estamos? | Mural | O estado de cada frente, o que mudou desde a última vez, o que falta, a próxima ação | derive da explicação: tabela de frentes com status |
+| Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [playbook Aula](playbooks/aula.md) |
 
 **Camada.** Por padrão o documento fala do produto: o que a pessoa encontra, faz e obtém. Quando o mesmo documento também orienta quem vai mexer no código, abra uma aba Arquitetura (peça `tabs`) com uma árvore curta de arquivos, a responsabilidade de cada um, e um caso seguido da tela até a gravação.
 

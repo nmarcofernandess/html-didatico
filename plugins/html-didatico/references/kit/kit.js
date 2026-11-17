@@ -10,8 +10,10 @@ for (const box of document.querySelectorAll('.check')) {
 }
 
 // Abas: uma camada por vez. Sem script, todas as camadas ficam visíveis, uma abaixo da outra.
-for (const abas of document.querySelectorAll('.tabs')) {
-  const botoes = [...abas.querySelectorAll('[role=tab]')]
+// Cada .tabs controla só a própria lista, então abas dentro de abas (subtabs) funcionam.
+const abas = [...document.querySelectorAll('.tabs')].map(caixa => {
+  const lista = caixa.querySelector(':scope > .tabs__list')
+  const botoes = lista ? [...lista.querySelectorAll('[role=tab]')] : []
   const abre = id => botoes.forEach(b => {
     const ativo = b.getAttribute('aria-controls') === id
     b.setAttribute('aria-selected', String(ativo))
@@ -19,4 +21,17 @@ for (const abas of document.querySelectorAll('.tabs')) {
   })
   botoes.forEach(b => b.addEventListener('click', () => abre(b.getAttribute('aria-controls'))))
   if (botoes[0]) abre(botoes[0].getAttribute('aria-controls'))
+  return { botoes, abre }
+})
+
+// Endereço: #id abre as abas que contêm o alvo, de fora para dentro, e rola até ele.
+const irPara = () => {
+  const alvo = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+  if (!alvo) return
+  const paineis = []
+  for (let el = alvo; el; el = el.parentElement) if (el.matches('.tabs__panel')) paineis.unshift(el)
+  for (const p of paineis) for (const a of abas) if (a.botoes.some(b => b.getAttribute('aria-controls') === p.id)) a.abre(p.id)
+  alvo.scrollIntoView()
 }
+addEventListener('hashchange', irPara)
+irPara()

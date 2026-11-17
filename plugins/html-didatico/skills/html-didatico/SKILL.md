@@ -1,6 +1,6 @@
 ---
 name: html-didatico
-description: "Cria explicações, manuais, quickstarts e narrativas de sistemas em HTML portátil, com fontes verificáveis e dioramas."
+description: "Cria explicações, manuais, quickstarts, aulas e narrativas de sistemas em HTML portátil, com fontes verificáveis e dioramas. Aula consolida um assunto em decisão, com Na tela, Dúvidas e Leis quando o pedido pede."
 ---
 
 # HTML Didático
@@ -11,6 +11,8 @@ description: "Cria explicações, manuais, quickstarts e narrativas de sistemas 
    espinha, cópia do [starter do kit](../../references/kit/starter.html), página,
    figuras, prova e leitura. Manual e editorial são looks do mesmo kit. Para
    organização de sistemas, acrescente o [modo sistemas](../../references/playbooks/sistemas.md).
+   Para consolidar um assunto em construção (como funciona, protótipo, dúvidas
+   e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md).
 3. Reconstrua o significado quando necessário, monte as figuras com as peças do
    kit e rode o [check](../../scripts/check.mjs) antes de entregar. Entregue o
    HTML com fontes, limites e os avisos que ficaram.
