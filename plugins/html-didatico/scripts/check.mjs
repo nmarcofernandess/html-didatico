@@ -6,7 +6,8 @@
 
 import { createRequire } from 'node:module'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { basename, dirname, resolve } from 'node:path'
+import { basename, dirname, join, resolve } from 'node:path'
+import { tmpdir } from 'node:os'
 import { pathToFileURL } from 'node:url'
 
 const args = process.argv.slice(2)
@@ -17,7 +18,7 @@ if (!file || !existsSync(file)) {
   process.exit(2)
 }
 const widths = (opt('widths') ?? '390,768,1280').split(',').map(Number)
-const outDir = resolve(opt('out') ?? resolve(dirname(file), '.check'))
+const outDir = resolve(opt('out') ?? join(tmpdir(), 'html-didatico-check'))
 const asJson = args.includes('--json')
 
 let chromium

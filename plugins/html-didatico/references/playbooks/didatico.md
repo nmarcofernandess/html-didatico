@@ -26,14 +26,18 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    segue a seção 4 de Conteúdo.
 5. **Figuras.** Leia [Design](../visual/design.md) e monte cada cena pelo método
    de lá, partindo da cena mais próxima do exemplo-ouro.
-6. **Prova.** Rode o [check](../../scripts/check.mjs): `node scripts/check.mjs <arquivo.html>`,
-   a partir da raiz do plugin. Conserte toda FALHA; conserte ou justifique cada
+6. **Prova, quando pedida ou necessária.** Não é passo de toda entrega: rode
+   quando o usuário pedir, ou quando o risco só aparece no render. O
+   [check](../../scripts/check.mjs) (`node scripts/check.mjs <arquivo.html>`, a
+   partir da raiz do plugin) grava seus screenshots numa pasta temporária, nunca
+   ao lado do documento. Conserte toda FALHA; conserte ou justifique cada
    AVISO. Depois abra os screenshots de 390 e 1280 e compare com o exemplo-ouro:
    se o seu é o mais carregado, o mais vazio ou o mais chapado dos dois, esse é o
    próximo conserto. Ordem: conteúdo, enquadramento, hierarquia, acabamento. Uma
    inspeção, um lote de consertos, uma confirmação.
-7. **Leitura.** Faça o teste de uma leitura (seção 5 de Conteúdo) e aplique os
-   cortes.
+7. **Leitura.** Aplique os cortes da seção 5 de Conteúdo. O teste de uma
+   leitura com outro leitor fica para quando o usuário pedir ou o documento for
+   longo.
 
 ## O que não muda
 
@@ -67,8 +71,5 @@ Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
 ## Entrega
 
 Entregue o arquivo e, em poucas linhas: a anatomia e o look escolhidos, as fontes
-lidas, o que a fonte não deu, e os avisos do check que ficaram, cada um com o
-motivo.
-
-Sem Node ou Playwright, siga a verificação do [contrato HTML](../html-portatil.md)
-com a ferramenta de navegador disponível e diga na entrega que o check não rodou.
+lidas e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
+com o motivo; se não rodou, não é preciso dizer nada.

@@ -81,7 +81,7 @@ Gaste palavras onde a ficha sabe mais: uma parte pode ter duas linhas e a seguin
 
 ## 5. Revisão
 
-**Teste de uma leitura.** É o portão de paráfrase de [Reconstruir significado](clareza.md#closed-book-paraphrase-gate), aplicado ao documento pronto. Alguém que nunca viu o assunto lê uma vez e explica para outra pessoa, com as mesmas palavras do documento, o que é, como usa, o que acontece e o que muda o resultado. Com subagente disponível, entregue a ele só o texto do documento e faça essas quatro perguntas. Se ele precisa voltar para achar a regra, reorganize. Se ele já consegue explicar e o texto continua, corte dali em diante.
+**Teste de uma leitura, quando pedido ou com documento longo.** É o portão de paráfrase de [Reconstruir significado](clareza.md#closed-book-paraphrase-gate), aplicado ao documento pronto. Alguém que nunca viu o assunto lê uma vez e explica para outra pessoa, com as mesmas palavras do documento, o que é, como usa, o que acontece e o que muda o resultado. Com subagente disponível, entregue a ele só o texto do documento e faça essas quatro perguntas. Se ele precisa voltar para achar a regra, reorganize. Se ele já consegue explicar e o texto continua, corte dali em diante.
 
 **Cortes, cada um com o que entra no lugar:**
 

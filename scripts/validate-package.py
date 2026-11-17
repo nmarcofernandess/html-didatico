@@ -40,8 +40,8 @@ def anchors(path):
 
 
 def packaged(root, pattern):
-    # node_modules (dependência local do check) fica fora do Git e do pacote.
-    return [p for p in root.rglob(pattern) if "node_modules" not in p.parts]
+    # Pastas geradas e ignoradas pelo Git (dependência do check, saída do design system) ficam fora.
+    return [p for p in root.rglob(pattern) if not {"node_modules", "saida"} & set(p.parts)]
 
 
 def validate():

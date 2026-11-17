@@ -11,7 +11,8 @@ description: "Cria maquetes HTML de interfaces e compara alternativas de layout 
    receita e exemplo. Defina a interface e os estados; compare alternativas
    somente quando a decisão pedir.
 3. Desenhe a estrutura, identifique propostas e simulações, explique custos e
-   decisões pendentes. Inspecione nas larguras pertinentes e entregue o HTML.
+   decisões pendentes e entregue o HTML. Inspecione no render quando pedido ou quando a
+   estrutura só se confirma vendo.
 
 Maquete aprovada expressa intenção de produto; não comprova implementação.
 Se a pergunta é montagem de componentes e APIs, use HTML Blueprint. Slots de

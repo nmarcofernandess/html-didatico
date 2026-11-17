@@ -233,8 +233,8 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 .band .stack { display: grid; gap: var(--gap-inside); justify-items: start; }
 
 /* Abas: camadas do mesmo documento para leitores diferentes (Produto, Arquitetura). */
-.tabs__list { display: flex; gap: var(--s-5); border-bottom: var(--line) solid var(--color-rule); }
-.tabs__list button { appearance: none; background: none; border: 0; border-bottom: var(--line-strong) solid transparent; margin-bottom: calc(-1 * var(--line)); padding: var(--s-3) 0; font: 600 var(--text-body)/1.3 var(--font-body); color: var(--color-ink-3); cursor: pointer; }
+.tabs__list { display: flex; gap: var(--s-5); overflow-x: auto; border-bottom: var(--line) solid var(--color-rule); }
+.tabs__list button { flex: none; white-space: nowrap; appearance: none; background: none; border: 0; border-bottom: var(--line-strong) solid transparent; margin-bottom: calc(-1 * var(--line)); padding: var(--s-3) 0; font: 600 var(--text-body)/1.3 var(--font-body); color: var(--color-ink-3); cursor: pointer; }
 .tabs__list button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
 .js .tabs__panel[hidden] { display: none; }
 /* Subtabs: abas dentro de uma aba, uma por item da mesma lista (as dúvidas de uma aula). */

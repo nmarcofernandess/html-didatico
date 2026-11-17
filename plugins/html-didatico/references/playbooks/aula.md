@@ -6,8 +6,8 @@ HTML só. A tab Aula existe sempre; as outras entram quando o pedido ou o estado
 do trabalho pedem, e nunca para mostrar processo. Pedido pequeno, documento
 pequeno.
 
-Este playbook soma ao [didático](didatico.md): ficha, kit, figuras, check e
-leitura seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
+Este playbook soma ao [didático](didatico.md): ficha, kit, figuras e leitura
+seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
 
 ## O roteador
 
@@ -141,15 +141,18 @@ Quando o usuário responde uma dúvida:
 Atualize o mesmo documento, preservando o que segue correto. Dúvidas encolhe a
 cada rodada; tab sem material sai.
 
-## Forma e prova
+## Forma
 
 - Copie o [starter](../kit/starter.html). As tabs principais são a peça `tabs`
   no lugar das partes soltas. O look segue o assunto: `editorial` para modelo,
   regra e decisão; `manual` quando a aula ensina uma operação.
 - Com a skill `olho-semicerrado` disponível, use-a na composição e na revisão.
-- Rode o [check](../../scripts/check.mjs): ele lê todas as tabs, uma abaixo da
-  outra. Depois abra o documento e exercite cada tab, cada subtab, os links
-  `#duvida-n` e os controles do protótipo, em 390 e 1280 px.
+- Verificar é opcional: quando pedido, ou quando o protótipo tem comportamento
+  que só o clique confirma. O [check](../../scripts/check.mjs) lê todas as tabs,
+  uma abaixo da outra; o resto é exercitar tabs, subtabs, links `#duvida-n` e os
+  controles do protótipo. Nada disso é salvo junto da aula.
+- A aula é um arquivo só. Bancada, boards, censo e scripts de geração não ficam
+  ao lado dela: o que importa deles entra destilado nas tabs.
 
 ## Entrega
 

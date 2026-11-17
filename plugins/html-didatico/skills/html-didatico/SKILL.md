@@ -13,9 +13,10 @@ description: "Cria explicações, manuais, quickstarts, aulas e narrativas de si
    organização de sistemas, acrescente o [modo sistemas](../../references/playbooks/sistemas.md).
    Para consolidar um assunto em construção (como funciona, protótipo, dúvidas
    e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md).
-3. Reconstrua o significado quando necessário, monte as figuras com as peças do
-   kit e rode o [check](../../scripts/check.mjs) antes de entregar. Entregue o
-   HTML com fontes, limites e os avisos que ficaram.
+3. Reconstrua o significado quando necessário e monte as figuras com as peças do
+   kit. Entregue um HTML só, com fontes e limites. O [check](../../scripts/check.mjs)
+   e a inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de
+   verificação é salvo junto do documento.
 
 Para layout a decidir, use HTML Wireframe; montagem com contratos, HTML Blueprint;
 evidência de execução, HTML Proof. Sem pedido HTML, uma explicação usa Explicar

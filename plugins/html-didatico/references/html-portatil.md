@@ -21,7 +21,13 @@ HTML e assets como pacote. Não altere saída gerada para satisfazer esta receit
   Conteúdo permanece visível sem JS. Respeite `prefers-reduced-motion`; na impressão,
   desligue animações/reveal e preserve figuras, contratos e legendas essenciais.
 
-## Verificação finita
+## Verificação, quando pedida ou necessária
+
+Verificar não é etapa obrigatória de toda entrega. Verifique quando o usuário
+pedir, ou quando o risco só aparece no render: layout novo, protótipo com
+comportamento, conteúdo que pode cortar no celular. Escolha só o passo que
+responde ao risco. Screenshots, JSON e relatórios de verificação ficam fora da
+pasta da entrega, salvo pedido; o documento entregue é o HTML.
 
 1. Abra o exemplo do formato antes de desenhar e o resultado real depois.
    Exemplos antigos documentam a gramática, não o estado atual de seus projetos;
@@ -40,9 +46,8 @@ HTML e assets como pacote. Não altere saída gerada para satisfazer esta receit
    e o contrato do projeto.
 
 Em HTML Didático, o [check](../scripts/check.mjs) executa a parte mensurável dos
-passos 1 e 2: renderiza em 390, 768 e 1280 px, salva os screenshots e mede texto
-pequeno, contraste, cortes, vazamentos e densidade. Olhar os screenshots continua
-sendo trabalho do autor.
+passos 1 e 2: renderiza em 390, 768 e 1280 px, salva os screenshots numa pasta temporária e
+mede texto pequeno, contraste, cortes, vazamentos e densidade, quando rodado.
 
 A [base visual](visual/base.md) e o [motion](visual/motion.md) oferecem snippets
 opcionais para os formatos que ainda não usam o [kit](kit/pecas.html). Adapte reveal para manter a leitura sem JS e em movimento reduzido.

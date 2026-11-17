@@ -34,7 +34,7 @@ HTML Didático; prancha-decisao vira HTML Wireframe; blueprint-componentes vira
 HTML Blueprint; prova-final e proof-html se unem em HTML Proof. O ID explain-clearly
 permanece. A remoção dos antigos IDs motiva a versão 2.0.0.
 
-Instale pela tag `v2.2.0` do repositório
+Instale pela tag `v2.3.0` do repositório
 [nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
 usando o marketplace suportado pelo host e sua credencial. Confira versão,
 origem e cinco skills instaladas, e recarregue a sessão; o checkout sozinho não

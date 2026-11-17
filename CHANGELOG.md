@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.3.0 — 17/11/2026
+
+- Verificar deixa de ser etapa obrigatória: o check, a inspeção visual e o teste de uma leitura rodam quando o usuário pede ou quando o risco só aparece no render. HTML Didático, Wireframe e Blueprint seguem essa regra; HTML Proof não muda.
+- Nada de verificação fica junto da entrega: `scripts/check.mjs` grava screenshots e JSON numa pasta temporária do sistema, não mais em `.check/` ao lado do documento.
+- Playbook Aula: a aula é um arquivo só; bancada, boards, censo e scripts de geração não ficam ao lado dela.
+- Kit: a barra de abas não quebra o rótulo em duas linhas no celular; rola para o lado.
+
 ## 2.2.0 — 17/11/2026
 
 - Playbook Aula em HTML Didático: um assunto em construção consolidado em um HTML, com as tabs que o pedido pede. Aula existe sempre, em quadros-pergunta; Na tela é um protótipo funcional do estado decidido; Dúvidas tem uma subtab por dúvida, com a comparação e a recomendada; Leis guarda só as decisões do usuário, datadas, contra regressão; Roadmap entra quando pedido ou quando uma lei muda o produto.
