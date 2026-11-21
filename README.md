@@ -74,7 +74,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.1
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -85,7 +85,7 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.1
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
@@ -97,7 +97,7 @@ os comandos a outra versão.
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.6.0
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.6.1
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -113,7 +113,7 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.6.0
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.6.1
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.

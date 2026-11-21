@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.1 — 21/11/2026
+
+- Aula-ouro: sai o link para `BANCADA.html`, herdado da aula de Números e unidades, que apontava para um arquivo fora do plugin.
+
 ## 2.6.0 — 21/11/2026
 
 - Aula-ouro em `references/kit/ouro/aula.html`: o kit embutido, as cinco tabs, o quadro-pergunta e uma dúvida na gramática inteira (o que acontece, as três opções lado a lado no mesmo caso, a tabela com a recomendada e “Responda no chat”). Vem da aula de Números e unidades, com a tab Dúvidas refeita. O playbook Aula manda copiar esse arquivo, não o starter vazio.
