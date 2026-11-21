@@ -13,9 +13,9 @@ das instruções e as saídas produzidas nesta revisão.
 | Explicar com Clareza | “Explique por que uma tag nova não atualiza uma instalação fixada na antiga, em texto.” | Referência fixa do marketplace; [resposta](examples/clareza.md) mantém cadeia causal e não gera HTML. |
 | Decisões em Boards | “Transforme as onze perguntas do cadastro de exames em boards.” | [Arquivo de decisões real](../plugins/html-didatico/references/decisoes/exemplos/exames-modelo.py); o motor gera mapa, D01–D11, `decisoes.css` e `canvas.json` numa pasta `project/` com o DS registrado, e recusa canvas sem o DS. |
 
-Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html)
-e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), são o caso de regressão visual:
-`node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos dois e na
+Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html),
+[explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html) e [aula](../plugins/html-didatico/references/kit/ouro/aula.html), são o caso de regressão visual:
+`node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos três e na
 [folha de peças](../plugins/html-didatico/references/kit/pecas.html).
 
 ## Casos de fronteira
@@ -45,3 +45,4 @@ do renderer com fontes que comprovem sua existência e ausência do pack; o tít
 de uma referência antiga não pode justificar fallback manual.
 | “C-03 e R-01 da spec: decide comigo vendo a tela” | Decisões em Boards: códigos saem do board; cada pergunta traz o caso e o fato de dev conferido. |
 | “Ícone de lápis ou de engrenagem no cabeçalho?” | HTML Wireframe: escolha visual pontual, não board de decisão. |
+| Codex, sem canvas: “um board por decisão para a spec 162” | Aula com a tab Dúvidas, copiada da aula-ouro: uma subtab por decisão, opções com nome e figura no mesmo caso, recomendada e “Responda no chat”, sem código de nota. O check reprova HTML próprio, código de nota, “Uma possibilidade” e dúvida sem resposta. |

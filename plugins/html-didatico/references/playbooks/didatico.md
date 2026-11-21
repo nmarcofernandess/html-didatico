@@ -8,7 +8,7 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 | [Conteúdo](../conteudo.md) | O que dizer, em que ordem e quanto |
 | [Design](../visual/design.md) | Como a página e as figuras são desenhadas, e por quê |
 | [Starter](../kit/starter.html) e [peças](../kit/pecas.html) | O sistema visual pronto e a marcação de cada peça |
-| [Passo a passo](../kit/ouro/passo-a-passo.html) e [explicação](../kit/ouro/explicacao.html) | O padrão de qualidade: um documento completo por anatomia |
+| [Passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html) e [aula](../kit/ouro/aula.html) | O padrão de qualidade: um documento completo por anatomia |
 
 ## Processo
 

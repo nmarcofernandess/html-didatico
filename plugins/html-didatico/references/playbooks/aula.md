@@ -11,7 +11,10 @@ seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
 
 ## Exemplos
 
-Antes de escrever, abra as [aulas reais](../exemplos/aulas/README.md):
+A base de toda aula é a [aula-ouro](../kit/ouro/aula.html): o kit embutido, as
+cinco tabs, o quadro-pergunta e uma dúvida na gramática inteira. Copie o arquivo
+para o destino e troque o conteúdo, tab por tab; não comece do zero nem do
+starter vazio. Antes de escrever, abra também as [aulas reais](../exemplos/aulas/README.md):
 O que é um exame é o padrão de didática; Números e unidades é este playbook
 inteiro no kit, com as cinco tabs; Fórmula magistral, Cadastrados e Tomada,
 limite e lâmpada mostram aula longa, aula curta e aula em blocos. Copie a
@@ -108,13 +111,17 @@ Cada dúvida tem um título e três passos:
 |---|---|
 | Título | A pergunta com o caso e as saídas: "Triglicerídeos sem jejum: desejável abaixo de 150 ou de 175 mg/dL?" |
 | O que acontece | A situação concreta que faz a pergunta existir |
-| Comparando | As opções lado a lado (`cols`), cada uma com a figura e o resultado no mesmo caso. A evidência mora aqui: a fonte, os números, como o mercado faz. Quando a dúvida é sobre a tela, o produto em uso entra como print, ao lado da proposta |
+| Comparando | As opções lado a lado (`cols`; três opções, `cols cols--3`), cada uma com a figura e o resultado no mesmo caso. A evidência mora aqui: a fonte, os números, como o mercado faz. Quando a dúvida é sobre a tela, o produto em uso entra como print, ao lado da proposta |
 | Sua resposta | Tabela das opções (A, B e, se houver, C), uma frase cada, a recomendada com o chip "Recomendada"; embaixo, um `note` com "Responda no chat: 2A ou 2B" |
 
 - Quando a recomendação é manter o que existe, a coluna do produto em uso vem
   primeiro e diz isso.
 - Nenhum código de nota (C-03, D04, "quadro 18"): mostre o fato, ou leve ao
   quadro da Aula por link.
+- A opção se chama pelo que faz ("A · Sem teto"), nunca "Uma possibilidade".
+- A recomendação escolhe uma opção. "Confrontar em bancada" ou "comparar antes
+  de propor" não é recomendação: se a fonte ainda não deixa escolher, a dúvida
+  não está pronta e entra na entrega como pendência, fora do documento.
 - A gramática é a mesma da skill `decisoes-em-boards` (pergunta, quadros,
   opções, recomendada). As mesmas decisões servem ao HTML e aos boards de canvas.
 
@@ -151,8 +158,9 @@ cada rodada; tab sem material sai.
 
 ## Forma
 
-- Copie o [starter](../kit/starter.html). As tabs principais são a peça `tabs`
-  no lugar das partes soltas. O look segue o assunto: `editorial` para modelo,
+- Copie a [aula-ouro](../kit/ouro/aula.html). As tabs, o quadro, a figura e a
+  dúvida são peças do kit; CSS de página só no bloco "desta página", com os
+  tokens do kit. O look segue o assunto: `editorial` para modelo,
   regra e decisão; `manual` quando a aula ensina uma operação.
 - Com a skill `olho-semicerrado` disponível, use-a na composição e na revisão.
 - Verificar é opcional: quando pedido, ou quando o protótipo tem comportamento
@@ -161,6 +169,23 @@ cada rodada; tab sem material sai.
   controles do protótipo. Nada disso é salvo junto da aula.
 - A aula é um arquivo só. Bancada, boards, censo e scripts de geração não ficam
   ao lado dela: o que importa deles entra destilado nas tabs.
+
+## O que não passa
+
+Cada item já apareceu numa aula entregue e a derrubou. Releia o documento
+contra a lista antes de entregar; quando o [check](../../scripts/check.mjs) roda,
+ele reprova os quatro primeiros.
+
+| Não passa | Faça |
+|---|---|
+| CSS próprio: faixa de cabeçalho, cards e tabs desenhados do zero | Copie a aula-ouro; o kit fica embutido como está |
+| Código de nota em qualquer tab: "a 07", "PRD 03", "162/05", "D-427" | Mostre o fato; para outro quadro, um link |
+| Opção sem nome: "Uma possibilidade", "Outra possibilidade" | "A · Sem teto": a letra e o que a opção faz |
+| Dúvida sem recomendada ou sem "Responda no chat" | A tabela Sua resposta, com o chip e a nota |
+| Tab fora do roteador: resumo de PRD, "Funcionamento canônico" | O que está decidido vai para Leis; o resto fica na fonte |
+| Opção sem figura, ou figuras de casos diferentes | Uma figura por opção, todas com o mesmo caso e o mesmo número |
+| Print de estado vazio ou de erro como figura de quadro | A figura prova a frase do quadro; print de produto só ao lado da proposta, em Dúvidas |
+| Fala sobre o documento: "um HTML ajuda a decidir", "comece pela 02" | O documento mostra; quem decide sabe por onde começar pelo mapa das tabs |
 
 ## Entrega
 

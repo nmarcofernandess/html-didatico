@@ -1,6 +1,6 @@
 ---
 name: decisoes-em-boards
-description: Use quando Marco precisa decidir questões de produto, modelo ou arquitetura que ainda estão em lista, cartão ou prosa (de spec, canvas, revisão, recenso ou recomendação) e ele não consegue percorrê-las — códigos como C-03 ou R-01, referências a notas de outras páginas, "confirma no desenho X", texto longo sem a tela. Também quando ele pedir "decisões didáticas", "um board por decisão", "mapa de como decidir", "quadros contando a história", "como está em dev e como ficaria", ou quiser decidir vendo os componentes reais do DietFlow DS.
+description: Use quando Marco precisa decidir questões de produto, modelo ou arquitetura que ainda estão em lista, cartão ou prosa (de spec, canvas, revisão, recenso ou recomendação) e ele não consegue percorrê-las — códigos como C-03 ou R-01, referências a notas de outras páginas, "confirma no desenho X", texto longo sem a tela. Também quando ele pedir "decisões didáticas", "um board por decisão", "mapa de como decidir", "quadros contando a história", "como está em dev e como ficaria", ou quiser decidir vendo os componentes reais do DietFlow DS. Precisa do canvas de Design do Claude; sem ele (Codex, Cursor), as decisões vão para a tab Dúvidas de uma aula do HTML Didático.
 ---
 
 # Decisões em Boards
@@ -8,6 +8,15 @@ description: Use quando Marco precisa decidir questões de produto, modelo ou ar
 Cada decisão vira um board de canvas de Design que conta a história em quadros,
 com componentes reais do DietFlow DS; um mapa abre a página e diz como decidir.
 Marco decide olhando a tela, não lendo código de nota.
+
+**Sem canvas de Design, esta skill não gera nada.** No Codex, no Cursor ou em
+qualquer host sem o Artifact do Claude, não monte "boards" em HTML próprio: as
+decisões entram na tab Dúvidas de uma aula, pelo
+[playbook Aula](../../references/playbooks/aula.md), a partir da
+[aula-ouro](../../references/kit/ouro/aula.html). A gramática é a mesma: a
+pergunta com o caso, o que acontece, as opções lado a lado no mesmo caso, a
+recomendada e "Responda no chat". O levantamento e a apuração em dev (passos 1
+e 2 abaixo) valem igual.
 
 Escolha visual pontual (dois ícones, duas palavras) não é isto: vai no board
 Foco, uma por vez. Esta skill é para decisão que muda comportamento, dado ou

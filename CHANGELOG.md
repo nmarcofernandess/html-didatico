@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.0 — 21/11/2026
+
+- Aula-ouro em `references/kit/ouro/aula.html`: o kit embutido, as cinco tabs, o quadro-pergunta e uma dúvida na gramática inteira (o que acontece, as três opções lado a lado no mesmo caso, a tabela com a recomendada e “Responda no chat”). Vem da aula de Números e unidades, com a tab Dúvidas refeita. O playbook Aula manda copiar esse arquivo, não o starter vazio.
+- Playbook Aula ganha “O que não passa”, tirado de uma aula de importações clínicas que saiu fora do kit: CSS próprio, código de nota, opção sem nome, dúvida sem recomendada, tab fora do roteador, opção sem figura no mesmo caso, print de estado vazio como figura, fala sobre o documento. A recomendação precisa escolher; sem escolha possível, a dúvida é pendência.
+- Decisões em Boards diz o que fazer sem canvas de Design: no Codex e no Cursor, as decisões vão para a tab Dúvidas de uma aula, a partir da aula-ouro. Roteamento e descrição da skill dizem o mesmo.
+- `scripts/check.mjs` reprova documento fora do kit, código de nota (PRD 03, 162/05, a 07, C-03, D-427, quadro 18), opção sem nome e dúvida sem recomendada ou sem “Responda no chat”.
+- Kit: `cols cols--3` compara três opções e empilha abaixo de 60rem; figuras dentro de `cols` têm a mesma altura, com a legenda alinhada embaixo. A demonstração de subtabs na folha de peças termina com a recomendada e o pedido de resposta.
+
 ## 2.5.0 — 21/11/2026
 
 - Exemplos de aula no plugin, em `references/exemplos/aulas/`: O que é um exame (autocontido, o padrão de didática), Números e unidades (o playbook Aula inteiro no kit, com as cinco tabs) e as aulas do canvas de Prescrição — Fórmula magistral, Cadastrados e Tomada, limite e lâmpada — como fonte, com o link do canvas vivo. O README deles traz a anatomia do quadro e os padrões que se repetem.

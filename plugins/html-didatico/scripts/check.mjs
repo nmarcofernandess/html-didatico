@@ -250,6 +250,16 @@ for (const w of widths) {
 }
 if (maior.contraste.length) falhas.push(`contraste abaixo do mínimo (${maior.contraste.length}): ${lista(maior.contraste, i => `${i.razao}:1 "${i.texto}"`)}`)
 if (tiques.residuo.length) falhas.push(`resíduo no texto: ${lista(tiques.residuo, t => `"${t}"`)}`)
+// Contrato do HTML Didático, lido no arquivo: o kit embutido, nenhum código de nota, opção com nome, dúvida com resposta.
+if (!html.includes('══ KIT ══') || !/<html[^>]*data-look=/.test(html)) falhas.push('documento fora do kit: parta do starter ou de um exemplo-ouro, com o kit embutido e data-look no <html>')
+const visivel = html.replace(/<(script|style|svg)[\s\S]*?<\/\1>/gi, ' ').replace(/<!--[\s\S]*?-->/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ')
+const codigos = [...visivel.matchAll(/\b(?:PRD|SPEC|ADR|RFC)[ -]?\d{1,3}\b|\b[CDRQ]-\d{2,4}\b|\b\d{3}\/\d{2}\b|\b(?:a|à|da|na|pela|pelo|do|no) 0\d\b|\b(?:quadro|aula|desenho|board|card) \d+(?:\.\d+)?\b/gi)].map(m => m[0])
+if (codigos.length) falhas.push(`código de nota no texto (${codigos.length}): ${lista([...new Set(codigos)], c => `"${c}"`)}; mostre o fato ou leve ao quadro por link`)
+const semNome = [...html.matchAll(/<h[2-6][^>]*>\s*((?:Uma|Outra) (?:possibilidade|opção|alternativa)|Opção \d|Alternativa [A-Z\d])\s*<\/h[2-6]>/gi)].map(m => m[1])
+if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(semNome, s => `"${s}"`)}; a opção se chama pelo que faz, A · <o que muda>`)
+const duvidas = html.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
+const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
+if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
 if (transitionAll) falhas.push('transition: all no CSS; liste as propriedades')
 if (temAnimacao && !temReducedMotion) falhas.push('há animação ou transição sem bloco prefers-reduced-motion')
 

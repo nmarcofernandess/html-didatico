@@ -22,7 +22,8 @@ sem pedido visual começa em texto; “explique em HTML” usa HTML Didático.
 usa HTML Didático com o playbook Aula; dúvidas de produto dentro dela viram a tab
 Dúvidas, não um wireframe à parte. “Um board por decisão”, “como está em dev e
 como ficaria” ou uma fila de códigos de decisão (C-03, R-01) de uma spec usam
-Decisões em Boards; uma escolha visual pontual (dois ícones, duas palavras) não é
+Decisões em Boards no canvas de Design do Claude; sem canvas (Codex, Cursor), as
+mesmas decisões vão para a tab Dúvidas de uma aula de HTML Didático. Uma escolha visual pontual (dois ícones, duas palavras) não é
 isso: cabe numa maquete de HTML Wireframe.
 
 Em pedido misto, use um documento principal e carregue só os trechos auxiliares

@@ -23,7 +23,7 @@ Endereço: https://claude.ai/artifact/4qkdmqk1fvJZK58isz2Uqa
    `tools/design-system/gerar.mjs` (nome, grupo, marcação, resumo, guia, classes).
 2. `node plugins/html-didatico/scripts/montar.mjs` e depois o mesmo com
    `--atualizar` para os exemplos-ouro.
-3. `node plugins/html-didatico/scripts/check.mjs` nos três documentos gerados.
+3. `node plugins/html-didatico/scripts/check.mjs` nos exemplos-ouro e na folha de peças.
 4. `node tools/design-system/gerar.mjs` escreve `tools/design-system/saida/`.
 5. Peça a um chat do Claude com acesso a artefatos: "publique a pasta
    `saida/project` no design system HTML Didático". Os ícones em `saida/icons`

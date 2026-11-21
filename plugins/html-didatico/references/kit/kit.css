@@ -243,6 +243,9 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 
 /* Colunas: duas coisas equivalentes lado a lado, como uma comparação. Empilham no celular. */
 .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-block); align-items: start; }
+/* Comparação de três opções; figuras lado a lado têm a mesma altura e a legenda alinhada embaixo. */
+.cols--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cols > .fig { display: grid; grid-template-rows: 1fr auto; align-self: stretch; }
 
 /* Carimbo: o único gesto de festa. Diz o que o leitor acabou de conseguir. */
 .stamp { display: grid; place-items: center; width: 10rem; height: 10rem; margin-inline: auto; border: var(--line-strong) double var(--color-accent); border-radius: 50%; color: var(--color-accent); text-align: center; font: 700 var(--text-body)/1.25 var(--font-display); text-transform: uppercase; transform: rotate(-8deg); }
@@ -427,6 +430,8 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 
 /* Abaixo de 46rem a parte empilha: texto primeiro, figura depois. A figura é redesenhada pela
    largura do próprio container, nunca encolhida. */
+@media (max-width: 60rem) { .cols--3 { grid-template-columns: minmax(0, 1fr); } }
+
 @media (max-width: 46rem) {
   .part--side { grid-template-columns: minmax(0, 1fr); row-gap: var(--gap-block); }
   .part { padding-block: var(--gap-figure); }
