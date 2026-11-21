@@ -1,4 +1,4 @@
-# Casos de uso das cinco entradas
+# Casos de uso das seis entradas
 
 Walkthroughs de autoria e inspeção, não avaliações automatizadas de um modelo.
 O validador estrutural verifica o pacote; estes casos verificam o significado
@@ -11,6 +11,7 @@ das instruções e as saídas produzidas nesta revisão.
 | HTML Blueprint | “Mostre como Summary compõe Panel e Status.” | [Fixture de código](fixtures/components.jsx); [exemplo](examples/blueprint.html) distingue prop de children, default de valor do uso e marca `size` como proposta ausente. |
 | HTML Proof | “Apresente o resultado da validação deste pacote.” | `python3 scripts/validate-package.py`; [exemplo](examples/proof.html) apresenta saída de máquina observada, sem screenshot inventado e com limites do teste. |
 | Explicar com Clareza | “Explique por que uma tag nova não atualiza uma instalação fixada na antiga, em texto.” | Referência fixa do marketplace; [resposta](examples/clareza.md) mantém cadeia causal e não gera HTML. |
+| Decisões em Boards | “Transforme as onze perguntas do cadastro de exames em boards.” | [Arquivo de decisões real](../plugins/html-didatico/references/decisoes/exemplos/exames-modelo.py); o motor gera mapa, D01–D11, `decisoes.css` e `canvas.json` numa pasta `project/` com o DS registrado, e recusa canvas sem o DS. |
 
 Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html)
 e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), são o caso de regressão visual:
@@ -41,3 +42,5 @@ e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), 
 Avalie as rotas contra `references/roteamento.md` no pacote. Exercite a regressão
 do renderer com fontes que comprovem sua existência e ausência do pack; o título
 de uma referência antiga não pode justificar fallback manual.
+| “C-03 e R-01 da spec: decide comigo vendo a tela” | Decisões em Boards: códigos saem do board; cada pergunta traz o caso e o fato de dev conferido. |
+| “Ícone de lápis ou de engrenagem no cabeçalho?” | HTML Wireframe: escolha visual pontual, não board de decisão. |

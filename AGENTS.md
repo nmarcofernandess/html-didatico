@@ -1,6 +1,6 @@
 # HTML Didático · instruções de manutenção
 
-Skills públicas ficam em `plugins/html-didatico/skills/`: somente as cinco
+Skills públicas ficam em `plugins/html-didatico/skills/`: somente as seis
 entradas documentadas no README. Recursos compartilhados e playbooks ficam em
 `plugins/html-didatico/references/`, sem `SKILL.md` interno ou aliases públicos.
 Cada regra tem um owner; carregue receitas e referências conforme a tarefa.

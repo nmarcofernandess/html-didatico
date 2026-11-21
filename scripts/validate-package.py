@@ -13,6 +13,7 @@ EXPECTED = {
     "html-blueprint": "HTML Blueprint",
     "html-proof": "HTML Proof",
     "explain-clearly": "Explicar com Clareza",
+    "decisoes-em-boards": "Decisões em Boards",
 }
 
 
@@ -47,7 +48,7 @@ def packaged(root, pattern):
 def validate():
     discovered = sorted(packaged(PLUGIN, "SKILL.md"))
     assert {p.parent.name for p in discovered} == set(EXPECTED), discovered
-    assert len(discovered) == 5, discovered
+    assert len(discovered) == len(EXPECTED), discovered
     for skill in discovered:
         assert skill.parent.parent == PLUGIN / "skills", skill
         text = skill.read_text()

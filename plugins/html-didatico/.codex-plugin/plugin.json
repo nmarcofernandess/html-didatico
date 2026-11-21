@@ -1,7 +1,7 @@
 {
   "name": "html-didatico",
-  "version": "2.3.0",
-  "description": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza.",
+  "version": "2.4.0",
+  "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
   "author": {
     "name": "Marco Antonio",
     "url": "https://github.com/nmarcofernandess"
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "HTML Didático",
     "shortDescription": "HTML e explicações claras",
-    "longDescription": "Cinco resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof e Explicar com Clareza. Regras compartilhadas e playbooks carregados por formato; escrita e Elements of Style são recursos internos.",
+    "longDescription": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards. Regras compartilhadas e playbooks carregados por formato; escrita e Elements of Style são recursos internos.",
     "developerName": "Marco Antonio",
     "category": "Productivity",
     "capabilities": [],

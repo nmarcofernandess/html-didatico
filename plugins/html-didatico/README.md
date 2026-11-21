@@ -1,6 +1,6 @@
 # HTML Didático
 
-Cinco skills públicas por resultado:
+Seis skills públicas por resultado:
 
 | Nome | Entrada |
 |---|---|
@@ -9,6 +9,7 @@ Cinco skills públicas por resultado:
 | HTML Blueprint | [html-blueprint](skills/html-blueprint/SKILL.md): montagem, árvore e contratos. |
 | HTML Proof | [html-proof](skills/html-proof/SKILL.md): evidência e renderer oficial ou fluxo manual permitido. |
 | Explicar com Clareza | [explain-clearly](skills/explain-clearly/SKILL.md): significado e explicação, inclusive em texto. |
+| Decisões em Boards | [decisoes-em-boards](skills/decisoes-em-boards/SKILL.md): um mapa e um board por decisão, no canvas de Design, com componentes reais do DietFlow DS. |
 
 Use o namespace `html-didatico` seguido do ID. Nomes legíveis dependem do host;
 os metadados Codex estão em `agents/openai.yaml` de cada entrada.
@@ -37,7 +38,7 @@ permanece. A remoção dos antigos IDs motiva a versão 2.0.0.
 Instale pela tag `v2.3.0` do repositório
 [nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
 usando o marketplace suportado pelo host e sua credencial. Confira versão,
-origem e cinco skills instaladas, e recarregue a sessão; o checkout sozinho não
+origem e seis skills instaladas, e recarregue a sessão; o checkout sozinho não
 comprova atualização do catálogo.
 
 Origem: Superflow, `plugins/superflow/skills/` (06/07/2026–13/09/2026, remoção

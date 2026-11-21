@@ -1,7 +1,7 @@
 # HTML Didático
 
 Plugin portátil para explicar, desenhar interfaces, mostrar composição e
-apresentar evidências. Cinco entradas públicas, escolhidas pelo resultado.
+apresentar evidências, e para decidir vendo a tela. Seis entradas públicas, escolhidas pelo resultado.
 Funciona em Codex, Claude Code e Cursor, conforme o suporte do host.
 
 ## Escolha o resultado
@@ -13,9 +13,10 @@ Funciona em Codex, Claude Code e Cursor, conforme o suporte do host.
 | **HTML Blueprint** | [html-blueprint](plugins/html-didatico/skills/html-blueprint/SKILL.md) | Composição dos primitivos às features e consumidores: árvore, children, slots, types, props e contratos. |
 | **HTML Proof** | [html-proof](plugins/html-didatico/skills/html-proof/SKILL.md) | Evidências e resultados, respeitando o renderer oficial quando existir. |
 | **Explicar com Clareza** | [explain-clearly](plugins/html-didatico/skills/explain-clearly/SKILL.md) | Reconstruir significado e explicar causas/consequências em texto ou no meio pedido. HTML é opcional. |
+| **Decisões em Boards** | [decisoes-em-boards](plugins/html-didatico/skills/decisoes-em-boards/SKILL.md) | Decisões de produto, modelo ou arquitetura presas em lista ou prosa: um mapa e um board por decisão no canvas de Design, com componentes reais do DietFlow DS. |
 
 No Codex, os nomes legíveis vêm de `agents/openai.yaml`; outros hosts podem
-mostrar os IDs. São as mesmas cinco skills, sem aliases adicionais.
+mostrar os IDs. São as mesmas seis skills, sem aliases adicionais.
 
 ```text
 $html-didatico:html-didatico Explique em HTML como os testes se organizam.
@@ -23,6 +24,7 @@ $html-didatico:html-wireframe Compare dois lugares para a ação de salvar.
 $html-didatico:html-blueprint Mostre a montagem deste componente e seus contratos.
 $html-didatico:html-proof Apresente os resultados pelo renderer deste projeto.
 $html-didatico:explain-clearly Explique este relatório em texto para um iniciante.
+$html-didatico:decisoes-em-boards Transforme as perguntas abertas desta spec em boards.
 ```
 
 No Claude Code, use `/html-didatico:nome-da-skill`. Para ambiguidade e pedidos
@@ -38,6 +40,7 @@ tokens, anatomias e primitivos são carregados só para o formato em uso.
 - [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
 - [Kit de HTML Didático](plugins/html-didatico/references/kit/pecas.html): tokens, dois looks e peças; [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade.
 - [Guia interno de escrita](plugins/html-didatico/references/escrita/guia.md): síntese e consulta progressiva ao texto de Strunk, sem entrada pública.
+- [Decisões em boards](plugins/html-didatico/references/decisoes/formato.md): motor (`gerar.py`), peças do DietFlow DS (`pecas.js`, [catálogo](plugins/html-didatico/references/decisoes/pecas.md)), folha `decisoes.css`, [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e dois arquivos de decisões reais em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/).
 - [Contrato de proof](plugins/html-didatico/references/playbooks/proof.md): pack ausente não significa renderer ausente. Nunca se fabrica prova ou edita saída oficial à mão.
 
 Os [exemplos históricos A–E](plugins/html-didatico/references/exemplos/) mantêm
@@ -70,7 +73,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.3.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.4.0
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -81,19 +84,19 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.3.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.4.0
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
 
-Confira `codex plugin list --marketplace html-didatico --json` e os cinco
+Confira `codex plugin list --marketplace html-didatico --json` e os seis
 `SKILL.md` no caminho instalado. Verifique o `--help` do host antes de adaptar
 os comandos a outra versão.
 
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.3.0
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.4.0
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -109,12 +112,12 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.3.0
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.4.0
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.
 
-Confira os caminhos e **as cinco skills** da instalação, separadamente do Git.
+Confira os caminhos e **as seis skills** da instalação, separadamente do Git.
 Abra nova task/sessão para carregar o catálogo novo. Uma skill avulsa ou cópia
 em outro marketplace pode coexistir: identifique sua origem e relate a diferença;
 não apague nem substitua instalações independentes por suposição.
@@ -122,8 +125,8 @@ não apague nem substitua instalações independentes por suposição.
 ## Verificação e manutenção
 
 Execute `python3 scripts/validate-package.py` para catálogo, versões e links.
-Os [casos de uso](tests/cases.md) cobrem as cinco saídas e roteamento ambíguo;
-a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) e a [da 2.3.0](docs/verification-2.3.0.md) registram o que foi observado.
+Os [casos de uso](tests/cases.md) cobrem as seis saídas e roteamento ambíguo;
+a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) a [da 2.3.0](docs/verification-2.3.0.md) e a [da 2.4.0](docs/verification-2.4.0.md) registram o que foi observado.
 Para HTML Didático, `node plugins/html-didatico/scripts/check.mjs <arquivo.html>` renderiza e mede um documento;
 depois de mudar `references/kit/kit.css` ou `kit.js`, rode `node plugins/html-didatico/scripts/montar.mjs`.
 A validação estrutural não simula a resposta de outro modelo ou o seletor de um

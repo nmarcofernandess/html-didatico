@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.0 — 21/11/2026
+
+- Nova entrada pública, a de número seis: **Decisões em Boards** (`decisoes-em-boards`). Decisões de produto, modelo ou arquitetura presas em lista ou prosa viram um mapa e um board por decisão no canvas de Design, com componentes reais do DietFlow DS. Vinha avulsa em `nmarcofernandess/devkit` (`skills/decisoes-em-boards`, commit `85f29158`), só no Claude Code.
+- `references/decisoes/`: motor `gerar.py` (acha peças e CSS ao lado dele, sem caminho de instalação fixo), peças `pecas.js` e catálogo `pecas.md`, folha `decisoes.css`, formato do arquivo de decisões e publicação no canvas.
+- Dois exemplos reais em `references/decisoes/exemplos/`: as onze decisões do cadastro de exames e as quatro, já respondidas, de Prescrição e Favoritos.
+- Roteamento, README e casos de uso reconhecem a nova entrada e sua fronteira com HTML Wireframe e com a tab Dúvidas da Aula.
+
 ## 2.3.0 — 17/11/2026
 
 - Verificar deixa de ser etapa obrigatória: o check, a inspeção visual e o teste de uma leitura rodam quando o usuário pede ou quando o risco só aparece no render. HTML Didático, Wireframe e Blueprint seguem essa regra; HTML Proof não muda.
