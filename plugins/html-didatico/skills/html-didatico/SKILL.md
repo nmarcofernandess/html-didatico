@@ -12,7 +12,8 @@ description: "Cria explicações, manuais, quickstarts, aulas e narrativas de si
    figuras, prova e leitura. Manual e editorial são looks do mesmo kit. Para
    organização de sistemas, acrescente o [modo sistemas](../../references/playbooks/sistemas.md).
    Para consolidar um assunto em construção (como funciona, protótipo, dúvidas
-   e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md).
+   e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md) e abra as
+   [aulas reais](../../references/exemplos/aulas/README.md) antes de escrever.
 3. Reconstrua o significado quando necessário e monte as figuras com as peças do
    kit. Entregue um HTML só, com fontes e limites. O [check](../../scripts/check.mjs)
    e a inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de

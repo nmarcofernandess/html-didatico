@@ -227,7 +227,8 @@ const tiques = {
   contraste: contar(/\bnão (?:é|são|se trata de) (?:apenas|só|somente|um[a]? simples)\b|\bmais (?:do )?que (?:um|uma) (?:simples )?\w+\b|\b(?:em vez|ao invés) de\b/gi),
   negacao: contar(/(?:^|[.!?—]\s+)(?:Não (?:é|são)|Sem|Nem|Nada de)\b[^.!?\n]{2,60}[.!?]\s+(?:Não (?:é|são)|Sem|Nem|Nada de)\b|\bnão (?:é|são) [^,.;\n]{2,40}, (?:não (?:é|são)|nem) /gi),
   hype: contar(/\b(?:poderos[oa]s?|robust[oa]s?|intuitiv[oa]s?|incríve(?:l|is)|revolucion\w+|sem esforço|perfeitamente|facilmente|de forma (?:simples|fácil|rápida|intuitiva))\b/gi),
-  perguntaRespondida: contar(/[^.!?\n]{3,60}\?\s+[A-ZÁÉÍÓÚÂÊÔÃÕ][^.?!\n]{0,48}[.!]/g),
+  // Só dentro do mesmo parágrafo: título-pergunta com a resposta no parágrafo de baixo é o quadro da Aula, não tique.
+  perguntaRespondida: contar(/[^.!?\n]{3,60}\?[ \t]+[A-ZÁÉÍÓÚÂÊÔÃÕ][^.?!\n]{0,48}[.!]/g),
   exclamacao: contar(/!/g),
   emoji: contar(/\p{Extended_Pictographic}/gu),
 }

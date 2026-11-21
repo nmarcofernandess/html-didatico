@@ -34,6 +34,7 @@ e [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), 
 | Mesmo projeto, resultado real obtido | Preencher o mesmo arquivo e atualizar revisão/veredito. |
 | “Faça um mural e cite este pack” | HTML Didático, link para o pack; mural não vira proof. |
 | “Revise só a pontuação” | Recurso interno de escrita; sem HTML obrigatório. |
+| “Me dá um exemplo de aula” | HTML Didático, playbook Aula: aponta as [aulas reais](../plugins/html-didatico/references/exemplos/aulas/README.md); nunca responde que não há exemplo. |
 | “Faça uma aula de como a dose é calculada” | HTML Didático, playbook Aula: só a tab Aula, sem barra de tabs. |
 | “Uma aula e um teste do pedido de exames” | Playbook Aula com Aula e Na tela; o protótipo funciona no clique e mostra só o decidido. |
 | “Estou entre duas faixas para o Triglicerídeos” | Playbook Aula com Aula e Dúvidas: uma subtab, três passos, recomendada marcada, “Responda no chat”. |

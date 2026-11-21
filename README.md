@@ -40,6 +40,7 @@ tokens, anatomias e primitivos são carregados só para o formato em uso.
 - [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
 - [Kit de HTML Didático](plugins/html-didatico/references/kit/pecas.html): tokens, dois looks e peças; [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade.
 - [Guia interno de escrita](plugins/html-didatico/references/escrita/guia.md): síntese e consulta progressiva ao texto de Strunk, sem entrada pública.
+- [Aulas reais](plugins/html-didatico/references/exemplos/aulas/README.md): O que é um exame, Números e unidades e as três aulas do canvas de Prescrição (Fórmula magistral, Cadastrados, Tomada, limite e lâmpada), com a anatomia do quadro e os padrões que se repetem.
 - [Decisões em boards](plugins/html-didatico/references/decisoes/formato.md): motor (`gerar.py`), peças do DietFlow DS (`pecas.js`, [catálogo](plugins/html-didatico/references/decisoes/pecas.md)), folha `decisoes.css`, [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e dois arquivos de decisões reais em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/).
 - [Contrato de proof](plugins/html-didatico/references/playbooks/proof.md): pack ausente não significa renderer ausente. Nunca se fabrica prova ou edita saída oficial à mão.
 
@@ -73,7 +74,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.4.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.5.0
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -84,7 +85,7 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.4.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.5.0
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
@@ -96,7 +97,7 @@ os comandos a outra versão.
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.4.0
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.5.0
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -112,7 +113,7 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.4.0
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.5.0
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.
@@ -126,7 +127,7 @@ não apague nem substitua instalações independentes por suposição.
 
 Execute `python3 scripts/validate-package.py` para catálogo, versões e links.
 Os [casos de uso](tests/cases.md) cobrem as seis saídas e roteamento ambíguo;
-a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) a [da 2.3.0](docs/verification-2.3.0.md) e a [da 2.4.0](docs/verification-2.4.0.md) registram o que foi observado.
+a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) a [da 2.3.0](docs/verification-2.3.0.md) a [da 2.4.0](docs/verification-2.4.0.md) e a [da 2.5.0](docs/verification-2.5.0.md) registram o que foi observado.
 Para HTML Didático, `node plugins/html-didatico/scripts/check.mjs <arquivo.html>` renderiza e mede um documento;
 depois de mudar `references/kit/kit.css` ou `kit.js`, rode `node plugins/html-didatico/scripts/montar.mjs`.
 A validação estrutural não simula a resposta de outro modelo ou o seletor de um

@@ -9,6 +9,14 @@ pequeno.
 Este playbook soma ao [didático](didatico.md): ficha, kit, figuras e leitura
 seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
 
+## Exemplos
+
+Antes de escrever, abra as [aulas reais](../exemplos/aulas/README.md):
+O que é um exame é o padrão de didática; Números e unidades é este playbook
+inteiro no kit, com as cinco tabs; Fórmula magistral, Cadastrados e Tomada,
+limite e lâmpada mostram aula longa, aula curta e aula em blocos. Copie a
+forma, nunca o conteúdo: os fatos delas valem para a data de cada uma.
+
 ## O roteador
 
 Leia o pedido e o estado do trabalho, e abra só as tabs que têm material. A

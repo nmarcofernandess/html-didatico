@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cadastrados · a forma e a substância</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/dietflow/components/bundle.css">
+<link rel="stylesheet" href="aula.css">
+<link rel="stylesheet" href="formula.css">
+<script src="ds/dietflow/components/bundle.js"></script>
+<script src="motor.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Fira+Code:wght@400;500&amp;family=Inter:wght@100..900&amp;display=swap">
+<style>
+body{margin:0;background:#FAF9F5}
+.cf-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.cf-ctl{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:18px}
+.cf-ctl .g{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0;max-width:100%}
+.cf-ctl .g>.l{font:500 10.5px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin-right:4px}
+.cf-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cf-grp{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cf-grp+.cf-grp{margin-top:10px}
+.cf-grp>span{font:500 10.5px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.cf-row{display:flex;flex-wrap:wrap;gap:6px}
+.cf-kv{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-bottom:1px solid var(--line);padding:6px 0;font-size:16px}
+.cf-kv b{font-weight:600}
+.cf-mod{min-width:0}
+.cf-also{display:flex;flex-direction:column;gap:10px;padding-top:12px;border-top:1px solid var(--default-200,#e4e4e7);margin-top:4px}
+.cf-also .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cf-x{opacity:.55}
+.cf-side .n{font:400 44px/1 var(--serif)}
+.cf-bad{color:var(--bad);font-weight:600}
+.cf-ok{color:var(--prep);font-weight:600}
+.cf-taxo{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.cf-taxo .au-it{min-width:0}
+.cf-taxo .au-it.loc{border-style:dashed}
+.cf-long td,.cf-long th{text-align:left}
+/* Tabela larga: quem rola é a moldura, não a página. */
+.au-rdw.cf-scroll{overflow-x:auto}
+.au-rdw.cf-scroll>table{min-width:680px}
+.cf-cat{overflow-x:auto;min-width:0;background:var(--content1,#fff);border:1.5px solid var(--ink);border-radius:14px;padding:8px}
+.cf-cat .df-table{min-width:960px}
+.cf-sub{display:block;font-size:11.5px;line-height:1.35;color:var(--default-500,#71717a)}
+.cf-u{font-weight:500}
+.cf-mono{font:500 12.5px/1.4 var(--mono)}
+.cf-ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.cf-ba .au-addri{gap:12px}
+.cf-pop{margin-top:20px;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start}
+.cf-pop>.au-lim{border-top:0;padding-top:0}
+.cf-tr{position:relative}
+.cf-cfm{position:absolute;inset:0;z-index:60;display:flex;border-radius:14px;overflow:hidden}
+.cf-cfm>.df-modal-wrap{height:100%;min-height:0}
+@media (max-width:900px){.cf-grid,.cf-two,.cf-ba,.cf-pop{grid-template-columns:minmax(0,1fr)}.cf-taxo{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</helmet>
+<div class="au"><div class="au-wrap">
+
+<header class="au-cover">
+<span class="au-mono">Aula · Cadastrados · Prescrição · 14 de novembro de 2026</span>
+<h1>A forma e a substância</h1>
+<p class="au-lede">Quinze quadros, uma pergunta por vez, em duas partes. Na primeira, <b>em que forma uma substância pode ser prescrita</b>: a regra veículo comum × via, decidida em 14/11/2026. Na segunda, <b>em que unidade a dose conhecida se conta</b> em cada forma: uma regra com fontes, decidida em 14/11/2026 16:02 depois de dois reviews.</p>
+<div class="fm-parts">
+<nav aria-label="Parte 1">
+<div class="fm-partl"><b>Parte 1</b><span class="au-mono">A forma e a substância · quadros 1 a 9 · item 154, vigente</span></div>
+<div class="au-trail fm-trail">
+<a href="#k1"><b>1</b>O que o cadastro guarda</a>
+<a href="#k2"><b>2</b>O que trava</a>
+<a href="#k3"><b>3</b>O que o M1 resolveu</a>
+<a href="#k4"><b>4</b>O estado físico</a>
+<a href="#k5"><b>5</b>A regra</a>
+<a href="#k6"><b>6</b>O bombom</a>
+<a href="#k7"><b>7</b>O cadastro</a>
+<a href="#k8"><b>8</b>O código</a>
+<a href="#k9"><b>9</b>O que ficou decidido</a>
+</div>
+</nav>
+<nav aria-label="Parte 2">
+<div class="fm-partl"><b>Parte 2</b><span class="au-mono">A unidade que se conta · quadros 10 a 15 · item 147, decidido</span></div>
+<div class="au-trail fm-trail">
+<a href="#k10"><b>10</b>Contar ou medir</a>
+<a href="#k11"><b>11</b>A granel</a>
+<a href="#k12"><b>12</b>O catálogo</a>
+<a href="#k13"><b>13</b>Trocar a forma</a>
+<a href="#k14"><b>14</b>As unidades</a>
+<a href="#k15"><b>15</b>Decisão</a>
+</div>
+</nav>
+</div>
+</header>
+
+<section class="au-q" id="k1">
+<span class="au-n" aria-hidden="true">1</span>
+<h2>O que o cadastro guarda?</h2>
+<p class="au-a">Pares <b>forma × via</b>, por substância. No golden, <b>{{ nUmPar }} de {{ nSubs }} substâncias têm um par só</b>, e {{ nCapsula }} dos {{ nPares }} pares são cápsula.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 1 — as formas cadastradas no golden</figcaption>
+{{ fig1 }}
+<div class="au-open"><span class="au-dest prep">Quem decide</span><span><b>O card só oferece a forma que as linhas cadastraram.</b> A conta compara a forma e a via exatas de cada substância.</span></div>
+<p class="au-src">Nesta aula, “hoje” é dev em ef4b512aa5, lido em 14/11/2026. Golden: presentations.json, contado por cad/matriz.ts. Regra: resolveFormulationPresentation (core/formulation-presentation.ts:31-78). Oferta do card: CardFormulacao.tsx:1838-1848.</p>
+</figure>
+<p class="au-rule">Hoje, a forma do cadastro é a única forma em que a substância existe.</p>
+</section>
+
+<section class="au-q" id="k2">
+<span class="au-n" aria-hidden="true">2</span>
+<h2>O que isso trava?</h2>
+<p class="au-a">Três coisas, <b>todas antes do bombom</b>.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 2 — três travas, com os números do golden</figcaption>
+<div class="au-addr">
+<div class="au-addri"><span class="au-dest">Duas cápsulas</span><p>Magnésio (Cápsula) e Vitamina D (Cápsula mole) na mesma fórmula.</p><b class="fm-big">{{ nComum }}</b><span class="fm-sub">formas em comum</span></div>
+<div class="au-addri"><span class="au-dest">Forma comum vazia</span><p>Comprimido, sachê e goma mastigável estão no catálogo.</p><b class="fm-big">{{ nVazias }}</b><span class="fm-sub">substâncias em cada uma</span></div>
+<div class="au-addri"><span class="au-dest">Forma nova vazia</span><p>Bombom e barrinha, decididos nos itens 95 e 96.</p><b class="fm-big">{{ nNovas }}</b><span class="fm-sub">substâncias, sem curar uma a uma</span></div>
+</div>
+<div class="au-open"><span class="au-dest prep">O save</span><span><b>Dev ainda recusa salvar</b> uma fórmula com linha fora do par escolhido. O item 41 decidiu que nada barra salvar, e o item 98, que a linha fica avisada.</span></div>
+<p class="au-src">cad/matriz.ts sobre o golden de dev, com a função real de dev, em 14/11/2026. Recusa: formulation-presentation.server.ts:251-255 (PRESCRIPTION_PRESENTATION_INCOMPATIBLE).</p>
+</figure>
+<p class="au-rule">O veículo é escolha de quem prescreve. O cadastro não pode decidi-lo por omissão.</p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>3 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>41</td><td>Avisos e troca de forma</td><td class="r">Nada barra salvar nem favoritar.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">04/11/2026 19:34</td></tr><tr><td>70</td><td>Campo de busca do card</td><td class="r">Com a forma escolhida, a busca oferece só o que existe nela. O que já está na linha fica, com aviso.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">11/11/2026 13:50</td></tr><tr><td>98</td><td>Avisos e troca de forma</td><td class="r">Trocar a forma não apaga linha nem bloqueia: a linha que não existe na forma nova fica avisada.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">11/11/2026 13:50</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" id="k3">
+<span class="au-n" aria-hidden="true">3</span>
+<h2>O que o M1 resolveu?</h2>
+<p class="au-a">Tirou o <b>tipo solto</b> e as <b>substâncias guarda-chuva</b>, e exigiu <b>fonte para cada forma</b>. As três coisas continuam certas. Uma forma só por substância não foi decisão do M1.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 3 — as regras do M1 e o que a regra faz com cada uma</figcaption>
+<div class="au-rdw cf-long cf-scroll"><table>
+<thead><tr><th>Regra do M1</th><th>O que evita</th><th>Com a regra do item 154</th></tr></thead>
+<tbody>
+<tr><td>Lei 1 · a forma vem do EDQM, sem enum próprio</td><td>Vocabulário paralelo ao catálogo de formas</td><td><b>Muda pouco.</b> Veículo comum é um sim ou não por forma, no seed de formas. É dado a mais na apresentação: as duas frases do S18-A que vetavam isso mudam com o item 154, aprovado em 14/11/2026 13:54</td></tr>
+<tr><td>Lei 2 · o banco guarda o significado; a tela, o ícone</td><td>Texto de interface gravado no banco</td><td><b>Fica.</b> O ícone sai da forma cadastrada</td></tr>
+<tr><td>Lei 3 · significado → interface num lugar só</td><td>Regra de exibição espalhada em componentes</td><td><b>Fica.</b> A regra mora no núcleo, num materializador só</td></tr>
+<tr><td>Lei 4 · unidade diferente, substância diferente</td><td>A planta guarda-chuva: chá, extrato e tintura somados</td><td><b>Fica.</b> Chá, tintura e extrato fluido não são veículo comum: cada preparo fica nas formas que cadastrou</td></tr>
+<tr><td>Lei 5 · tudo passa pelo build</td><td>Banco e golden divergindo</td><td><b>Fica.</b> O build grava as linhas da regra. Veículo novo no seed aparece como diff no golden</td></tr>
+<tr><td>Lei 6 · forma básica no snapshot e na busca</td><td>Busca lenta</td><td><b>Fica.</b></td></tr>
+<tr><td>V13 · liberação e método fazem parte da forma</td><td>A volta de “Cápsula + especificação”</td><td><b>Fica.</b> Gastrorresistente e prolongada não são veículo comum: a Serrapeptase fica na cápsula gastrorresistente. Mastigar e dissolver entram como exceção por forma</td></tr>
+<tr><td>V8 · exclusão por molécula</td><td>Molécula numa forma em que não funciona</td><td><b>Fica</b>, e ganha a exceção por forma, na substância</td></tr>
+<tr><td>Fonte para cada forma</td><td>Lista sem fonte, o motivo do expurgo</td><td><b>Muda de grão.</b> A justificativa passa a ser por forma e por exceção, não por par. Forma nova entra como não até alguém decidir</td></tr>
+<tr><td>I4 · dose escopada com duas apresentações ou mais</td><td>Dose da tintura aplicada ao extrato</td><td><b>Muda.</b> O escopo só é exigido onde a forma muda a dose: no preparo. A Passiflora segue igual</td></tr>
+<tr><td>Item 10 · molécula usual em cada apresentação</td><td>Forma sem molécula que se possa prescrever</td><td><b>Fica.</b> A linha da regra herda as usuais da substância, salvo exclusão da molécula</td></tr>
+<tr><td>presentation_id e conferência no save</td><td>Compatibilidade inventada pelo cliente</td><td><b>Fica.</b> Toda forma da regra é uma linha com id</td></tr>
+<tr><td>S18-A · a união descobre; aplicar exige o par em todas as linhas</td><td>Escolha arbitrária e conversão de unidade</td><td><b>Fica o algoritmo.</b> A forma padrão é ícone e ordem; o card não pré-seleciona forma</td></tr>
+</tbody></table></div>
+<div class="au-open"><span class="au-dest prep">De onde veio a forma única</span><span><b>Do expurgo de 02/05/2026 e do backfill de 03/05/2026, não de uma regra clínica.</b> Antes, o golden tinha 68 substâncias e 135 apresentações, e 43 tinham duas formas ou mais. O expurgo tirou as 135 por falta de fonte. O backfill deu uma forma a cada órfã pela categoria: mineral em cápsula, lipossolúvel em cápsula mole, probiótico em cápsula dura.</span></div>
+<div class="au-open"><span class="au-dest">O que o confronto mudou</span><span><b>A primeira versão derivava a forma na tela e só olhava o estado físico.</b> O M1 derrubou as duas coisas. A regra aprovada tira preparo e liberação modificada do veículo comum, e grava as linhas no build.</span></div>
+<p class="au-src">SPEC-M1-TAXONOMIA-SUPLEMENTACAO.md:24-34 (as 6 Leis); M3c-taxonomia-edqm.md:33,38 (V8, V13); item6-7.md:61-69 (I4); M1-CURADORIA.md:889-897 (fonte por forma); commits ef2628ee3e (expurgo, 02/05/2026) e a6a89325b5 (backfill, 03/05/2026); golden anterior ao expurgo lido em ef2628ee3e^; S18 fecho-referencias/SPEC.md:585-640. Confronto completo em cad/B-m1.md.</p>
+
+</figure>
+<p class="au-rule">O M1 separou o que a substância é. A regra mantém isso e para de confundir com o veículo.</p>
+</section>
+
+<section class="au-q" id="k4">
+<span class="au-n" aria-hidden="true">4</span>
+<h2>O estado físico basta?</h2>
+<p class="au-a">Não. Ele erra para os dois lados: <b>põe magnésio no chá e serrapeptase na goma</b>, e <b>deixa a vitamina D fora das gotas</b>.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 4 — oito casos em três regras</figcaption>
+{{ fig4 }}
+<div class="au-open"><span class="au-dest prep">O juiz</span><span><b>Os números vêm do golden, não de mim.</b> O script roda a função de dev e as duas regras novas sobre as {{ nSubs }} substâncias e as {{ nFormas }} formas, e para se a regra errar um caso.</span></div>
+<p class="au-src">cad/matriz.ts, 14/11/2026: importa resolveFormulationPresentation e o seed de formas de dev. A B12 só ganha o sublingual quando o cadastro registrar a via: o golden só tem via oral.</p>
+</figure>
+<p class="au-rule">Quem decide é a via, e se a forma é um veículo comum.</p>
+</section>
+
+<section class="au-q" id="k5">
+<span class="au-n" aria-hidden="true">5</span>
+<h2>Qual é a regra?</h2>
+<p class="au-a">Três dados, <b>todos já perto do cadastro</b>, e um lugar para a regra rodar.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 5a — o que decide</figcaption>
+<div class="au-addr">
+<div class="au-addri"><span class="au-dest">A via</span><p>A substância diz por onde age: oral, sublingual, cutânea. As vias saem das apresentações que ela já cadastra.</p></div>
+<div class="au-addri"><span class="au-dest">Veículo comum</span><p>Um sim ou não por forma, no seed de formas. Não para o preparo (chá, tintura, extrato fluido) e para a liberação modificada (gastrorresistente, prolongada). Forma nova entra como não até alguém decidir.</p></div>
+<div class="au-addri"><span class="au-dest">A exceção</span><p>A forma em que o ativo não vai, gravada na substância. A exclusão por molécula continua. O resto a farmácia avalia antes de manipular.</p></div>
+</div>
+<div class="au-open"><span class="au-dest prep">A regra</span><span><b>A substância vai em todo veículo comum das vias que aceita, menos as exceções.</b> A que está numa forma que não é veículo comum fica nas formas que cadastrou. A forma cadastrada continua a forma padrão: ícone e ordem.</span></div>
+<div class="au-open"><span class="au-dest prep">Onde roda</span><span><b>No build, não na tela.</b> O build do golden e o save de Cadastrados gravam as formas da regra como linhas de apresentação. O card e o save da prescrição continuam lendo linhas, com o mesmo par exato e o mesmo presentation_id.</span></div>
+<p class="au-src">RDC 67/2007, itens 5.18.1, 5.18.1.1 e 5.18.2: o farmacêutico avalia compatibilidade, dose e via antes de manipular e, havendo incompatibilidade, pede confirmação ao prescritor.</p>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 5b — escolha as substâncias da fórmula</figcaption>
+<div class="df-root au-ds">{{ pick }}</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 5c — quantas substâncias cada forma recebe</figcaption>
+{{ juiz }}
+<p class="au-src">A coluna Hoje sai da função de dev; a coluna Com a regra, da regra veículo comum × via, no mesmo script. Linhas de apresentação no golden: {{ nLinhasHoje }} hoje, {{ nLinhasRegra }} com a regra ({{ nSubsVeiculo }} substâncias em {{ nVeiculos }} veículos orais, mais as {{ nLinhasNaoVeiculo }} linhas das {{ nNaoVeiculo }} que ficam nas próprias formas).</p>
+</figure>
+<p class="au-rule">Cadastrar uma substância é dizer o que ela é e por onde age. O veículo é escolha da prescrição.</p>
+</section>
+
+<section class="au-q" id="k6">
+<span class="au-n" aria-hidden="true">6</span>
+<h2>E o bombom?</h2>
+<p class="au-a">É <b>forma sólida oral, irmã da cápsula</b>: um veículo comum novo no seed, com Sabor. Marcado como veículo comum, recebe toda substância oral que está em veículo comum.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 6 — onde o bombom mora, e o que muda no card</figcaption>
+<div class="cf-taxo">
+<div class="au-it"><b>Cápsula</b><span>sólido · engolir</span></div>
+<div class="au-it"><b>Comprimido mastigável</b><span>sólido · mastigar</span></div>
+<div class="au-it"><b>Goma mastigável</b><span>sólido · mastigar</span></div>
+<div class="au-it loc"><b>Bombom</b><span>sólido · mastigar · local</span></div>
+<div class="au-it loc"><b>Barrinha</b><span>sólido · mastigar · local</span></div>
+</div>
+<div class="au-rdw cf-long cf-scroll"><table>
+<thead><tr><th>De cápsula para bombom, no card</th><th>O que acontece</th><th>Item</th></tr></thead>
+<tbody>
+<tr><td>Linhas</td><td>Ficam, com a quantidade de uma dose</td><td>98</td></tr>
+<tr><td>Quantidade a aviar</td><td>Fica: conta doses em toda forma</td><td>97</td></tr>
+<tr><td>Posologia</td><td>Fica</td><td>97</td></tr>
+<tr><td>Sabor</td><td>Aparece: o bombom é marcado no seed</td><td>95</td></tr>
+<tr><td>Dose conhecida</td><td>Sai: o bombom conta em outra unidade. Quadro 13</td><td>155 e 158</td></tr>
+</tbody></table></div>
+<p class="au-src">Vocabulário Controlado de Formas Farmacêuticas da ANVISA (2011): barra, pastilha gomosa e comprimido mastigável entre as formas sólidas; bombom não aparece. EDQM: sem termo para bombom nem barra; o mais próximo é Chewable tablet (espelho HL7 IPS).</p>
+</figure>
+<p class="au-rule">Bombom é veículo, não opção de aviar: muda a forma, não a dose.</p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>4 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>95</td><td>Apresentação</td><td class="r">O campo Sabor aparece nas formas que o catálogo marcar: um sim ou não por forma no seed de formas, lido pelo card. É um campo só, “Sabor”, texto livre, sem lista de sabores. Começa marcado em sachê, pó para solução oral, gotas orais, solução oral, gomas, pastilha e comprimidos mastigável, efervescente e orodispersível. Bombom e barrinha entram como forma nova, já marcada.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 07:48</td></tr><tr><td>96</td><td>Apresentação</td><td class="r">O material da cápsula vai em Orientações. Bombom e barrinha são formas locais do catálogo, ancoradas no comprimido mastigável. O aviar é sempre automático, sem edição.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 07:48</td></tr><tr><td>97</td><td>Apresentação</td><td class="r">Ao trocar a forma, a quantidade a aviar fica: conta doses em toda forma. O sabor some quando a forma nova não tem o campo Sabor.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">13/11/2026 17:45</td></tr><tr><td>155</td><td>Dose conhecida: popover e modais</td><td class="r">Trocar a forma entre veículos segue a unidade que se conta: a dose conhecida fica quando a forma nova conta a mesma unidade e sai quando conta outra, com a confirmação curta do item 158 se alguma tomada ficar sem quantidade.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 14:59</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" id="k7">
+<span class="au-n" aria-hidden="true">7</span>
+<h2>Como fica o cadastro?</h2>
+<p class="au-a">Muda <b>uma região</b> da aba Composição. Embaixo da tabela de apresentações entra <b>Também vai em</b>, recolhida, com a contagem e as exceções.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 7 — o modal de Cadastrados, aba Composição</figcaption>
+<div class="df-root au-ds">{{ mctl }}</div>
+<div class="cf-grid">
+<div class="df-root au-ds cf-mod">{{ modal }}</div>
+<div class="df-root au-ds">{{ mside }}</div>
+</div>
+<div class="au-open"><span class="au-dest prep">Ao salvar</span><span><b>As formas de Também vai em viram linhas</b>, marcadas como da regra, e as exceções ficam gravadas na substância. A tabela continua mostrando só as cadastradas.</span></div>
+<div class="au-open"><span class="au-dest">As exceções</span><span><b>A grade abre no botão Exceções</b>, com o mesmo ✓ e ✗ que a tabela de moléculas já usa.</span></div>
+<div class="au-lim"><span class="au-seal">Limite da figura</span><span>O pacote do DS mostra o Select fechado e a ação de remover sem efeito. <b>Adicionar apresentação</b> acrescenta o comprimido sublingual de exemplo, que traz a via sublingual.</span></div>
+<p class="au-src">Anatomia de dev em ef4b512aa5: ModalSubstanciaV2.tsx, ComposicaoTabPanel.tsx:399-416, PresentationTable.tsx e MoleculeTable.tsx:728-806. Estado vazio das moléculas: emptyStates.ts:191-205. Substâncias e moléculas: golden de dev.</p>
+</figure>
+<p class="au-rule">O cadastro ganha uma região, não uma tela nova.</p>
+</section>
+
+<section class="au-q" id="k8">
+<span class="au-n" aria-hidden="true">8</span>
+<h2>O que muda no código?</h2>
+<p class="au-a">Uma função nova que <b>grava linhas</b>, e quase nada no que <b>lê</b> as linhas.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 8 — os donos, hoje e com a regra</figcaption>
+<div class="au-rdw cf-long cf-scroll"><table>
+<thead><tr><th>Onde</th><th>Hoje</th><th>Com a regra</th></tr></thead>
+<tbody>
+<tr><td>Materializador (novo, no núcleo)</td><td>Não existe</td><td>Uma função gera as linhas da regra a partir das cadastradas, do seed de formas e das exceções. Usam a mesma função o build do golden, o save de Cadastrados e o deploy do seed quando ele ganha um veículo comum</td></tr>
+<tr><td>Seed de formas</td><td>Estado físico, forma básica, liberação, via padrão e uma unidade só</td><td>Mais: veículo comum, Bombom e Barrinha, e Sabor (item 95). A unidade que se conta espera o item 147: parte 2</td></tr>
+<tr><td>Linha de apresentação</td><td>Forma, via, padrão</td><td>Mais: origem, cadastrada ou da regra</td></tr>
+<tr><td>Exceção</td><td>Por id de apresentação, dentro da molécula</td><td>Mais uma, por forma, na substância. A da molécula fica. Das {{ nMoleculas }} moléculas do golden, {{ nMolExcl }} têm exclusão: nada a migrar</td></tr>
+<tr><td>resolveFormulationPresentation e o save</td><td>Par exato forma × via, com presentation_id por linha</td><td>Ficam. Comparam mais linhas; toda forma da regra tem linha e id</td></tr>
+<tr><td>Gates do golden</td><td>I4 exige dose escopada com duas apresentações ou mais; usual por apresentação (item 10)</td><td>I4 exige escopo só onde a forma muda a dose: no preparo. A linha da regra herda as usuais da substância, salvo exclusão da molécula</td></tr>
+<tr><td>Seletor de forma do card</td><td>Só as formas das linhas; modal de aviso na troca</td><td>O mesmo código, sobre mais linhas; o modal sai (item 98)</td></tr>
+<tr><td>Busca do card</td><td>Não filtra pela forma</td><td>Filtra pelas linhas da forma escolhida (item 70)</td></tr>
+<tr><td>Save da prescrição</td><td>Recusa linha incompatível</td><td>Não recusa; a linha fica avisada (itens 41 e 98)</td></tr>
+<tr><td>Cadastrados</td><td>Tabela forma × via; ✓ e ✗ por apresentação nas moléculas</td><td>A mesma tabela, mais Também vai em</td></tr>
+<tr><td>Lock de catálogo</td><td>Apresentação e exclusão mudam o escopo</td><td>Exceção por forma muda o escopo, como apresentação hoje</td></tr>
+<tr><td>Testes</td><td>formulation-presentation e o teste do servidor, apresentacao-logic e apresentacao-queries</td><td>Os do par exato ficam; entram os do materializador, com os oito casos do quadro 4</td></tr>
+</tbody></table></div>
+<div class="au-open"><span class="au-dest">De passagem</span><span><b>Cinco achados fora da regra.</b> O ícone de forma da busca não aparece: edqmBasicDoseForm não tem produtor em runtime. O seed grava os rótulos sem acento (Capsula, Sache). Quatro funções de apresentacao-queries.ts só têm testes como consumidores. Docs dizem que a troca de forma limpa o vínculo e pode limpar a composição; o card preserva as duas. E o código EDQM do seed só confere em {{ nEdqmOk }} das {{ nEdqm }} formas com código: em {{ nEdqmOutro }}, o arquivo do EDQM mostra outro termo para o mesmo número.</span></div>
+<p class="au-src">Inventário de dev em ef4b512aa5, por leitura: schema.prisma:4747-4820, formulation-presentation.ts, formulation-presentation.server.ts:193-257, CardFormulacao.tsx, PresentationTable.tsx, MoleculeTable.tsx:728-806, substance-impact.ts, autocomplete/flatten.ts:44-95. Códigos EDQM: seed conferido em 14/11/2026 no arquivo bruto do EDQM Standard Terms (servidor de terminologia do HL7, versão de 05/02/2025).</p>
+</figure>
+<p class="au-rule">O que a substância é mora no cadastro. O veículo mora na prescrição. A farmácia confirma.</p>
+</section>
+
+<section class="au-q" id="k9">
+<span class="au-n" aria-hidden="true">9</span>
+<h2>O que ficou decidido?</h2>
+<p class="au-a">A regra <b>veículo comum × via</b> entra no plano em <b>duas fatias</b>: primeiro o golden do sistema, depois o modal de Cadastrados.<span class="rg-vg">decidido · item 154, 14/11/2026 13:54</span></p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 9 — as duas fatias, e o que fica</figcaption>
+<div class="au-addr">
+<div class="au-addri"><span class="au-dest prep">Fatia 1 · o golden</span><p>Veículo comum, Bombom e Barrinha no seed de formas. Exceção por forma na substância. Origem na linha de apresentação. O materializador no build do golden.</p></div>
+<div class="au-addri"><span class="au-dest prep">Fatia 2 · Cadastrados</span><p>Também vai em no modal da substância. O save grava as linhas da regra com o mesmo materializador.</p></div>
+<div class="au-addri"><span class="au-dest">Fica</span><p>O par exato, o presentation_id, a tabela de apresentações, a Lei 4, a liberação como parte da forma e a dose por apresentação da Passiflora.</p></div>
+</div>
+<div class="au-open"><span class="au-dest prep">Muda junto</span><span><b>O ponto de partida passa a ser todo veículo comum, menos exceção.</b> Antes era só o par cadastrado. Mudam duas frases do S18-A.</span></div>
+<div class="au-open"><span class="au-dest">Caminho de volta</span><span><b>A decisão está no item 154 dos Pedidos. O handbook do popover da dose conhecida chegou e entrou nos itens 156 a 162; a troca de forma entre veículos é o item 155.</b> Cada ajuste vira decisão num item, passa pelos juízes e chega aos boards oficiais pela lista “Levar ao board oficial”.</span></div>
+<p class="au-src">Item 154 dos Pedidos, com a sua resposta de 14/11/2026 13:54 a “Aprova a regra começando só pelo golden do sistema, com o modal de Cadastrados numa segunda fatia?”.</p>
+</figure>
+<p class="au-rule">A regra veículo comum × via, gravada no build e com exceção por forma, entra no plano em duas fatias.</p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>2 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>154</td><td>Apresentação</td><td class="r">A forma em que uma substância pode ser prescrita segue a regra veículo comum × via. O seed de formas marca cada forma como veículo comum ou não; não são o preparo (chá, tintura, extrato fluido) nem a liberação modificada (gastrorresistente, prolongada). A substância em veículo comum vai em todo veículo comum das vias que aceita, menos as exceções gravadas nela; a que está numa forma que não é veículo comum fica nas formas que cadastrou. O build grava as formas da regra como linhas de apresentação, e o card e o save continuam lendo linhas. Entra em duas fatias: primeiro o golden do sistema, depois o modal de Cadastrados.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 13:54</td></tr><tr><td>155</td><td>Dose conhecida: popover e modais</td><td class="r">Trocar a forma entre veículos segue a unidade que se conta: a dose conhecida fica quando a forma nova conta a mesma unidade e sai quando conta outra, com a confirmação curta do item 158 se alguma tomada ficar sem quantidade.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 14:59</td></tr></tbody></table></div></details>
+</section>
+
+<div class="fm-part" id="p2">
+<span class="au-mono">Parte 2 · quadros 10 a 15 · item 147, decidido</span>
+<h2>A unidade que se conta</h2>
+<p>Com a regra da parte 1, cada substância chega a até {{ nVeiculos }} formas, e trocar de forma vira gesto comum. A dose conhecida precisa saber o que cada forma conta. Daqui em diante está a regra que você aprovou em 14/11/2026 16:02, com os dois reviews: o que se confirmou, o que se corrigiu e as duas escolhas.</p>
+</div>
+
+<section class="au-q" id="k10">
+<span class="au-n" aria-hidden="true">10</span>
+<h2>Em que unidade a dose conhecida se conta?</h2>
+<p class="au-a">Na <b>menor unidade que se conta</b> na forma: cápsula, gota, sachê. <b>Grama e mililitro medem</b>, e já estão na linha.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 10a — três registros, a mesma separação</figcaption>
+<div class="au-reg3">
+<article class="au-reg">
+<span class="au-who">O rótulo</span>
+<span class="au-mono">ANVISA · RDC 67/2007 · Anexo I, item 12.1</span>
+<b class="au-code fm-small">Toda preparação magistral</b>
+<span class="au-regname">“g) número de unidades; h) peso ou volume contidos; i) posologia”</span>
+<div class="au-axes">
+<span class="hot"><i>conta</i>número de unidades</span>
+<span><i>mede</i>peso ou volume contidos</span>
+</div>
+</article>
+<article class="au-reg">
+<span class="au-who">O vocabulário</span>
+<span class="au-mono">EDQM Standard Terms · ISO 11239 e ISO 11240</span>
+<b class="au-code fm-small">Unit of presentation</b>
+<span class="au-regname">A entidade discreta que se conta. Grama e mililitro ficam em outra lista: unidades de medida.</span>
+<div class="au-axes">
+<span class="hot"><i>conta</i>Capsule · Sachet · Drop</span>
+<span><i>mede</i>g · mL</span>
+</div>
+</article>
+<article class="au-reg">
+<span class="au-who">A troca de dados</span>
+<span class="au-mono">HL7 FHIR R5 · Ingredient · strength</span>
+<b class="au-code fm-small">presentation · concentration</b>
+<span class="au-regname">A força por unidade de apresentação é um campo. A força por volume ou massa é outro.</span>
+<div class="au-axes">
+<span class="hot"><i>conta</i>presentation</span>
+<span><i>mede</i>concentration</span>
+</div>
+</article>
+</div>
+<div class="au-down" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
+<div class="au-order fm-order"><span>O IDMP, citado pelo guia do SNOMED</span><b>Peso ou volume medido não ganha unidade de apresentação.</b><span>a unidade já é o grama ou o mililitro</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 10b — o campo já existe em dev</figcaption>
+<div class="au-order fm-order"><span>O contrato de dev · default_dose_unit</span><b>Unit of Presentation: “como o produto é contado”.</b><span>1 cápsula, 1 gota</span></div>
+<div class="au-down" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
+{{ fig10 }}
+<div class="au-open"><span class="au-dest nada">No card de dev</span><span><b>A unidade sai do rótulo da forma, por pedaço de texto.</b> Em {{ nRotuloOutras }} das {{ nAtivas }} formas ativas, o card responde “unidades”. O campo do seed chega ao catálogo, mas a conta usa o rótulo.</span></div>
+<p class="au-src">RDC 67/2007, Anexo I, item 12.1, letras g, h e i. EDQM Standard Terms: arquivo bruto no servidor de terminologia do HL7 ({{ nEdqmConceitos }} conceitos, versão de 05/02/2025), conferido em 14/11/2026. Definição e regra do IDMP: SNOMED CT Editorial Guide, “Unit of presentation”. FHIR R5, Ingredient.substance.strength. Contrato: docs/aprendendo-dietflow/PPRESCRICAO-SUBSTANCIAS.html:805. Dev em {{ devSha }}, com os arquivos lidos iguais aos de {{ devBase }}: dose-forms.ts (defaultDoseUnit), types.ts:129 (KnownUnitKind), apresentacao-semantics.ts:153-166, CardFormulacao.tsx:996 e substance-actions.ts:1126.</p>
+</figure>
+<p class="au-rule">Contar e medir são duas coisas. O campo da forma já é da primeira: grama e mililitro nele são o desvio.<span class="rg-vg">decidido · item 147, 14/11/2026 16:02</span></p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>2 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>147</td><td>Apresentação</td><td class="r">A dose conhecida conta na menor unidade que se conta da forma, nunca em grama ou mililitro. O campo defaultDoseUnit do seed de formas, que já é a unidade de apresentação, passa a guardar só essa unidade, numa lista única com singular e plural: cápsula, comprimido, goma, pastilha, colher-medida, sachê, gota, jato, acionamento, bombom e barrinha; a solução oral fica vazia. O sachê conta sachê, e a colher se chama colher-medida. ml, g e other saem da escrita da dose conhecida e continuam legíveis: o registro antigo fica como foi gravado.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 16:02</td></tr><tr><td>93</td><td>Apresentação</td><td class="r">Toda forma se avia em doses. Na forma líquida, o mililitro fica na linha, na unidade que a substância permite.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">13/11/2026 17:22</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" id="k11">
+<span class="au-n" aria-hidden="true">11</span>
+<h2>E a forma que vem a granel?</h2>
+<p class="au-a">Conta pelo que <b>separa a porção</b>: a embalagem ou o dosador. O dosador <b>graduado</b> mede, e a dose conhecida fica vazia.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 11a — o que separa a porção</figcaption>
+{{ fig11a }}
+<div class="au-open"><span class="au-dest nada">Opcional</span><span><b>A unidade diz em que se conta, quando se conta.</b> Pó sem colher-medida, chá a granel e creme sem bomba dosadora ficam sem dose conhecida. Isso já é possível: ela é opcional.</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 11b — o dosador conta ou mede</figcaption>
+{{ fig11b }}
+<div class="au-open"><span class="au-dest prep">Tintura e extrato fluido</span><span><b>Na fonte oficial, medem-se em mL.</b> O Formulário de Fitoterápicos escreve “tomar 0,84 mL da tintura, diluídos em 50 mL de água” e manda acondicionar em frasco de vidro âmbar. Nas edições de 2022 e de 2026, a palavra “gota” não aparece. A gota só existe com o conta-gotas. Sem ele, a dose conhecida fica vazia e o mL continua na linha.</span></div>
+<div class="au-open"><span class="au-dest">Solução oral</span><span><b>A solução que se pinga já é outra forma do catálogo: Gotas orais.</b> A que sobra se mede no copo ou na seringa. O EDQM tem a unidade Cup, para o copo cheio. O copo dosador é graduado, e o mL já está na linha (item 93).</span></div>
+<p class="au-src">Acessórios: Vocabulário Controlado de Formas Farmacêuticas, Vias de Administração e Embalagens de Medicamentos, ANVISA, 1ª ed., 2011, p. 50-52. O que separa a porção: SNOMED CT Editorial Guide, “Unit of presentation”. Tintura e extrato fluido: Formulário de Fitoterápicos da Farmacopeia Brasileira, 2ª ed. (versão de 13/05/2022), monografias de Valeriana officinalis (p. 204-207), Echinacea angustifolia (p. 70-72), Passiflora incarnata (p. 145-148) e Melissa officinalis (p. 128-131); a 3ª ed. (2026) mantém as doses. Colher-medida no pó: o dispositivo Measuring spoon do EDQM (30034000) serve a sólidos multidose. Que o pó manipulado venha com a colher e o creme, com bomba dosadora: prática de farmácia, sem fonte.</p>
+</figure>
+<p class="au-rule">O que separa a porção, conta. O que é graduado, mede.<span class="rg-vg">decidido · item 147, 14/11/2026 16:02</span></p>
+</section>
+
+<section class="au-q" id="k12">
+<span class="au-n" aria-hidden="true">12</span>
+<h2>Como fica o catálogo de formas?</h2>
+<p class="au-a">Como o board novo o mostraria: uma linha por forma e três respostas. <b>Se é veículo comum, o que conta e se tem Sabor.</b> Cada unidade leva a origem do valor.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 12 — o catálogo de formas</figcaption>
+{{ catResumo }}
+<div class="df-root au-ds">{{ cat }}</div>
+<div class="au-open"><span class="au-dest com">O que o item 147 muda</span><span><b>No próprio defaultDoseUnit, {{ nMudam }} formas saem de g ou ml, e {{ nLocais }} formas novas já nascem contando.</b>{{ mudam }}</span></div>
+<div class="au-open"><span class="au-dest prep">Pela sua decisão</span><span><b>Os {{ nSemOrigem }} valores sem fonte nem fala ganharam origem na sua aprovação de 14/11/2026 16:02.</b>{{ semOrigem }}</span></div>
+<div class="au-lim"><span class="au-seal">Decidido</span><span><b>As colunas Unidade que se conta e Origem do valor são regra</b> desde 14/11/2026 16:02 (item 147). Veículo comum é o item 154, e Sabor, o item 95. Não há coluna de unidade de medida: a medida é da linha (item 93).</span></div>
+<div class="au-lim"><span class="au-seal">Rótulos</span><span><b>Rótulos corrigidos na figura; o seed ainda grava sem acento.</b>{{ rotulos }}</span></div>
+<p class="au-src">Seed de formas de dev em {{ devSha }} ({{ nAtivas }} formas ativas) mais Bombom e Barrinha (itens 95 e 96), por cad/matriz.ts em 14/11/2026. Fonte de cada unidade: arquivo bruto do EDQM Standard Terms no servidor de terminologia do HL7, versão de 05/02/2025. Sua fala: 11/11/2026 18:32, no item 147 dos Pedidos. ANVISA: Vocabulário Controlado, 2011. “Gomas”, no item 95, lido como as duas gomas do catálogo.</p>
+</figure>
+<p class="au-rule">O catálogo diz o que a forma conta e de onde vem o valor. A prescrição pergunta só quantas.<span class="rg-vg">decidido · item 147, 14/11/2026 16:02</span></p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>4 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>154</td><td>Apresentação</td><td class="r">A forma em que uma substância pode ser prescrita segue a regra veículo comum × via. O seed de formas marca cada forma como veículo comum ou não; não são o preparo (chá, tintura, extrato fluido) nem a liberação modificada (gastrorresistente, prolongada). A substância em veículo comum vai em todo veículo comum das vias que aceita, menos as exceções gravadas nela; a que está numa forma que não é veículo comum fica nas formas que cadastrou. O build grava as formas da regra como linhas de apresentação, e o card e o save continuam lendo linhas. Entra em duas fatias: primeiro o golden do sistema, depois o modal de Cadastrados.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 13:54</td></tr><tr><td>147</td><td>Apresentação</td><td class="r">A dose conhecida conta na menor unidade que se conta da forma, nunca em grama ou mililitro. O campo defaultDoseUnit do seed de formas, que já é a unidade de apresentação, passa a guardar só essa unidade, numa lista única com singular e plural: cápsula, comprimido, goma, pastilha, colher-medida, sachê, gota, jato, acionamento, bombom e barrinha; a solução oral fica vazia. O sachê conta sachê, e a colher se chama colher-medida. ml, g e other saem da escrita da dose conhecida e continuam legíveis: o registro antigo fica como foi gravado.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 16:02</td></tr><tr><td>95</td><td>Apresentação</td><td class="r">O campo Sabor aparece nas formas que o catálogo marcar: um sim ou não por forma no seed de formas, lido pelo card. É um campo só, “Sabor”, texto livre, sem lista de sabores. Começa marcado em sachê, pó para solução oral, gotas orais, solução oral, gomas, pastilha e comprimidos mastigável, efervescente e orodispersível. Bombom e barrinha entram como forma nova, já marcada.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 07:48</td></tr><tr><td>96</td><td>Apresentação</td><td class="r">O material da cápsula vai em Orientações. Bombom e barrinha são formas locais do catálogo, ancoradas no comprimido mastigável. O aviar é sempre automático, sem edição.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 07:48</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" id="k13">
+<span class="au-n" aria-hidden="true">13</span>
+<h2>E quando a forma muda?</h2>
+<p class="au-a">A dose conhecida <b>fica quando a forma nova conta a mesma unidade</b>. Quando conta outra, sai pela conta de limpar: as tomadas inteiras voltam para doses, e a que não fecha dose inteira fica sem quantidade, depois de uma confirmação curta.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 13a — troque a forma</figcaption>
+<div class="df-root au-ds">{{ trocaCtl }}</div>
+{{ troca }}
+<div class="au-lim fm-mt"><span class="au-seal">Limite da figura</span><span>As contas e as frases saem do motor da aula de Prescrição, com as unidades do catálogo do quadro 12. O popover é o mesmo da aula: o interruptor, o número e “Limpar”. A confirmação é o BaseConfirmationModal. Nada é gravado.</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 13b — os veículos, pela unidade</figcaption>
+{{ grupos }}
+<div class="au-open"><span class="au-dest nada">Função de dev</span><span><b>A função de dev aplicada ao catálogo proposto recusa a troca ou mantém a unidade antiga.</b> Das {{ nTrocaTotal }} trocas, abre o aviso “Unidade por tomada incompatível” em {{ nDevRecusa }} e não aplica a forma. Das {{ nDevAplica }} que aplica, {{ nDevErrado }} seguem numa unidade que a forma nova não conta. A conta não descreve dev: {{ nDevErradoLocais }} desses {{ nDevErrado }} pares envolvem bombom ou barrinha, que dev ainda não tem.</span></div>
+<div class="au-open"><span class="au-dest">S18-A</span><span><b>Recusar e preservar o valor era a regra: a precisão 2 do S18-A.</b> Trocar a forma não trocava a unidade conhecida, e a incompatível pedia resolução explícita. A troca que tira a dose conhecida já mudou essa precisão: está no item 158, e no 155.</span></div>
+<p class="au-src">Motor da aula (motor.js: withForm, withDose, withUsar, lostOf, sayOf). Contagem das trocas: cad/matriz.ts, entre os veículos que uma substância em veículo comum alcança no golden, com Bombom e Barrinha. Dev em ef4b512aa5: isAdministrationBasisCompatibleWithDoseForm (apresentacao-semantics.ts:144-151) e o aviso de CardFormulacao.tsx:1991-2003 e 2289-2305, com a dose conhecida na unidade que o card sugere para a forma de origem. S18-A: SPEC.md do fecho-referencias da RX-03, linhas 596, 638 e 668; a mudança está nas notas dos itens 155 e 158 dos Pedidos.</p>
+</figure>
+<p class="au-rule">Mesma unidade, a dose conhecida fica. Outra unidade, sai. Nenhuma troca é recusada; a que deixa tomada sem quantidade pede confirmação.</p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>4 vigentes</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>131</td><td>Dose conhecida: popover e modais</td><td class="r">Nenhum gesto da dose conhecida é recusado: Apagar o número, trocar o número e trocar a forma valem sempre. A conta conserva a dose de cada tomada, e a tomada que não fecha dose inteira fica sem quantidade, com o aviso no próprio campo. O número não mostra faixa nem erro embaixo.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 06:00</td></tr><tr><td>155</td><td>Dose conhecida: popover e modais</td><td class="r">Trocar a forma entre veículos segue a unidade que se conta: a dose conhecida fica quando a forma nova conta a mesma unidade e sai quando conta outra, com a confirmação curta do item 158 se alguma tomada ficar sem quantidade.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 14:59</td></tr><tr><td>157</td><td>Dose conhecida: popover e modais</td><td class="r">O interruptor “Usar dose conhecida” volta, no cabeçalho do popover. Desligar guarda o número e não mexe nas tomadas: o botão fica neutro, a coluna da unidade some e o papel escreve só a dose, em fração quando não fecha inteira, sem parênteses nem nota (“Tomar 1/3 da dose 2 vezes ao dia.”). Religar devolve tudo, porque nada foi apagado. Tirar a dose conhecida de vez é pelo “Limpar”, à esquerda no rodapé do popover, ou apagando o número.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 13:56</td></tr><tr><td>158</td><td>Dose conhecida: popover e modais</td><td class="r">Trocar o número, limpar e trocar para uma forma que conta outra unidade conservam a dose de cada tomada; a que não fecha dose inteira fica sem quantidade. Quando alguma tomada fica sem quantidade, o gesto pede uma confirmação curta: a contagem (“1 tomada fica sem quantidade”) e a consequência (“As tomadas que fecham dose inteira continuam com a mesma dose.”), com o verbo do gesto no botão: “Trocar o número”, “Limpar” ou “Trocar a forma”.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 13:56</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" id="k14">
+<span class="au-n" aria-hidden="true">14</span>
+<h2>Que unidades o sistema tem?</h2>
+<p class="au-a">Duas listas com donos diferentes: <b>a substância mede o ativo</b> em mg, UI ou Bi UFC, e <b>a forma conta a dose</b> em cápsula, gota ou sachê.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 14 — as unidades de dev, por família</figcaption>
+<div class="au-rdw cf-long cf-scroll"><table>
+<thead><tr><th>Família</th><th>Unidades</th><th>Converte com</th><th>Onde aparece</th></tr></thead>
+<tbody>
+<tr><td><b>Peso</b></td><td><span class="cf-mono">mg · mcg · g · ng · pg · mcg RAE</span></td><td>mg com mcg, g e UI; mcg com mg, UI e mcg RAE; g com mg; mcg RAE com UI e mcg</td><td rowspan="5">Unidade da substância no cadastro, primária e secundária, e coluna UN. da linha do card</td></tr>
+<tr><td><b>Atividade biológica</b></td><td><span class="cf-mono">UI</span></td><td>mcg, mg e mcg RAE, pelo fator da molécula</td></tr>
+<tr><td><b>Atividade enzimática</b></td><td><span class="cf-mono">FTU</span><span class="cf-sub">USP, FCC e DU estão na lista da substância sem entrar no catálogo de conversão</span></td><td>Nenhuma</td></tr>
+<tr><td><b>Contagem de colônias</b></td><td><span class="cf-mono">UFC · Mil UFC · Mi UFC · Bi UFC · Tri UFC</span></td><td>As outras escalas de UFC</td></tr>
+<tr><td><b>Volume</b></td><td><span class="cf-mono">mL</span></td><td>Nenhuma</td></tr>
+<tr><td><b>Unidade própria</b></td><td>Texto de até 7 caracteres<span class="cf-sub">Acima disso, a célula mostra “Use uma unidade com até 7 caracteres.”</span></td><td>Nenhuma</td><td>Unidade da substância, quando nenhuma das listas serve</td></tr>
+<tr><td><b>Unidade que se conta</b></td><td><span class="cf-mono">cápsula · comprimido · goma · pastilha · colher-medida · sachê · gota · jato · acionamento · bombom · barrinha</span><span class="cf-sub">Singular e plural na mesma lista: cápsula, cápsulas</span></td><td>Nenhuma: cada forma conta uma</td><td>Dose conhecida, coluna Unidades da tomada e os parênteses da posologia. Vem da forma; a Solução oral não tem</td></tr>
+</tbody></table></div>
+<div class="au-open"><span class="au-dest prep">Quem escolhe</span><span><b>A unidade que se conta não se digita: sai do catálogo de formas.</b> As cinco cápsulas contam cápsula; os sete comprimidos, comprimido; as duas gomas, goma; pastilha, pastilha; bombom e barrinha, a si mesmos; pó para solução oral, colher-medida; chá e sachê, sachê; gotas orais, tintura e extrato fluido, gota; spray oromucoso, jato; creme e gel, acionamento.</span></div>
+<p class="au-src">Lido em dev em 6e67577ee2: core/unit.ts (UNIT_CATALOG), core/unit-neighborhood.ts (getNeighborhoodUnits, UNIT_MAX_LENGTH, canCreateCustomUnit), core/dose-units.ts (COUNTED_DOSE_UNITS), types.ts (UNIDADES_SUBSTANCIA) e constants/messages/ui.ts (unitMaxLength). Forma × unidade: prisma/seeds/system/edqm/__tests__/dose-forms-catalog.test.ts (CF-01). Resume o board “Unidade · aceita”.</p>
+</figure>
+<p class="au-rule">A substância mede; a forma conta. Uma unidade nunca faz os dois papéis.</p>
+</section>
+
+<section class="au-q" id="k15">
+<span class="au-n" aria-hidden="true">15</span>
+<h2>O que ficou decidido?</h2>
+<p class="au-a"><b>Um dono só.</b> O defaultDoseUnit, que o contrato já chama de unidade de apresentação, passa a guardar <b>só a unidade que se conta</b>. Não entra coluna nova. <b>Decidido em 14/11/2026 16:02.</b></p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15a — o saldo dos dois reviews</figcaption>
+<div class="au-addr fm-four">
+<div class="au-addri"><span class="au-dest prep">Confirmou</span>
+<p>Contar e medir são duas coisas: no rótulo da RDC 67, no EDQM, no FHIR e no contrato de dev.</p>
+<p>No arquivo bruto do EDQM, as {{ nUop }} unidades existem com os códigos usados.{{ uop }}</p>
+<p>O Formulário de Fitoterápicos de 2022 e o de 2026 dosam tintura e extrato fluido em mL: nenhuma “gota” no texto.</p>
+<p>ml e g são unidades de medida: saem da escrita da dose conhecida.</p></div>
+<div class="au-addri"><span class="au-dest com">Corrigiu</span>
+<p>Um dono só. Era uma coluna nova ao lado do defaultDoseUnit; passa a ser o próprio campo.</p>
+<p>Sai a coluna de unidade de medida. Vinha do estado físico, e ninguém a lê.</p>
+<p>Cada valor leva a origem: uma fonte ou a sua fala. Sem as duas, fica vazio.</p>
+<p>Creme e gel contam acionamento só com bomba dosadora. Tintura e extrato fluido, gota só com conta-gotas.</p></div>
+<div class="au-addri"><span class="au-dest">Inferência</span>
+<p>Só a solução oral fica sem unidade: o dosador dela é graduado. O EDQM tem Cup, para o copo cheio.</p>
+<p>O sachê do chá. O EDQM chama o saquinho de Herbal tea in bag e não lhe dá unidade.</p>
+<p>Bombom, barrinha e goma mastigável contando a própria unidade. Na ANVISA existem as formas Barra e Pastilha gomosa.</p></div>
+<div class="au-addri"><span class="au-dest nada">Ficou sem fonte</span>
+<p>Que o pó manipulado venha com colher-medida e o creme, com bomba dosadora: prática de farmácia. Valem pela sua fala.</p>
+<p>Quantos registros de DEV têm dose conhecida em ml, g ou other: o banco não foi contado.</p>
+<p>O texto do ISO 11239 e do ISO 11240, que são pagos, e a lista no site do EDQM, que exige registro.</p></div>
+</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15b — o que vai junto</figcaption>
+<div class="au-addr fm-four">
+<div class="au-addri"><span class="au-dest prep">O que já está gravado</span>
+<p>{{ saem }} saem só das opções de escrita.</p>
+<p>O registro antigo abre, exporta e salva como gravou.</p>
+<p>Não é lido pela forma nova nem recebe backfill.</p></div>
+<div class="au-addri"><span class="au-dest prep">No código</span>
+<p>Os leitores param de deduzir a unidade pelo rótulo da forma: leem pelo doseFormId.</p>
+<p>Uma lista só de unidades, com singular e plural, no lugar das 5 cópias. Ganha {{ nNovos }} valores.{{ novos }}</p>
+<p>O campo é coluna obrigatória do banco e do parser. Aceitar vazio passa por migration, seed, parser, leitor e card.</p></div>
+<div class="au-addri"><span class="au-dest com">Revoga, se aprovado</span>
+<p>No M2 S4, a spec de 02/06/2026: o exemplo “Por tomada: 10 mL” e a unidade informada.</p>
+<p>A C19 da Reconciliação da Prescrição: a unidade por tomada informada manualmente.</p>
+<p>Em dev, quem prescreve escolhe entre {{ nKnown }} unidades. Passa a vir da forma.</p></div>
+<div class="au-addri"><span class="au-dest">Escopo próprio</span>
+<p>Os códigos EDQM do seed de formas: {{ nEdqmOk }} de {{ nEdqm }} conferem com o arquivo bruto.</p>
+<p>{{ nEdqmOutro }} apontam outro termo, e {{ nEdqmFora }} não existem. {{ edqmTrocadas }} estão trocadas.</p>
+<p>A correção vem antes de o board do catálogo mostrar a coluna EDQM.</p></div>
+</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15c — a pergunta e as duas escolhas, respondidas</figcaption>
+<div class="au-open"><span class="au-dest prep">Respondida em 14/11/2026 16:02</span><span><b>O defaultDoseUnit passa a guardar só a unidade que se conta, como no quadro 12 da página Cadastrados, com ml, g e other só para ler o que já foi gravado? Junto: o nome da colher (colher-medida, colher dosadora ou medida) e se o sachê conta sachê.</b></span></div>
+<div class="au-addr fm-mt">
+<div class="au-addri"><span class="au-dest prep">O sachê conta</span>
+<p>A sua fala de 11/11/2026 18:32: “1 sashe”.</p>
+<p>Dev já tem a unidade sache.</p>
+<p>Escolhido em 14/11/2026 16:02.</p></div>
+<div class="au-addri"><span class="au-dest nada">O sachê não conta</span>
+<p>O canvas da Apresentação, aceito em 14/11/2026 13:56.</p>
+<p>Nele, o Sachê é forma sem unidade (dose-colunas.js:7).</p>
+<p>Ao levar o canvas aos boards, o Sachê passa a contar sachê.</p></div>
+<div class="au-addri"><span class="au-dest">O nome da colher</span>
+<p>Fica colher-medida, o termo da ANVISA que a recomendação usa. Outro nome, só antes da primeira gravação: o registro guarda o texto da unidade.</p>
+<div class="au-chips"><span>colher-medida · ANVISA, 2011</span><span>colher dosadora · a primeira recomendação do item 147</span><span>medida · a aula de Prescrição</span></div></div>
+</div>
+<p class="au-src">Item 147 dos Pedidos, reescrito em 14/11/2026 15:19 com os dois reviews: a regressão contra o histórico da Prescrição e o catálogo contra o arquivo bruto do EDQM. Contrato: docs/aprendendo-dietflow/PPRESCRICAO-SUBSTANCIAS.html:805. M2 S4: 2026-06-02-m2-s4-apresentacao-unidade-por-tomada.md, linhas 114 e 215. C19: RECONCILIACAO-PRESCRICAO.md:313. Seletor de dev: CardFormulacao.tsx:2214-2230. As 5 cópias: types.ts:129, apresentacao-semantics.ts:9-17, prepared-administration.ts:26, unit-favorites/schemas.ts:155 e legacy.ts:412. Coluna e parser: schema.prisma:4758 e core/dose-form.ts:24. Canvas: dose-colunas.js:7. A fonte dos demais pontos está nos quadros 10 a 13.</p>
+</figure>
+<p class="au-rule">Um campo só diz o que a forma conta. Grama e mililitro ficam na linha, e o que já foi gravado fica como está.<span class="rg-vg">decidido · item 147, 14/11/2026 16:02</span></p>
+<details class="rg-box"><summary><b>Regras deste quadro</b><span>1 vigente</span><span>o mesmo registro dos Pedidos</span></summary><div class="rg-wrap"><table><thead><tr><th>Item</th><th>Assunto</th><th>Regra</th><th>Situação</th><th>Fonte</th></tr></thead><tbody><tr><td>147</td><td>Apresentação</td><td class="r">A dose conhecida conta na menor unidade que se conta da forma, nunca em grama ou mililitro. O campo defaultDoseUnit do seed de formas, que já é a unidade de apresentação, passa a guardar só essa unidade, numa lista única com singular e plural: cápsula, comprimido, goma, pastilha, colher-medida, sachê, gota, jato, acionamento, bombom e barrinha; a solução oral fica vazia. O sachê conta sachê, e a colher se chama colher-medida. ml, g e other saem da escrita da dose conhecida e continuam legíveis: o registro antigo fica como foi gravado.</td><td><span class="s s-vigente">Vigente</span></td><td class="f">14/11/2026 16:02</td></tr></tbody></table></div></details>
+</section>
+
+<section class="au-q" aria-label="Limites e fontes">
+<div class="au-end au-full">
+<div class="au-lim"><span class="au-seal">decidido em 14/11/2026</span><span><b>A parte 1 é regra.</b> Você aprovou as duas fatias às 13:54 (item 154). Esta página não reabre a regra: só encurtou os quadros.</span></div>
+<div class="au-lim"><span class="au-seal">decidido em 14/11/2026</span><span><b>A parte 2 é regra.</b> Você aprovou o item 147 às 16:02, com o sachê contando sachê e a colher como colher-medida. A troca de forma do quadro 13 segue a unidade de cada forma (itens 155 a 158).</span></div>
+<div class="au-lim"><span class="au-seal">lido na fonte</span><span><b>RDC 67/2007</b>, texto compilado: itens 5.18 e 12.1 do Anexo I. <b>Vocabulário Controlado da ANVISA</b> (2011): formas, embalagens e acessórios. <b>Formulário de Fitoterápicos</b>, edições de 2022 e de 2026: quatro monografias, lidas no review do catálogo, e a busca de “gota” no texto inteiro.</span></div>
+<div class="au-lim"><span class="au-seal">lido no arquivo bruto</span><span><b>EDQM.</b> As unidades de apresentação e os códigos de forma saem do arquivo do servidor de terminologia do HL7: {{ nEdqmConceitos }} conceitos, versão de 05/02/2025. O script para se um código não tiver o nome usado. A regra do IDMP vem do guia editorial do SNOMED.</span></div>
+<div class="au-lim"><span class="au-seal">inferência minha</span><span><b>A solução oral sem unidade, o sachê do chá e bombom, barrinha e goma mastigável contando a própria unidade.</b> A condição “com conta-gotas”, “com colher-medida” e “com bomba dosadora” sai da definição da unidade no EDQM. Que o produto manipulado traga o dosador, nenhuma fonte diz.</span></div>
+<div class="au-lim"><span class="au-seal">leitura minha</span><span><b>A sua fala de 11/11/2026 18:32 nomeia unidades; liguei cada uma à forma que ela nomeia.</b> Cápsulas, gotas orais, sachê, pó e creme e gel. Tintura, extrato fluido e chá não entram pela fala.</span></div>
+<div class="au-lim"><span class="au-seal">leitura minha</span><span><b>“Gomas”, no item 95, como as duas gomas do catálogo.</b> Dá {{ nSabor }} formas com Sabor. A aula de Prescrição mostra 11, com um chip “Goma” só.</span></div>
+<div class="au-lim"><span class="au-seal">não confirmei</span><span><b>A lista vigente no site do EDQM</b>, o texto dos ISO 11239 e 11240, o Formulário Nacional inteiro, se a RDC 67/2007 foi substituída por norma mais nova e quantos registros de DEV usam ml, g ou other.</span></div>
+<div class="au-lim"><span class="au-seal">lacuna</span><span><b>No EDQM, jato e acionamento são a mesma unidade: Actuation.</b> O catálogo guarda “jato” no spray, e a recomendação escreve “acionamento” no creme e no gel. Falta decidir se é uma unidade ou duas.</span></div>
+<div class="au-lim"><span class="au-seal">limite da verificação</span><span><b>Nada rodou no app.</b> Os números saem de um script sobre o seed e o golden de dev em {{ devSha }}, com três funções de dev; os arquivos lidos são os mesmos de {{ devBase }}. As figuras usam o pacote do DS e o motor da aula.</span></div>
+</div>
+<p class="au-fontes au-full">Fontes · <a href="https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2007/rdc0067_08_10_2007.html">RDC ANVISA 67/2007</a> <a href="https://bibliotecadigital.anvisa.gov.br/jspui/bitstream/anvisa/360/1/Vocabul%c3%a1rio%20Controlado.pdf">Vocabulário Controlado ANVISA 2011</a> <a href="https://www.gov.br/anvisa/pt-br/assuntos/farmacopeia/formulario-fitoterapico/2022-fffb2-versao-13-mai-2022.pdf/@@display-file/file">Formulário de Fitoterápicos · 2ª ed., 2022</a> <a href="https://bibliotecadigital.anvisa.gov.br/jspui/bitstream/anvisa/21045/3/FFFB3%2010%20jun%202026%20c%20ficha%20e%20capa.pdf">Formulário de Fitoterápicos · 3ª ed., 2026</a> <a href="https://tx.fhir.org/r4/CodeSystem/tx-edqm">EDQM Standard Terms · arquivo bruto (HL7)</a> <a href="https://ig.fhir.de/igs/medication/ValueSet-EDQMUnitOfPresentation.html">EDQM · unidades de apresentação (IG DE)</a> <a href="https://fhir.ch/ig/ch-epl/ValueSet-edqm-unit-of-presentation.html">EDQM · unidades de apresentação (CH EPL)</a> <a href="https://fhir.ch/ig/ch-epl/ValueSet-edqm-pharmaceutical-dose-form.html">EDQM · formas (CH EPL)</a> <a href="https://hl7.org/fhir/uv/ips/STU1.1/ValueSet-medicine-doseform.html">EDQM · formas (HL7 IPS)</a> <a href="https://docs.snomed.org/education/snomed-ct-education-editorial-guide/readme/authoring/domain-specific-modeling/pharmaceutical-and-biologic-product/index/unit-of-presentation">SNOMED · Unit of presentation</a> <a href="https://hl7.org/fhir/R5/ingredient-definitions.html">FHIR R5 Ingredient</a> <span>Seed, golden e código de dev em {{ devSha }} · registro dos Pedidos gravado em 14/11/2026 16:03</span></p>
+</section>
+
+</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":27900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const R = window.React;
+    const DF = window.DietFlow || {};
+    const M = window.DoseMotor;
+    const h = (t, p, ...k) => (t ? R.createElement(t, p, ...k) : null);
+    const self = this;
+    const ST = this.state || {};
+    const icon = (n, s, cls) => h(DF.Icon, { icon: 'lucide:' + n, size: s || 16, width: s || 16, className: cls, 'aria-hidden': true });
+    const tip = (content, node) => (content ? h(DF.Tooltip, { content, wide: content.length > 48 }, h('span', { style: { display: 'inline-flex', minWidth: 0 } }, node)) : node);
+
+    // ---------- Dados do seed e do golden de dev (gerados por cad/matriz.ts) ----------
+    const D = {"formas": [{"id": "df_capsule", "label": "Capsula", "basic": "Capsule", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Capsule", "anvisa": "Capsula", "conta": {"key": "capsula", "um": "cápsula", "n": "cápsulas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Capsule", "15012000"], "fala": "1 capsula"}}, "nota": null, "sabor": false, "emDev": "capsula", "devRotulo": "cápsulas"}, {"id": "df_cap_hard", "label": "Capsula dura", "basic": "Capsule", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Capsule, hard", "anvisa": "Capsula dura", "conta": {"key": "capsula", "um": "cápsula", "n": "cápsulas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Capsule", "15012000"], "fala": "1 capsula"}}, "nota": null, "sabor": false, "emDev": "capsula", "devRotulo": "cápsulas"}, {"id": "df_cap_soft", "label": "Capsula mole", "basic": "Capsule", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Capsule, soft", "anvisa": "Capsula mole", "conta": {"key": "capsula", "um": "cápsula", "n": "cápsulas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Capsule", "15012000"], "fala": "1 capsula"}}, "nota": null, "sabor": false, "emDev": "capsula", "devRotulo": "cápsulas"}, {"id": "df_cap_hard_gr", "label": "Capsula dura gastro-resistente", "basic": "Capsule", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "gastro_resistant", "veiculo": false, "local": false, "edqmTerm": "Gastro-resistant capsule, hard", "anvisa": "Capsula dura gastro-resistente", "conta": {"key": "capsula", "um": "cápsula", "n": "cápsulas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Capsule", "15012000"], "fala": "1 capsula"}}, "nota": null, "sabor": false, "emDev": "capsula", "devRotulo": "cápsulas"}, {"id": "df_cap_hard_pr", "label": "Capsula dura lib. prolongada", "basic": "Capsule", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "prolonged", "veiculo": false, "local": false, "edqmTerm": "Prolonged-release capsule, hard", "anvisa": "Capsula dura de liberacao prolongada", "conta": {"key": "capsula", "um": "cápsula", "n": "cápsulas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Capsule", "15012000"], "fala": "1 capsula"}}, "nota": null, "sabor": false, "emDev": "capsula", "devRotulo": "cápsulas"}, {"id": "df_tablet", "label": "Comprimido", "basic": "Tablet", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Tablet", "anvisa": "Comprimido", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": false, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_tablet_coated", "label": "Comprimido revestido", "basic": "Tablet", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Film-coated tablet", "anvisa": "Comprimido revestido", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": false, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_chew_tab", "label": "Comprimido mastigavel", "basic": "Tablet", "estado": "solid", "metodo": "chewing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Chewable tablet", "anvisa": "Comprimido mastigavel", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": true, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_eff_tab", "label": "Comprimido efervescente", "basic": "Tablet", "estado": "solid", "metodo": "dissolution", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Effervescent tablet", "anvisa": "Comprimido efervescente", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": true, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_tablet_gr", "label": "Comprimido gastro-resistente", "basic": "Tablet", "estado": "solid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "gastro_resistant", "veiculo": false, "local": false, "edqmTerm": "Gastro-resistant tablet", "anvisa": "Comprimido gastro-resistente", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": false, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_subl_tab", "label": "Comprimido sublingual", "basic": "Tablet", "estado": "solid", "metodo": "sucking", "via": "roa_subl", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Sublingual tablet", "anvisa": "Comprimido sublingual", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": false, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_orodisp_tab", "label": "Comprimido orodispersivel", "basic": "Tablet", "estado": "solid", "metodo": "orodispersion", "via": "roa_oromuc", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Orodispersible tablet", "anvisa": "Comprimido orodispersivel", "conta": {"key": "comprimido", "um": "comprimido", "n": "comprimidos", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Tablet", "15054000"], "fala": null}}, "nota": null, "sabor": true, "emDev": "comprimido", "devRotulo": "comprimidos"}, {"id": "df_gummy", "label": "Goma mastigavel", "basic": "Gummy", "estado": "solid", "metodo": "chewing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": null, "anvisa": null, "conta": {"key": "goma", "um": "goma", "n": "gomas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": null, "fala": null}}, "nota": "A unidade não tem termo no EDQM. A forma tem: Oral gum (10230000). Na ANVISA, Pastilha gomosa.", "sabor": true, "emDev": "goma", "devRotulo": "unidades"}, {"id": "df_lozenge", "label": "Pastilha", "basic": "Lozenge", "estado": "solid", "metodo": "sucking", "via": "roa_oromuc", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Lozenge", "anvisa": "Pastilha", "conta": {"key": "pastilha", "um": "pastilha", "n": "pastilhas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Lozenge", "15029000"], "fala": null}}, "nota": "Pastilha dura. A macia seria Pastille (15035000).", "sabor": true, "emDev": "pastilha", "devRotulo": "unidades"}, {"id": "df_chewing_gum", "label": "Goma de mascar", "basic": "Gum", "estado": "solid", "metodo": "chewing", "via": "roa_oromuc", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Medicated chewing gum", "anvisa": null, "conta": {"key": "goma", "um": "goma", "n": "gomas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": ["Chewing gum", "15024000"], "fala": null}}, "nota": null, "sabor": true, "emDev": "goma", "devRotulo": "unidades"}, {"id": "df_powder_oral", "label": "Po para solucao oral", "basic": "Powder", "estado": "solid", "metodo": "dissolution", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Powder for oral solution", "anvisa": "Po para solucao oral", "conta": {"key": "colher_medida", "um": "colher-medida", "n": "colheres-medida", "por": "dosador", "com": "colher-medida", "quando": "com colher-medida", "origem": {"fonte": ["Spoonful", "15047000"], "fala": "1 scoop"}}, "nota": "O dispositivo Measuring spoon (30034000) serve a líquidos e a sólidos multidose.", "sabor": true, "emDev": "g", "devRotulo": "unidades"}, {"id": "df_sachet", "label": "Sache", "basic": "Powder", "estado": "solid", "metodo": "dissolution", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Sachet", "anvisa": "Sache", "conta": {"key": "sache", "um": "sachê", "n": "sachês", "por": "embalagem", "com": null, "quando": null, "origem": {"fonte": ["Sachet", "15045000"], "fala": "1 sashe"}}, "nota": "O canvas da Apresentação aceito em 14/11/2026 13:56 trata o Sachê como forma que não conta.", "sabor": true, "emDev": "sache", "devRotulo": "sachês"}, {"id": "df_herbal_tea", "label": "Chá medicinal / Infusão", "basic": "Herbal tea", "estado": "solid", "metodo": "dissolution", "via": "roa_oral", "preparo": true, "liberacao": "conventional", "veiculo": false, "local": false, "edqmTerm": "Herbal tea", "anvisa": "Chá", "conta": {"key": "sache", "um": "sachê", "n": "sachês", "por": "embalagem", "com": null, "quando": "em sachê", "origem": {"fonte": null, "fala": null}}, "nota": "Inferência: o EDQM chama o saquinho de Herbal tea in bag (50029700) e não lhe dá unidade.", "sabor": false, "emDev": "g", "devRotulo": "unidades"}, {"id": "df_oral_drops_sol", "label": "Gotas orais, solucao", "basic": "Drops", "estado": "liquid", "metodo": "instillation", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Oral drops, solution", "anvisa": "Solucao oral em gotas", "conta": {"key": "gota", "um": "gota", "n": "gotas", "por": "dosador", "com": "conta-gotas", "quando": null, "origem": {"fonte": ["Drop", "15022000"], "fala": "1 gota"}}, "nota": null, "sabor": true, "emDev": "gota", "devRotulo": "gotas"}, {"id": "df_oral_sol", "label": "Solucao oral", "basic": "Solution", "estado": "liquid", "metodo": "swallowing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Oral solution", "anvisa": "Solucao oral", "conta": null, "nota": "Vazia por inferência: o copo dosador é graduado. O EDQM tem Cup (15017000), o copo cheio.", "sabor": true, "emDev": "ml", "devRotulo": "unidades"}, {"id": "df_oromuc_spray", "label": "Spray oromucoso", "basic": "Spray", "estado": "liquid", "metodo": "spraying", "via": "roa_oromuc", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Oromucosal spray, solution", "anvisa": null, "conta": {"key": "jato", "um": "jato", "n": "jatos", "por": "dosador", "com": "bomba", "quando": null, "origem": {"fonte": ["Actuation", "15001000"], "fala": null}}, "nota": null, "sabor": false, "emDev": "jato", "devRotulo": "unidades"}, {"id": "df_tincture", "label": "Tintura", "basic": "Tincture", "estado": "liquid", "metodo": "instillation", "via": "roa_oral", "preparo": true, "liberacao": "conventional", "veiculo": false, "local": false, "edqmTerm": "Tincture", "anvisa": "Tintura", "conta": {"key": "gota", "um": "gota", "n": "gotas", "por": "dosador", "com": "conta-gotas", "quando": "com conta-gotas", "origem": {"fonte": ["Drop", "15022000"], "fala": null}}, "nota": "O Formulário de Fitoterápicos dosa em mL.", "sabor": false, "emDev": "ml", "devRotulo": "unidades"}, {"id": "df_extract_fluid", "label": "Extrato fluido", "basic": "Extract", "estado": "liquid", "metodo": "instillation", "via": "roa_oral", "preparo": true, "liberacao": "conventional", "veiculo": false, "local": false, "edqmTerm": "Liquid extract", "anvisa": "Extrato fluido", "conta": {"key": "gota", "um": "gota", "n": "gotas", "por": "dosador", "com": "conta-gotas", "quando": "com conta-gotas", "origem": {"fonte": ["Drop", "15022000"], "fala": null}}, "nota": "O Formulário de Fitoterápicos dosa em mL.", "sabor": false, "emDev": "ml", "devRotulo": "unidades"}, {"id": "df_cream", "label": "Creme", "basic": "Cream", "estado": "semisolid", "metodo": "application", "via": "roa_cut", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Cream", "anvisa": "Creme", "conta": {"key": "acionamento", "um": "acionamento", "n": "acionamentos", "por": "dosador", "com": "bomba dosadora", "quando": "com bomba dosadora", "origem": {"fonte": ["Actuation", "15001000"], "fala": "1 poof de creme/gel"}}, "nota": "No EDQM, Actuation é o acionamento de bomba dosadora.", "sabor": false, "emDev": "g", "devRotulo": "unidades"}, {"id": "df_gel", "label": "Gel", "basic": "Gel", "estado": "semisolid", "metodo": "application", "via": "roa_cut", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": false, "edqmTerm": "Gel", "anvisa": "Gel", "conta": {"key": "acionamento", "um": "acionamento", "n": "acionamentos", "por": "dosador", "com": "bomba dosadora", "quando": "com bomba dosadora", "origem": {"fonte": ["Actuation", "15001000"], "fala": "1 poof de creme/gel"}}, "nota": "No EDQM, Actuation é o acionamento de bomba dosadora.", "sabor": false, "emDev": "g", "devRotulo": "unidades"}, {"id": "df_bombom", "label": "Bombom", "basic": "Bombom", "estado": "solid", "metodo": "chewing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": true, "edqmTerm": null, "anvisa": null, "conta": {"key": "bombom", "um": "bombom", "n": "bombons", "por": "forma", "com": null, "quando": null, "origem": {"fonte": null, "fala": null}}, "nota": "Sem termo no EDQM, na unidade e na forma, nem no vocabulário da ANVISA.", "sabor": true, "emDev": null, "devRotulo": null}, {"id": "df_barrinha", "label": "Barrinha", "basic": "Barrinha", "estado": "solid", "metodo": "chewing", "via": "roa_oral", "preparo": false, "liberacao": "conventional", "veiculo": true, "local": true, "edqmTerm": null, "anvisa": null, "conta": {"key": "barrinha", "um": "barrinha", "n": "barrinhas", "por": "forma", "com": null, "quando": null, "origem": {"fonte": null, "fala": null}}, "nota": "Sem termo no EDQM, na unidade e na forma. Na ANVISA, a forma Barra.", "sabor": true, "emDev": null, "devRotulo": null}], "subs": [{"id": "sys-sub-001", "nome": "Vitamina D", "un": "UI", "padrao": "df_cap_soft", "molsAplicaveis": true, "formas": ["df_cap_soft"], "vias": ["roa_oral"]}, {"id": "sys-sub-002", "nome": "Vitamina C", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-003", "nome": "Vitamina B12 (Cobalamina)", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-004", "nome": "Vitamina B6 (Piridoxina)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-005", "nome": "Vitamina E", "un": "UI", "padrao": "df_cap_soft", "molsAplicaveis": true, "formas": ["df_cap_soft"], "vias": ["roa_oral"]}, {"id": "sys-sub-006", "nome": "Vitamina A", "un": "mcg RAE", "padrao": "df_cap_soft", "molsAplicaveis": true, "formas": ["df_cap_soft"], "vias": ["roa_oral"]}, {"id": "sys-sub-007", "nome": "Vitamina K2", "un": "mcg", "padrao": "df_cap_soft", "molsAplicaveis": true, "formas": ["df_cap_soft"], "vias": ["roa_oral"]}, {"id": "sys-sub-008", "nome": "Vitamina B9 (Folato)", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-009", "nome": "Vitamina B1 (Tiamina)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-010", "nome": "Vitamina B3 (Niacina)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-011", "nome": "Zinco", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-012", "nome": "Ferro", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-013", "nome": "Magnésio", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-014", "nome": "Cálcio", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-015", "nome": "Selênio", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-016", "nome": "Cromo", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-017", "nome": "Iodo", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-018", "nome": "Manganês", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-019", "nome": "Cobre", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-020", "nome": "Boro", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-021", "nome": "Vitamina B2 (Riboflavina)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-022", "nome": "Vitamina B5 (Ácido pantotênico)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-023", "nome": "Vitamina B7 (Biotina)", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-024", "nome": "Molibdênio", "un": "mcg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-025", "nome": "Fósforo", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-026", "nome": "Potássio", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-027", "nome": "Ômega-3", "un": "mg", "padrao": "df_cap_soft", "molsAplicaveis": true, "formas": ["df_cap_soft"], "vias": ["roa_oral"]}, {"id": "sys-sub-028", "nome": "Creatina", "un": "g", "padrao": "df_powder_oral", "molsAplicaveis": true, "formas": ["df_powder_oral"], "vias": ["roa_oral"]}, {"id": "sys-sub-029", "nome": "Peptídeos de Colágeno", "un": "g", "padrao": "df_powder_oral", "molsAplicaveis": true, "formas": ["df_powder_oral"], "vias": ["roa_oral"]}, {"id": "sys-sub-030", "nome": "Colágeno Tipo II (UC-II)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-031", "nome": "Coenzima Q10", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-032", "nome": "Glutamina", "un": "g", "padrao": "df_powder_oral", "molsAplicaveis": true, "formas": ["df_powder_oral"], "vias": ["roa_oral"]}, {"id": "sys-sub-033", "nome": "N-Acetilcisteína (NAC)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-034", "nome": "Melatonina", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-035", "nome": "Ácido Alfa-Lipóico (ALA)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-036", "nome": "Curcumina", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-037", "nome": "Inositol", "un": "g", "padrao": "df_powder_oral", "molsAplicaveis": true, "formas": ["df_powder_oral"], "vias": ["roa_oral"]}, {"id": "sys-sub-038", "nome": "L-Triptofano", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-039", "nome": "5-HTP (5-Hidroxitriptofano)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-040", "nome": "L-Carnitina", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-041", "nome": "Taurina", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-042", "nome": "Leucina", "un": "g", "padrao": "df_powder_oral", "molsAplicaveis": true, "formas": ["df_powder_oral"], "vias": ["roa_oral"]}, {"id": "sys-sub-043", "nome": "Astaxantina", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-044", "nome": "Ginkgo Biloba (EGb 761)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-045", "nome": "Valeriana officinalis (Extrato Seco)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-046", "nome": "Passiflora incarnata (Extrato Líquido)", "un": "mL", "padrao": "df_extract_fluid", "molsAplicaveis": true, "formas": ["df_extract_fluid", "df_tincture"], "vias": ["roa_oral"]}, {"id": "sys-sub-047", "nome": "Panax ginseng (Extrato Seco 4% ginsenosídeos)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-048", "nome": "Echinacea purpurea (Extrato Padronizado)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-049", "nome": "Melissa officinalis (Tintura)", "un": "mL", "padrao": "df_tincture", "molsAplicaveis": true, "formas": ["df_tincture"], "vias": ["roa_oral"]}, {"id": "sys-sub-050", "nome": "Hypericum perforatum (Extrato Seco)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-051", "nome": "Matricaria chamomilla (Extrato Fluido)", "un": "mL", "padrao": "df_extract_fluid", "molsAplicaveis": true, "formas": ["df_extract_fluid"], "vias": ["roa_oral"]}, {"id": "sys-sub-052", "nome": "Withania somnifera (Extrato Padronizado)", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-053", "nome": "Lactobacillus rhamnosus GG", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-054", "nome": "Lactobacillus acidophilus LA-5", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-055", "nome": "Lactobacillus acidophilus NCFM", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-056", "nome": "Lactobacillus plantarum 299v", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-057", "nome": "Lactobacillus casei Shirota", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-058", "nome": "Bifidobacterium animalis subsp. lactis BB-12", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-059", "nome": "Bifidobacterium longum R0175", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-060", "nome": "Bifidobacterium longum subsp. infantis 35624", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-061", "nome": "Bifidobacterium bifidum BB-02", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-062", "nome": "Saccharomyces boulardii CNCM I-745", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-063", "nome": "Lactobacillus reuteri DSM 17938", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-064", "nome": "Lactobacillus helveticus R0052", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-065", "nome": "Streptococcus thermophilus", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-066", "nome": "Enterococcus faecium SF68", "un": "Mi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-067", "nome": "Lactobacillus fermentum CECT 5716", "un": "Bi UFC", "padrao": "df_cap_hard", "molsAplicaveis": false, "formas": ["df_cap_hard"], "vias": ["roa_oral"]}, {"id": "sys-sub-068", "nome": "Griffonia simplicifolia", "un": "mg", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-070", "nome": "Valeriana officinalis (Tintura)", "un": "mL", "padrao": "df_tincture", "molsAplicaveis": true, "formas": ["df_tincture"], "vias": ["roa_oral"]}, {"id": "sys-sub-071", "nome": "Valeriana officinalis (Chá)", "un": "g", "padrao": "df_herbal_tea", "molsAplicaveis": true, "formas": ["df_herbal_tea"], "vias": ["roa_oral"]}, {"id": "sys-sub-072", "nome": "Passiflora incarnata (Chá)", "un": "g", "padrao": "df_herbal_tea", "molsAplicaveis": true, "formas": ["df_herbal_tea"], "vias": ["roa_oral"]}, {"id": "sys-sub-074", "nome": "Melissa officinalis (Chá)", "un": "g", "padrao": "df_herbal_tea", "molsAplicaveis": true, "formas": ["df_herbal_tea"], "vias": ["roa_oral"]}, {"id": "sys-sub-100", "nome": "Lactase", "un": "FCC", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-101", "nome": "Fitase", "un": "FTU", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-102", "nome": "Bromelina", "un": "FCC", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-103", "nome": "Papaína", "un": "FCC", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-104", "nome": "Alfa-Galactosidase", "un": "FCC", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}, {"id": "sys-sub-105", "nome": "Serrapeptase", "un": "USP", "padrao": "df_cap_hard_gr", "molsAplicaveis": true, "formas": ["df_cap_hard_gr"], "vias": ["roa_oral"]}, {"id": "sys-sub-106", "nome": "Nattokinase", "un": "USP", "padrao": "df_capsule", "molsAplicaveis": true, "formas": ["df_capsule"], "vias": ["roa_oral"]}], "juiz": {"df_capsule": {"atual": 46, "regra": 71}, "df_cap_hard": {"atual": 15, "regra": 71}, "df_cap_soft": {"atual": 5, "regra": 71}, "df_cap_hard_gr": {"atual": 1, "regra": 1}, "df_cap_hard_pr": {"atual": 0, "regra": 0}, "df_tablet": {"atual": 0, "regra": 71}, "df_tablet_coated": {"atual": 0, "regra": 71}, "df_chew_tab": {"atual": 0, "regra": 71}, "df_eff_tab": {"atual": 0, "regra": 71}, "df_tablet_gr": {"atual": 0, "regra": 0}, "df_subl_tab": {"atual": 0, "regra": 0}, "df_orodisp_tab": {"atual": 0, "regra": 0}, "df_gummy": {"atual": 0, "regra": 71}, "df_lozenge": {"atual": 0, "regra": 0}, "df_chewing_gum": {"atual": 0, "regra": 0}, "df_powder_oral": {"atual": 5, "regra": 71}, "df_sachet": {"atual": 0, "regra": 71}, "df_herbal_tea": {"atual": 3, "regra": 3}, "df_oral_drops_sol": {"atual": 0, "regra": 71}, "df_oral_sol": {"atual": 0, "regra": 71}, "df_oromuc_spray": {"atual": 0, "regra": 0}, "df_tincture": {"atual": 3, "regra": 3}, "df_extract_fluid": {"atual": 2, "regra": 2}, "df_cream": {"atual": 0, "regra": 0}, "df_gel": {"atual": 0, "regra": 0}, "df_bombom": {"atual": 0, "regra": 71}, "df_barrinha": {"atual": 0, "regra": 71}}, "totais": {"linhasHoje": 80, "linhasRegra": 1003}, "n": {"subs": 79, "pares": 80, "umPar": 78, "paresCapsula": 67, "formasAtivas": 25, "formas": 27, "veiculosComuns": 21, "linhasRegra": 1003, "naoVeiculo": 8, "linhasNaoVeiculo": 9, "moleculas": 124, "moleculasComExclusao": 0, "veiculosOrais": 14}, "quadro4": [{"caso": "Magnésio e vitamina D na mesma cápsula", "esperado": true, "hoje": false, "estadoFisico": true, "regra": true, "comVia": false}, {"caso": "Magnésio em chá", "esperado": false, "hoje": false, "estadoFisico": true, "regra": false, "comVia": false}, {"caso": "Melissa (chá) em cápsula", "esperado": false, "hoje": false, "estadoFisico": true, "regra": false, "comVia": false}, {"caso": "Valeriana (tintura) em extrato fluido", "esperado": false, "hoje": false, "estadoFisico": true, "regra": false, "comVia": false}, {"caso": "Serrapeptase (gastrorresistente) em goma mastigável", "esperado": false, "hoje": false, "estadoFisico": true, "regra": false, "comVia": false}, {"caso": "Vitamina D em gotas orais", "esperado": true, "hoje": false, "estadoFisico": false, "regra": true, "comVia": false}, {"caso": "Vitamina B12 em comprimido sublingual", "esperado": true, "hoje": false, "estadoFisico": false, "regra": false, "comVia": true}, {"caso": "Probiótico em bombom", "esperado": true, "hoje": false, "estadoFisico": true, "regra": true, "comVia": false}], "casos": {"Magnésio + Vitamina D": {"substancias": ["Magnésio (Capsula, mg)", "Vitamina D (Capsula mole, UI)"], "atual": [], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}, "Vitamina D sozinha": {"substancias": ["Vitamina D (Capsula mole, UI)"], "atual": ["Capsula mole"], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}, "Magnésio + Lactobacillus rhamnosus GG": {"substancias": ["Magnésio (Capsula, mg)", "Lactobacillus rhamnosus GG (Capsula dura, Bi UFC)"], "atual": [], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}, "Lactobacillus reuteri DSM 17938": {"substancias": ["Lactobacillus reuteri DSM 17938 (Capsula dura, Bi UFC)"], "atual": ["Capsula dura"], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}, "Melissa (Chá)": {"substancias": ["Melissa officinalis (Chá) (Chá medicinal / Infusão, g)"], "atual": ["Chá medicinal / Infusão"], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Chá medicinal / Infusão"]}, "Melissa (Tintura)": {"substancias": ["Melissa officinalis (Tintura) (Tintura, mL)"], "atual": ["Tintura"], "estadoFisico": ["Gotas orais, solucao", "Solucao oral", "Tintura", "Extrato fluido"], "veiculoVia": ["Tintura"]}, "Magnésio + Melissa (Chá)": {"substancias": ["Magnésio (Capsula, mg)", "Melissa officinalis (Chá) (Chá medicinal / Infusão, g)"], "atual": [], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": []}, "Creatina": {"substancias": ["Creatina (Po para solucao oral, g)"], "atual": ["Po para solucao oral"], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}, "Vitamina B12": {"substancias": ["Vitamina B12 (Cobalamina) (Capsula, mcg)"], "atual": ["Capsula"], "estadoFisico": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Chá medicinal / Infusão", "Bombom", "Barrinha"], "veiculoVia": ["Capsula", "Capsula dura", "Capsula mole", "Capsula dura gastro-resistente", "Capsula dura lib. prolongada", "Comprimido", "Comprimido revestido", "Comprimido mastigavel", "Comprimido efervescente", "Comprimido gastro-resistente", "Goma mastigavel", "Po para solucao oral", "Sache", "Gotas orais, solucao", "Solucao oral", "Bombom", "Barrinha"]}}, "cadastradas": [{"id": "df_capsule", "n": 46, "nomes": ["Vitamina C", "Vitamina B12 (Cobalamina)", "Vitamina B6 (Piridoxina)", "Vitamina B9 (Folato)", "Vitamina B1 (Tiamina)", "Vitamina B3 (Niacina)", "Zinco", "Ferro", "Magnésio", "Cálcio", "Selênio", "Cromo", "Iodo", "Manganês", "Cobre", "Boro", "Vitamina B2 (Riboflavina)", "Vitamina B5 (Ácido pantotênico)", "Vitamina B7 (Biotina)", "Molibdênio", "Fósforo", "Potássio", "Colágeno Tipo II (UC-II)", "Coenzima Q10", "N-Acetilcisteína (NAC)", "Melatonina", "Ácido Alfa-Lipóico (ALA)", "Curcumina", "L-Triptofano", "5-HTP (5-Hidroxitriptofano)", "L-Carnitina", "Taurina", "Astaxantina", "Ginkgo Biloba (EGb 761)", "Valeriana officinalis (Extrato Seco)", "Panax ginseng (Extrato Seco 4% ginsenosídeos)", "Echinacea purpurea (Extrato Padronizado)", "Hypericum perforatum (Extrato Seco)", "Withania somnifera (Extrato Padronizado)", "Griffonia simplicifolia", "Lactase", "Fitase", "Bromelina", "Papaína", "Alfa-Galactosidase", "Nattokinase"]}, {"id": "df_cap_hard", "n": 15, "nomes": ["Lactobacillus rhamnosus GG", "Lactobacillus acidophilus LA-5", "Lactobacillus acidophilus NCFM", "Lactobacillus plantarum 299v", "Lactobacillus casei Shirota", "Bifidobacterium animalis subsp. lactis BB-12", "Bifidobacterium longum R0175", "Bifidobacterium longum subsp. infantis 35624", "Bifidobacterium bifidum BB-02", "Saccharomyces boulardii CNCM I-745", "Lactobacillus reuteri DSM 17938", "Lactobacillus helveticus R0052", "Streptococcus thermophilus", "Enterococcus faecium SF68", "Lactobacillus fermentum CECT 5716"]}, {"id": "df_cap_soft", "n": 5, "nomes": ["Vitamina D", "Vitamina E", "Vitamina A", "Vitamina K2", "Ômega-3"]}, {"id": "df_powder_oral", "n": 5, "nomes": ["Creatina", "Peptídeos de Colágeno", "Glutamina", "Inositol", "Leucina"]}, {"id": "df_herbal_tea", "n": 3, "nomes": ["Valeriana officinalis (Chá)", "Passiflora incarnata (Chá)", "Melissa officinalis (Chá)"]}, {"id": "df_tincture", "n": 3, "nomes": ["Passiflora incarnata (Extrato Líquido)", "Melissa officinalis (Tintura)", "Valeriana officinalis (Tintura)"]}, {"id": "df_extract_fluid", "n": 2, "nomes": ["Passiflora incarnata (Extrato Líquido)", "Matricaria chamomilla (Extrato Fluido)"]}, {"id": "df_cap_hard_gr", "n": 1, "nomes": ["Serrapeptase"]}], "q147": {"knownUnitKind": ["capsula", "comprimido", "sache", "gota", "ml", "g", "other"], "emDev": {"conta": 18, "mede": 7, "unidadesQueContam": ["capsula", "comprimido", "goma", "pastilha", "sache", "gota", "jato"], "foraDoTipo": ["goma", "pastilha", "jato"], "g": ["df_powder_oral", "df_herbal_tea", "df_cream", "df_gel"], "ml": ["df_oral_sol", "df_tincture", "df_extract_fluid"], "rotuloOutras": ["df_gummy", "df_lozenge", "df_chewing_gum", "df_powder_oral", "df_herbal_tea", "df_oral_sol", "df_oromuc_spray", "df_tincture", "df_extract_fluid", "df_cream", "df_gel"]}, "proposta": {"comUnidade": 26, "semUnidade": ["df_oral_sol"], "unidades": [{"um": "cápsula", "n": "cápsulas", "key": "capsula", "formas": ["df_capsule", "df_cap_hard", "df_cap_soft", "df_cap_hard_gr", "df_cap_hard_pr"]}, {"um": "comprimido", "n": "comprimidos", "key": "comprimido", "formas": ["df_tablet", "df_tablet_coated", "df_chew_tab", "df_eff_tab", "df_tablet_gr", "df_subl_tab", "df_orodisp_tab"]}, {"um": "goma", "n": "gomas", "key": "goma", "formas": ["df_gummy", "df_chewing_gum"]}, {"um": "pastilha", "n": "pastilhas", "key": "pastilha", "formas": ["df_lozenge"]}, {"um": "colher-medida", "n": "colheres-medida", "key": "colher_medida", "formas": ["df_powder_oral"]}, {"um": "sachê", "n": "sachês", "key": "sache", "formas": ["df_sachet", "df_herbal_tea"]}, {"um": "gota", "n": "gotas", "key": "gota", "formas": ["df_oral_drops_sol", "df_tincture", "df_extract_fluid"]}, {"um": "jato", "n": "jatos", "key": "jato", "formas": ["df_oromuc_spray"]}, {"um": "acionamento", "n": "acionamentos", "key": "acionamento", "formas": ["df_cream", "df_gel"]}, {"um": "bombom", "n": "bombons", "key": "bombom", "formas": ["df_bombom"]}, {"um": "barrinha", "n": "barrinhas", "key": "barrinha", "formas": ["df_barrinha"]}], "separa": {"forma": ["df_capsule", "df_cap_hard", "df_cap_soft", "df_cap_hard_gr", "df_cap_hard_pr", "df_tablet", "df_tablet_coated", "df_chew_tab", "df_eff_tab", "df_tablet_gr", "df_subl_tab", "df_orodisp_tab", "df_gummy", "df_lozenge", "df_chewing_gum", "df_bombom", "df_barrinha"], "embalagem": ["df_sachet", "df_herbal_tea"], "dosador": ["df_powder_oral", "df_oral_drops_sol", "df_oromuc_spray", "df_tincture", "df_extract_fluid", "df_cream", "df_gel"]}, "condicional": ["df_powder_oral", "df_herbal_tea", "df_tincture", "df_extract_fluid", "df_cream", "df_gel"], "mudam": [{"id": "df_powder_oral", "de": "g", "para": "colher-medida"}, {"id": "df_herbal_tea", "de": "g", "para": "sachê"}, {"id": "df_oral_sol", "de": "ml", "para": null}, {"id": "df_tincture", "de": "ml", "para": "gota"}, {"id": "df_extract_fluid", "de": "ml", "para": "gota"}, {"id": "df_cream", "de": "g", "para": "acionamento"}, {"id": "df_gel", "de": "g", "para": "acionamento"}], "origem": {"fonte": ["df_capsule", "df_cap_hard", "df_cap_soft", "df_cap_hard_gr", "df_cap_hard_pr", "df_tablet", "df_tablet_coated", "df_chew_tab", "df_eff_tab", "df_tablet_gr", "df_subl_tab", "df_orodisp_tab", "df_lozenge", "df_chewing_gum", "df_powder_oral", "df_sachet", "df_oral_drops_sol", "df_oromuc_spray", "df_tincture", "df_extract_fluid", "df_cream", "df_gel"], "fala": ["df_capsule", "df_cap_hard", "df_cap_soft", "df_cap_hard_gr", "df_cap_hard_pr", "df_powder_oral", "df_sachet", "df_oral_drops_sol", "df_cream", "df_gel"], "nenhuma": ["df_gummy", "df_herbal_tea", "df_bombom", "df_barrinha"]}, "valoresNovos": ["goma", "pastilha", "colher-medida", "jato", "acionamento", "bombom", "barrinha"], "saemDaEscrita": ["ml", "g", "other"], "sabor": 12}, "fala": {"em": "11/11 18:32", "trechos": ["1 capsula", "1 gota", "1 sashe", "1 scoop", "1 poof de creme/gel"]}, "uop": [{"termo": "Capsule", "codigo": "15012000"}, {"termo": "Tablet", "codigo": "15054000"}, {"termo": "Lozenge", "codigo": "15029000"}, {"termo": "Sachet", "codigo": "15045000"}, {"termo": "Drop", "codigo": "15022000"}, {"termo": "Actuation", "codigo": "15001000"}, {"termo": "Spoonful", "codigo": "15047000"}, {"termo": "Chewing gum", "codigo": "15024000"}, {"termo": "Cup", "codigo": "15017000"}], "edqmBruto": {"versao": "5 February 2025", "conceitos": 1203}, "formulario": {"2022": {"gota": 0, "mlDaTintura": 41, "mlDoExtratoFluido": 10}, "2026": {"gota": 0, "mlDaTintura": 41, "mlDoExtratoFluido": 10}}, "naLinha": {"mL": {"n": 4, "formas": ["df_extract_fluid", "df_tincture"]}, "g": {"n": 8, "formas": ["df_powder_oral", "df_herbal_tea"]}}, "dosadores": [{"anvisa": "Conta-gotas", "abrev": "CGT", "edqm": ["Drop", "15022000"], "faz": "conta", "unidades": ["gota"], "formas": ["df_oral_drops_sol", "df_tincture", "df_extract_fluid"]}, {"anvisa": "Colher-medida", "abrev": "COL", "edqm": ["Spoonful", "15047000"], "faz": "conta", "unidades": ["colher-medida"], "formas": ["df_powder_oral"]}, {"anvisa": "Bombeador", "abrev": "BOMB", "edqm": ["Actuation", "15001000"], "faz": "conta", "unidades": ["acionamento", "jato"], "formas": ["df_oromuc_spray", "df_cream", "df_gel"]}, {"anvisa": "Copo dosador", "abrev": "COP", "edqm": ["Cup", "15017000"], "faz": "mede", "unidades": [], "formas": ["df_oral_sol"]}, {"anvisa": "Seringa dosadora", "abrev": "SER DOS", "edqm": null, "faz": "mede", "unidades": [], "formas": ["df_oral_sol"]}], "troca": {"veiculos": ["df_capsule", "df_cap_hard", "df_cap_soft", "df_tablet", "df_tablet_coated", "df_chew_tab", "df_eff_tab", "df_gummy", "df_powder_oral", "df_sachet", "df_oral_drops_sol", "df_oral_sol", "df_bombom", "df_barrinha"], "alcanceMax": 14, "subsNoMax": 71, "grupos": [{"um": "cápsula", "formas": ["df_capsule", "df_cap_hard", "df_cap_soft"]}, {"um": "comprimido", "formas": ["df_tablet", "df_tablet_coated", "df_chew_tab", "df_eff_tab"]}, {"um": "goma", "formas": ["df_gummy"]}, {"um": "colher-medida", "formas": ["df_powder_oral"]}, {"um": "sachê", "formas": ["df_sachet"]}, {"um": "gota", "formas": ["df_oral_drops_sol"]}, {"um": null, "formas": ["df_oral_sol"]}, {"um": "bombom", "formas": ["df_bombom"]}, {"um": "barrinha", "formas": ["df_barrinha"]}], "pares": {"total": 182, "fica": 18, "sai": 151, "semDose": 13}, "dev": {"aplica": 83, "recusa": 99, "mantemErrado": [["df_capsule", "df_gummy"], ["df_capsule", "df_powder_oral"], ["df_capsule", "df_oral_sol"], ["df_capsule", "df_bombom"], ["df_capsule", "df_barrinha"], ["df_cap_hard", "df_gummy"], ["df_cap_hard", "df_powder_oral"], ["df_cap_hard", "df_oral_sol"], ["df_cap_hard", "df_bombom"], ["df_cap_hard", "df_barrinha"], ["df_cap_soft", "df_gummy"], ["df_cap_soft", "df_powder_oral"], ["df_cap_soft", "df_oral_sol"], ["df_cap_soft", "df_bombom"], ["df_cap_soft", "df_barrinha"], ["df_tablet", "df_gummy"], ["df_tablet", "df_powder_oral"], ["df_tablet", "df_oral_sol"], ["df_tablet", "df_bombom"], ["df_tablet", "df_barrinha"], ["df_tablet_coated", "df_gummy"], ["df_tablet_coated", "df_powder_oral"], ["df_tablet_coated", "df_oral_sol"], ["df_tablet_coated", "df_bombom"], ["df_tablet_coated", "df_barrinha"], ["df_chew_tab", "df_gummy"], ["df_chew_tab", "df_powder_oral"], ["df_chew_tab", "df_oral_sol"], ["df_chew_tab", "df_bombom"], ["df_chew_tab", "df_barrinha"], ["df_eff_tab", "df_gummy"], ["df_eff_tab", "df_powder_oral"], ["df_eff_tab", "df_oral_sol"], ["df_eff_tab", "df_bombom"], ["df_eff_tab", "df_barrinha"], ["df_gummy", "df_powder_oral"], ["df_gummy", "df_oral_sol"], ["df_gummy", "df_bombom"], ["df_gummy", "df_barrinha"], ["df_powder_oral", "df_gummy"], ["df_powder_oral", "df_oral_sol"], ["df_powder_oral", "df_bombom"], ["df_powder_oral", "df_barrinha"], ["df_sachet", "df_gummy"], ["df_sachet", "df_powder_oral"], ["df_sachet", "df_oral_sol"], ["df_sachet", "df_bombom"], ["df_sachet", "df_barrinha"], ["df_oral_drops_sol", "df_gummy"], ["df_oral_drops_sol", "df_powder_oral"], ["df_oral_drops_sol", "df_oral_sol"], ["df_oral_drops_sol", "df_bombom"], ["df_oral_drops_sol", "df_barrinha"], ["df_bombom", "df_gummy"], ["df_bombom", "df_powder_oral"], ["df_bombom", "df_oral_sol"], ["df_bombom", "df_barrinha"], ["df_barrinha", "df_gummy"], ["df_barrinha", "df_powder_oral"], ["df_barrinha", "df_oral_sol"], ["df_barrinha", "df_bombom"]], "mantemErradoLocais": 30}}}, "edqmSeed": [{"id": "df_capsule", "codigo": "10200000", "seed": "Capsule", "bruto": null, "status": null, "estado": "fora"}, {"id": "df_cap_hard", "codigo": "10211000", "seed": "Capsule, hard", "bruto": "Capsule, soft", "status": "C", "estado": "outro"}, {"id": "df_cap_soft", "codigo": "10210000", "seed": "Capsule, soft", "bruto": "Capsule, hard", "status": "C", "estado": "outro"}, {"id": "df_cap_hard_gr", "codigo": "12103000", "seed": "Gastro-resistant capsule, hard", "bruto": "Solution for blood fraction modification", "status": "C", "estado": "outro"}, {"id": "df_cap_hard_pr", "codigo": "10214000", "seed": "Prolonged-release capsule, hard", "bruto": "Chewable capsule, soft", "status": "C", "estado": "outro"}, {"id": "df_tablet", "codigo": "10219000", "seed": "Tablet", "bruto": "Tablet", "status": "C", "estado": "confere"}, {"id": "df_tablet_coated", "codigo": "10220000", "seed": "Film-coated tablet", "bruto": "Coated tablet", "status": "C", "estado": "outro"}, {"id": "df_chew_tab", "codigo": "10228000", "seed": "Chewable tablet", "bruto": "Chewable tablet", "status": "C", "estado": "confere"}, {"id": "df_eff_tab", "codigo": "10222000", "seed": "Effervescent tablet", "bruto": "Effervescent tablet", "status": "C", "estado": "confere"}, {"id": "df_tablet_gr", "codigo": "10225000", "seed": "Gastro-resistant tablet", "bruto": "Gastro-resistant tablet", "status": "C", "estado": "confere"}, {"id": "df_subl_tab", "codigo": "10320000", "seed": "Sublingual tablet", "bruto": "Buccal tablet", "status": "C", "estado": "outro"}, {"id": "df_orodisp_tab", "codigo": "10321000", "seed": "Orodispersible tablet", "bruto": "Lozenge", "status": "C", "estado": "outro"}, {"id": "df_lozenge", "codigo": "10322000", "seed": "Lozenge", "bruto": "Compressed lozenge", "status": "C", "estado": "outro"}, {"id": "df_chewing_gum", "codigo": "10107000", "seed": "Medicated chewing gum", "bruto": "Oral emulsion", "status": "C", "estado": "outro"}, {"id": "df_powder_oral", "codigo": "10602000", "seed": "Powder for oral solution", "bruto": "Eye gel", "status": "C", "estado": "outro"}, {"id": "df_sachet", "codigo": "10608000", "seed": "Sachet", "bruto": "Eye drops, solvent for reconstitution", "status": "C", "estado": "outro"}, {"id": "df_herbal_tea", "codigo": "10217000", "seed": "Herbal tea", "bruto": "Modified-release capsule, hard", "status": "C", "estado": "outro"}, {"id": "df_oral_drops_sol", "codigo": "50018000", "seed": "Oral drops, solution", "bruto": "Ear/eye drops, solution", "status": "C", "estado": "outro"}, {"id": "df_oral_sol", "codigo": "50020000", "seed": "Oral solution", "bruto": "Ear/eye/nose drops, solution", "status": "D", "estado": "outro"}, {"id": "df_oromuc_spray", "codigo": "50036000", "seed": "Oromucosal spray, solution", "bruto": "Modified-release granules for oral suspension", "status": "D", "estado": "outro"}, {"id": "df_cream", "codigo": "50000500", "seed": "Cream", "bruto": null, "status": null, "estado": "fora"}, {"id": "df_gel", "codigo": "50001000", "seed": "Gel", "bruto": "Chewable/dispersible tablet", "status": "C", "estado": "outro"}], "edqmTrocadas": [["df_cap_hard", "df_cap_soft"]], "geradoEm": "2026-11-14T18:52:24.304Z", "devSha": "197442eb78", "devBase": "ef4b512aa5", "mols": {"sys-sub-001": ["Colecalciferol (D3)", "Ergocalciferol (D2)"], "sys-sub-002": ["Ácido Ascórbico", "Ascorbato de Sódio", "Ascorbato de Cálcio (Ester-C)"], "sys-sub-003": ["Cianocobalamina", "Metilcobalamina", "Hidroxocobalamina"], "sys-sub-004": ["Piridoxina HCl", "Piridoxal-5-Fosfato (P5P)"], "sys-sub-005": ["d-alfa-tocoferol (natural)", "dl-alfa-tocoferol (sintético)", "Acetato de d-alfa-tocoferila"], "sys-sub-006": ["Retinol (pré-formada)", "Beta-caroteno", "Palmitato de Retinila"], "sys-sub-007": ["Menaquinona-7 (MK-7)", "Menaquinona-4 (MK-4)"], "sys-sub-008": ["Ácido Fólico (sintético)", "Metilfolato (5-MTHF)", "Ácido Folínico (Leucovorina)"], "sys-sub-009": ["Tiamina HCl", "Benfotiamina"], "sys-sub-010": ["Nicotinamida (Niacinamida)", "Ácido Nicotínico (Niacina)", "Nicotinamida Ribosídeo (NR)"], "sys-sub-011": ["Bisglicinato de Zinco", "Citrato de Zinco", "Picolinato de Zinco", "Óxido de Zinco", "Sulfato de Zinco"], "sys-sub-012": ["Bisglicinato de Ferro", "Sulfato Ferroso", "Fumarato Ferroso", "Gluconato Ferroso", "Ferro Polimaltosado"], "sys-sub-013": ["Bisglicinato de Magnésio", "Citrato de Magnésio", "L-Treonato de Magnésio (Magtein)", "Taurato de Magnésio", "Malato de Magnésio", "Óxido de Magnésio"], "sys-sub-014": ["Citrato de Cálcio", "Carbonato de Cálcio", "Citrato-Malato de Cálcio"], "sys-sub-015": ["Selenometionina", "Selenito de Sódio"], "sys-sub-016": ["Picolinato de Cromo", "Cloreto de Cromo (CrCl3)"], "sys-sub-017": ["Iodeto de Potássio (KI)"], "sys-sub-018": ["Bisglicinato de Manganês", "Sulfato de Manganês"], "sys-sub-019": ["Bisglicinato de Cobre", "Gluconato de Cobre", "Sulfato de Cobre"], "sys-sub-020": ["Ácido Bórico", "Glicinato de Boro"], "sys-sub-021": ["Riboflavina", "Riboflavina-5-Fosfato (FMN)"], "sys-sub-022": ["D-Pantotenato de Cálcio", "Dexpantenol"], "sys-sub-023": ["D-Biotina"], "sys-sub-024": ["Molibdato de Sódio", "Molibdato de Amônio"], "sys-sub-025": ["Fosfato Dissódico", "Fosfato Tricálcico"], "sys-sub-026": ["Citrato de Potássio", "Cloreto de Potássio", "Gluconato de Potássio"], "sys-sub-027": ["EPA", "DHA"], "sys-sub-028": ["Creatina monohidratada"], "sys-sub-029": ["Peptídeos de colágeno hidrolisado"], "sys-sub-030": ["UC-II"], "sys-sub-031": ["Ubiquinona (oxidada)", "Ubiquinol (reduzida)"], "sys-sub-032": ["L-Glutamina (free form)", "L-Alanil-L-Glutamina (dipeptídeo)"], "sys-sub-033": ["N-Acetilcisteína"], "sys-sub-034": ["Melatonina"], "sys-sub-035": ["Ácido alfa-lipóico"], "sys-sub-036": ["Extrato Padronizado 95% Curcuminoides", "Meriva (Curcumina + Fosfatidilcolina)", "Theracurmin (Curcumina Nanocoloidal)", "BCM-95 (Curcumina + Ar-turmerone)", "Açafrão em Pó (Curcuma longa)"], "sys-sub-037": ["Mio-inositol", "D-chiro-inositol (DCI)", "Mio-inositol + D-chiro-inositol (40:1)"], "sys-sub-038": ["L-Triptofano (free form)", "L-Triptofano de glicose de milho (Zea mays)"], "sys-sub-039": ["5-Hidroxitriptofano (Griffonia simplicifolia)"], "sys-sub-040": ["L-Carnitina (base livre)", "L-Carnitina L-Tartarato", "Acetil-L-Carnitina (ALCAR)", "Propionil-L-Carnitina (PLC)"], "sys-sub-041": ["Taurina (free form)"], "sys-sub-042": ["L-Leucina (free form)", "L-Leucina fermentada", "HMB (β-Hidroxi β-Metilbutirato)"], "sys-sub-043": ["Astaxantina de Haematococcus pluvialis", "Astaxantina sintética", "Astaxantina de Phaffia rhodozyma"], "sys-sub-044": ["Extrato Padronizado EGb 761"], "sys-sub-045": ["Extrato seco de raiz de valeriana"], "sys-sub-046": ["Extrato líquido de passiflora"], "sys-sub-047": ["Extrato seco de panax ginseng"], "sys-sub-048": ["Fenóis totais (caftaric + chicoric)"], "sys-sub-049": ["Tintura de melissa"], "sys-sub-050": ["Extrato seco de Erva-de-São-João"], "sys-sub-051": ["Extrato fluido de camomila"], "sys-sub-052": ["Extrato seco de Withania somnifera"], "sys-sub-068": ["5-HTP"], "sys-sub-053": [], "sys-sub-054": [], "sys-sub-055": [], "sys-sub-056": [], "sys-sub-057": [], "sys-sub-058": [], "sys-sub-059": [], "sys-sub-060": [], "sys-sub-061": [], "sys-sub-062": [], "sys-sub-063": [], "sys-sub-064": [], "sys-sub-065": [], "sys-sub-066": [], "sys-sub-067": [], "sys-sub-070": ["Tintura de valeriana"], "sys-sub-071": ["Substância vegetal rasurada de valeriana"], "sys-sub-072": ["Substância vegetal rasurada de passiflora"], "sys-sub-074": ["Substância vegetal rasurada de melissa"], "sys-sub-100": ["Lactase de Aspergillus oryzae"], "sys-sub-101": ["Fitase de Aspergillus niger"], "sys-sub-102": ["Bromelina (caule de Ananas comosus)"], "sys-sub-103": ["Papaína (látex de Carica papaya)"], "sys-sub-104": ["Alfa-Galactosidase de Aspergillus niger"], "sys-sub-105": ["Serrapeptase (Serratia E15)"], "sys-sub-106": ["Nattokinase (Bacillus subtilis var. natto)"]}};
+    const F = new Map(D.formas.map((f) => [f.id, f]));
+    const S = new Map(D.subs.map((s) => [s.id, s]));
+    const N = D.n, Q = D.q147, T = Q.troca;
+    const num = (x) => Number(x).toLocaleString('pt-BR');
+    // Rótulos: o seed grava sem acento; a figura mostra como a tela deveria mostrar.
+    const ACC = { 'Capsula': 'Cápsula', 'Capsula dura': 'Cápsula dura', 'Capsula mole': 'Cápsula mole', 'Capsula dura gastro-resistente': 'Cápsula dura gastrorresistente',
+      'Capsula dura lib. prolongada': 'Cápsula dura de liberação prolongada', 'Comprimido mastigavel': 'Comprimido mastigável', 'Comprimido orodispersivel': 'Comprimido orodispersível',
+      'Goma mastigavel': 'Goma mastigável', 'Po para solucao oral': 'Pó para solução oral', 'Sache': 'Sachê', 'Gotas orais, solucao': 'Gotas orais', 'Solucao oral': 'Solução oral',
+      'Chá medicinal / Infusão': 'Chá medicinal', 'Comprimido gastro-resistente': 'Comprimido gastrorresistente' };
+    const lab = (id) => { const f = F.get(id); return f ? (ACC[f.label] || f.label) : id; };
+    // Grupos: o mesmo mapa de getBasicDoseFormLabel (core/dose-form.ts:40-59), com Chás para Herbal tea.
+    const GRP = { Capsule: 'Cápsulas', Tablet: 'Comprimidos', Powder: 'Pós', Solution: 'Líquidos', Drops: 'Gotas', Cream: 'Cremes', Gel: 'Géis', Spray: 'Sprays',
+      Lozenge: 'Pastilhas', Gummy: 'Gomas', Gum: 'Gomas de mascar', Extract: 'Extratos', Tincture: 'Tinturas', 'Herbal tea': 'Chás', Bombom: 'Bombom', Barrinha: 'Barrinha' };
+    const VIA = { roa_oral: 'Oral', roa_subl: 'Sublingual', roa_oromuc: 'Oromucosa', roa_cut: 'Cutânea' };
+    const ORDEM = D.formas.map((f) => f.id);
+    // Tabela didática da aula (au-rdw). Célula simples é texto; { v, cls } dá classe à célula.
+    const tabela = (heads, rows, cls) => h('div', { className: 'au-rdw cf-scroll' + (cls ? ' ' + cls : '') }, h('table', null,
+      h('thead', null, h('tr', null, ...heads.map((t, i) => h('th', { key: i }, t)))),
+      h('tbody', null, ...rows.map((r, i) => h('tr', { key: i }, ...r.map((c, j) => (c && typeof c === 'object' && 'v' in c ? h('td', { key: j, className: c.cls }, c.v) : h('td', { key: j }, c))))))));
+    const lista = (xs) => (xs.length > 1 ? xs.slice(0, -1).join(', ') + ' e ' + xs[xs.length - 1] : xs[0] || '');
+    const chipsAula = (xs, tag, style) => h(tag || 'div', { className: 'au-chips', style }, ...xs.map((x, i) => h('span', { key: i }, x)));
+    const caixa3 = (dest, cls, frase, n, sub, xs) => h('div', { className: 'au-addri' }, h('span', { className: 'au-dest' + (cls ? ' ' + cls : '') }, dest), h('p', null, frase),
+      h('b', { className: 'fm-big' }, String(n)), h('span', { className: 'fm-sub' }, sub), xs && xs.length ? chipsAula(xs) : null);
+
+    // ---------- Fig. 1: as formas cadastradas ----------
+    const curto = (nm) => nm.replace(/ \([^)]*\)$/, '');
+    const fig1 = tabela(['Forma cadastrada', 'Substâncias', 'Exemplos'], D.cadastradas.map((c) => [lab(c.id), String(c.n),
+      c.nomes.slice(0, 3).map(curto).join(', ') + (c.n > 3 ? ' e mais ' + (c.n - 3) : '')]), 'cf-long');
+
+    // ---------- Fig. 4: oito casos em três regras ----------
+    const sn = (v) => (v ? 'sim' : 'não');
+    const fig4 = tabela(['Caso', 'Hoje', 'Só estado físico', 'Veículo comum × via'], D.quadro4.map((q) => [q.caso, sn(q.hoje),
+      // O caso que depende de uma via que o golden ainda não tem não conta como erro de nenhuma regra.
+      q.estadoFisico === q.esperado || q.comVia ? sn(q.estadoFisico) : { v: sn(q.estadoFisico) + ' · erro', cls: 'cf-bad' },
+      { v: q.regra === q.esperado ? sn(q.regra) : 'sim, quando o cadastro tiver a via', cls: 'cf-ok' }]));
+
+    // ---------- As duas regras da parte 1 ----------
+    // Hoje: a substância existe só nas formas que cadastrou (par exato).
+    const hoje = (sid, extra) => new Set([...S.get(sid).formas, ...(extra || [])]);
+    // Com a regra: as formas cadastradas, mais todo veículo comum das vias que a substância aceita, menos as exceções.
+    // A substância cuja forma cadastrada não é veículo comum (preparo, liberação modificada) fica nas formas que cadastrou.
+    const regra = (sid, extra, excl) => {
+      const s = S.get(sid);
+      const formas = [...s.formas, ...(extra || [])];
+      if (!F.get(s.padrao).veiculo) return new Set(formas);
+      const vias = new Set(formas.map((id) => F.get(id).via));
+      return new Set(ORDEM.filter((id) => { const f = F.get(id); return formas.includes(id) || (vias.has(f.via) && f.veiculo && !(excl || []).includes(id)); }));
+    };
+    const inter = (sets) => (sets.length ? ORDEM.filter((id) => sets.every((x) => x.has(id))) : []);
+    const uni = (sets) => ORDEM.filter((id) => sets.some((x) => x.has(id)));
+    const grupos = (ids, render) => {
+      const by = new Map();
+      ids.forEach((id) => { const g = GRP[F.get(id).basic] || F.get(id).basic; if (!by.has(g)) by.set(g, []); by.get(g).push(id); });
+      return [...by.entries()].map(([g, xs]) => h('div', { className: 'cf-grp', key: g }, h('span', null, g), h('div', { className: 'cf-row' }, ...xs.map(render))));
+    };
+    const chip = (id) => h(DF.Chip, { key: id, size: 'sm', variant: 'flat' }, lab(id));
+    const nome = (sid) => S.get(sid).nome.replace(' (Cobalamina)', '');
+    const acha = (pre) => D.subs.find((s) => s.nome.startsWith(pre)).id;
+    const escolha = (ativo, onPress, rotulo, key) => h(DF.Button, { key, size: 'sm', variant: ativo ? 'solid' : 'bordered', color: ativo ? 'primary' : 'default', onPress }, rotulo);
+
+    // ---------- Fig. 5b: escolha as substâncias ----------
+    const PICK = ['Magnésio', 'Vitamina D', 'Lactobacillus reuteri', 'Creatina', 'Melissa officinalis (Ch', 'Serrapeptase', 'Vitamina B12'].map(acha);
+    const sel = ST.pk || [PICK[0], PICK[1]];
+    const togglePick = (id) => self.setState((st) => { const cur = st.pk || [PICK[0], PICK[1]]; return { pk: cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id] }; });
+    const caixa = (titulo, sets) => {
+      const todas = inter(sets), parte = uni(sets).filter((id) => !todas.includes(id));
+      return h('div', { className: 'au-addri' },
+        h('span', { className: 'au-dest' + (titulo === 'Com a regra' ? ' prep' : '') }, titulo),
+        h('div', { className: 'cf-kv' }, h('span', null, 'Servem a todas as linhas'), h('b', null, String(todas.length))),
+        todas.length ? grupos(todas, chip) : h('p', { className: 'ts-bodySmall fg-500' }, 'Nenhuma forma.'),
+        h('div', { className: 'cf-kv' }, h('span', null, 'Servem a parte das linhas'), h('b', null, String(parte.length))),
+        parte.length ? grupos(parte, chip) : null);
+    };
+    const pick = h('div', null,
+      h('div', { className: 'cf-ctl' }, h('div', { className: 'g' }, h('span', { className: 'l' }, 'Na fórmula'),
+        ...PICK.map((id) => escolha(sel.includes(id), () => togglePick(id), nome(id), id)))),
+      sel.length ? h('div', { className: 'cf-two' }, caixa('Hoje em dev', sel.map((id) => hoje(id))), caixa('Com a regra', sel.map((id) => regra(id)))) : h('p', { className: 'ts-bodyMedium fg-500' }, 'Escolha ao menos uma substância.'));
+
+    // ---------- Fig. 5c: o juiz, forma por forma ----------
+    // O motivo do não vem do dado: preparo, liberação modificada, ou nenhum (forma nova à espera de decisão).
+    const motivo = (f) => (f.preparo ? 'preparo' : f.liberacao !== 'conventional' ? 'liberação' : '');
+    const porque = (f) => (f.veiculo ? 'sim' : ['não', motivo(f)].filter(Boolean).join(' · '));
+    const juiz = tabela(['Forma', 'Via', 'Veículo comum', 'Hoje', 'Com a regra'], ORDEM.map((id) => { const f = F.get(id), j = D.juiz[id];
+      return [lab(id) + (f.local ? ' · local' : ''), VIA[f.via] || f.via, porque(f), String(j.atual), { v: String(j.regra), cls: j.regra > j.atual ? 'cf-ok' : '' }]; }));
+
+    // ---------- Fig. 7: o modal de Cadastrados ----------
+    const EX = ['Magnésio', 'Lactobacillus reuteri', 'Melissa officinalis (Ch', 'Vitamina B12'].map(acha);
+    const mx = ST.mx || EX[0];
+    const mm = ST.mm || 'regra';
+    const SUBL = 'df_subl_tab';
+    const extra = (ST.add || {})[mx] ? [SUBL] : [];
+    const excl = (ST.ex || {})[mx] || [];
+    const s = S.get(mx);
+    const linhasAp = [...s.formas, ...extra].map((id, i) => ({ id: mx + '-' + id, forma: id, via: F.get(id).via, padrao: i === 0 }));
+    const mols = (D.mols[mx] || []);
+    const toggleEx = (id) => self.setState((st) => { const all = Object.assign({}, st.ex || {}); const cur = all[mx] || []; all[mx] = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]; return { ex: all }; });
+    const addSubl = () => self.setState((st) => ({ add: Object.assign({}, st.add || {}, { [mx]: true }) }));
+    const mctl = h('div', { className: 'cf-ctl' },
+      h('div', { className: 'g' }, h('span', { className: 'l' }, 'Exemplo'), ...EX.map((id) => escolha(mx === id, () => self.setState({ mx: id }), nome(id), id))),
+      h('div', { className: 'g' }, h('span', { className: 'l' }, 'Momento'),
+        escolha(mm === 'hoje', () => self.setState({ mm: 'hoje' }), 'Hoje em dev', 'hoje'), escolha(mm === 'regra', () => self.setState({ mm: 'regra' }), 'Com a regra', 'regra')));
+
+    const tabelaAp = h(DF.UniversalTable, { density: 'compact', cardless: true, cardlessBleed: false, cardlessPadding: 'none',
+      contextActions: [{ key: 'rm', label: 'Remover apresentação', icon: 'lucide:trash-2', color: 'danger', kind: 'mutation' }],
+      rows: linhasAp,
+      columns: [
+        { id: 'forma', header: 'Forma farmacêutica', width: '15rem', cell: (r) => h(DF.Select, { size: 'sm', value: lab(r.forma) }) },
+        { id: 'via', header: 'Via', width: '10rem', cell: (r) => h(DF.Select, { size: 'sm', value: VIA[r.via] || r.via }) },
+        { id: 'notas', header: 'Notas', cell: () => h('span', { className: 'ts-bodySmall fg-400' }, '—') },
+        { id: 'mol', header: 'Moléculas', width: '7rem', align: 'center', cell: () => (mols.length ? tip(mols.join(', '), h(DF.Chip, { size: 'sm', variant: 'flat' }, String(mols.length))) : h('span', { className: 'ts-bodySmall fg-400' }, '—')) },
+      ] });
+    const prepo = !F.get(s.padrao).veiculo;
+    const conjunto = regra(mx, extra, excl);
+    const cadastradas = [...s.formas, ...extra];
+    // A grade lista os veículos comuns das vias que ainda não estão na tabela; a contagem, os que a regra grava além dela.
+    const veiculos = prepo ? [] : ORDEM.filter((id) => { const f = F.get(id); return new Set(cadastradas.map((x) => F.get(x).via)).has(f.via) && f.veiculo && !cadastradas.includes(id); });
+    const alem = [...conjunto].filter((id) => !cadastradas.includes(id));
+    const botao = (id) => {
+      const fora = excl.includes(id);
+      return h(DF.Button, { key: id, size: 'sm', variant: fora ? 'bordered' : 'flat', color: fora ? 'default' : 'success', className: fora ? 'cf-x' : '',
+        startContent: icon(fora ? 'x' : 'check', 14), 'aria-label': (fora ? 'Incluir ' : 'Excluir ') + lab(id), onPress: () => toggleEx(id) }, lab(id));
+    };
+    // Recolhida por padrão: a contagem e as exceções. A grade de ✓ e ✗ abre no botão Exceções.
+    const aberto = !!(ST.open || {})[mx];
+    const abrir = () => self.setState((st) => ({ open: Object.assign({}, st.open || {}, { [mx]: !aberto }) }));
+    const tambem = mm === 'hoje' ? null : h('div', { className: 'cf-also' },
+      h('div', { className: 'hd' }, h(DF.Section.Label, null, 'Também vai em'),
+        prepo ? null : h(DF.Chip, { size: 'sm', variant: 'flat' }, String(alem.length)),
+        prepo ? null : tip('Os veículos comuns das vias das apresentações. A farmácia confirma cada fórmula.', icon('info', 14, 'fg-400')),
+        prepo ? null : h('span', { style: { marginLeft: 'auto' } }, h(DF.Button, { size: 'sm', variant: 'light', endContent: icon(aberto ? 'chevron-up' : 'chevron-down', 14), 'aria-expanded': aberto, onPress: abrir }, 'Exceções'))),
+      prepo ? h('p', { className: 'ts-bodySmall fg-600', style: { margin: 0 } }, 'Fica só nas apresentações cadastradas. A forma padrão não é veículo comum.') : null,
+      !prepo && excl.length ? h('div', { className: 'hd' }, h('span', { className: 'ts-labelSmall fg-500' }, 'Não vai em'),
+        ...excl.map((id) => h(DF.Chip, { key: id, size: 'sm', variant: 'bordered', onClose: () => toggleEx(id) }, lab(id)))) : null,
+      !prepo && aberto ? grupos(veiculos, botao) : null);
+    // Estado vazio das moléculas: as duas constantes de dev (emptyStates.ts:191-205), conforme moleculesApplicable do golden.
+    const semMol = s.molsAplicaveis ? { emptyTitle: 'Nenhuma molécula adicionada', emptyIcon: 'lucide:flask-conical', emptyDescription: '' }
+      : { emptyTitle: 'Não aplicável', emptyIcon: 'lucide:circle-slash', emptyDescription: 'Esta substância será cadastrada sem molécula química isolada.' };
+    const tabelaMol = h(DF.UniversalTable, Object.assign({ density: 'compact', cardless: true, cardlessBleed: false, cardlessPadding: 'none',
+      rows: mols.length ? mols.map((m, i) => ({ id: 'm' + i, nome: m })) : [],
+      columns: [
+        { id: 'nome', header: 'Molécula', cell: (r) => h('span', { className: 'ts-bodyMedium' }, r.nome) },
+        { id: 'ap', header: 'Apresentações', cell: () => h('div', { className: 'cf-row' }, ...linhasAp.map((a) => h(DF.Chip, { key: a.id, size: 'sm', variant: 'flat', color: 'success', startContent: icon('check', 12) }, lab(a.forma)))) },
+      ] }, semMol));
+    const parado = h('p', { className: 'ts-bodyMedium fg-500', style: { margin: 0 } }, 'Sem mudança nesta aba.');
+    const composicao = h(R.Fragment, null,
+      h(DF.Section, { label: 'Unidade' }, h(DF.Section.Grid, { columns: 2 },
+        h(DF.InputField, { label: 'Unidade primária', value: s.un, isReadOnly: true }),
+        h(DF.InputField, { label: 'Unidade secundária', value: '', placeholder: 'Opcional', isReadOnly: true }))),
+      h(DF.Section.Divider),
+      h(DF.Section, { label: 'Apresentações', action: h(DF.Button, { color: 'primary', size: 'sm', startContent: icon('plus', 16), onPress: addSubl, isDisabled: !!extra.length || prepo }, 'Adicionar apresentação') },
+        tabelaAp, tambem),
+      h(DF.Section.Divider),
+      h(DF.Section, { label: 'Moléculas' }, tabelaMol));
+    const modal = h(DF.BaseTabbedModal, { isOpen: true, contained: true, height: 960, size: 'wide', icon: 'lucide:flask-conical', title: nome(mx),
+      selectedKey: ST.tab || 'composicao', onSelectedKeyChange: (k) => self.setState({ tab: k }),
+      defaultFooter: h('div', { style: { display: 'flex', gap: 8, justifyContent: 'flex-end', width: '100%' } }, h(DF.Button, { variant: 'light' }, 'Cancelar'), h(DF.Button, { color: 'primary' }, 'Salvar alterações')),
+      tabs: [
+        { key: 'basico', title: 'Básico', content: parado },
+        { key: 'composicao', title: 'Composição', content: composicao },
+        { key: 'referencias', title: 'Referências', content: parado },
+      ] });
+    const oferta = mm === 'hoje' ? [...hoje(mx, extra)] : [...conjunto];
+    const mside = h('div', { className: 'au-addri cf-side' },
+      h('span', { className: 'au-dest' }, 'No card de prescrição'),
+      h('div', null, h('span', { className: 'n' }, String(oferta.length)), h('p', { className: 'ts-bodySmall fg-600', style: { margin: '4px 0 0' } }, 'formas oferecidas a esta substância')),
+      grupos(ORDEM.filter((id) => oferta.includes(id)), chip));
+
+    // ====================================================================================================================
+    // Parte 2 · item 147 (pendente). Tudo abaixo lê a recomendação que cad/matriz.ts montou sobre o seed de dev.
+    // ====================================================================================================================
+    // ---------- Fig. 10b: o campo já existe em dev (defaultDoseUnit), e parte das formas desvia do contrato ----------
+    const fig10 = h('div', { className: 'au-addr' },
+      caixa3('Cumprem o contrato', 'prep', 'O campo guarda a unidade que se conta.', Q.emDev.conta, 'formas · ' + Q.emDev.unidadesQueContam.length + ' unidades', Q.emDev.unidadesQueContam),
+      caixa3('Desviam', 'nada', 'O mesmo campo guarda grama ou mililitro.', Q.emDev.mede, 'formas · g e ml', [...Q.emDev.g, ...Q.emDev.ml].map(lab)),
+      caixa3('A dose conhecida escreve', '', 'Outra lista, com as duas classes.' + (Q.emDev.foraDoTipo.length ? ' Faltam ' + lista(Q.emDev.foraDoTipo) + ', que o seed já usa.' : ''),
+        Q.knownUnitKind.length, 'valores em KnownUnitKind', Q.knownUnitKind));
+
+    // ---------- Fig. 11a: o que separa a porção ----------
+    const unidadesDe = (ids) => [...new Set(ids.map((id) => F.get(id).conta.um))];
+    const O = Q.proposta.separa;
+    const fig11a = h('div', { className: 'au-addr fm-four' },
+      caixa3('A forma', 'prep', 'A própria forma é a unidade.', O.forma.length, 'formas', unidadesDe(O.forma)),
+      caixa3('A embalagem', 'prep', 'A embalagem separa a dose.', O.embalagem.length, 'formas', unidadesDe(O.embalagem)),
+      caixa3('O dosador', 'prep', 'O dosador separa a porção.', O.dosador.length, 'formas', unidadesDe(O.dosador)),
+      caixa3('Nada separa', 'nada', 'Mede-se, em g ou mL, na linha.', Q.proposta.semUnidade.length, 'forma', Q.proposta.semUnidade.map(lab)));
+
+    // ---------- Fig. 11b: os dosadores ----------
+    const fig11b = tabela(['Acessório, no vocabulário da ANVISA', 'Unidade no EDQM', 'O que faz', 'Formas do catálogo'], Q.dosadores.map((d) => [d.anvisa + ' · ' + d.abrev,
+      d.edqm ? d.edqm[0] + ' · ' + d.edqm[1] : '—',
+      d.faz === 'conta' ? { v: 'conta: ' + d.unidades.join(' ou '), cls: 'cf-ok' } : 'mede: mL',
+      d.formas.map(lab).join(', ')]), 'cf-long');
+
+    // ---------- Fig. 12: o catálogo de formas ----------
+    // Em tela estreita, as abas do filtro usam o rótulo curto, sem a contagem (ela está no resumo), e a primeira coluna encolhe.
+    const ESTREITA = typeof window !== 'undefined' && window.innerWidth < 640;
+    const mudaIds = new Set([...Q.proposta.mudam.map((m) => m.id), ...D.formas.filter((f) => f.local).map((f) => f.id)]);
+    const OR = Q.proposta.origem, semOrigemIds = new Set(OR.nenhuma);
+    const FILTROS = { todas: () => true, veiculo: (f) => f.veiculo, muda: (f) => mudaIds.has(f.id), semOrigem: (f) => semOrigemIds.has(f.id) };
+    const cf = FILTROS[ST.cf] ? ST.cf : 'todas';
+    const sub = (t) => (t ? h('span', { className: 'cf-sub' }, t) : null);
+    const vazio = h('span', { className: 'fg-400', 'aria-label': 'Nenhuma' }, '—');
+    const sim = () => h(DF.Chip, { size: 'sm', variant: 'flat', color: 'success' }, 'Sim');
+    // A origem de cada valor: a fonte (a unidade de apresentação do EDQM), a fala de 11/11/2026 18:32 ou, sem as duas, a aprovação do item 147 (14/11/2026 16:02).
+    const origem = (f) => {
+      if (!f.conta) return h('div', null, vazio, sub(f.nota));
+      const o = f.conta.origem, nenhuma = !o.fonte && !o.fala;
+      return h('div', null,
+        h('div', { className: 'cf-row' },
+          o.fonte ? h(DF.Chip, { size: 'sm', variant: 'flat', color: 'success' }, 'Fonte') : null,
+          o.fala ? h(DF.Chip, { size: 'sm', variant: 'flat' }, 'Sua fala') : null,
+          nenhuma ? h(DF.Chip, { size: 'sm', variant: 'flat' }, 'Sua decisão') : null),
+        sub(o.fonte ? 'EDQM ' + o.fonte[0] + ' · ' + o.fonte[1] : null), sub(o.fala ? Q.fala.em + ' · “' + o.fala + '”' : null), sub(nenhuma ? 'Item 147, aprovado em 14/11/2026 16:02' : null),
+        sub(f.nota), sub(nenhuma && f.emDev === f.conta.key ? 'O seed de dev já grava esse valor.' : null));
+    };
+    const catResumo = h('div', { className: 'au-std' }, h('b', null, num(D.formas.length) + ' formas'),
+      h('span', null, num(N.veiculosComuns) + ' veículos comuns'), h('span', null, num(Q.proposta.comUnidade) + ' contam uma unidade'),
+      h('span', null, num(Q.proposta.unidades.length) + ' unidades diferentes'), h('span', null, num(OR.fonte.length) + ' valores com fonte'),
+      h('span', null, num(OR.fala.length) + ' com a sua fala'), h('span', null, num(OR.nenhuma.length) + ' pela sua decisão'),
+      h('span', null, num(Q.proposta.semUnidade.length) + ' sem unidade que se conta'), h('span', null, num(Q.proposta.sabor) + ' com Sabor'));
+    const cat = h('div', null,
+      h('div', { className: 'cf-ctl' }, h(DF.Tabs, { size: 'sm', variant: 'bordered', color: 'default', ariaLabel: 'Formas do catálogo', selectedKey: cf, onSelectionChange: (k) => self.setState({ cf: k }),
+        items: [['todas', 'Todas', 'Todas', D.formas.length], ['veiculo', 'Veículos comuns', 'Veículos', N.veiculosComuns], ['muda', 'Mudam com o item 147', 'Mudam', mudaIds.size],
+          ['semOrigem', 'Pela sua decisão', 'Decisão', OR.nenhuma.length]].map(([key, longo, curto, n]) => ({ key, label: ESTREITA ? curto : longo + ' · ' + n })) })),
+      h('div', { className: 'cf-cat' }, h(DF.HeroUITable, { density: 'compact', stickyFirstColumn: true, rows: D.formas.filter(FILTROS[cf]), columns: [
+        { id: 'forma', header: 'Forma', minWidth: ESTREITA ? '150px' : '190px', cell: (f) => h('div', null, h('span', { className: 'cf-u' }, lab(f.id)), sub(f.local ? 'forma local' : null)) },
+        { id: 'via', header: 'Via', width: 110, cell: (f) => VIA[f.via] || f.via },
+        { id: 'veiculo', header: 'Veículo comum', width: 160, cell: (f) => (f.veiculo ? sim() : h(DF.Chip, { size: 'sm', variant: 'bordered' }, ['Não', motivo(f)].filter(Boolean).join(' · '))) },
+        { id: 'conta', header: 'Unidade que se conta', minWidth: '170px', cell: (f) => (f.conta ? h('div', null, h('span', { className: 'cf-u' }, f.conta.um), sub(f.conta.quando)) : vazio) },
+        { id: 'origem', header: 'Origem do valor', minWidth: '290px', cell: origem },
+        { id: 'sabor', header: 'Sabor', width: 90, cell: (f) => (f.sabor ? sim() : vazio) }] })));
+    const mudam = chipsAula([...Q.proposta.mudam.map((m) => lab(m.id) + ' · ' + m.de + ' → ' + (m.para || 'sem unidade')),
+      ...D.formas.filter((f) => f.local).map((f) => lab(f.id) + ' · nova → ' + f.conta.um)], 'span', { marginTop: 10 });
+    const semOrigem = chipsAula(OR.nenhuma.map((id) => lab(id) + ' · ' + F.get(id).conta.um), 'span', { marginTop: 10 });
+    // Legenda dos rótulos: as formas cujo rótulo no seed difere do que a figura mostra (mapa ACC).
+    const outroRotulo = D.formas.filter((f) => !f.local && lab(f.id) !== f.label);
+    const rotulos = h('span', null, ' No seed, ' + num(outroRotulo.length) + ' das ' + num(N.formasAtivas) + ' formas ativas têm outro rótulo:',
+      chipsAula(outroRotulo.map((f) => f.label), 'span', { marginTop: 8 }));
+
+    // ---------- Fig. 13a: troque a forma ----------
+    // A figura roda o motor da aula de Prescrição (motor.js). Sem ele, a página continua de pé e a figura diz o que faltou.
+    // Com a dose conhecida, a tomada guarda unidades da forma (item 156). Trocar para uma forma que conta outra unidade tira a dose
+    // conhecida pela conta de limpar; a troca que deixa a tomada sem quantidade pede a confirmação curta (itens 155 e 158).
+    const fig13a = (() => {
+      if (!M || !M.withForm) return { trocaCtl: null, troca: h('p', { className: 'au-src' }, 'O motor da aula (motor.js) não carregou: esta figura depende dele.') };
+      // As formas do catálogo entram no motor da aula com a unidade que contam; a que só mede fica sem unidade.
+      D.formas.forEach((f) => { M.FORMS[f.id] = { label: lab(f.id), count: 'unit', unit: f.conta ? [f.conta.um, f.conta.n] : [null, null] }; });
+      const DK_ORIGIN = 'Do rótulo de um produto pronto. Pode mudar em outra manipulação.';
+      const DK_TITLE = 'Dose conhecida', DK_N = '1 dose equivale a', DK_USE = 'Usar dose conhecida';
+      const CF_MSG = 'As tomadas que fecham dose inteira continuam com a mesma dose.';
+      const cfCount = (k) => k + (k === 1 ? ' tomada fica' : ' tomadas ficam') + ' sem quantidade';
+      const GESTO = { troca: ['Trocar o número da dose conhecida', 'Trocar o número'], limpar: ['Limpar a dose conhecida', 'Limpar'], forma: ['Trocar a forma', 'Trocar a forma'] };
+      const tr = Object.assign({ de: 'df_capsule', para: 'df_sachet', q: 6 }, ST.tr);
+      // Mudar a origem recomeça a figura sem troca: a troca é o gesto de escolher a forma nova.
+      const novo = (patch) => self.setState({ tr: Object.assign({}, tr, patch, patch.para ? {} : { para: patch.de || tr.de }), trRec: null, trN: undefined, trPend: null });
+      const opcoes = T.veiculos.map((id) => ({ value: id, label: lab(id) }));
+      // O registro de exemplo: 1 dose = 3 unidades da forma de origem, e uma tomada de 6 unidades (2 doses) ou de 1 (1/3 da dose), 1 vez ao dia.
+      const uDe = F.get(tr.de).conta, uPara = F.get(tr.para).conta;
+      const antes = { forma: tr.de, eq: uDe ? { n: 3, u: [uDe.um, uDe.n], usar: true } : null, tomadas: [{ id: 't1', q: uDe ? tr.q : 2, v: 1, m: '' }], aviar: 30 };
+      const trocado = M.withForm(antes, tr.para);
+      // Na forma nova, quem prescreve mexe no popover: os gestos passam pela mesma conta e pela mesma confirmação da aula.
+      const depois = ST.trRec || trocado;
+      const pedir = (next, kind, extra) => { const k = M.lostOf(depois, next); self.setState(Object.assign(k ? { trPend: { kind, k, rec: next } } : { trRec: next }, extra)); };
+      const trocar = (para) => { if (para === tr.para) return; const next = M.withForm(antes, para), k = M.lostOf(antes, next);
+        if (k) self.setState({ trPend: { kind: 'forma', k, para } }); else novo({ para }); };
+      const seletor = (campo, titulo, prefixo, on) => h(DF.RadioFilterPopover, { title: titulo, buttonPrefix: prefixo, buttonIcon: 'lucide:pill', buttonSize: 'sm', value: tr[campo], activeValue: tr[campo], options: opcoes, onValueChange: on });
+      const tomadaCtl = h(DF.Tabs, { size: 'sm', variant: 'bordered', color: 'default', ariaLabel: 'A tomada na origem', selectedKey: String(tr.q), onSelectionChange: (k) => novo({ q: Number(k) }),
+        items: [6, 1].map((q) => ({ key: String(q), label: M.fracText(q, 3), isDisabled: !uDe, disabledReason: 'A forma de origem não conta unidade' })) });
+      const trocaCtl = h('div', { className: 'cf-ctl' }, h('div', { className: 'g' }, h('span', { className: 'l' }, 'A fórmula está em'), seletor('de', 'Forma de origem', 'De', (v) => novo({ de: v }))),
+        h('div', { className: 'g' }, h('span', { className: 'l' }, 'A tomada na origem'), tomadaCtl),
+        h('div', { className: 'g' }, h('span', { className: 'l' }, 'E passa para'), seletor('para', 'Forma nova', 'Para', trocar)));
+      // O veredito é da troca; o que se mexe depois, na forma nova, aparece como outro selo.
+      const veredito = !antes.eq ? ['sem dose conhecida na origem', ''] : trocado.eq ? ['a dose conhecida fica', 'prep'] : ['a dose conhecida sai', 'com'];
+      const perdas = M.lostOf(antes, trocado);
+      const selos = [veredito[0], perdas ? cfCount(perdas) : null, !trocado.eq && depois.eq ? 'informada de novo na forma nova' : null, M.eqFits(depois) && !M.eqOn(depois) ? 'desligada' : null].filter(Boolean);
+      // O botão da Apresentação: apagado sem número, aceso com a dose conhecida ligada, neutro desligada (item 157).
+      const dkBtn = (rec) => { const u = F.get(rec.forma).conta, has = M.eqFits(rec);
+        return u ? h(DF.Button, { size: 'sm', variant: has ? 'flat' : 'light', color: M.eqOn(rec) ? 'primary' : 'default', startContent: icon('scale', 14) }, has ? '1 dose = ' + M.plural(rec.eq.n, rec.eq.u[0], rec.eq.u[1]) : DK_TITLE) : null; };
+      // O que o card mostra na tomada: a coluna de doses (o inteiro ou a fração) e, ligada, a da unidade da forma.
+      const porTomada = (rec, t) => (M.inUnits(rec) ? M.fracText(t.q, rec.eq.n) + (M.eqOn(rec) ? ' · ' + M.plural(t.q, rec.eq.u[0], rec.eq.u[1]) : '') : M.plural(t.q, 'dose', 'doses'));
+      const leitura = (rec) => { const t = rec.tomadas[0];
+        return h('div', { className: 'fm-dkr' },
+          h('span', { className: 'ts-bodySmall fg-500' }, 'Card'), h('span', { className: 'ts-bodySmall fg-700' }, M.isInt(t.q) ? 'Por tomada: ' + porTomada(rec, t) : 'Tomada sem quantidade.'),
+          h('span', { className: 'ts-bodySmall fg-500' }, 'Receita'), h('span', { className: 'ts-bodySmall fg-700' }, M.sayOf(rec) || '—'),
+          M.baseOf(rec) ? h('span', { className: 'ts-bodySmall fg-500' }, 'Base') : null, M.baseOf(rec) ? h('span', { className: 'ts-bodySmall fg-700' }, M.baseOf(rec)) : null); };
+      const lado = (dest, cls, rec, semAcao, tags) => h('div', { className: 'au-addri' }, h('span', { className: 'au-dest' + (cls ? ' ' + cls : '') }, dest),
+        tags && tags.length ? h('div', null, ...tags.map((t, i) => h('span', { key: i, className: 'au-seal' }, t))) : null,
+        h('div', { className: 'df-root au-ds fm-ds' }, h('div', { style: { display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' } }, dkBtn(rec), leitura(rec))),
+        semAcao ? h('p', null, 'Esta forma não conta unidade: a Apresentação não oferece a dose conhecida.') : null);
+      const typed = (res) => (res && res.isValid ? (M.isInt(res.value) ? res.value : null) : undefined);
+      // O popover na forma nova: o interruptor no cabeçalho, o número, e Limpar à esquerda do rodapé. O número vale ao sair do campo.
+      const d = M.dkFrom(depois), has = M.isInt(d.n), nShown = ST.trN !== undefined ? ST.trN : d.n;
+      const sair = () => { if (ST.trN === undefined) return; const n = ST.trN; if (n === d.n) return self.setState({ trN: undefined });
+        pedir(M.withDose(depois, n, M.dkUnit(depois)), n === null ? 'limpar' : 'troca', { trN: undefined }); };
+      const popover = uPara ? h('div', { className: 'df-root au-ds fm-ds' }, h('div', { role: 'group', 'aria-label': DK_TITLE, className: 'df-popover-card fm-dkp is-static' },
+        h('div', { className: 'fm-dkph' }, h('span', { className: 'fm-dkpt' }, icon('scale', 16, 'fg-primary'), h('span', { className: 'ts-titleSmall' }, DK_TITLE)),
+          h(DF.Switch, { size: 'sm', ariaLabel: DK_USE, isSelected: has && d.usar, isDisabled: !has, onValueChange: (on) => self.setState({ trRec: M.withUsar(depois, on) }) })),
+        h('span', { className: 'ts-bodySmall fg-500 fm-dkpd' }, DK_ORIGIN),
+        h('div', { onBlur: sair }, h(DF.NumericField, { key: tr.de + tr.para + tr.q, size: 'sm', label: DK_N, ariaLabel: DK_N, value: M.isInt(nShown) ? nShown : null, unit: nShown === 1 ? uPara.um : uPara.n, integer: true, maxFractionDigits: 0, errorMessage: '',
+          onValueChange: (res) => { const n = typed(res); self.setState({ trN: n === undefined ? d.n : n }); } })),
+        h('div', { className: 'fm-dkpf' }, h(DF.Button, { size: 'sm', variant: 'light', color: 'danger', startContent: icon('eraser', 14), isDisabled: !has, onPress: () => pedir(M.withDose(depois, null), 'limpar', { trN: undefined }) }, 'Limpar'),
+          h(DF.Button, { size: 'sm', variant: 'light', onPress: () => self.setState({ trRec: null, trN: undefined }) }, 'Fechar')))) : null;
+      // A confirmação curta, sobre a figura: confirmar faz o gesto; cancelar deixa tudo como estava.
+      const pend = ST.trPend;
+      const confirma = pend ? h('div', { className: 'cf-cfm' }, h(DF.BaseConfirmationModal, { isOpen: true, contained: true, height: '100%', size: 'default', title: GESTO[pend.kind][0], icon: 'lucide:scale', iconColor: 'warning',
+        messageTitle: cfCount(pend.k), message: CF_MSG, confirmLabel: GESTO[pend.kind][1], confirmColor: 'warning', cancelLabel: 'Cancelar',
+        onClose: () => self.setState({ trPend: null }), onConfirm: () => (pend.para ? novo({ para: pend.para }) : self.setState({ trRec: pend.rec, trPend: null })) })) : null;
+      const troca = h('div', { className: 'cf-tr' },
+        h('div', { className: 'cf-ba' }, lado('Antes · ' + lab(tr.de), '', antes, !uDe), lado('Depois · ' + lab(tr.para), veredito[1], depois, !uPara, selos)),
+        popover ? h('div', { className: 'cf-pop' }, popover, h('div', { className: 'au-lim' }, h('span', { className: 'au-seal' }, 'O popover na forma nova'),
+          h('span', null, h('b', null, 'A unidade vem do catálogo: ' + uPara.n + '.'), ' Informe ou troque o número, desligue o interruptor ou clique em Limpar para ver a receita mudar na unidade nova. “Fechar” volta ao registro da troca.'))) : null,
+        confirma);
+      return { trocaCtl, troca };
+    })();
+
+    // ---------- Fig. 13b: os veículos, pela unidade que contam ----------
+    const gruposTroca = h('div', null,
+      h('div', { className: 'au-std' }, h('b', null, num(T.pares.total) + ' trocas entre ' + num(T.veiculos.length) + ' veículos'),
+        h('span', null, num(T.pares.fica) + ' mantêm a dose conhecida'), h('span', null, num(T.pares.sai) + ' a tiram'),
+        h('span', null, num(T.pares.semDose) + ' partem de forma que só mede'), h('span', null, '0 recusadas')),
+      tabela(['Unidade que se conta', 'Veículos', 'Ao trocar dentro do grupo'], T.grupos.map((g) => [g.um || '—', g.formas.map(lab).join(', '),
+        !g.um ? 'não há dose conhecida' : g.formas.length > 1 ? { v: 'a dose conhecida fica', cls: 'cf-ok' } : 'forma única no grupo']), 'cf-long'));
+
+    const E = D.edqmSeed;
+    // ---------- Fig. 14: o que se confirmou no arquivo bruto e o par de códigos trocados ----------
+    const uop = chipsAula(Q.uop.map((u) => u.termo), 'span', { marginTop: 8 });
+    const novos = chipsAula(Q.proposta.valoresNovos, 'span', { marginTop: 8 });
+    const edqmTrocadas = D.edqmTrocadas.map((par) => lista(par.map(lab))).join('; ');
+    return { pick, juiz, mctl, modal, mside, fig1, fig4, fig10, fig11a, fig11b, catResumo, cat, mudam, semOrigem, rotulos, uop, novos, edqmTrocadas, trocaCtl: fig13a.trocaCtl, troca: fig13a.troca, grupos: gruposTroca,
+      nSubs: num(N.subs), nPares: num(N.pares), nUmPar: num(N.umPar), nCapsula: num(N.paresCapsula), nFormas: num(N.formas), nAtivas: num(N.formasAtivas),
+      nComum: num(D.casos['Magnésio + Vitamina D'].atual.length), nVazias: num(Math.max(...['df_tablet', 'df_sachet', 'df_gummy'].map((id) => D.juiz[id].atual))),
+      nNovas: num(Math.max(...D.formas.filter((f) => f.local).map((f) => D.juiz[f.id].atual))),
+      nLinhasHoje: num(D.totais.linhasHoje), nLinhasRegra: num(D.totais.linhasRegra), nSubsVeiculo: num(T.subsNoMax), nVeiculos: num(T.alcanceMax),
+      nNaoVeiculo: num(N.naoVeiculo), nLinhasNaoVeiculo: num(N.linhasNaoVeiculo), nMoleculas: num(N.moleculas), nMolExcl: num(N.moleculasComExclusao),
+      nEdqm: num(E.length), nEdqmOk: num(E.filter((x) => x.estado === 'confere').length), nEdqmOutro: num(E.filter((x) => x.estado === 'outro').length),
+      nRotuloOutras: num(Q.emDev.rotuloOutras.length), nMudam: num(Q.proposta.mudam.length), nLocais: num(D.formas.filter((f) => f.local).length), nSabor: num(Q.proposta.sabor),
+      nTrocaTotal: num(T.pares.total), nDevRecusa: num(T.dev.recusa), nDevAplica: num(T.dev.aplica), nDevErrado: num(T.dev.mantemErrado.length), nDevErradoLocais: num(T.dev.mantemErradoLocais),
+      nEdqmFora: num(E.filter((x) => x.estado === 'fora').length), nEdqmConceitos: num(Q.edqmBruto.conceitos), nUop: num(Q.uop.length), nSemOrigem: num(OR.nenhuma.length),
+      saem: lista(Q.proposta.saemDaEscrita), nNovos: num(Q.proposta.valoresNovos.length), nKnown: num(Q.knownUnitKind.length), devSha: D.devSha, devBase: D.devBase };
+  }
+}
+</script>
+</body>
+</html>

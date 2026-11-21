@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.0 — 21/11/2026
+
+- Exemplos de aula no plugin, em `references/exemplos/aulas/`: O que é um exame (autocontido, o padrão de didática), Números e unidades (o playbook Aula inteiro no kit, com as cinco tabs) e as aulas do canvas de Prescrição — Fórmula magistral, Cadastrados e Tomada, limite e lâmpada — como fonte, com o link do canvas vivo. O README deles traz a anatomia do quadro e os padrões que se repetem.
+- O playbook Aula e a skill HTML Didático mandam abrir esses exemplos antes de escrever. Antes, nada no plugin apontava para eles, e um chat respondeu que não havia exemplo de aula.
+- `scripts/check.mjs`: “pergunta respondida na hora” passa a contar só pergunta e resposta no mesmo parágrafo. O título-pergunta com a resposta logo abaixo, que é o quadro da Aula, deixava de ser tique e era acusado.
+
 ## 2.4.0 — 21/11/2026
 
 - Nova entrada pública, a de número seis: **Decisões em Boards** (`decisoes-em-boards`). Decisões de produto, modelo ou arquitetura presas em lista ou prosa viram um mapa e um board por decisão no canvas de Design, com componentes reais do DietFlow DS. Vinha avulsa em `nmarcofernandess/devkit` (`skills/decisoes-em-boards`, commit `85f29158`), só no Claude Code.

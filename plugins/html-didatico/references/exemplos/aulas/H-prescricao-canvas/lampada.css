@@ -1,0 +1,67 @@
+/* Lâmpada como foi decidida (np-*), montada por lampada-motor.js: anatomia de DoseSuggestion.tsx em dev bf094408e1
+   (PR #2103), mais a seção “Converter para” da SPEC da Unidade (fatia U1). Usada pelo board canônico e pela aula. */
+
+/* Largura pelo conteúdo, de 20 até 27 rem (D-297), e nunca mais que a tela menos 24 px. */
+.np{box-sizing:border-box;width:max-content;min-width:min(20rem,100%);max-width:min(27rem,100%);background:var(--content1);border-radius:14px;box-shadow:var(--shadow-medium);overflow:hidden;display:flex;flex-direction:column;position:relative;outline:none;text-align:left}
+.np p{margin:0}
+/* Cabeçalho com os tokens do PreviewHoverCard (D-394): etiqueta bodySmall cinza, título 16 px negrito, linha de apoio, Divider. */
+.np-head{position:relative;padding:12px 12px 8px;border-bottom:1px solid var(--default-200);display:flex;flex-direction:column;gap:2px}
+.np-over{color:var(--default-500);margin-bottom:2px !important}
+.np-title{color:var(--foreground);font-weight:700;overflow-wrap:anywhere}
+.np-ctx{color:var(--default-500)}
+.np-pair{position:relative;margin-top:4px !important;color:var(--default-500)}
+.np-pair b{color:var(--foreground);font-weight:600}
+.np-body{max-height:18rem;overflow-y:auto;position:relative}
+/* Lista que continua abaixo da borda: esmaece a base para o corte ler como "tem mais". */
+.np-body.is-more::after,.np-other.is-more::after{content:'';display:block;position:sticky;bottom:0;height:28px;margin-top:-28px;background:linear-gradient(to bottom,color-mix(in srgb,var(--content1) 0%,transparent),var(--content1));pointer-events:none;z-index:4}
+.np-grid{display:grid;align-items:start;column-gap:8px}
+/* Faixa das colunas, fixa no topo, com altura fixa para o título de seção grudar logo abaixo. */
+.np-cols{position:sticky;top:0;z-index:3;background:var(--content1);padding:6px 8px 5px;min-height:28px;box-sizing:border-box;align-items:end}
+.np-cols span{color:var(--default-400);white-space:nowrap}
+.np-cols .np-colnum{text-align:right}
+.np-cols .is-dest{color:var(--foreground);font-weight:600}
+.np-list{padding:2px 4px 6px}
+.np-group{position:relative}
+.np-group+.np-group{margin-top:8px}
+/* Título da seção (slot heading do ListboxSection): preso logo abaixo da faixa de colunas, o mesmo peso em todas;
+   a seção do card leva o título inteiro na cor primária, com “· do card” (Marco, 18/11/2026). */
+.np-sec{position:sticky;top:28px;z-index:2;background:var(--content1);padding:4px 4px;font-size:12px;line-height:16px}
+.np-sectitle{font-weight:600;color:var(--default-500);overflow-wrap:anywhere}
+.np-sec.is-card .np-sectitle{color:var(--primary-800)}
+.np-row{width:100%;border:0;background:transparent;border-radius:8px;padding:6px 8px;text-align:left;cursor:pointer;font:inherit;color:inherit;box-sizing:border-box}
+.np-row:hover,.np-row:focus-visible{background:var(--default-100);outline:none}
+.np-row:focus-visible{box-shadow:inset 0 0 0 2px var(--focus,var(--primary-500))}
+.np-name{display:flex;align-items:flex-start;gap:6px;min-width:0;font-size:12px;line-height:16px;font-weight:500;color:var(--foreground)}
+.np-name>svg,.np-name>.df-icon{flex:none;margin-top:3px}
+/* Forma B (D-303, D-393): a fonte com para quem vale embaixo; no intervalo, título só de leitura e extremos recuados. */
+.np-row .np-nametxt,.np-rtitle .np-nametxt,.np-othername .np-nametxt{font-size:14px;line-height:20px}
+.np-qual{color:var(--default-500);font-weight:400}
+.np-nw{white-space:nowrap}
+.np-rtitle{padding:6px 8px 2px;cursor:default}
+.np-grid.np-row{align-items:end}
+.np-row.is-ext{padding-top:4px;padding-bottom:4px}
+.np-extlabel{padding-left:20px;font-size:14px;line-height:20px;color:var(--default-700)}
+.np-namecol{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+.np-nametxt{overflow-wrap:anywhere}
+.np-lim{color:var(--danger);flex:none}
+.np-tag{color:var(--default-400);flex:none}
+.np-num{display:grid;justify-content:end;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:12px;line-height:16px;white-space:pre}
+.np-num>.ap{text-align:left}
+.np-num>.i{text-align:right}
+.np-num>.f{text-align:left}
+.np-num.is-base{font-weight:600;color:var(--foreground)}
+.np-num.is-eq{color:var(--default-500)}
+/* “Converter para” (SPEC da Unidade, U1): a última seção, depois do divisor do ListboxSection. */
+.np-conv{border-top:1px solid var(--default-200);margin-top:8px;padding-top:4px}
+.np-convnum{display:block;text-align:right}
+.np-fb{position:relative;border-top:1px solid var(--default-200);padding:8px 12px;color:var(--warning-700)}
+.np-emptywrap{position:relative}
+.np-emptywrap>.df-empty,.np-emptywrap>.pc-glyphslot{padding:4px 12px}
+/* Outras referências (ConsultationList): só consulta; o nome, o chip do escopo embaixo e o valor à direita. */
+.np-other{border-top:1px solid var(--default-100);max-height:18rem;overflow-y:auto;padding:0 4px 6px}
+.np-otherhead{position:sticky;top:0;background:var(--content1);padding:8px 8px 4px;color:var(--default-400);z-index:1}
+.np-otherrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 8px}
+.np-othername{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+.np-otherval{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--default-500);white-space:nowrap;text-align:right}
+/* Glifo que o pacote do DS não tem: o lucide real entra no slot do estado vazio, no lugar do glifo do pacote. */
+.pc-glyphslot .df-empty>span:first-child>svg:not([data-lucide]){display:none}

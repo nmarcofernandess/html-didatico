@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "html-didatico",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
   "author": {
     "name": "Marco Antonio",

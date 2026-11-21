@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Aula · tomada, limite e lâmpada</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/dietflow/components/bundle.css">
+<link rel="stylesheet" href="aula.css">
+<link rel="stylesheet" href="formula.css">
+<link rel="stylesheet" href="lampada.css">
+<script src="ds/dietflow/components/bundle.js"></script>
+<script src="lampada-motor.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Fira+Code:wght@400;500&amp;family=Inter:wght@100..900&amp;display=swap">
+<style>
+body{margin:0;background:#FAF9F5}
+/* Tabela didática: quem rola é a moldura, não a página. Largura inteira sempre. */
+.lm-t{overflow-x:auto}
+.lm-t>table{min-width:760px}
+.lm-t td,.lm-t th{text-align:left;vertical-align:top}
+.lm-t td{font-size:15.5px;line-height:1.35}
+.lm-t td b{font-weight:600}
+.lm-sub{display:block;font-size:13px;line-height:1.35;color:var(--mute);margin-top:2px}
+.lm-mono{font:500 13.5px/1.4 var(--mono)}
+.lm-q{font:500 13.5px/1.4 var(--mono);white-space:nowrap}
+.lm-ok{color:var(--nome);font-weight:600}
+.lm-no{color:var(--mute)}
+/* Peças do DS montadas fora do app */
+.lm-ds{min-width:0}
+.lm-ds .lm-card{border:1px solid var(--default-200);border-radius:14px;background:var(--content1,#fff);padding:16px 20px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.lm-ds .lm-sum{margin-left:12px;display:inline-flex;align-items:baseline;gap:6px}
+.lm-ds .lm-sum>.v{font-weight:400;color:var(--default-600);text-transform:none;letter-spacing:0}
+.lm-ds .lm-act{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 12px}
+.lm-ds .lm-hint{margin:0;font:var(--text-ts-bodySmall);color:var(--default-500)}
+.lm-ds .lm-lab{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lm-ds .lm-lab>span{font:var(--text-ts-labelSmall);color:var(--default-700)}
+.lm-ds .lm-ov{position:relative;min-width:0;display:flex;align-items:flex-start;justify-content:center;border-radius:14px;overflow:hidden}
+.lm-ds .lm-ov>.df-modal-wrap{height:100%;min-height:0;align-items:flex-start}
+.lm-ds .lm-pop{border:1px solid var(--default-200);border-radius:14px;background:var(--content1,#fff);box-shadow:0 10px 30px rgba(0,0,0,.08);padding:14px 16px;display:flex;flex-direction:column;gap:14px;min-width:0;max-width:432px}
+.lm-ds .lm-poph{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lm-ds .lm-pop .lm-org{margin:0;font:var(--text-ts-bodySmall);color:var(--default-500)}
+.lm-ds .lm-popf{display:flex;justify-content:flex-start}
+.lm-ds .ut-scroll table{min-width:640px}
+.lm-ds .lm-ul{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:14px;padding-top:6px}
+.lm-ds .lm-txt{display:block;padding-top:6px;font:var(--text-ts-bodyMedium);color:var(--default-700)}
+.lm-ds .lm-num{display:block;padding-top:6px;font:var(--text-ts-bodyMedium);font-variant-numeric:tabular-nums;text-align:right;color:var(--default-700)}
+.lm-ds .lm-mae{display:flex;align-items:center;gap:6px;min-width:0;font:var(--text-ts-bodyMedium);font-weight:500;color:var(--foreground)}
+.lm-ds .lm-filha{display:block;padding:6px 0 6px 38px;font:var(--text-ts-bodySmall);color:var(--default-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lm-ds .lm-acts{display:inline-flex;align-items:center;justify-content:flex-end;gap:2px}
+.lm-ds .lm-ind{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px}
+.lm-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.lm-trio{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end}
+.lm-gap{margin-top:26px}
+/* lâmpada: a montagem decidida (np-*) vem de lampada.css e lampada-motor.js, a mesma do board canônico; aqui, o palco e o desenho de cada parte */
+.lm-lpstage{display:flex;justify-content:center;align-items:flex-start;border-radius:14px;background:var(--default-100);padding:16px;min-width:0}
+.lm-lpstage.is-phone{width:390px;max-width:100%;padding:12px}
+.wf-rows{display:flex;flex-direction:column;gap:6px;min-width:0}
+.wf-rowbox{display:grid;grid-template-columns:18px minmax(0,1fr) 92px 92px;gap:6px 8px;align-items:end;border:1px dashed var(--default-300);border-radius:8px;padding:8px;background:#fff}
+.wf-rowbox.is-title{border-style:dotted;background:var(--default-50)}
+.wf-rowbox.is-ext{margin-left:28px}
+.wf-rowbox>:first-child{align-self:start}
+.wf-chip{border-radius:6px;background:var(--default-100);padding:4px 6px;font:500 11px/14px var(--font-mono);color:var(--default-700);display:flex;align-items:center;gap:6px;min-width:0}
+.wf-chip.is-num{justify-content:flex-end;background:var(--default-200)}
+.wf-chip.is-dest{background:var(--default-300);color:var(--foreground);font-weight:700}
+.wf-stack{display:flex;flex-direction:column;gap:4px;min-width:0}
+.wf-legend{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px 12px;align-items:start}
+.wf-legend p{margin:0;font-size:15px;line-height:1.4;color:var(--mute)}
+.wf-legend p b{color:var(--ink);font-weight:600}
+.wf-mark{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:999px;background:var(--prep);color:#fff;font:600 11px/1 var(--mono);flex:none}
+.wf-legend>.wf-mark{margin-top:2px}
+.wf-cap{margin:0;font:500 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.lm-ic{display:inline-flex;align-items:center;gap:8px;font:500 13px/1.4 var(--mono)}
+/* blueprint */
+.lm-tree{margin:0;padding:16px 18px;font:500 13.5px/1.75 var(--mono);white-space:pre;overflow-x:auto;color:var(--ink)}
+.lm-tree i{font-style:normal;color:var(--faint)}
+.lm-tree b{display:inline-block;min-width:28px;font-weight:600;color:var(--prep)}
+.lm-layers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:26px}
+.lm-layer{border:1.5px solid var(--ink);border-radius:14px;background:#fff;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.lm-layer>.au-mono{color:var(--prep)}
+.lm-layer>b{font:400 26px/1.1 var(--serif)}
+.lm-layer>span:last-child{font-size:14.5px;line-height:1.35;color:var(--mute)}
+.lm-bp{display:flex;flex-direction:column;gap:22px}
+.lm-bp .au-bp{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.lm-bp .au-sheeth{text-transform:none;letter-spacing:0;flex-wrap:wrap;font-size:12.5px}
+.lm-bp .au-sheeth>span{min-width:0;overflow-wrap:anywhere}
+.lm-asm{background:#fff;border:1.5px solid var(--ink);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lm-asm>.au-mono b{color:var(--prep);font-weight:600}
+.lm-asm>b{font:400 28px/1.1 var(--serif)}
+.lm-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:15px}
+.lm-flow>span{border:1px solid var(--line);border-radius:8px;padding:4px 9px;background:var(--paper);font:500 12.5px/1.4 var(--mono)}
+.lm-flow>i{font-style:normal;color:var(--faint)}
+.lm-asm>p{margin:0;font-size:15px;line-height:1.4;color:var(--mute)}
+.lm-ct{display:grid;grid-template-columns:110px minmax(0,1fr);gap:6px 12px;padding:12px 16px;font-size:15px;line-height:1.35;align-items:baseline}
+.lm-ct>i{font:500 10.5px/1.6 var(--mono);font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+.lm-ct code{font:500 13px/1.45 var(--mono);color:var(--ink);overflow-wrap:anywhere}
+.lm-next{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-top:26px;border:1.5px solid var(--ink);border-radius:14px;padding:16px 20px;background:#fff}
+.lm-next>b{font:400 30px/1.1 var(--serif)}
+.lm-next>a{font:500 12px/34px var(--mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--ink);padding:0 16px;border-radius:999px;white-space:nowrap}
+@media (max-width:900px){.lm-two,.lm-bp .au-bp{grid-template-columns:minmax(0,1fr)}.lm-layers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.lm-layers{grid-template-columns:minmax(0,1fr)}.lm-ct{grid-template-columns:minmax(0,1fr)}}
+</style>
+</helmet>
+<div class="au"><div class="au-wrap">
+
+<header class="au-cover">
+<span class="au-mono">Aula · Prescrição · 17 de novembro de 2026</span>
+<h1>Tomada, limite e lâmpada</h1>
+<p class="au-lede">Vinte quadros, uma pergunta por vez, em quatro partes: <b>como a tomada converte</b>, <b>de onde vem o limite</b>, <b>o que a lâmpada mostra</b> e <b>onde cada coisa mora</b>. Um caso só, do começo ao fim: Ana, 35 anos, gestante, e o card Manhã.</p>
+<div class="fm-parts">
+<nav aria-label="Parte 1">
+<div class="fm-partl"><b>Parte 1</b><span class="au-mono">A tomada · quadros 1 a 8</span></div>
+<div class="au-trail fm-trail">
+<a href="#t1"><b>1</b>O que guarda</a>
+<a href="#t2"><b>2</b>A constante</a>
+<a href="#t3"><b>3</b>A pergunta</a>
+<a href="#t4"><b>4</b>A dose conhecida</a>
+<a href="#t5"><b>5</b>A forma</a>
+<a href="#t6"><b>6</b>Tomadas diferentes</a>
+<a href="#t7"><b>7</b>A posologia</a>
+<a href="#t8"><b>8</b>O aviso</a>
+</div>
+</nav>
+<nav aria-label="Parte 2">
+<div class="fm-partl"><b>Parte 2</b><span class="au-mono">O limite · quadros 9 a 14</span></div>
+<div class="au-trail fm-trail">
+<a href="#t9"><b>9</b>A faixa</a>
+<a href="#t10"><b>10</b>Várias fontes</a>
+<a href="#t11"><b>11</b>O Geral</a>
+<a href="#t12"><b>12</b>A forma</a>
+<a href="#t13"><b>13</b>A célula</a>
+<a href="#t14"><b>14</b>O dia</a>
+</div>
+</nav>
+<nav aria-label="Parte 3">
+<div class="fm-partl"><b>Parte 3</b><span class="au-mono">A lâmpada e o documento · quadros 15 a 17</span></div>
+<div class="au-trail fm-trail">
+<a href="#t15"><b>15</b>A lâmpada</a>
+<a href="#t16"><b>16</b>Sem lista</a>
+<a href="#t17"><b>17</b>O documento</a>
+</div>
+</nav>
+<nav aria-label="Parte 4">
+<div class="fm-partl"><b>Parte 4</b><span class="au-mono">Blueprint · quadros 18 a 20</span></div>
+<div class="au-trail fm-trail">
+<a href="#t18"><b>18</b>Onde mora</a>
+<a href="#t19"><b>19</b>Os contratos</a>
+<a href="#t20"><b>20</b>A regra</a>
+</div>
+</nav>
+</div>
+</header>
+
+<section class="au-q" aria-label="O caso">
+<div class="au-full">
+<div class="au-addr fm-four">
+<div class="au-addri"><span class="au-dest">Paciente</span><div class="au-kv"><span>Nome</span><b>Ana</b></div><div class="au-kv"><span>Idade</span><b>35 anos</b></div><div class="au-kv"><span>Sexo</span><b>Feminino</b></div><div class="au-kv"><span>Gestação</span><b>Sim</b></div><div class="au-kv"><span>Lactação</span><b>Não</b></div></div>
+<div class="au-addri"><span class="au-dest prep">Card Manhã</span><div class="au-kv"><span>Forma</span><b>Cápsula</b></div><div class="au-kv"><span>Dose conhecida</span><b>1 dose = 3 cápsulas</b></div><div class="au-kv"><span>Tomada</span><b>2 doses, 1 vez ao dia</b></div><div class="au-kv"><span>Aviar</span><b>30 doses</b></div></div>
+<div class="au-addri"><span class="au-dest nome">Linhas do Manhã</span><div class="au-kv"><span>Magnésio · Bisglicinato</span><b>1.000 mg</b></div><div class="au-kv"><span>Teor ativo</span><b>14%</b></div><div class="au-kv"><span>Ativo por dose</span><b>140 mg</b></div><div class="au-kv"><span>Vitamina D · Colecalciferol</span><b>500 UI</b></div></div>
+<div class="au-addri"><span class="au-dest com">Card Noite</span><div class="au-kv"><span>Tomada</span><b>1 dose, 1 vez ao dia</b></div><div class="au-kv"><span>Magnésio · Bisglicinato</span><b>500 mg</b></div><div class="au-kv"><span>Ativo por dose</span><b>70 mg</b></div><div class="au-kv"><span>Vitamina B6</span><b>sem dose</b></div></div>
+</div>
+<p class="au-src">Caso de exemplo. Referências e limites do golden de dev em 6e67577ee2 (prisma/seeds/system/substancias/curated/substances/references.json): Magnésio sys-sub-013, Vitamina D sys-sub-001, Vitamina B6 sys-sub-004.</p>
+</div>
+</section>
+
+<div class="fm-part" id="p1">
+<span class="au-mono">Parte 1 · quadros 1 a 8</span>
+<h2>A tomada</h2>
+<p>A tomada diz quanto se toma e quantas vezes. Nesta parte: o que ela guarda, quando o sistema pergunta, o que cada gesto faz com o número e quem escreve a frase da posologia.</p>
+</div>
+
+<section class="au-q" id="t1">
+<span class="au-n" aria-hidden="true">1</span>
+<h2>O que a tomada guarda?</h2>
+<p class="au-a"><b>Uma quantidade e as vezes ao dia.</b> Os campos Doses e Unidades mostram a mesma quantidade de dois jeitos, e o dia é conta.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 1a — o card Manhã: Apresentação, Tomada e Posologia</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig1 }}</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 1b — os rótulos fixos</figcaption>
+{{ fig1b }}
+<div class="au-open"><span class="au-dest prep">O que é gravado</span><span><b>A quantidade conta cápsulas quando a dose conhecida está ligada, e doses em qualquer outro caso.</b> A fração da dose (“1 e 1/3”) é conta de tela: nunca se digita nem se grava.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R2 e R7. Em dev em 6e67577ee2: FIELD.PRESCRIPTION.INTAKE_DOSES, INTAKE_UNITS, TIMES_PER_DAY, DAY_TOTAL e DAY_TOTAL_NONE (constants/messages/fields.ts); a frase sai de systemPosologyText (core/posologia.ts).</p>
+</figure>
+<p class="au-rule">A tomada guarda quanto e quantas vezes. O dia sai da conta.</p>
+</section>
+
+<section class="au-q" id="t2">
+<span class="au-n" aria-hidden="true">2</span>
+<h2>O que não muda quando eu mexo?</h2>
+<p class="au-a"><b>O que você digitou.</b> Todo gesto converte a partir do que está na tela; nenhum campo trava e nada antigo reaparece.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 2a — três garantias</figcaption>
+<div class="au-addr">
+<div class="au-addri"><span class="au-dest nome">Converte</span><p>Trocar a forma, desligar ou limpar refaz a quantidade a partir do número que está no campo.</p></div>
+<div class="au-addri"><span class="au-dest nome">Não trava</span><p>Nenhum campo fica bloqueado para evitar perda. A perda, quando existe, pede uma confirmação. A única trava que sobra é do corte atual, no quadro 6.</p></div>
+<div class="au-addri"><span class="au-dest nome">À vista</span><p>Desligada, a dose conhecida guarda o número no popover, onde você o vê. Fora dele, nada fica guardado.</p></div>
+</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 2b — o botão do card e o popover da dose conhecida</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig2 }}</div>
+<p class="au-src">SPEC fix2-tomada-conversao, Princípio, R3 e R6. Em dev: DoseConhecidaPopover.tsx; FIELD.PRESCRIPTION.KNOWN_DOSE, USE_KNOWN_DOSE, ONE_DOSE_EQUALS; ACTION.PRESCRIPTION.CLEAR_KNOWN_DOSE; UI_PRESCRICAO.KNOWN_DOSE_ORIGIN.</p>
+</figure>
+<p class="au-rule">O número digitado é a constante. O sistema converte; não esconde nem ressuscita.</p>
+</section>
+
+<section class="au-q" id="t3">
+<span class="au-n" aria-hidden="true">3</span>
+<h2>Quando o sistema pergunta?</h2>
+<p class="au-a"><b>Só quando a quantidade perde o lugar.</b> É uma confirmação só, com a mesma frase para os quatro gestos; Cancelar não muda nada.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 3 — a confirmação e os quatro gestos que a abrem</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig3 }}</div>
+<div class="lm-gap">{{ fig3b }}</div>
+<div class="au-open"><span class="au-dest prep">Depois de confirmar</span><span><b>O campo fica vazio, sem ícone.</b> “No dia” mostra “sem conta”, a posologia automática espera a quantidade e o texto editado à mão fica como está. O card salva assim.</span></div>
+<div class="au-open"><span class="au-dest">Do popover</span><span><b>O popover fecha e a confirmação abre no lugar.</b> Em Cancelar, o popover continua fechado, e o número e o interruptor ficam como estavam.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R1, R5 e R6. Em dev: PosologyLossConfirmation.tsx (BaseConfirmationModal, ícone lucide:scale em aviso); UI_PRESCRICAO.QUANTITY_NOT_KEPT e CONFIRM_DISABLE_KNOWN_DOSE, CONFIRM_CLEAR_KNOWN_DOSE, CONFIRM_CHANGE_DOSE_FORM, CONFIRM_SIMPLIFY_INTAKES.</p>
+</figure>
+<p class="au-rule">Uma pergunta, uma frase, só quando a quantidade não cabe na conversão.</p>
+</section>
+
+<section class="au-q" id="t4">
+<span class="au-n" aria-hidden="true">4</span>
+<h2>E a dose conhecida?</h2>
+<p class="au-a"><b>Informar e trocar o número nunca perguntam.</b> Desligar e limpar convertem as cápsulas em doses e só perguntam quando a conta não fecha.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 4 — cada gesto, com 1 dose = 3 cápsulas e 6 cápsulas na tomada</figcaption>
+{{ fig4 }}
+<div class="au-open"><span class="au-dest com">Quando não fecha</span><span><b>4 cápsulas ÷ 3 não dá dose inteira.</b> Desligar ou limpar com 4 cápsulas abre a confirmação; confirmada, a tomada fica sem quantidade.</span></div>
+<div class="au-open"><span class="au-dest">Quando vale</span><span><b>O número vale ao sair do campo “1 dose equivale a”</b>, por Enter, Tab, clique fora ou Esc, nunca a cada tecla. Deixar o campo vazio é limpar. O interruptor vale na hora.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R3 e R6; aceite A1 em core/__tests__/posologia.test.ts. Em dev: applyKnownDoseRequest e applyPosologyGesture (core/posologia.ts).</p>
+</figure>
+<p class="au-rule">Ligada, a tomada conta cápsulas; desligada, conta doses. O gesto converte entre as duas.</p>
+</section>
+
+<section class="au-q" id="t5">
+<span class="au-n" aria-hidden="true">5</span>
+<h2>E se eu trocar a forma?</h2>
+<p class="au-a">Entre formas que contam unidade, <b>só muda o nome da unidade</b>. Para a forma sem unidade que se conta, a dose conhecida sai pela conta de limpar.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 5 — a troca de forma do card Manhã</figcaption>
+{{ fig5 }}
+<div class="au-open"><span class="au-dest prep">Quem conta o quê</span><span><b>A unidade que se conta vem do catálogo de formas.</b> No catálogo de dev, as formas sem unidade que se conta são a Solução oral, ativa, e a Solução injetável, inativa. A tabela das unidades está na aula Cadastrados, quadro 14.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R3 (linhas de trocar a forma). Em dev: gesto change_form (core/posologia.ts), countedUnitOfDoseForm (core/dose-units.ts).</p>
+</figure>
+<p class="au-rule">A forma troca a palavra, não o número.</p>
+</section>
+
+<section class="au-q" id="t6">
+<span class="au-n" aria-hidden="true">6</span>
+<h2>E quando as tomadas são diferentes?</h2>
+<p class="au-a"><b>Detalhar</b> abre uma linha por tomada, com horário e momento; <b>Simplificar</b> junta as linhas numa tomada só.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 6a — a lista de tomadas do card Manhã</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig6 }}</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 6b — o que Simplificar faz</figcaption>
+{{ fig6b }}
+<div class="au-open"><span class="au-dest">Detalhar</span><span><b>A tomada de 2 vezes vira duas linhas de 1 vez</b>, com a mesma quantidade. Nunca pergunta.</span></div>
+<div class="au-open"><span class="au-dest prep">Só com a lista ligada</span><span><b>Detalhar e Simplificar existem só com a lista ligada</b>, pela tag prescricao_tomada_lista, oculta por padrão. Sem a lista, a Section Tomada não tem botão.</span></div>
+<div class="au-open"><span class="au-dest com">Corte atual</span><span><b>Sem a lista, o registro que chega com tomadas diferentes fica só para leitura</b>, com a dica “Tomadas diferentes. Estes campos ficam só para leitura.” É a única trava da Tomada e sai quando a lista for ligada: no modelo, nenhum campo trava.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R4; tag em src/lib/policy/feature-tag-catalog.ts (status do fix2, PR #2019). Em dev: TomadasSection.tsx; ACTION.PRESCRIPTION.DETAIL_INTAKES e SIMPLIFY_INTAKES; HINT.PRESCRIPTION.DETAIL_INTAKES, SIMPLIFY_INTAKES e INTAKES_DIFFER_READ_ONLY.</p>
+</figure>
+<p class="au-rule">Simplificar soma as vezes. Só pergunta quando as quantidades diferem.</p>
+</section>
+
+<section class="au-q" id="t7">
+<span class="au-n" aria-hidden="true">7</span>
+<h2>Quem escreve a posologia?</h2>
+<p class="au-a"><b>O sistema, até você editar.</b> Depois, o texto é seu; o botão de voltar ao texto automático avisa quando a tomada mudou depois da edição.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 7a — a posologia editada à mão, com a tomada mudada depois</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig7 }}</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 7b — o botão em cada situação</figcaption>
+{{ fig7b }}
+<div class="au-open"><span class="au-dest prep">A referência do aviso</span><span><b>Ao editar, o registro guarda o texto automático daquele momento.</b> Ele só serve à comparação: não aparece na tela nem sai no documento, no texto copiado ou no Care.</span></div>
+<p class="au-src">SPEC fix2-tomada-conversao, R8 (posologiaBase). Em dev: posologyDrifted e posologyText (core/posologia.ts); ACTION.PRESCRIPTION.RESTORE_AUTOMATIC_DOSAGE; HINT.PRESCRIPTION.AUTOMATIC_DOSAGE_CHANGED e DOSAGE_EMPTY.</p>
+</figure>
+<p class="au-rule">Nenhum gesto mexe no texto editado. Voltar ao automático monta a frase dos campos de agora.</p>
+</section>
+
+<section class="au-q" id="t8">
+<span class="au-n" aria-hidden="true">8</span>
+<h2>Onde a linha avisa?</h2>
+<p class="au-a"><b>Num ícone só, na coluna Ações</b>, quando a substância não entra na forma farmacêutica do card. O limite não é motivo do aviso: ele tem a coluna dele.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 8 — o aviso e o limite, cada um no seu lugar</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig8 }}</div>
+<div class="au-open"><span class="au-dest">Quando nasce</span><span><b>A busca do card só oferece o que entra na forma escolhida.</b> A incompatibilidade aparece depois: a linha já está no card e a forma muda. Trocar a forma não apaga a linha; o aviso diz que ela não cabe mais.</span></div>
+<div class="au-open"><span class="au-dest prep">O limite</span><span><b>A porcentagem do UL fica na coluna “UL dose | dia”</b>, com a cor a partir de 75% e de 100%. O aviso da linha não repete o que a coluna já diz.</span></div>
+<div class="au-open"><span class="au-dest com">Em Ações</span><span><b>A coluna Ações é fixa em qualquer largura</b>: o aviso continua à vista quando a tabela rola para o lado.</span></div>
+<p class="au-src">Decisão de Marco de 17/11/2026 (decretos da Prescrição, área Avisos); SPEC m2, R6 e R15. Em dev: rowIndicators, chave row-warning (CardFormulacao.tsx); FIELD.PRESCRIPTION.PRESENTATION_INCOMPATIBLE.</p>
+</figure>
+<p class="au-rule">A linha é o onde; o ícone diz o quê, e a dica, o porquê.</p>
+</section>
+
+<div class="fm-part" id="p2">
+<span class="au-mono">Parte 2 · quadros 9 a 14</span>
+<h2>O limite</h2>
+<p>Cada pessoa tem um limite por substância. Nesta parte: de onde ele vem, quem vence quando várias fontes têm limite, o que o Geral faz, a forma com regra própria e como a célula e a soma do dia o mostram.</p>
+</div>
+
+<section class="au-q" id="t9">
+<span class="au-n" aria-hidden="true">9</span>
+<h2>De onde vem o limite de uma pessoa?</h2>
+<p class="au-a"><b>Da faixa do perfil dela</b>: a condição escolhe a linha, a idade escolhe a faixa, e a linha escolhida não cede a outra.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 9a — o Magnésio para quatro perfis</figcaption>
+{{ fig9 }}
+<div class="au-open"><span class="au-dest prep">A idade não troca a linha</span><span><b>Ana e uma gestante de 16 anos leem a mesma linha: Gestante.</b> Fora da gestação, as duas idades caem em faixas diferentes da linha Feminino.</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 9b — quando a referência não dá valor</figcaption>
+{{ fig9b }}
+<p class="au-src">SPEC m3-limite-e-lampada, R1, R2 e R3. Golden de dev: Magnésio, NIH RDA e ANVISA IN. Em dev: readReferenceBands (core/reference-bands.ts), pickReferenceBand e resolveReference (core/reference-resolution.ts), REFERENCE_NO_VALUE_MESSAGES (core/resolver-messages.ts).</p>
+</figure>
+<p class="au-rule">Sem faixa, sem valor. Nada é emprestado de outra linha nem de uma média.</p>
+</section>
+
+<section class="au-q" id="t10">
+<span class="au-n" aria-hidden="true">10</span>
+<h2>E quando várias fontes têm limite?</h2>
+<p class="au-a"><b>Uma vence, sem escolha manual</b>: a faixa de condição, depois a faixa mais estreita, depois a ordem na seção Limite do cadastro.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 10a — a ordem da disputa</figcaption>
+<div class="au-addr">
+<div class="au-addri"><span class="au-dest">1 · Condição</span><p>A faixa de Gestante ou Lactante vence a faixa de sexo. Todos conta como sexo.</p></div>
+<div class="au-addri"><span class="au-dest">2 · Faixa mais estreita</span><p>No mesmo nível, vence o corte mais fino dentro do grupo de idade da pessoa. Faixas vizinhas com o mesmo valor contam como uma.</p></div>
+<div class="au-addri"><span class="au-dest">3 · Ordem do cadastro</span><p>Empate em tudo: vence a referência mais acima na seção Limite.</p></div>
+</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 10b — o Magnésio de Ana</figcaption>
+{{ fig10 }}
+<div class="au-open"><span class="au-dest nome">Resultado</span><span><b>ANVISA IN, 350 mg.</b> As três são faixas de Gestante e empatam no corte; a ANVISA IN está mais acima na seção Limite.</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 10c — outros perfis, no golden de dev</figcaption>
+{{ fig10b }}
+<div class="au-open"><span class="au-dest">Não estabelecido</span><span><b>Participa e pode vencer.</b> Se vence, a célula diz “Não avaliado”, com a fonte na dica, sem buscar número em outra fonte.</span></div>
+<div class="au-open"><span class="au-dest">Intervalo</span><span><b>Limite publicado em intervalo compara pelo mínimo</b>, o lado conservador.</span></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R4 (UL-02), com a tabela de exemplos conferida no golden. Em dev: resolveLimit e LIMIT_INTERVAL_EXTREME = 'min' (core/reference-resolution.ts).</p>
+</figure>
+<p class="au-rule">Um limite por pessoa. Quem decide é a regra; as outras fontes ficam para consulta no cadastro.</p>
+</section>
+
+<section class="au-q" id="t11">
+<span class="au-n" aria-hidden="true">11</span>
+<h2>E o Geral?</h2>
+<p class="au-a"><b>O Geral é consulta.</b> Ele vira sugestão só quando a referência de dose sugerida não tem nenhuma faixa: aí vale para todo perfil, numa linha que diz “Geral · Todas as idades” embaixo do nome da fonte.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 11a — três referências e o que cada uma faz</figcaption>
+{{ fig11 }}
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 11b — a Creatina na lâmpada de Ana</figcaption>
+<div class="lm-two">
+<div class="df-root au-ds lm-ds">{{ fig11b }}</div>
+<div class="au-addr" style="grid-template-columns:minmax(0,1fr)">
+<div class="au-addri"><span class="au-dest nome">Por quê</span><p><b>O Geral é o que a fonte publicou sem recorte.</b> Quando a fonte recortou por perfil, a falta de faixa diz “não é para você”: não é um buraco a tapar.</p></div>
+<div class="au-addri"><span class="au-dest prep">Quem fala sozinho</span><p><b>A linha da lâmpada tem rótulo e espera o seu clique.</b> O placeholder e o limite falam sem clique, e por isso só falam com faixa.</p></div>
+</div>
+</div>
+<div class="au-open"><span class="au-dest">No golden</span><span><b>Só Geral:</b> Creatina (ISSN, 3 a 5 g), Ginkgo Biloba EGb 761 (EMA, 120 a 240 mg) e Lactobacillus rhamnosus GG (WGO, 2 Bi UFC). <b>Geral e faixas:</b> L-Triptofano (Geral 350 mg; Gestante e Lactante 490 mg).</span></div>
+<p class="au-src">Decisão de Marco em 17/11/2026 (“quando tem só geral, ele é wayout, fallback para todos”); SPEC da m3, decisão 13; PR #2045 (resolveSuggestion, LampEntry.general); desde a PR #2103, “Geral · Todas as idades” em para quem vale, sem chip (D-293, D-393: FIELD.PRESCRIPTION.GENERAL_SCOPE e FIELD.POPULATION_BANDS.ALL_AGES). Golden: references.json, sys-sub-028, 044, 053 e 038.</p>
+</figure>
+<p class="au-rule">Geral sem faixas é sugestão rotulada. Geral ao lado de faixas é só consulta.</p>
+</section>
+
+<section class="au-q" id="t12">
+<span class="au-n" aria-hidden="true">12</span>
+<h2>E a forma que tem regra própria?</h2>
+<p class="au-a"><b>Fica fora da soma da substância.</b> A forma isenta não tem limite, e a forma com limite próprio compara só com ele.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 12 — as duas regras de forma do golden</figcaption>
+{{ fig12 }}
+<div class="au-open"><span class="au-dest prep">Duas linhas da mesma forma</span><span><b>Somam entre si contra o limite da forma</b>, em cards incluídos no total. O limite próprio não depende do perfil.</span></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R6 e decisões 2, 9 e 10 da seção 15. Golden: Metilfolato (5-MTHF) e Beta-caroteno isentos; Ácido Nicotínico (Niacina) com limite de 10 mg (molecules.json, safetyOverride). Em dev: UI_PRESCRICAO.UL_EXEMPT, UL_STATUS_EXEMPT_TOOLTIP e MOLECULE_OWN_LIMIT.</p>
+</figure>
+<p class="au-rule">A regra da forma vence a da substância, e só para as linhas daquela forma.</p>
+</section>
+
+<section class="au-q" id="t13">
+<span class="au-n" aria-hidden="true">13</span>
+<h2>O que a célula “UL dose | dia” diz?</h2>
+<p class="au-a"><b>A dose e o dia da linha contra o limite da pessoa</b>, em texto; a cor acende a partir de 75% e de 100%, e o porquê fica na dica.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 13 — cada estado da célula</figcaption>
+{{ fig13 }}
+<div class="au-open"><span class="au-dest">Card fora do total</span><span><b>A linha continua mostrando a conta dela</b>, com o limite da pessoa. A calculadora do card decide só a soma dos Limites diários.</span></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R5, R12 e tabela de 6.3. Em dev: buildInlineUlStatus e limitReasonTooltip (CardFormulacao.helpers.ts); getUlPercentTone (ul-display.ts); FIELD.PRESCRIPTION.ulTooltip e NO_VALUE; UI_PRESCRICAO.UL_NOT_EVALUATED, LIMIT_NOT_ESTABLISHED, UL_STATUS_NO_UL_TOOLTIP, UL_STATUS_NOT_EVALUATED_TOOLTIP, UL_STATUS_MOLECULAR_COVERAGE_TOOLTIP; CLINICAL_REFERENCE_CATALOG_MESSAGES.</p>
+</figure>
+<p class="au-rule">Número quando há conta; “Não avaliado” quando não há limite; “--” quando falta o número.</p>
+</section>
+
+<section class="au-q" id="t14">
+<span class="au-n" aria-hidden="true">14</span>
+<h2>E a soma do dia?</h2>
+<p class="au-a"><b>Os Limites diários somam a substância em todos os cards incluídos</b>: a substância é a linha mãe, e cada card › linha é uma filha com o seu total.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 14a — os Limites diários de Ana</figcaption>
+<div class="df-root au-ds lm-ds">{{ fig14 }}</div>
+<div class="au-open"><span class="au-dest com">O que a soma mostra</span><span><b>No Manhã, a linha do Magnésio está em 80%; no dia, a substância chega a 100%.</b> A célula do card olha a linha; o modal olha a substância.</span></div>
+<div class="au-open"><span class="au-dest">Soma incompleta</span><span><b>Uma parcela sem conta do dia deixa a substância em “--”</b> no Total/dia e no % UL, com “Soma incompleta: há linha sem conta do dia” na dica. O subtotal conhecido nunca aparece como total.</span></div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 14b — a ordem das linhas mãe</figcaption>
+<div class="au-chips">{{ ordem }}</div>
+<div class="au-open"><span class="au-dest">O que entra</span><span><b>Toda linha de card incluído está em alguma linha do modal.</b> A forma isenta e a de limite próprio têm mãe própria (“substância · forma”); a linha sem vínculo aparece sozinha, com “Não avaliado”. Card fora do total não entra. Sem substância avaliável: “Nenhuma substância com limite avaliável”.</span></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R9 e 6.4. Em dev: buildDailyLimitRows e STATUS_ORDER (utils/daily-limits.ts), DailyLimitsModal.tsx; FIELD.PRESCRIPTION.DAILY_LIMITS, RECORD_SUBSTANCES, DAILY_LIMIT_COLUMNS, dailyLimitPart, substanceForm; UI_PRESCRICAO.DAILY_TOTAL_INCOMPLETE e LINE_UNLINKED; PRESCRICAO_SEM_LIMITES (emptyStates.ts).</p>
+</figure>
+<p class="au-rule">A linha mostra a sua conta; a soma do dia mostra a substância, e não esconde parcela.</p>
+</section>
+
+<div class="fm-part" id="p3">
+<span class="au-mono">Parte 3 · quadros 15 a 17</span>
+<h2>A lâmpada e o documento</h2>
+<p>A lâmpada é atalho de digitação: lista as referências do perfil e copia o número. Nesta parte: o que ela lista, o que mostra quando não há lista e o que o documento escreve da fórmula.</p>
+</div>
+
+<section class="au-q" id="t15">
+<span class="au-n" aria-hidden="true">15</span>
+<h2>O que a lâmpada mostra?</h2>
+<p class="au-a"><b>Toda referência com valor para o perfil</b>, na ordem do cadastro, e da seção Limite só a que vence. A fonte aparece uma vez, com para quem vale por inteiro; um clique copia o número.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15 — a lâmpada do Magnésio de Ana, na coluna Qtd. ativo</figcaption>
+<div class="fm-lamp">
+<div class="df-root au-ds lm-ds">
+<div class="lm-lpstage">{{ fig15 }}</div>
+<div class="fm-click"><b>um clique</b><span>O número da coluna vai para o campo e a lâmpada fecha. A linha não guarda de qual referência ele veio.</span></div>
+</div>
+<div class="fm-not"><span class="au-dest nada">Não entra</span><s>As outras fontes de limite</s><s>Geral ao lado de faixas</s><s>Alvo do dia</s><s>Divisão por tomadas</s><s>Marca da escolhida</s></div>
+</div>
+<div class="au-open"><span class="au-dest prep">As linhas</span><span><b>Cada fonte, uma vez: o nome e, embaixo, para quem vale por inteiro</b> (quem, grupo etário e faixa, como “Gestante · Todas as idades”; na fonte de limite, “Limite” vem antes). O escudo marca o limite; a etiqueta, as outras. A coluna que abriu a lâmpada vem em destaque, e a outra, com “≈”, refeita pelo teor.</span></div>
+<div class="au-open"><span class="au-dest">Na forma com regra própria</span><span><b>Com limite próprio, a linha de limite é “Limite da forma”</b>, sem para quem vale. Na forma isenta, nenhuma linha de limite aparece.</span></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R7 e 6.2; SPEC m4A, seção 7c (forma B, 18/11/2026). Decretos D-293, D-294, D-295, D-296, D-297, D-303, D-389, D-393 e D-394. Golden de dev: Magnésio (sys-sub-013), seção Limite ANVISA IN, NIH UL e EFSA UL; recomendação NIH RDA e NIH EAR. Em dev bf094408e1 (PR #2103): DoseSuggestion.tsx (Popover, ListboxSection, RefLabelCell, RangeExtremeLabel), listLampSections (core/lamp-references.ts), populationScopeParts (population-bands/format.ts).</p>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15b — o que é cada parte da linha</figcaption>
+<div class="lm-two">
+<div class="wf-rows">
+<p class="wf-cap">Aberta em Qtd. ativo · fonte com intervalo</p>
+<div class="wf-rowbox is-title"><span class="wf-chip" style="padding:2px"><span class="wf-mark">1</span></span><div class="wf-stack"><div class="wf-chip"><span class="wf-mark">2</span>Fonte · título, não se clica</div><div class="wf-chip"><span class="wf-mark">3</span>Para quem vale · por inteiro</div></div><div></div><div></div></div>
+<div class="wf-rowbox is-ext"><span></span><div class="wf-chip"><span class="wf-mark">4</span>Mínimo</div><div class="wf-chip is-num"><span class="wf-mark">6</span>≈ 464,29 mg</div><div class="wf-chip is-num is-dest"><span class="wf-mark">5</span>65 mg</div></div>
+<div class="wf-rowbox is-ext"><span></span><div class="wf-chip"><span class="wf-mark">4</span>Máximo</div><div class="wf-chip is-num">≈ 785,71 mg</div><div class="wf-chip is-num is-dest">110 mg</div></div>
+<p class="wf-cap" style="margin-top:10px">Fonte com valor único</p>
+<div class="wf-rowbox"><span class="wf-chip" style="padding:2px"><span class="wf-mark">1</span></span><div class="wf-stack"><div class="wf-chip"><span class="wf-mark">2</span>Fonte</div><div class="wf-chip"><span class="wf-mark">3</span>Para quem vale · por inteiro</div></div><div class="wf-chip is-num"><span class="wf-mark">6</span>≈ 2.500 mg</div><div class="wf-chip is-num is-dest"><span class="wf-mark">5</span>350 mg</div></div>
+</div>
+<div class="wf-legend">
+<span class="wf-mark">1</span><p><b>Ícone do tipo.</b> Etiqueta para recomendação; escudo vermelho para limite.</p>
+<span class="wf-mark">2</span><p><b>Fonte.</b> No intervalo, é o título do grupo e não se clica; no valor único, é a própria linha clicável.</p>
+<span class="wf-mark">3</span><p><b>Para quem vale, por inteiro.</b> Quem, grupo etário e faixa: “Masculino · Adulto · 19 a 50 anos”. O grupo só entra quando a faixa cabe inteira nele. No Geral, “Geral · Todas as idades”. Ao quebrar linha, a quebra cai só entre as partes.</p>
+<span class="wf-mark">4</span><p><b>Extremo.</b> “Mínimo” ou “Máximo”, recuado sob a fonte. É a linha que o clique usa; o nome que o leitor de tela anuncia continua dizendo a fonte e para quem vale.</p>
+<span class="wf-mark">5</span><p><b>Número que o clique copia.</b> Na coluna que vai receber, em negrito, alinhado pela vírgula.</p>
+<span class="wf-mark">6</span><p><b>Equivalente.</b> A outra coluna, com “≈”, em cinza. Só com teor conhecido.</p>
+</div>
+</div>
+<p class="au-src">Desenho do Magnésio de um menino de 6 anos (ANVISA IN, Todos · Criança · 1 a 8 anos, 65 a 110 mg) e de Ana (ANVISA IN, 350 mg), com teor de 14%. Decretos D-303, D-389 e D-393; escolha de Marco de 18/11/2026 (forma B, nome completo das idades).</p>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15c — referência restrita a uma apresentação: seções por forma e via</figcaption>
+<div class="lm-two">
+<div class="df-root au-ds lm-ds">{{ fig15c }}</div>
+<div class="au-addr" style="grid-template-columns:minmax(0,1fr)">
+<div class="au-addri"><span class="au-dest prep">Quando há seção</span><p><b>Só quando alguma referência é restrita a um par de forma e via.</b> Sem nenhuma restrita, a lista é plana, também com muitas apresentações cadastradas.</p></div>
+<div class="au-addri"><span class="au-dest">A ordem</span><p>A seção do card primeiro, com o título inteiro na cor primária e “do card”; depois “Sem restrição de apresentação”; depois os outros pares, na ordem do catálogo de formas. Dentro de cada uma, a ordem do cadastro.</p></div>
+<div class="au-addri"><span class="au-dest">O clique</span><p>Copia a quantidade de qualquer seção; a forma do card não muda. O limite entra uma vez, do contexto real da linha, nunca numa seção de outro par.</p></div>
+</div>
+</div>
+<p class="au-src">Decretos D-232, D-296, D-298, D-299, D-387; decisões L-01 e L-02 de Marco, 17/11/2026, e o destaque da seção do card de 18/11/2026. Golden: Passiflora (sys-sub-046), EMA HMPC em Extrato fluido e ANVISA Memento em Tintura, as duas só com Geral. Em dev: listLampSections e sectionTitleOf (DoseSuggestion.tsx).</p>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 15d — “Converter para”, a última seção <span class="au-seal">a implementar</span></figcaption>
+{{ fig15d }}
+<div class="au-open"><span class="au-dest prep">O gesto</span><span><b>Trocar a unidade na coluna UN. muda só o rótulo; o número fica.</b> Para escrever a mesma dose em outra unidade, a lâmpada oferece “Converter para”: a última seção, depois de um divisor, com o valor atual da linha em cada outra unidade da ficha em que ele tem equivalência. Só a quantidade e a unidade, na coluna da base da linha, com o equivalente pelo teor na outra. O clique grava número e unidade juntos e fecha o popover; à direita, a abertura seguinte, com 2.000 UI de volta.</span></div>
+<div class="au-open"><span class="au-dest">Quando não aparece</span><span><b>Sem conversão, a seção não aparece, sem aviso:</b> unidade própria, atividade enzimática (FTU), quantidade vazia ou ilegível. Só entra a conversão que volta ao número de partida, na escala da dose. Com o registro em leitura, a seção aparece só para consulta, sem clique, como as referências.</span></div>
+<p class="au-src">Decidido por Marco em 18/11/2026; SPEC “campo, unidade, salvar e dados” de 19/11/2026, fatia U1 (caminho C6), e PRD “Unidade na Prescrição”, regras R1, R6 a R9. Ainda não está em dev. Golden: Vitamina D (sys-sub-001), faixa Gestante, 1 mcg = 40 UI.</p>
+</figure>
+<p class="au-rule">A lâmpada lista e copia. Não divide, não soma e não escolhe por você.</p>
+</section>
+
+<section class="au-q" id="t16">
+<span class="au-n" aria-hidden="true">16</span>
+<h2>E quando não há o que mostrar?</h2>
+<p class="au-a"><b>Cada motivo tem o seu estado</b>, no lugar da lista: sem valor para o perfil, outra apresentação, sem conversão, sem referência ou catálogo fora do ar.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 16a — o 5-HTP na lâmpada de Ana: nenhuma referência para o perfil</figcaption>
+<div class="lm-two">
+<div class="df-root au-ds lm-ds"><div class="lm-lpstage">{{ fig16 }}</div></div>
+<div class="au-addr" style="grid-template-columns:minmax(0,1fr)">
+<div class="au-addri"><span class="au-dest prep">Outras referências</span><p><b>Uma linha por faixa de cada referência, com o escopo inteiro no chip.</b> São consulta: nenhuma se clica. É o único chip da lâmpada.</p></div>
+<div class="au-addri"><span class="au-dest">Por que vazio</span><p>A Literatura clínica do 5-HTP tem faixas de adulto e idoso, dos dois sexos, e nenhuma de Gestante; com faixas, o Geral não vira sugestão.</p></div>
+</div>
+</div>
+</figure>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 16b — os estados da lâmpada sem lista</figcaption>
+{{ fig16b }}
+<p class="au-src">SPEC m3-limite-e-lampada, R7 (estados A, B e C), R12, 6.2 e decisões 8, 11 e 12; SPEC m4A, U5 e U5b. Decretos D-232, D-304 a D-309 e D-388. Golden: 5-HTP (sys-sub-039). Em dev bf094408e1: emptyStates.ts (PRESCRICAO_LAMPADA_SEM_PERFIL, FORA_DA_APRESENTACAO, SEM_CONVERSAO, BASE_AMBIGUA, SEM_REFERENCIA, CATALOGO_INDISPONIVEL); CLINICAL_REFERENCE_CATALOG_MESSAGES (core/resolver-messages.ts); lampEmptyReason (core/lamp-references.ts); PRESCRIPTION_ICONS (constants/icons.ts). Os ícones lightbulb-off e cloud-off não estão no pacote do DS: vêm do corpo SVG de @iconify-json/lucide.</p>
+</figure>
+<p class="au-rule">Lista vazia sempre diz por quê. Catálogo fora do ar nunca vira “sem referência”.</p>
+</section>
+
+<section class="au-q" id="t17">
+<span class="au-n" aria-hidden="true">17</span>
+<h2>E no documento?</h2>
+<p class="au-a">O documento escreve <b>as linhas, a forma com via e aviar, a nota da dose conhecida e a posologia</b>, com a dose antes das cápsulas.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 17 — o card Manhã no documento exportado</figcaption>
+<div class="lm-two">
+<div class="fm-doc">
+<span class="fm-doct">Fórmula 1</span>
+<b class="fm-doch">Manhã<em>2 substâncias</em></b>
+<div class="fm-docl">
+<div><span>Magnésio (Bisglicinato de Magnésio — 1.000 mg)</span><b>140 mg</b></div>
+<div><span>Vitamina D (Colecalciferol (D3))</span><b>500 UI</b></div>
+</div>
+<div class="fm-docm"><span>Forma farmacêutica: Cápsula · Via: Oral · Aviar: 30 doses</span><span class="b">1 dose = 3 cápsulas, conforme rótulo de produto pronto</span><span class="b n">Pode mudar se a fórmula for manipulada de novo.</span></div>
+<div class="fm-dock"><i>Posologia</i><span>Tomar 2 doses (6 cápsulas) 1 vez ao dia.</span></div>
+</div>
+<div class="fm-not"><span class="au-dest nada">Não sai no papel</span><s>Limite e fonte</s><s>Porcentagem do UL</s><s>O texto automático guardado</s><s>Nota com a dose conhecida desligada</s></div>
+</div>
+<div class="au-open"><span class="au-dest prep">A ordem da frase</span><span><b>A dose abre; as cápsulas vêm entre parênteses</b>, e só com a dose conhecida ligada. O sabor entra na linha da forma quando a forma tem o campo.</span></div>
+<p class="au-src">Lido em dev em 6e67577ee2: src/export/modules/PrescricaoExport.tsx (FormulacaoBloco, ApresentacaoLegenda, NotaDoseConhecida), src/export/data/mapPrescricaoContentToDTO.ts (aviarText, mapApresentacao, formatPrescribedIdentity); knownDoseNote (core/posologia.ts); UI_PRESCRICAO.knownDoseNote e KNOWN_DOSE_NOTE_DETAIL. SPEC m3, R10: o documento não leva limite nem fonte. SPEC fix2, R8: o texto automático guardado não sai.</p>
+</figure>
+<p class="au-rule">O papel diz o que preparar e como tomar. O limite fica na tela de quem prescreve.</p>
+</section>
+
+<div class="fm-part" id="p4">
+<span class="au-mono">Parte 4 · quadros 18 a 20 · lido em dev em 6e67577ee2</span>
+<h2>Blueprint</h2>
+<p>Onde cada coisa mora no código, o contrato de cada peça e a regra inteira em perguntas. Daqui em diante, os nomes são de arquivo e de função.</p>
+</div>
+
+<section class="au-q" id="t18">
+<span class="au-n" aria-hidden="true">18</span>
+<h2>Onde mora cada coisa?</h2>
+<p class="au-a">Em quatro camadas: <b>o catálogo grava, o núcleo decide, a tela mostra e o documento escreve</b>; só o núcleo conhece a regra.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 18 — camadas e árvore de arquivos</figcaption>
+<div class="lm-layers">
+<div class="lm-layer"><span class="au-mono">1 · catálogo</span><b>Golden e seed</b><span>Referências por coluna, formas com a unidade que se conta.</span></div>
+<div class="lm-layer"><span class="au-mono">2 · núcleo</span><b>core/</b><span>Perfil, faixas, valor, limite, lâmpada e tomada. Sem tela.</span></div>
+<div class="lm-layer"><span class="au-mono">3 · tela</span><b>Card, lâmpada, modal</b><span>Lê o resultado do núcleo e escolhe a peça do DS.</span></div>
+<div class="lm-layer"><span class="au-mono">4 · documento</span><b>Export</b><span>Escreve a fórmula; não lê limite.</span></div>
+</div>
+<div class="au-sheet"><div class="au-sheeth"><span>Árvore · arquivos usados</span><span>dev · 6e67577ee2</span></div>
+<pre class="lm-tree"><i>prisma/seeds/system/</i>
+  substancias/curated/substances/references.json   <b>A</b> <i>referências por coluna</i>
+  substancias/curated/substances/molecules.json    <b>B</b> <i>safetyOverride da forma</i>
+  edqm/dose-forms.ts                               <b>C</b> <i>defaultDoseUnit de cada forma</i>
+<i>src/lib/clinical/prescricao/core/</i>
+  patient-profile.ts         <b>D</b> <i>toReferenceProfile</i>
+  reference-bands.ts         <b>E</b> <i>readReferenceBands</i>
+  reference-resolution.ts    <b>F</b> <i>resolveReference · resolveSuggestion · resolveLimit · listSuggestionsForProfile</i>
+  lamp-references.ts         <b>G</b> <i>listLampEntries · hasUnconvertedReference</i>
+  recommended-dose-range.ts  <b>H</b> <i>deriveRecommendedDoseRange</i>
+  resolver-messages.ts       <b>I</b> <i>REFERENCE_NO_VALUE_MESSAGES</i>
+  safety.ts                  <b>J</b> <i>buildUlLookup</i>
+  posologia.ts               <b>K</b> <i>applyPosologyGesture · systemPosologyText · knownDoseNote</i>
+  dose-units.ts              <b>L</b> <i>COUNTED_DOSE_UNITS · countedUnitOfDoseForm</i>
+<i>src/components/features/prescricao/</i>
+  DoseSuggestion.tsx         <b>M</b> <i>a lâmpada</i>
+  ul-display.ts              <b>N</b> <i>getUlPercentTone</i>
+  dose-conhecida/PosologyLossConfirmation.tsx   <b>O</b> <i>a confirmação</i>
+<i>src/components/clinical/prescricao/</i>
+  components/cards/CardFormulacao.tsx           <b>P</b> <i>o card</i>
+  components/cards/CardFormulacao.helpers.ts    <b>Q</b> <i>buildInlineUlStatus</i>
+  components/cards/TomadasSection.tsx           <b>R</b> <i>Tomada e Tomadas</i>
+  components/modals/DailyLimitsModal.tsx        <b>S</b> <i>Limites diários</i>
+  utils/daily-limits.ts                         <b>T</b> <i>buildDailyLimitRows</i>
+<i>src/lib/hooks/clinical/</i>useDoseRange.ts       <b>U</b> <i>o placeholder</i>
+<i>src/export/</i>
+  data/mapPrescricaoContentToDTO.ts             <b>V</b> <i>a fórmula em dados</i>
+  modules/PrescricaoExport.tsx                  <b>W</b> <i>a fórmula no papel</i></pre>
+</div>
+<p class="au-src">Caminhos e símbolos conferidos em /Users/marcoantonio/dietflow-app, branch dev, 6e67577ee2, em 17/11/2026. As letras reaparecem no quadro 19.</p>
+</figure>
+<p class="au-rule">A regra mora no núcleo. A tela escolhe a peça; não refaz a conta.</p>
+</section>
+
+<section class="au-q" id="t19">
+<span class="au-n" aria-hidden="true">19</span>
+<h2>Qual é o contrato de cada peça?</h2>
+<p class="au-a">Oito peças, <b>cada uma com uma entrada, uma saída e um teste que a crava</b>; à esquerda a montagem, à direita o contrato.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 19 — oito peças, montagem e contrato</figcaption>
+<div class="lm-bp">{{ fig19 }}</div>
+<p class="au-src">Assinaturas lidas em dev em 6e67577ee2. Testes: src/lib/clinical/prescricao/core/__tests__/ (reference-bands, reference-resolution, lamp-references, recommended-dose-range, posologia, safety), src/components/features/prescricao/__tests__/DoseSuggestion.test.tsx, src/components/clinical/prescricao/components/cards/__tests__/ (CardFormulacao.helpers, CardFormulacao.presentation, TomadasSection), src/components/clinical/prescricao/utils/__tests__/daily-limits.test.ts e components/modals/__tests__/DailyLimitsModal.test.tsx. A peça 4 recebe o Geral pela decisão de Marco em 17/11/2026; SPEC da m3, decisão 13; PR #2045.</p>
+</figure>
+<p class="au-rule">Cada peça responde uma pergunta. Quem consome lê o resultado; não repete a regra.</p>
+</section>
+
+<section class="au-q" id="t20">
+<span class="au-n" aria-hidden="true">20</span>
+<h2>Qual é a regra, afinal?</h2>
+<p class="au-a">Duas perguntas para cada referência, <b>nesta ordem</b>; a primeira que der “sim” decide, e o limite sai de uma disputa entre as que sobraram.</p>
+<figure class="au-fig">
+<figcaption class="au-plq">Fig. 20 — o algoritmo</figcaption>
+<div class="au-algo">
+<span class="au-in">uma referência e o perfil da pessoa</span>
+<div class="au-no" aria-hidden="true"></div>
+<div class="au-ask"><div class="au-qb"><span class="n">1</span><b>Tem faixa para o perfil?</b><span>a condição escolhe a linha; a idade, a faixa</span></div><div class="au-yes"><b>sim</b></div><div class="au-out nome"><b>O VALOR DA FAIXA</b><span>Número, intervalo ou Não estabelecido. Vai à lâmpada; o de dose sugerida, ao placeholder; o do Limite, à disputa.</span></div></div>
+<div class="au-no"><b>não</b></div>
+<div class="au-ask"><div class="au-qb"><span class="n">2</span><b>Não tem faixa nenhuma, e tem Geral?</b><span>só referência de dose sugerida</span></div><div class="au-yes"><b>sim</b></div><div class="au-out prep"><b>O GERAL, NA LÂMPADA</b><span>Linha clicável, com “Geral · Todas as idades” embaixo do nome. Nunca no placeholder nem no limite.</span></div></div>
+<div class="au-no"><b>não</b></div>
+<div class="au-out nada"><b>SEM VALOR</b><span>O motivo vai na dica. Com a lâmpada vazia, a referência aparece em Outras referências.</span></div>
+</div>
+<div class="au-order fm-order lm-gap"><span>Na seção Limite, entre as que têm valor</span><b>Condição, faixa mais estreita, ordem.</b><span>uma vence; ninguém escolhe</span></div>
+<div class="lm-next"><b>Na tela: a página “Prescrição · modelo”</b><a href="https://claude.ai/artifact/4PaAWmvpoeTCdLErwbQKGn">Cadastro de Substâncias</a></div>
+<p class="au-src">SPEC m3-limite-e-lampada, R3, R4, R7 e R8. O Geral: decisão de Marco em 17/11/2026; SPEC da m3, decisão 13; PR #2045. Canvas Cadastro de Substâncias: https://claude.ai/artifact/4PaAWmvpoeTCdLErwbQKGn.</p>
+</figure>
+<p class="au-rule">Faixa responde. Sem faixa, só o Geral de quem não recortou, e só com o seu clique.</p>
+</section>
+
+<section class="au-q" aria-label="Limites e fontes">
+<div class="au-end au-full">
+<div class="au-lim"><span class="au-seal">como é</span><span><b>Partes 1, 2 e 3 desenham o que está em dev em 6e67577ee2</b>, pelas SPECs do fix2, do fix3 e da m3 da spec 154, com os textos das constantes de dev. A lâmpada (quadros 11b, 15 e 16) segue dev em bf094408e1, depois da m4A (PR #2103).</span></div>
+<div class="au-lim"><span class="au-seal">decidido em 18/11/2026</span><span><b>A lâmpada na forma B e o nome completo das idades</b> (quadros 15 e 16), escolha sua de 18/11/2026, em dev pela PR #2103. <b>“Converter para”</b> (quadro 15d), decisão sua de 18/11/2026: ainda não está em dev; entra na fatia U1 da SPEC “campo, unidade, salvar e dados”.</span></div>
+<div class="au-lim"><span class="au-seal">decidido em 17/11/2026</span><span><b>O Geral como sugestão rotulada</b> (quadros 11, 16, 19 e 20): decisão sua de 17/11/2026, na SPEC da m3 como decisão 13, PR #2045.</span></div>
+<div class="au-lim"><span class="au-seal">exemplo meu</span><span><b>Ana e os cards Manhã e Noite</b> são um caso de exemplo, com referências, teores e limites do golden de dev.</span></div>
+<div class="au-lim"><span class="au-seal">limite da figura</span><span><b>A lâmpada segue a anatomia de DoseSuggestion.tsx</b>, montada pelo mesmo motor do board canônico, com os tokens, o Chip, o Tooltip e o estado vazio do DS: o Popover e a Listbox do app não estão no pacote. Os ícones que o pacote não embute vêm do corpo SVG do Lucide.</span></div>
+<div class="au-lim"><span class="au-seal">aberto</span><span><b>O que ainda não está em dev ou não foi conferido</b> está no board ao lado, “Abertos”, com dono e gatilho.</span></div>
+</div>
+<p class="au-fontes au-full">Fontes · <span>specs/154-prescricao-dose-limite-e-cadastro: fix2-tomada-conversao/SPEC.md, fix3-aviso-da-linha/status.md, m3-limite-e-lampada/SPEC.md e status.md</span> <span>código de dev em 6e67577ee2, lido em 17/11/2026</span> <span>golden: prisma/seeds/system/substancias/curated/substances</span></p>
+</section>
+
+</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":32260}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const R = window.React;
+    const DF = window.DietFlow || {};
+    const h = (t, p, ...k) => (t ? R.createElement(t, p, ...k) : null);
+    const noop = () => {};
+    const icon = (n, s, cls) => h(DF.Icon, { icon: 'lucide:' + n, size: s || 16, width: s || 16, className: cls, 'aria-hidden': true });
+    const chip = (t, c, v) => h(DF.Chip, { size: 'sm', variant: v || 'flat', color: c || 'default' }, t);
+    const tip = (label, node) => h(DF.Tooltip, { content: label, wide: label.length > 48 }, h('span', { style: { display: 'inline-flex' }, tabIndex: 0 }, node));
+
+    // ---------- Tabela didática da aula (au-rdw), sempre em largura inteira. Célula: texto, nó, ou { v, cls }. ----------
+    const tabela = (heads, rows) => h('div', { className: 'au-rdw lm-t' }, h('table', null,
+      h('thead', null, h('tr', null, ...heads.map((t, i) => h('th', { key: i }, t)))),
+      h('tbody', null, ...rows.map((r, i) => h('tr', { key: i }, ...r.map((c, j) => (c && typeof c === 'object' && 'v' in c ? h('td', { key: j, className: c.cls }, c.v) : h('td', { key: j }, c))))))));
+    const b = (t) => h('b', null, t);
+    const sub = (main, s) => h(R.Fragment, null, main, h('span', { className: 'lm-sub' }, s));
+    const mono = (t) => h('span', { className: 'lm-mono' }, t);
+    const pergunta = (k) => (k === 'nunca' ? chip('Nunca') : k === 'sempre' ? chip('Sim', 'warning') : chip('Se não fechar', 'warning'));
+
+    // ---------- Textos de dev (constants/messages), copiados literalmente ----------
+    const FRASE = 'A quantidade não pode ser mantida e fica vazia.';
+    const DICA_DETALHAR = 'Abre uma linha por tomada, com horário e momento.';
+    const DICA_SIMPLIFICAR = 'Junta as tomadas em uma, sem horário nem momento.';
+    const VAZIO_POSO = 'Preencha a quantidade para montar a frase.';
+    const DICA_VOLTAR = 'Voltar ao texto automático';
+    const DICA_MUDOU = 'O texto automático mudou depois desta edição. Voltar ao texto automático';
+    const ORIGEM = 'Do rótulo de um produto pronto. Pode mudar em outra manipulação.';
+    const CAP = ['cápsula', 'cápsulas'];
+    const NAO_AVALIADO = 'Não avaliado';
+    // Glifos lucide que o pacote do DS não embute: corpo de @iconify-json/lucide (icons.json), viewBox 24. Nunca desenhado à mão.
+    const LUCIDE = {
+      'lightbulb-off': '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.8 11.2c.8-.9 1.2-2 1.2-3.2a6 6 0 0 0-9.3-5M2 2l20 20M6.3 6.3a4.67 4.67 0 0 0 1.2 5.2c.7.7 1.3 1.5 1.5 2.5m0 4h6m-5 4h4"/>',
+      'cloud-off': '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.94 5.274A7 7 0 0 1 15.71 10h1.79a4.5 4.5 0 0 1 4.222 6.057m-2.926 2.753A4.5 4.5 0 0 1 17.5 19H9A7 7 0 0 1 5.79 5.78M2 2l20 20"/>',
+    };
+    const lucide = (name, s) => h('svg', { width: s || 16, height: s || 16, viewBox: '0 0 24 24', 'aria-hidden': true, dangerouslySetInnerHTML: { __html: LUCIDE[name] } });
+    const anyIcon = (name, s) => (LUCIDE[name] ? lucide(name, s) : h(DF.Icon, { icon: 'lucide:' + name, size: s || 16, width: s || 16, 'aria-hidden': true }));
+    // A lâmpada: a montagem decidida (lampada-motor.js), a mesma do board canônico "Prescrição · modelo".
+    const LM = window.LampadaMotor, LK = LM ? LM.make(R, DF) : null;
+    const ANA = 'Gestante · 35 anos', PAR_CAP = 'Cápsula · Via oral';
+    const lpStage = (node, phone) => h('div', { className: 'lm-lpstage' + (phone ? ' is-phone' : '') }, node);
+    const icName = (n) => h('span', { className: 'lm-ic' }, anyIcon(n, 18), 'lucide:' + n);
+
+    // ---------- Peças do card (componentes do DS) ----------
+    const lab = (label, node, hint) => h('div', { className: 'lm-lab' }, h('span', null, label), node, hint ? h('p', { className: 'lm-hint' }, hint) : null);
+    const nf = (label, v, more) => h(DF.NumericField, Object.assign({ size: 'sm', ariaLabel: label, value: v === undefined ? null : v, integer: true, onValueChange: noop }, more || {}));
+    // O botão da dose conhecida: 'on' aceso, com o número; 'off' neutro, sem o número; 'sem' apagado.
+    const dkBtn = (text, state) => h(DF.Button, { size: 'sm', variant: state === 'sem' ? 'light' : 'flat', color: state === 'on' ? 'primary' : 'default', startContent: icon('scale', 14) }, text || 'Dose conhecida');
+    const sum = (t, v) => h(R.Fragment, null, t, h('span', { className: 'lm-sum' }, h('span', null, 'No dia'), h('span', { className: 'v' }, v)));
+    const plus = tip('Adicionar tomada', h(DF.Button, { isIconOnly: true, size: 'sm', variant: 'flat', 'aria-label': 'Adicionar tomada' }, icon('plus', 16)));
+    const botao = (t) => h(DF.Button, { size: 'sm', variant: 'flat' }, t);
+    const headBtn = (lista) => h('div', { className: 'lm-act' }, tip(lista ? DICA_SIMPLIFICAR : DICA_DETALHAR, botao(lista ? 'Simplificar' : 'Detalhar')), lista ? plus : null);
+    const apres = (forma, dk) => h(DF.Section, { label: 'Apresentação', action: dk || undefined },
+      h(DF.Section.Grid, { columns: 2 },
+        lab('Forma farmacêutica', h(DF.Select, { size: 'sm', 'aria-label': 'Forma farmacêutica', value: forma })),
+        lab('Quantidade a aviar', nf('Quantidade a aviar', 30))));
+    const tomada = (t) => {
+      const campos = [
+        lab('Doses', nf('Doses', t.doses, { placeholder: t.ph })),
+        t.unit ? lab('Unidades', nf('Unidades', t.caps, { unit: t.caps === 1 ? t.unit[0] : t.unit[1] })) : null,
+        lab('Vezes ao dia', nf('Vezes ao dia', t.vezes)),
+      ].filter(Boolean);
+      return h(DF.Section, { label: sum('Tomada', t.noDia), action: t.btn ? headBtn(false) : undefined }, h(DF.Section.Grid, { columns: campos.length }, ...campos));
+    };
+    const hora = (v) => h(DF.Input, { size: 'sm', ariaLabel: 'Horário', value: v || '', placeholder: '––:––', onValueChange: noop,
+      endContent: h(DF.Button, { isIconOnly: true, size: 'sm', variant: 'light', 'aria-label': 'Sugestões de horário' }, icon('clock', 14)) });
+    const tomadas = (noDia, rows, unit) => h(DF.Section, { label: sum('Tomadas', noDia), action: headBtn(true) },
+      h('div', { className: 'ut-scroll' }, h(DF.UniversalTable, { cardless: true, cardlessBleed: false, cardlessPadding: 'none', enableDnD: false,
+        columns: [{ id: 'hora', header: 'Horário', width: '8.5rem', cell: (r) => hora(r.hora) },
+          { id: 'q', header: 'Doses', width: '6.5rem', cell: (r) => nf('Doses', r.q) },
+          ...(unit ? [{ id: 'u', header: 'Unidades', width: '11.5rem', cell: (r) => nf('Unidades', r.caps, { unit: r.caps === 1 ? unit[0] : unit[1] }) }] : []),
+          { id: 'mom', header: 'Momento', cell: (r) => h(DF.Input, { size: 'sm', ariaLabel: 'Momento', value: r.mom || '', placeholder: 'Ex.: Após o almoço', onValueChange: noop }) }],
+        rows })));
+    const voltar = (mudou) => tip(mudou ? DICA_MUDOU : DICA_VOLTAR, h(DF.Button, { isIconOnly: true, size: 'sm', variant: mudou ? 'flat' : 'light', color: mudou ? 'warning' : 'default', 'aria-label': mudou ? DICA_MUDOU : DICA_VOLTAR }, icon('rotate-ccw', 16)));
+    const poso = (text, editada, mudou) => h(DF.Section, { label: 'Posologia', action: editada ? voltar(mudou) : undefined },
+      h(DF.Input, { multiline: true, rows: 2, ariaLabel: 'Posologia', value: text || '', placeholder: VAZIO_POSO, onValueChange: noop }));
+    const card = (...k) => h('div', { className: 'lm-card' }, ...k);
+    const chave = (title, ok, hgt) => h('div', { className: 'lm-ov', style: { height: hgt || 300 } },
+      h(DF.BaseConfirmationModal, { isOpen: true, contained: true, height: '100%', size: 'compact', onClose: noop, onConfirm: noop,
+        title, icon: 'lucide:scale', iconColor: 'warning', message: FRASE, confirmLabel: ok, confirmColor: 'warning', cancelLabel: 'Cancelar' }));
+
+    // ---------- Fig. 1 ----------
+    const fig1 = card(
+      apres('Cápsula', dkBtn('1 dose = 3 cápsulas', 'on')),
+      tomada({ noDia: '2 doses (6 cápsulas)', doses: 2, caps: 6, unit: CAP, vezes: 1 }),
+      poso('Tomar 2 doses (6 cápsulas) 1 vez ao dia.', false));
+    const fig1b = tabela(['Campo', 'Dentro do campo', 'Quando aparece'], [
+      [b('Doses'), sub('Só o número: 2', 'Quando a conta não fecha dose inteira, a fração fica no lugar do vazio: “1 e 1/3”'), 'Sempre'],
+      [b('Unidades'), 'O número e a palavra da unidade: 6 cápsulas', 'Só com a dose conhecida ligada'],
+      [b('Vezes ao dia'), 'Só o número: 1', 'Na tomada simples'],
+      [b('Horário e Momento'), 'O horário e o texto do momento', 'Só na lista de tomadas'],
+      [b('No dia'), sub('Doses vezes as vezes: 2 doses (6 cápsulas)', 'Sem quantidade: “sem conta”'), 'Ao lado do título da Section'],
+    ]);
+
+    // ---------- Fig. 2: o botão nos três estados e o popover ----------
+    const pop = h('div', { className: 'lm-pop' },
+      h('div', { className: 'lm-poph' }, h('span', { style: { font: 'var(--text-ts-titleSmall)', color: 'var(--foreground)' } }, 'Dose conhecida'),
+        h(DF.Switch, { size: 'sm', isSelected: true, onValueChange: noop }, 'Usar dose conhecida')),
+      lab('1 dose equivale a', nf('1 dose equivale a', 3, { unit: 'cápsulas' })),
+      h('p', { className: 'lm-org' }, ORIGEM),
+      h('div', { className: 'lm-popf' }, h(DF.Button, { size: 'sm', variant: 'light' }, 'Limpar')));
+    const fig2 = h('div', { className: 'lm-two' },
+      h('div', { className: 'lm-trio' },
+        lab('Sem número', dkBtn(null, 'sem')),
+        lab('Ligada', dkBtn('1 dose = 3 cápsulas', 'on')),
+        lab('Desligada', dkBtn(null, 'off'))),
+      pop);
+
+    // ---------- Fig. 3: a confirmação ----------
+    const fig3 = chave('Desligar a dose conhecida?', 'Desligar', 300);
+    const fig3b = tabela(['Gesto', 'Título', 'Botão'], [
+      ['Desligar a dose conhecida', 'Desligar a dose conhecida?', b('Desligar')],
+      ['Limpar a dose conhecida', 'Limpar a dose conhecida?', b('Limpar')],
+      ['Trocar para forma sem unidade que se conta', 'Trocar a forma?', b('Trocar')],
+      ['Simplificar a lista', 'Simplificar a tomada?', b('Simplificar')],
+    ]);
+
+    // ---------- Fig. 4: os gestos da dose conhecida ----------
+    const fig4 = tabela(['Gesto', 'O que fica', 'Pergunta?'], [
+      [b('Informar o número'), sub('Liga. Cada tomada: doses × número', '2 doses viram 6 cápsulas'), pergunta('nunca')],
+      [b('Religar'), sub('Cada tomada: doses × número guardado', '2 doses viram 6 cápsulas'), pergunta('nunca')],
+      [b('Trocar o número, ligada'), sub('As cápsulas ficam; a dose se refaz na tela', 'De 3 para 2: as 6 cápsulas passam de 2 para 3 doses'), pergunta('nunca')],
+      [b('Trocar o número, desligada'), 'Só o número guardado muda; continua desligada', pergunta('nunca')],
+      [b('Desligar'), sub('Cada tomada: cápsulas ÷ número, se dá inteiro; senão, fica vazia', '6 cápsulas viram 2 doses; o número fica guardado'), pergunta('se')],
+      [b('Limpar, ligada'), sub('A mesma conta de desligar', 'A dose conhecida deixa de existir'), pergunta('se')],
+      [b('Limpar, desligada'), 'A dose conhecida deixa de existir; as tomadas não mudam', pergunta('nunca')],
+    ]);
+
+    // ---------- Fig. 5: a troca de forma ----------
+    const fig5 = tabela(['De Cápsula para', 'O que acontece', 'Pergunta?'], [
+      [sub(b('Sachê'), 'as duas contam unidade'), sub('Os números ficam; muda a palavra', '6 cápsulas viram 6 sachês; 1 dose = 3 sachês'), pergunta('nunca')],
+      [sub(b('Solução oral, com a dose conhecida ligada'), 'não conta unidade'), sub('A conta de limpar', '6 cápsulas ÷ 3 = 2 doses; a dose conhecida sai'), pergunta('se')],
+      [sub(b('Solução oral, com a dose conhecida desligada'), 'não conta unidade'), 'A dose conhecida deixa de existir; as doses ficam', pergunta('nunca')],
+    ]);
+
+    // ---------- Fig. 6: a lista de tomadas ----------
+    const fig6 = card(
+      tomadas('3 doses (9 cápsulas)', [{ id: 't1', hora: '08:00', q: 1, caps: 3, mom: 'Em jejum' }, { id: 't2', hora: '', q: 2, caps: 6, mom: 'Após o jantar' }], CAP),
+      poso('Tomar às 08:00, 1 dose (3 cápsulas) em jejum; 2 doses (6 cápsulas) após o jantar.', false));
+    const fig6b = tabela(['A lista', 'Vira', 'Pergunta?'], [
+      ['3 tomadas de 2 doses, sem horário nem momento', '2 doses, 3 vezes ao dia', chip('Não')],
+      ['2 doses às 08:00 e 2 doses às 20:00', '2 doses, 2 vezes ao dia; os horários saem', chip('Não')],
+      ['1 dose às 08:00 em jejum e 2 doses após o jantar', 'Quantidade vazia, 2 vezes ao dia; horário e momento saem', chip('Sim', 'warning')],
+    ]);
+
+    // ---------- Fig. 7: a posologia ----------
+    const fig7 = card(
+      tomada({ noDia: '3 doses (9 cápsulas)', doses: 3, caps: 9, unit: CAP, vezes: 1 }),
+      poso('Tomar 2 doses (6 cápsulas) pela manhã, com um copo de água.', true, true));
+    const fig7b = tabela(['Situação', 'Botão', 'Dica'], [
+      ['Texto automático, nunca editado', 'Não aparece', '—'],
+      ['Editado, e o automático é o mesmo do momento da edição', 'Neutro', DICA_VOLTAR],
+      ['Editado, e o automático mudou depois', { v: 'Em aviso', cls: 'lm-ok' }, DICA_MUDOU],
+      ['Os campos voltam ao que eram na edição', 'Neutro de novo', DICA_VOLTAR],
+      ['O texto é editado de novo, com o aviso aceso', 'Neutro: a edição nova é a referência', DICA_VOLTAR],
+      ['Editado antes de o aviso existir', 'Neutro: não há referência', DICA_VOLTAR],
+      ['Clique no botão', sub('Some', 'A posologia volta à automática; sem quantidade, o campo fica vazio com “' + VAZIO_POSO + '”'), '—'],
+    ]);
+
+    // ---------- Fig. 8: o aviso da linha ----------
+    const act = (n, label, color) => tip(label, h(DF.Button, { isIconOnly: true, size: 'sm', variant: 'light', color: color || 'default', 'aria-label': label }, icon(n, 16)));
+    const ind = (tone, label) => tip(label, h('span', { className: 'lm-ind ' + (tone === 'danger' ? 'fg-danger' : 'fg-warning'), role: 'img', 'aria-label': label }, icon('triangle-alert', 18)));
+    const ulTxt = (d, dia) => h('span', { className: 'lm-ul' },
+      h('span', { className: d >= 100 ? 'fg-danger' : d >= 75 ? 'fg-warning' : 'fg-500' }, d + '%'), h('span', { className: 'fg-400' }, '|'),
+      h('span', { className: dia >= 100 ? 'fg-danger' : dia >= 75 ? 'fg-warning' : 'fg-500' }, dia + '%'));
+    const fig8 = h('div', { className: 'ut-scroll' }, h(DF.UniversalTable, { cardless: true, cardlessBleed: false, cardlessPadding: 'none', enableDnD: false,
+      columns: [
+        { id: 'a', header: 'Linha', cell: (r) => h('span', { className: 'lm-txt' }, r.a) },
+        { id: 'ul', header: 'UL dose | dia', width: '8rem', cell: (r) => ulTxt(r.d, r.dia) },
+        { id: 'm', header: 'Motivo, na dica do aviso', width: '20rem', cell: (r) => h('span', { className: r.m ? 'lm-txt' : 'lm-txt fg-400' }, r.m || 'Sem aviso') },
+        { id: 'act', header: 'Ações', width: '8.5rem', align: 'right', cell: (r) => h('span', { className: 'lm-acts' }, r.m ? ind('warning', r.m) : null, act('eye', 'Ver cadastro DietFlow', 'secondary'), act('trash-2', 'Remover', 'danger')) },
+      ],
+      rows: [
+        { id: 'r1', a: 'Linha com o dia no limite', d: 50, dia: 100, m: null },
+        { id: 'r2', a: 'Linha acima do limite na dose e no dia', d: 130, dia: 260, m: null },
+        { id: 'r3', a: 'Linha que não entra na forma do card', d: 10, dia: 20, m: 'Apresentação incompatível com a composição' },
+      ] }));
+
+    // ---------- Fig. 9: a faixa do perfil ----------
+    const fig9 = tabela(['Perfil', 'Linha', 'Faixa', 'NIH RDA', 'Limite que vale'], [
+      [b('Ana, 35 anos, gestante'), 'Gestante', 'Todas as idades', mono('350 mg'), mono('350 mg · ANVISA IN')],
+      ['Gestante de 16 anos', 'Gestante', 'Todas as idades', mono('350 mg'), mono('350 mg · ANVISA IN')],
+      ['Mulher de 35 anos, sem gestação', 'Feminino', '19 a 50 anos', mono('310 mg'), mono('350 mg · ANVISA IN')],
+      ['Mulher de 16 anos, sem gestação', 'Feminino', '9 a 18 anos', mono('360 mg'), mono('350 mg · ANVISA IN')],
+    ]);
+    const fig9b = tabela(['Situação', 'Motivo, na dica'], [
+      ['A referência não tem a linha nem a faixa do perfil', b('Sem faixa para o perfil')],
+      ['Gestação ou lactação sem resposta, e a referência tem faixa dessa condição', b('Gestação ou lactação não informada')],
+      ['Gestante e lactante ao mesmo tempo', b('Gestação e lactação informadas juntas')],
+      ['Sem idade, e a linha tem mais de uma faixa', b('Idade não informada')],
+      ['Sem sexo, e Masculino e Feminino têm valores diferentes', b('Sexo não informado')],
+    ]);
+
+    // ---------- Fig. 10: várias fontes ----------
+    const fig10 = tabela(['Seção Limite, na ordem', 'Faixa de Ana', 'Valor', 'Na disputa'], [
+      [b('ANVISA IN'), 'Gestante', mono('350 mg'), { v: 'Vence: primeira na ordem', cls: 'lm-ok' }],
+      ['NIH UL', 'Gestante', mono('350 mg'), { v: 'Empata e perde na ordem', cls: 'lm-no' }],
+      ['EFSA UL', 'Gestante', 'Não estabelecido', { v: 'Empata e perde na ordem', cls: 'lm-no' }],
+    ]);
+    const fig10b = tabela(['Substância e perfil', 'Candidatas', 'Vence', 'Por quê'], [
+      ['Magnésio, mulher de 30 anos', 'ANVISA IN 350 mg; NIH UL 350 mg; EFSA UL 250 mg', b('ANVISA IN, 350 mg'), 'Ordem; vale mesmo quando quem vence é maior'],
+      ['Vitamina D, gestante de 30 anos', 'ANVISA IN 2.000 UI; NIH UL 4.000 UI', b('ANVISA IN, 2.000 UI'), 'Mesma linha, mesma largura; ordem'],
+      ['Manganês, criança de 5 anos', 'ANVISA IN Não estabelecido; NIH UL 3 mg', b('Não estabelecido, ANVISA IN'), 'Ordem; Não estabelecido participa'],
+      ['Vitamina B6, gestante de 30 anos', 'NIH UL 100 mg; o EFSA UL não tem faixa de gestante', b('NIH UL, 100 mg'), 'Única candidata'],
+    ]);
+
+    // ---------- Fig. 11: o Geral ----------
+    const fig11 = tabela(['', 'Magnésio · NIH RDA', 'L-Triptofano · NIH RDA', 'Creatina · ISSN'], [
+      [b('O que a fonte publicou'), 'Faixas por sexo, idade e condição', 'Geral 350 mg; Gestante e Lactante 490 mg', 'Só o Geral: 3 a 5 g'],
+      [b('Para Ana, gestante'), mono('350 mg, faixa Gestante'), mono('490 mg, faixa Gestante'), mono('3 a 5 g, Geral')],
+      [b('Para uma mulher de 35 anos sem gestação'), mono('310 mg, faixa Feminino'), sub(h('span', { className: 'lm-no' }, 'Nenhum valor'), 'O Geral de 350 mg é só consulta'), mono('3 a 5 g, Geral')],
+      [b('Lâmpada'), 'Linha clicável', 'Linha clicável só onde há faixa', 'Linha clicável, com “Geral · Todas as idades” embaixo do nome'],
+      [b('Placeholder do campo'), 'Com faixa: entra no intervalo', 'Com faixa: entra no intervalo', sub('“Qtd”', 'O Geral nunca entra')],
+      [b('Limite'), 'Só a seção Limite, pela faixa', 'Sem referência de limite', sub('Sem referência de limite', 'O Geral nunca vira limite')],
+    ]);
+    const fig11b = LK ? lpStage(LK.newLamp({ ident: 'Creatina (Creatina monohidratada)', un: 'g', pe: 1, refBasis: 'molecule' },
+      { col: 'active', profile: ANA, cardPair: PAR_CAP, entries: [{ name: 'ISSN Position', general: true, v: { min: 3, max: 5 } }] })) : null;
+
+    // ---------- Fig. 12: forma isenta e limite próprio ----------
+    const fig12 = tabela(['Linha', 'Célula UL dose | dia', 'Dica', 'Na soma da substância', 'Nos Limites diários', 'Na lâmpada'], [
+      [sub(b('Vitamina B9 (Folato)'), 'Metilfolato (5-MTHF), forma isenta'), h('span', { className: 'lm-no' }, 'Isento'), 'Substância isenta de limite superior tolerável (UL).', 'Fora', 'Mãe própria: Total/dia, “--” no UL/dia e “Isento” no % UL', 'Nenhuma linha de limite'],
+      [sub(b('Vitamina B3 (Niacina)'), 'Ácido Nicotínico (Niacina), limite da forma 10 mg'), ulTxt(25, 50), 'UL 10 mg · Limite da forma', 'Fora', 'Mãe própria: “Vitamina B3 (Niacina) · Ácido Nicotínico (Niacina)”', 'A linha “Limite da forma”, com o escudo'],
+    ]);
+
+    // ---------- Fig. 13: os estados da célula ----------
+    const naTxt = h('span', { className: 'lm-no' }, NAO_AVALIADO);
+    const fig13 = tabela(['O que aparece', 'Quando', 'Dica'], [
+      [ulTxt(40, 80), sub('Há limite e conta do dia', 'Magnésio do Manhã: 140 mg por dose, 280 mg no dia'), 'UL 350 mg · ANVISA IN'],
+      [ulTxt(25, 50), 'Abaixo de 75%: cor de texto secundário', 'UL 2.000 UI · ANVISA IN'],
+      [h('span', { className: 'lm-ul' }, h('span', { className: 'fg-500' }, '40%'), h('span', { className: 'fg-400' }, '|'), h('span', { className: 'fg-400' }, '--')), 'O card não tem conta do dia', 'UL 350 mg · ANVISA IN'],
+      [mono('--'), sub('A linha não tem dose', 'Ou o limite tem valor impossível, ou a base não se converte'), 'Nenhuma'],
+      [naTxt, 'A fonte que vence diz Não estabelecido', 'Não estabelecido pela fonte · ANVISA IN'],
+      [naTxt, 'Nenhuma referência de limite tem faixa para o perfil', 'O motivo do quadro 9: “Sem faixa para o perfil” e os outros'],
+      [naTxt, 'A substância não tem referência na seção Limite', 'Substância sem limite superior tolerável (UL) estabelecido. Atente-se às doses usuais.'],
+      [naTxt, 'O catálogo está carregando ou falhou', '“Catálogo em atualização” ou “Catálogo indisponível”'],
+      [naTxt, 'A linha não tem vínculo com o catálogo', 'Sem referência de limite de segurança (UL) avaliável para esta substância.'],
+      [naTxt, 'A cobertura molecular não permite avaliar', 'A cobertura molecular atual não permite avaliar esta substância. Isso não significa ausência de UL.'],
+      [h('span', { className: 'lm-no' }, 'Isento'), 'A forma da linha é isenta', 'Substância isenta de limite superior tolerável (UL).'],
+    ]);
+
+    // ---------- Fig. 14: Limites diários ----------
+    const pct = (p) => h('span', { className: 'lm-num' }, h('span', { className: p >= 100 ? 'fg-danger' : p >= 75 ? 'fg-warning' : 'fg-500' }, p + '%'));
+    const num = (t) => h('span', { className: 'lm-num' }, t);
+    const mae = (t) => h('span', { className: 'lm-mae' }, h(DF.Button, { isIconOnly: true, size: 'sm', variant: 'light', 'aria-label': 'Recolher parcelas' }, icon('chevron-down', 16)), t);
+    const rowsLD = [
+      { id: 'm', kind: 'm', s: 'Magnésio', t: '350 mg', l: '350 mg', p: 100 },
+      { id: 'm1', kind: 'f', s: 'Manhã › Magnésio', t: '280 mg' },
+      { id: 'm2', kind: 'f', s: 'Noite › Magnésio', t: '70 mg' },
+      { id: 'b', kind: 'm', s: 'Vitamina B6 (Piridoxina)', t: '--', l: '100 mg', p: null },
+      { id: 'b1', kind: 'f', s: 'Noite › Vitamina B6 (Piridoxina)', t: '--' },
+      { id: 'd', kind: 'm', s: 'Vitamina D', t: '1.000 UI', l: '2.000 UI', p: 50 },
+      { id: 'd1', kind: 'f', s: 'Manhã › Vitamina D', t: '1.000 UI' },
+    ];
+    const tabelaLD = h('div', { className: 'ut-scroll' }, h(DF.UniversalTable, { cardless: true, cardlessBleed: false, cardlessPadding: 'none', enableDnD: false,
+      columns: [
+        { id: 's', header: 'Substância', cell: (r) => (r.kind === 'm' ? mae(r.s) : h('span', { className: 'lm-filha' }, r.s)) },
+        { id: 't', header: 'Total/dia', width: '8rem', align: 'right', cell: (r) => num(r.t) },
+        { id: 'l', header: 'UL/dia', width: '8rem', align: 'right', cell: (r) => (r.kind === 'm' ? num(r.l) : null) },
+        { id: 'p', header: '% UL', width: '6rem', align: 'right', cell: (r) => (r.kind === 'm' ? (r.p === null ? num('--') : pct(r.p)) : null) },
+      ],
+      rows: rowsLD }));
+    const fig14 = h('div', { className: 'lm-ov', style: { height: 600 } },
+      h(DF.BaseModal, { isOpen: true, contained: true, height: '100%', size: 'wide', onClose: noop, icon: 'lucide:shield-alert', iconColor: 'default', title: 'Limites diários',
+        footer: h('div', { style: { display: 'flex', justifyContent: 'flex-end' } }, h(DF.Button, { variant: 'light' }, 'Fechar')) },
+        h(DF.Section, { label: 'Substâncias do registro' }, tabelaLD)));
+    const ordem = ['Perigo', 'Atenção', 'Soma incompleta', 'Não avaliado', 'Sem vínculo', 'Dentro do limite', 'Isento', 'Sem referência de limite']
+      .map((t, i) => h('span', { key: i }, (i + 1) + ' · ' + t));
+
+    // ---------- Fig. 15: a lâmpada do Magnésio de Ana (golden sys-sub-013, faixa Gestante) ----------
+    const MG = LM ? LM.MG : null;
+    const fig15 = LK ? LK.newLamp({ ident: MG.ident, un: MG.un, pe: MG.pe, refBasis: MG.refBasis }, { col: 'active', profile: ANA, entries: MG.profiles.gest.entries, cardPair: PAR_CAP }) : null;
+    // ---------- Fig. 15c: referências restritas a uma apresentação (Passiflora, golden sys-sub-046) ----------
+    const fig15c = LK ? lpStage(LK.newLamp(LM.PASS, { col: 'molecule', profile: ANA, entries: LM.PASS.entries, cardPair: LM.PASS.extrato })) : null;
+    // ---------- Fig. 15d: Converter para (SPEC da Unidade, fatia U1). Vitamina D do golden (sys-sub-001), 1 mcg = 40 UI ----------
+    const VD_ANA = [['ANVISA IN', 2000, true], ['NIH RDA', 600], ['NIH EAR', 400], ['ANVISA IDR histórica (RDC 269/2005)', 200]];
+    // A lista da Gestante passa da altura da caixa: a figura abre já rolada até o fim, onde a seção mora.
+    const vdLamp = (un, k, convert) => LK.newLamp({ ident: LM.VD3.ident, un, pe: 1, refBasis: 'molecule' }, { col: 'molecule', profile: ANA, cardPair: PAR_CAP, convert, scrollTo: 9999,
+      entries: VD_ANA.map((r) => ({ name: r[0], limit: !!r[2], v: r[1] * k, band: LM.BAND.gest })) });
+    const vdStage = (node) => h('div', { className: 'df-root au-ds lm-ds' }, lpStage(node));
+    const fig15d = LK ? h('div', { className: 'lm-two' }, vdStage(vdLamp('UI', 1, [{ v: 50, un: 'mcg' }])), vdStage(vdLamp('mcg', 1 / 40, [{ v: 2000, un: 'UI' }]))) : null;
+
+    // ---------- Fig. 16: a lâmpada sem lista (5-HTP, golden sys-sub-039: Literatura clínica em adulto e idoso, e o Geral) ----------
+    const HTP = [{ ref: { name: 'Literatura clínica' }, un: 'mg', lines: [
+      { full: 'Masculino · Adulto · 19 a 50 anos', v: 60 }, { full: 'Feminino · Adulto · 19 a 50 anos', v: 60 },
+      { full: 'Masculino · Idoso · 51+ anos', v: 60 }, { full: 'Feminino · Idoso · 51+ anos', v: 60 }, { full: LM ? LM.GENERAL_SCOPE : 'Geral · Todas as idades', v: 60 }] }];
+    const fig16 = LK ? LK.newLamp({ ident: '5-HTP (5-Hidroxitriptofano) (5-Hidroxitriptofano (Griffonia simplicifolia))', un: 'mg', pe: 1, refBasis: 'molecule' },
+      { col: 'active', profile: ANA, cardPair: PAR_CAP, state: h(R.Fragment, null, LK.empty({ icon: 'lucide:lightbulb-off', title: 'Nenhuma referência para este perfil' }), LK.newOther(HTP)) }) : null;
+    const fig16b = tabela(['Estado', 'Quando', 'Título e descrição', 'Ícone'], [
+      [b('Sem perfil'), 'A substância tem referências, e nenhuma tem valor para o perfil', sub('Nenhuma referência para este perfil', 'Abaixo, “Outras referências”, com o escopo em chip'), icName('lightbulb-off')],
+      [b('Outra apresentação'), 'As referências do perfil valem só para pares que a molécula da linha não aceita', sub('Nenhuma referência para esta apresentação', 'As referências do perfil valem para outra apresentação. Abaixo, “Outras referências”'), icName('lightbulb-off')],
+      [b('Sem conversão'), 'Há faixa para o perfil, e ela não se converte para a coluna', sub('Sem sugestão para esta base', 'Falta o teor da forma ou a conversão da unidade. Abaixo, “Outras referências”'), icName('lightbulb-off')],
+      [b('Base ambígua'), 'A linha ainda não sabe se a quantidade é da forma ou do ativo; no card não acontece', sub('Sem sugestão para esta base', 'Escolha a quantidade da forma ou do ativo antes.'), icName('lightbulb-off')],
+      [b('Sem referência'), 'A substância não tem referência', 'Sem referências cadastradas', icName('table')],
+      [b('Catálogo indisponível'), 'O catálogo ainda não respondeu ou deu erro: um estado só', sub('Catálogo indisponível', 'Atualize a consulta das referências. A autoria manual foi preservada.'), icName('cloud-off')],
+      [b('Sem vínculo'), 'A substância foi digitada, sem vínculo de catálogo', 'Sem lâmpada: a linha não mostra o botão', '—'],
+    ]);
+
+    // ---------- Fig. 19: blueprint, montagem à esquerda e contrato à direita ----------
+    const PECAS = [
+      { n: 1, ids: 'A → E', nome: 'Leitura das faixas', fn: 'readReferenceBands(row)', arq: 'core/reference-bands.ts',
+        flow: ['references.json', 'RefRow', 'readReferenceBands', 'bands + general'], pq: 'Cada coluna gravada vira uma faixa com linha e idade. O Geral não é faixa.',
+        in: 'RefRow: as colunas bebe, crianca, masculinoAdulto, gestante… e padrao', out: '{ bands: PrescriptionBand[], general }; nulo vira Não estabelecido, zero vira impossível',
+        uso: 'resolveReference; o “tem referência com número” do cadastro', teste: 'core/__tests__/reference-bands.test.ts' },
+      { n: 2, ids: 'D + E → F', nome: 'O valor para o perfil', fn: 'resolveReference(row, ctx)', arq: 'core/reference-resolution.ts',
+        flow: ['toReferenceProfile', 'pickReferenceBand', 'resolveReference'], pq: 'A condição escolhe a linha, a idade escolhe a faixa, e a linha não cede.',
+        in: 'RefRow e ReferenceContext: substance, profile, catalogStatus, currentUnit, doseBasis', out: 'ReferenceResult: value | not_established | impossible | general | none com o motivo',
+        uso: 'resolveLimit, resolveSuggestion (a lâmpada), DoseSimulatorV2', teste: 'core/__tests__/reference-resolution.test.ts' },
+      { n: 3, ids: 'F', nome: 'Um limite por pessoa', fn: 'resolveLimit(ctx)', arq: 'core/reference-resolution.ts',
+        flow: ['seção Limite', 'resolveReference', 'condição › largura › ordem', 'LimitResolution'], pq: 'Só a seção Limite concorre; o intervalo compara pelo mínimo.',
+        in: 'ReferenceContext', out: 'limit | not_established | impossible | none | no_limit_reference | catalog_unavailable',
+        uso: 'buildUlLookup (safety.ts) para a célula e os Limites diários; DoseSimulatorV2', teste: 'core/__tests__/reference-resolution.test.ts' },
+      { n: 4, ids: 'F → G → M', nome: 'A lâmpada', fn: 'listLampSections(ctx) · lampEmptyReason(ctx)', arq: 'core/lamp-references.ts (dev bf094408e1)',
+        flow: ['listSuggestionsForProfile', 'listLampEntries', 'listLampSections', 'DoseSuggestion'], pq: 'Toda referência com valor e o Geral da referência sem faixas; do Limite, só a vencedora, ou o limite da forma. Com referência restrita a um par, seções por forma e via.',
+        in: 'ReferenceContext da linha e da coluna', out: 'LampListing: plana ou em seções (do card, sem restrição, outros pares), com LampEntry (id, row, isLimit, formLimit, band, general, amountMin, amountMax, unit); no vazio, o motivo: conversão, apresentação ou perfil',
+        uso: 'DoseSuggestion.tsx (RefLabelCell com para quem vale, RangeExtremeLabel no intervalo); o placeholder lê deriveRecommendedDoseRange (H) por useDoseRange (U)', teste: 'core/__tests__/lamp-references.test.ts, DoseSuggestion.test.tsx' },
+      { n: 5, ids: 'J → Q → P', nome: 'A célula de UL', fn: 'buildInlineUlStatus(detail, lineState, missingReason)', arq: 'components/cards/CardFormulacao.helpers.ts',
+        flow: ['buildUlLookup', 'LineSafetyDetail', 'buildInlineUlStatus', 'coluna UL dose | dia'], pq: 'O estado da linha vem antes; depois, o resultado do limite.',
+        in: 'LineSafetyDetail com a LimitResolution e as porcentagens', out: 'evaluated (pctDose, pctDia, rótulos, dica) | text (Não avaliado, Isento, dica) | no_count',
+        uso: 'CardFormulacao.tsx: a coluna e o aviso da linha (rowIndicators)', teste: 'components/cards/__tests__/CardFormulacao.helpers.test.ts' },
+      { n: 6, ids: 'J → T → S', nome: 'A conta dos Limites diários', fn: 'buildDailyLimitRows(items, safety)', arq: 'utils/daily-limits.ts',
+        flow: ['cards incluídos', 'buildDailyLimitRows', 'DailyLimitsModal'], pq: 'Soma por substância; forma isenta e de limite próprio em mãe própria.',
+        in: 'Os itens do registro e o relatório de segurança', out: 'DailyLimitRow[]: total, limite, fonte, estado, porcentagem e as parcelas card › linha, em STATUS_ORDER',
+        uso: 'DailyLimitsModal.tsx', teste: 'utils/__tests__/daily-limits.test.ts, DailyLimitsModal.test.tsx' },
+      { n: 7, ids: 'K → P, V', nome: 'O motor da posologia', fn: 'systemPosologyText(dados) · posologyText · posologyDrifted', arq: 'core/posologia.ts',
+        flow: ['tomadas', 'systemPosologyText', 'Section Posologia e documento'], pq: 'A dose abre a frase; as unidades vão entre parênteses com a dose conhecida ligada.',
+        in: 'FormulacaoDados: tomadas, doseConhecida, posologia, posologiaBase', out: 'A frase, ou null quando falta quantidade; o booleano do aviso',
+        uso: 'CardFormulacao.tsx, mapPrescricaoContentToDTO.ts', teste: 'core/__tests__/posologia.test.ts' },
+      { n: 8, ids: 'K → R → O', nome: 'A confirmação da tomada', fn: 'applyPosologyGesture(dados, gesture) · applyKnownDoseRequest', arq: 'core/posologia.ts',
+        flow: ['gesto', 'applyPosologyGesture', 'quantityLost', 'PosologyLossConfirmation'], pq: 'Todo gesto converte; quantityLost decide se a confirmação abre.',
+        in: 'FormulacaoDados e o gesto: set_known_dose, clear_known_dose, toggle_known_dose, change_form, switch_view…', out: '{ dados, quantityLost }; o verbo dá o título e o botão',
+        uso: 'CardFormulacao.tsx, TomadasSection.tsx, PosologyLossConfirmation.tsx', teste: 'core/__tests__/posologia.test.ts, CardFormulacao.presentation.test.tsx' },
+    ];
+    const ct = (k, v) => [h('i', { key: k + 'i' }, k), h('span', { key: k + 's' }, v)];
+    const fig19 = PECAS.map((p) => h('div', { key: p.n, className: 'au-bp' },
+      h('div', { className: 'lm-asm' },
+        h('span', { className: 'au-mono' }, 'Peça ' + p.n + ' · ', h('b', null, p.ids)),
+        h('b', null, p.nome),
+        h('div', { className: 'lm-flow' }, ...p.flow.flatMap((x, i) => (i ? [h('i', { key: 'a' + i }, '→'), h('span', { key: 's' + i }, x)] : [h('span', { key: 's' + i }, x)]))),
+        h('p', null, p.pq)),
+      h('div', { className: 'au-sheet' },
+        h('div', { className: 'au-sheeth' }, h('span', null, p.fn), h('span', null, p.arq)),
+        h('div', { className: 'lm-ct' }, ...ct('Entrada', p.in), ...ct('Saída', p.out), ...ct('Consumidores', p.uso), ...ct('Teste', h('code', null, p.teste))))));
+
+    return { fig1, fig1b, fig2, fig3, fig3b, fig4, fig5, fig6, fig6b, fig7, fig7b, fig8, fig9, fig9b, fig10, fig10b, fig11, fig11b, fig12, fig13, fig14, ordem, fig15, fig15c, fig15d, fig16, fig16b, fig19 };
+  }
+}
+</script>
+</body>
+</html>
