@@ -41,13 +41,13 @@ Defina quem lê, o que já sabe e o que precisa conseguir fazer quando terminar.
 
 | O leitor pergunta | Anatomia | Como é | Exemplo-ouro |
 |---|---|---|---|
-| O que está acontecendo aqui? Me mostra. | Cartão | Uma página: a pergunta, a resposta, o Em pauta e uma figura por pergunta | [cartão](kit/ouro/cartao.html), com o [playbook Cartão](playbooks/cartao.md) |
+| O que está acontecendo aqui? Me mostra. | Cartão | Uma página: a pergunta, o caso em uma linha e as telas citadas na explicação, com pouco texto | [cartão](kit/ouro/cartao.html), com o [playbook Cartão](playbooks/cartao.md) |
 | Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | [passo a passo](kit/ouro/passo-a-passo.html) |
 | Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | [explicação](kit/ouro/explicacao.html) |
 | Onde estamos? | Mural | O estado de cada frente, o que mudou desde a última vez, o que falta, a próxima ação | derive da explicação: tabela de frentes com status |
 | Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [playbook Aula](playbooks/aula.md) |
 
-**Tamanho.** Conte as perguntas que o leitor faria. Até três sobre o mesmo caso cabem num cartão. Um assunto inteiro, uma operação com vários passos ou o raciocínio longo de quem pediu pedem documento, com uma parte por pergunta.
+**Tamanho.** Conte as perguntas que o leitor faria e as telas que a explicação cita. Até três telas do mesmo caso cabem num cartão. Um assunto inteiro, uma operação com vários passos ou o raciocínio longo de quem pediu pedem documento, com uma parte por pergunta.
 
 **Camada.** Por padrão o documento fala do produto: o que a pessoa encontra, faz e obtém. Quando o mesmo documento também orienta quem vai mexer no código, abra uma aba Arquitetura (peça `tabs`) com uma árvore curta de arquivos, a responsabilidade de cada um, e um caso seguido da tela até a gravação.
 
@@ -75,7 +75,7 @@ Antes do texto, escreva uma linha por parte: o que ela ensina de novo e em que f
 | O que o sistema disse? | O texto literal, o que significa e o que fazer | A mensagem e uma tabela |
 | O que muda o resultado? | A condição junto do passo que ela afeta | Aviso |
 
-No [cartão-ouro](kit/ouro/cartao.html), a ficha mostra onde a inconsistência aparece, a linha do tempo explica os dois anos de diferença e a tabela mostra que gestos mexem na idade. Trocadas de lugar, nenhuma responde: a ficha deixa a origem dos dois anos em aberto, e a linha do tempo deixa em aberto o que acontece ao trocar a data.
+Um exemplo com o Cálculo datado de 05/11/2025 que mostra 46 anos para quem tinha 44: a ficha mostra onde a inconsistência aparece, a linha do tempo explica os dois anos de diferença e a tabela mostra que gestos mexem na idade. Trocadas de lugar, nenhuma responde. Quando a explicação cita telas do produto, a representação é a própria tela: o [cartão-ouro](kit/ouro/cartao.html) conta o mesmo caso com o editor, o modal de import e o dado trazido.
 
 Leia só os títulos em sequência. Se eles contam a história, a espinha está pronta.
 

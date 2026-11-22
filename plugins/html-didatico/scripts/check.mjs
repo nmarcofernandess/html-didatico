@@ -282,15 +282,17 @@ if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(s
 const duvidas = html.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
 const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
 if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
-// Contrato do cartão: situa quem não leu a conversa, responde com figura e cabe em uma página.
+// Contrato do cartão: a pergunta, o caso em uma linha e as telas; pouco texto, uma página.
 const cartao = /class="[^"]*\bpage--card\b/.test(html)
 if (cartao) {
-  if (!/class="[^"]*\bbrief__label\b/.test(html)) falhas.push('cartão sem "Em pauta": escreva a situação para quem não leu a conversa (onde, o que existia, o gesto, o que muda, o que falta)')
+  const caso = html.match(/class="cover__sub"[^>]*>([\s\S]*?)<\/p>/)?.[1].replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean) ?? []
+  if (!caso.length) falhas.push('cartão sem o caso em uma linha (cover__sub): quem, o quê e quando, com os números que as telas usam')
+  else if (caso.length > 32) avisos.push(`o caso do cartão tem ${caso.length} palavras (referência: uma linha, até 30): o resto vai para as telas`)
   if (!maior.figuras.length) falhas.push('cartão sem figura: cada pergunta é respondida por uma figura com legenda')
   if (/class="[^"]*\b(?:tabs|rail|stamp)\b/.test(html)) avisos.push('cartão com trilho, abas ou carimbo: isso é de documento; o cartão é uma página só')
   if (maior.figuras.length > 4) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
   if (maior.semFigura.length) avisos.push(`pergunta sem figura no cartão (${maior.semFigura.length}): ${lista(maior.semFigura, t => `"${t}"`)}`)
-  if (maior.palavrasForaDeTabela > 280) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras de prosa (referência: até 280): passe conteúdo para a figura ou vire documento`)
+  if (maior.palavrasForaDeTabela > 90) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras fora das figuras (referência: até 90): o que a tela mostra sai do texto; o que sobra vira legenda`)
 }
 if (transitionAll) falhas.push('transition: all no CSS; liste as propriedades')
 if (temAnimacao && !temReducedMotion) falhas.push('há animação ou transição sem bloco prefers-reduced-motion')

@@ -34,9 +34,9 @@ Os exemplos-ouro de HTML Didático, [cartão](../plugins/html-didatico/reference
 | Mesmo projeto, resultado real obtido | Preencher o mesmo arquivo e atualizar revisão/veredito. |
 | “Faça um mural e cite este pack” | HTML Didático, link para o pack; mural não vira proof. |
 | “Revise só a pontuação” | Recurso interno de escrita; sem HTML obrigatório. |
-| “Me mostra por que a idade deste Cálculo está errada”, no meio da conversa | HTML Didático, playbook Cartão: uma página a partir de `montar.mjs --novo cartao`, com a pergunta, a resposta, o Em pauta e uma figura por pergunta. O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html) é o caso. |
-| Cartão pronto, antes de entregar | Duas leituras: sem a conversa (só o Em pauta) e só pela figura (cada pergunta com o que a figura e a legenda mostram). A entrega lista cada pergunta com a figura que a responde. |
-| A dúvida tem quatro perguntas ou dois casos | Documento ou aula, com uma parte por pergunta; não um cartão esticado. |
+| “Me mostra por que a idade deste Cálculo está errada”, no meio da conversa | HTML Didático, playbook Cartão: depois da jornada da aula, uma página a partir de `montar.mjs --novo cartao`, com a pergunta, o caso em uma linha e as telas que a explicação cita. O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html) é o caso. |
+| Cartão pronto, antes de entregar | Duas leituras: sem a conversa (título, caso e primeira tela bastam) e só pela figura (cada frase da explicação aparece numa tela, na anotação ou na legenda). Até 90 palavras fora das figuras. |
+| A dúvida pede mais de três telas ou dois casos | Documento ou aula, com uma parte por pergunta; não um cartão esticado. |
 | O pedido traz uma explicação longa de quem domina o assunto | Documento: o raciocínio e os exemplos dela ficam, cada exemplo como figura. Não vira cartão nem resumo. |
 | “Me dá um exemplo de aula” | HTML Didático, playbook Aula: aponta as [aulas reais](../plugins/html-didatico/references/exemplos/aulas/README.md); nunca responde que não há exemplo. |
 | “Faça uma aula de como a dose é calculada” | HTML Didático, playbook Aula: só a tab Aula, sem barra de tabs. |

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.8.0 — 22/11/2026
+
+- Cartão refeito a pedido de Marco: o primeiro cartão-ouro tinha texto demais e fora feito sem entender o sistema. O que chega é pequeno, e a jornada é a da aula inteira: leis, sistema e nó antes de qualquer desenho.
+- Método novo no playbook Cartão: contar a explicação em poucas frases, marcar as telas do produto que elas citam, desenhar essas telas no mesmo caso e tirar do texto o que a tela já mostra. O que sobra vira anotação ou legenda. Explicação que não cita tela ainda não foi entendida no produto.
+- Anatomia: a pergunta, o caso em uma linha (`cover__sub`), de uma a três telas lado a lado (`cols cols--3`) e o estado em uma linha (`src`). Sai o bloco Em pauta (`brief`, `brief__label`).
+- Cartão-ouro novo, "Que data vale num Cálculo retroativo?": o editor do Cálculo, o modal Importar de Antropometria e o dado trazido, com 63 palavras fora das figuras (eram 251) e uma tela de altura em 1280 px.
+- `scripts/check.mjs`: o cartão precisa do caso em uma linha e de figura; avisa acima de 90 palavras fora das figuras (antes, 280) e caso com mais de 30 palavras.
+
 ## 2.7.0 — 22/11/2026
 
 - **Cartão**, nova anatomia de HTML Didático: uma dúvida da conversa (um defeito, uma feature, um exemplo, um "me mostra") em uma página. A capa leva a pergunta e a resposta; o **Em pauta** situa quem não leu o chat, ao lado da cena em que a dúvida aparece; depois vem uma parte por pergunta, cada uma com a figura que a responde. Playbook em `references/playbooks/cartao.md` e cartão-ouro em `references/kit/ouro/cartao.html`, com o caso da Ana: um Cálculo datado de 05/11/2025 que mostra 46 anos quando ela tinha 44.

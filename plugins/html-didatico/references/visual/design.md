@@ -144,11 +144,15 @@ isso pergunta por pergunta, olhando só a figura e a legenda:
 
 O [cartão-ouro](../kit/ouro/cartao.html) passa assim:
 
-| Pergunta | Figura | O que se percebe só nela e na legenda |
+| Frase da explicação | Tela | O que se percebe só nela e na legenda |
 |---|---|---|
-| Onde a inconsistência aparece? | A ficha do Cálculo | Data clínica 05/11/2025 e Idade 46 lado a lado; a data foi escolhida, a idade foi contada em 22/11/2026; naquele dia a Ana tinha 44 |
-| De onde vêm os dois anos? | A linha do tempo | Os aniversários de 45 e de 46 anos ficam entre a data clínica e o dia em que a idade é contada |
-| O que mexe na idade? | A tabela de gestos | Abrir o Cálculo e digitar mudam a idade; "Trocar a data clínica" vem marcado com "Fica como estava" |
+| A data do registro não é a do dia, e a idade vale para ela | O editor do Cálculo | O calendário em cor de aviso, "data passada: 05/11/2025"; Idade 44 com cadeado, "44 na data, 46 no dia" |
+| O import tem a data clínica do que é importado | O modal Importar de Antropometria | A avaliação selecionada, de 10/11/2021, com 62 kg e 1,65 m |
+| O receptor mantém a sua data | O editor depois do import | Peso 62 kg, "da avaliação de 2021"; o calendário "fica 05/11/2025"; a idade segue 44 |
+
+Para uma dúvida sem tela, a mesma leitura vale com esquemas. No caso da idade: a
+ficha mostra onde a inconsistência aparece, a linha do tempo explica a diferença
+e a tabela mostra que gestos afetam a idade.
 
 Pergunta sem figura que a responda e figura sem pergunta são o mesmo defeito:
 numa falta a figura, na outra sobra a parte. Na entrega, cada pergunta aparece

@@ -73,8 +73,8 @@ Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
   as peças de esquema do kit.
 - **Aula** consolida um assunto em construção, com tabs abertas pelo pedido; a
   gramática está no [playbook Aula](aula.md).
-- **Cartão** responde a uma dúvida da conversa em uma página, com o Em pauta e
-  uma figura por pergunta; a gramática está no [playbook Cartão](cartao.md).
+- **Cartão** responde a uma dúvida da conversa em uma página, com o caso em uma
+  linha e as telas citadas na explicação; a jornada é a da aula e a gramática está no [playbook Cartão](cartao.md).
 
 ## Entrega
 

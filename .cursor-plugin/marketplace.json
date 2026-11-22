@@ -10,7 +10,7 @@
       "name": "html-didatico",
       "source": "./plugins/html-didatico",
       "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
-      "version": "2.7.0",
+      "version": "2.8.0",
       "author": {
         "name": "Marco Antonio",
         "url": "https://github.com/nmarcofernandess"

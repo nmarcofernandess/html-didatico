@@ -1,10 +1,10 @@
 # Cartão · uma dúvida da conversa em uma página
 
 O cartão responde a uma dúvida que apareceu no meio do trabalho: um defeito, uma
-feature, um "como isso funciona", um exemplo pedido. É uma página só, que se lê
-sem a conversa ao lado e mostra a resposta em figuras. Ele dispensa a capa longa,
-o trilho, as abas e o fecho do documento. O nó, a ficha de fatos, o kit e as duas
-leituras de revisão continuam valendo.
+feature, um "como isso funciona", um exemplo pedido. O que chega a quem pediu é
+pequeno: uma pergunta, o caso em uma linha e as telas do produto em que a
+resposta se vê. A jornada para chegar a ele é a da aula, inteira. O cartão é
+curto porque o entendimento está pronto, e não porque o trabalho foi menor.
 
 Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de lá.
 
@@ -13,113 +13,83 @@ Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de 
 | O pedido | Entrega |
 |---|---|
 | "Me mostra", "desenha isso", "não entendi X"; um defeito, uma feature ou um exemplo em pauta na conversa | Cartão |
-| Até três perguntas sobre o mesmo caso | Cartão |
+| Uma dúvida que se explica em até três telas do mesmo caso | Cartão |
 | Um assunto inteiro, uma operação com vários passos, o raciocínio longo de quem pediu | [Documento](didatico.md) |
 | Várias decisões abertas, ou um assunto que vai receber respostas e voltar | [Aula](aula.md) |
 
-Entre cartão e documento, sem outra pista, faça o cartão: ele sai rápido, e o que
-não couber nele mostra o tamanho que o documento precisa ter.
+## A jornada
+
+1. **Entenda como a aula manda.** Siga [Antes de escrever: entender](aula.md#antes-de-escrever-entender):
+   as leis primeiro, depois o sistema (quem é o dono, quais dados, quem escreve e
+   quem lê, o ciclo de vida, a regra que não pode quebrar), cada fato conferido na
+   fonte. Ache [o nó](../conteudo.md#o-nó-antes-da-ficha).
+2. **Conte a explicação em poucas frases,** para você, fora do cartão. No
+   cartão-ouro foram seis: o contexto clínico dá a data do registro; a idade vem
+   do nascimento; se a idade na data difere da de hoje, cadeado; se a data difere
+   de hoje, o calendário avisa; o import mostra a data da fonte; o receptor
+   mantém a sua.
+3. **Marque as telas que essas frases citam.** Ali eram três: o editor do
+   Cálculo, o modal de import e o dado trazido. Cada tela citada vira uma figura.
+4. **Desenhe as telas no mesmo caso,** com os nomes que o produto mostra e os
+   mesmos números de uma para a outra.
+5. **Tire do texto o que a tela já mostra.** O que sobra de cada frase vira a
+   legenda ou uma anotação curta ao lado da tela: "fica 05/11/2025".
+
+Explicação que não cita tela nenhuma ainda não foi entendida no produto: volte
+ao passo 1.
 
 ## Base
 
-Crie o arquivo pela cópia do [cartão-ouro](../kit/ouro/cartao.html), com o comando
-abaixo, a partir da raiz do plugin:
+Crie o arquivo pela cópia do [cartão-ouro](../kit/ouro/cartao.html), a partir da
+raiz do plugin:
 
 ```
 node scripts/montar.mjs --novo cartao <destino.html>
 ```
 
-O kit chega inteiro na cópia. Troque o título, a capa e o conteúdo do `<main>`; o
-bloco do kit e o sprite ficam como estão. Sem Node, copie o arquivo com `cp`.
-Página escrita do zero não é cartão: o [check](../../scripts/check.mjs) reprova
-documento fora do kit.
+Troque o título, a capa e o conteúdo do `<main>`; o bloco do kit e o sprite ficam
+como estão. Sem Node, copie o arquivo com `cp`. Página escrita do zero não é
+cartão: o [check](../../scripts/check.mjs) reprova documento fora do kit.
 
 ## Anatomia
 
-Cinco peças, nesta ordem. O cartão-ouro traz todas.
-
 | Peça | O que é | Marcação |
 |---|---|---|
-| A pergunta | O título: a dúvida com o caso real, como a pessoa a faria | `h1` na `cover` |
-| A resposta | Uma frase, com o número do caso | `cover__sub` |
-| Em pauta | A situação, para quem não leu a conversa, ao lado da cena em que a dúvida aparece | `part part--side` com `prose brief` e a primeira figura |
-| As outras perguntas | Uma parte por pergunta: o título-pergunta, uma frase e a figura que a responde | `part` com `prose` e `fig` |
-| O que falta e a fonte | A decisão ou o passo que fica, e de onde vêm os fatos | `note` e `src` |
+| A pergunta | O título, como a pessoa a faria, em até oito palavras | `h1` na `cover` |
+| O caso | Uma linha: quem, o quê e quando, com os números que as telas usam | `cover__sub` |
+| As telas | De uma a três, lado a lado, na ordem em que acontecem | `cols` ou `cols cols--3`, uma `fig` por tela |
+| A anotação | Ao lado da tela, o que ela não diz sozinha: de onde vem o valor, o que fica igual | `link` com `chip` |
+| A legenda | O que a tela mostra, em até doze palavras | `figcaption` |
+| O estado | Uma linha: o que já está no produto, o que falta e a data da leitura | `src` |
 
-## Em pauta
+## Texto
 
-É o parágrafo que mantém o cartão de pé fora da conversa. Quem o recebe depois,
-sem o chat, precisa saber que situação montar, por que ela importa e o que
-responderia à pergunta. Comece na situação concreta e diga, em até 90 palavras:
-
-- onde a pessoa está, com o nome que a tela mostra, e o que já existia;
-- o gesto que ela faz, ou o que muda;
-- o que aparece, com a data, o valor e a mensagem reais;
-- a consequência que importa;
-- o que falta descobrir, decidir ou entregar.
-
-| Em pauta está | Acrescente |
-|---|---|
-| Um defeito | O que aparece, o que deveria aparecer e o gesto para conferir |
-| Uma feature | Quem passa a conseguir o quê, com que regra, e o que muda no que já existe |
-| Um "como funciona" | A coisa e o caso que a atravessa |
-| Um exemplo | O caso com os valores e o que ele demonstra |
-| Uma escolha pontual | A situação que faz a pergunta existir e as saídas, no mesmo caso |
-
-"Isso", "aquele campo" e "o problema de ontem" viram o nome da tela, do campo e
-do estado. Dado acrescentado para ilustrar aparece rotulado como hipotético.
-
-## As perguntas e as figuras
-
-Liste as perguntas que a dúvida abre. Para cada uma, escolha a representação em
-que a resposta se vê, pela tabela de [Conteúdo](../conteudo.md#3-espinha). No
-cartão-ouro são três:
-
-| Pergunta | Representação | Por quê |
-|---|---|---|
-| Onde a inconsistência aparece? | A ficha, com Data clínica e Idade lado a lado | É o que a pessoa vê na tela |
-| De onde vêm os dois anos? | A linha do tempo, do nascimento ao dia em que o Cálculo foi aberto | A diferença está nos eventos entre duas datas |
-| O que mexe na idade? | A tabela de gestos | São vários gestos contra o mesmo campo |
-
-- **A primeira figura é a cena do Em pauta:** onde a dúvida aparece, como a pessoa
-  a vê.
-- **Cada figura responde a uma pergunta que as outras deixam aberta.** Duas
-  figuras para a mesma pergunta viram uma.
-- **Todas usam o mesmo caso e os mesmos números.**
-- **A legenda diz a conclusão,** com o dado do caso.
-
-## Tamanho
-
-De uma a três perguntas, até quatro figuras e cerca de 280 palavras de prosa. A
-frase de cada parte diz o que a figura sozinha deixaria ambíguo, em uma linha. A
-consequência cabe em uma frase do Em pauta. O caminho da investigação fica na
-conversa.
-
-A quarta pergunta, um segundo caso ou uma lista de decisões pedem documento ou
-aula.
+Até 90 palavras fora das figuras; o cartão-ouro tem 63. O caso cabe em uma
+linha. O que é regra ainda fora do produto aparece dito no estado, com a figura
+a que se refere. O caminho da investigação, a consequência em parágrafo e a
+lista de fontes ficam na conversa: quem quiser, pergunta.
 
 ## Revisão: duas leituras
 
-1. **Sem a conversa.** Cubra tudo, menos o Em pauta. Um dev que recebe só esse
-   parágrafo sabe que situação montar, por que ela importa e que resultado
-   responde à pergunta? Onde a resposta é "depende de ter lido o chat", troque o
-   termo genérico pelo fato que falta.
+1. **Sem a conversa.** Com o título, o caso e a primeira tela, alguém que não
+   leu o chat sabe de que situação se trata? Onde depende do chat, ponha o nome
+   da tela, a data ou o valor que falta.
 2. **Só pela figura.** Faça a [leitura pela figura](../visual/design.md#leitura-pela-figura):
-   para cada pergunta, cubra a prosa e confira o que a figura e a legenda mostram
-   sozinhas.
+   cada frase da explicação do passo 2 precisa aparecer em uma tela, na anotação
+   ou na legenda dela.
 
 ## O que não passa
 
 | Não passa | Faça |
 |---|---|
+| Parágrafos explicando o que a tela mostraria | A tela, com a anotação curta |
+| Esquema genérico no lugar da tela do produto | O editor, o modal e o card reais, com os nomes deles |
+| Uma tela por caso diferente | O mesmo caso atravessa todas |
 | Página própria, fora do kit | `--novo cartao`, e só o `<main>` muda |
-| Cartão de texto: título e parágrafos em caixas | A figura em que a resposta se vê |
-| A mesma ideia em várias partes | Uma pergunta, uma parte |
-| Em pauta que só entende quem leu o chat | Onde, o gesto, o que aparece, o que falta |
-| Figura que ilustra o assunto | Figura que responde à pergunta, com o caso |
-| Trilho, abas, carimbo, "por que importa" em parte própria | Isso é de documento; aqui a consequência é uma frase |
+| Cartão feito sem ler o sistema | A jornada da aula, antes |
+| Trilho, abas, carimbo, partes com título | Isso é de documento |
 
 ## Entrega
 
-O arquivo e, em poucas linhas: cada pergunta com a figura que a responde, as
-fontes lidas e o que não foi conferido.
+O arquivo e, em duas ou três linhas: as telas e o que cada uma mostra, o que foi
+lido e o que não foi conferido.
