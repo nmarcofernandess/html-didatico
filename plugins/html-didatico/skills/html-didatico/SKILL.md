@@ -1,24 +1,37 @@
 ---
 name: html-didatico
-description: "Cria explicações, manuais, quickstarts, aulas e narrativas de sistemas em HTML portátil, com fontes verificáveis e dioramas. Aula consolida um assunto em decisão, com Na tela, Dúvidas e Leis quando o pedido pede."
+description: "Cria cartões de uma página, explicações, manuais, quickstarts e aulas em HTML portátil, com figuras em que a resposta se vê. Use quando pedirem para ver, mostrar ou desenhar um defeito, uma feature, um exemplo ou um sistema. Um cartão responde a uma dúvida da conversa; a aula consolida um assunto em decisão, com Na tela, Dúvidas e Leis quando o pedido pede."
 ---
 
 # HTML Didático
 
-1. Leia [fontes e limites](../../references/fundamentos.md) e o
-   [contrato HTML](../../references/html-portatil.md).
-2. Siga o [playbook didático](../../references/playbooks/didatico.md): ficha,
-   espinha, cópia do [starter do kit](../../references/kit/starter.html), página,
-   figuras, prova e leitura. Manual e editorial são looks do mesmo kit. Para
-   organização de sistemas, acrescente o [modo sistemas](../../references/playbooks/sistemas.md).
-   Para consolidar um assunto em construção (como funciona, protótipo, dúvidas
-   e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md) e abra as
-   [aulas reais](../../references/exemplos/aulas/README.md) antes de escrever.
-3. Reconstrua o significado quando necessário e monte as figuras com as peças do
-   kit. Entregue um HTML só, com fontes e limites. O [check](../../scripts/check.mjs)
-   e a inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de
+O documento põe o problema na mesa: quem lê vê onde ele está, sem ter lido a conversa.
+
+1. **Fontes e nó.** Leia [fontes e limites](../../references/fundamentos.md). Em
+   [Conteúdo](../../references/conteudo.md), ache o nó e liste as perguntas que o
+   leitor faria.
+2. **Tamanho.** Uma dúvida da conversa (um defeito, uma feature, um exemplo, um
+   "me mostra"), com até três perguntas sobre o mesmo caso, segue o
+   [playbook Cartão](../../references/playbooks/cartao.md). Um assunto inteiro,
+   uma operação ou o raciocínio longo de quem pediu segue o
+   [playbook didático](../../references/playbooks/didatico.md), com o
+   [modo sistemas](../../references/playbooks/sistemas.md) para organização de
+   sistemas. Para consolidar um assunto em construção (como funciona, protótipo,
+   dúvidas e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md)
+   e abra as [aulas reais](../../references/exemplos/aulas/README.md) antes de escrever.
+3. **Base.** Todo arquivo nasce de uma cópia do kit, feita pelo
+   [montar](../../scripts/montar.mjs): `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|starter> <destino.html>`,
+   a partir da raiz do plugin. Só o `<main>` muda, conforme o
+   [contrato HTML](../../references/html-portatil.md). Página escrita do zero não
+   é entrega desta skill.
+4. **Figuras e revisão.** Cada pergunta ganha a representação em que a resposta
+   se vê, montada com as peças do kit. Antes de entregar, faça a
+   [leitura pela figura](../../references/visual/design.md#leitura-pela-figura):
+   para cada pergunta, o que se percebe só pela figura e pela legenda. Entregue
+   um HTML só, com fontes e limites. O [check](../../scripts/check.mjs) e a
+   inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de
    verificação é salvo junto do documento.
 
 Para layout a decidir, use HTML Wireframe; montagem com contratos, HTML Blueprint;
-evidência de execução, HTML Proof. Sem pedido HTML, uma explicação usa Explicar
+evidência de execução, HTML Proof. Sem pedido de ver, uma explicação usa Explicar
 com Clareza. Consulte o [roteamento](../../references/roteamento.md) se houver dúvida.

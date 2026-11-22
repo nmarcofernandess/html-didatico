@@ -8,24 +8,30 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 | [Conteúdo](../conteudo.md) | O que dizer, em que ordem e quanto |
 | [Design](../visual/design.md) | Como a página e as figuras são desenhadas, e por quê |
 | [Starter](../kit/starter.html) e [peças](../kit/pecas.html) | O sistema visual pronto e a marcação de cada peça |
-| [Passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html) e [aula](../kit/ouro/aula.html) | O padrão de qualidade: um documento completo por anatomia |
+| [Cartão](../kit/ouro/cartao.html), [passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html) e [aula](../kit/ouro/aula.html) | O padrão de qualidade: um documento completo por anatomia |
 
 ## Processo
 
-1. **Ficha e leitor.** Leia [Conteúdo](../conteudo.md) e monte a ficha de fatos a
-   partir da fonte. Defina quem lê e a pergunta dele. A pergunta escolhe a
-   anatomia: passo a passo, explicação ou mural.
-2. **Espinha.** Uma linha por parte: o que ela ensina de novo e em que forma.
-   Para cada figura, o recorte e as palavras reais. Mostre a espinha em um bloco
-   curto no começo da resposta e siga; o usuário redireciona se quiser.
-3. **Base.** Copie o [starter](../kit/starter.html) para o destino e escolha o
-   look em `<html data-look="manual">` ou `"editorial"`. O kit embutido fica como
-   está.
+1. **Nó, ficha e leitor.** Leia [Conteúdo](../conteudo.md), ache o nó e monte a
+   ficha de fatos a partir da fonte. Defina quem lê e a pergunta dele. A pergunta
+   escolhe o tamanho e a anatomia: cartão, passo a passo, explicação ou mural.
+   Uma dúvida da conversa, com até três perguntas, segue o [playbook Cartão](cartao.md).
+2. **Espinha.** Uma linha por pergunta do leitor: o que a parte ensina de novo e
+   a representação em que a resposta se vê. Para cada figura, o recorte e as
+   palavras reais. Mostre a espinha em um bloco curto no começo da resposta e
+   siga; o usuário redireciona se quiser.
+3. **Base.** Crie o arquivo por cópia, a partir da raiz do plugin:
+   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|starter> <destino.html>`.
+   O kit chega inteiro e ninguém o redigita; sem Node, copie o mesmo arquivo com
+   `cp`. Escolha o look em `<html data-look="manual">` ou `"editorial"`.
 4. **Página.** Abra o exemplo-ouro da anatomia e copie a composição dele. Escreva
    só o `<main>`, com as peças da [folha de peças](../kit/pecas.html). O texto
    segue a seção 4 de Conteúdo.
 5. **Figuras.** Leia [Design](../visual/design.md) e monte cada cena pelo método
-   de lá, partindo da cena mais próxima do exemplo-ouro.
+   de lá, partindo da cena mais próxima do exemplo-ouro. Feche com a
+   [leitura pela figura](../visual/design.md#leitura-pela-figura): para cada
+   pergunta, o que se percebe só pela figura e pela legenda. Ela não depende do
+   render e vale para toda entrega.
 6. **Prova, quando pedida ou necessária.** Não é passo de toda entrega: rode
    quando o usuário pedir, ou quando o risco só aparece no render. O
    [check](../../scripts/check.mjs) (`node scripts/check.mjs <arquivo.html>`, a
@@ -67,9 +73,11 @@ Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
   as peças de esquema do kit.
 - **Aula** consolida um assunto em construção, com tabs abertas pelo pedido; a
   gramática está no [playbook Aula](aula.md).
+- **Cartão** responde a uma dúvida da conversa em uma página, com o Em pauta e
+  uma figura por pergunta; a gramática está no [playbook Cartão](cartao.md).
 
 ## Entrega
 
-Entregue o arquivo e, em poucas linhas: a anatomia e o look escolhidos, as fontes
-lidas e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
+Entregue o arquivo e, em poucas linhas: a anatomia e o look escolhidos, cada
+pergunta com a figura que a responde, as fontes lidas e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
 com o motivo; se não rodou, não é preciso dizer nada.

@@ -8,7 +8,7 @@ Funciona em Codex, Claude Code e Cursor, conforme o suporte do host.
 
 | Nome no seletor | ID da skill | Use para |
 |---|---|---|
-| **HTML Didático** | [html-didatico](plugins/html-didatico/skills/html-didatico/SKILL.md) | Explicações, manuais, quickstarts e narrativas de sistemas. Manual, editorial e sistemas são modos internos. |
+| **HTML Didático** | [html-didatico](plugins/html-didatico/skills/html-didatico/SKILL.md) | Cartões de uma página para uma dúvida da conversa, explicações, manuais, quickstarts, aulas e narrativas de sistemas. Cartão, manual, editorial, sistemas e aula são modos internos. |
 | **HTML Wireframe** | [html-wireframe](plugins/html-didatico/skills/html-wireframe/SKILL.md) | Maquetes e comparação de layouts/comportamentos, com propostas identificadas. |
 | **HTML Blueprint** | [html-blueprint](plugins/html-didatico/skills/html-blueprint/SKILL.md) | Composição dos primitivos às features e consumidores: árvore, children, slots, types, props e contratos. |
 | **HTML Proof** | [html-proof](plugins/html-didatico/skills/html-proof/SKILL.md) | Evidências e resultados, respeitando o renderer oficial quando existir. |
@@ -20,6 +20,7 @@ mostrar os IDs. São as mesmas seis skills, sem aliases adicionais.
 
 ```text
 $html-didatico:html-didatico Explique em HTML como os testes se organizam.
+$html-didatico:html-didatico Me mostra num cartão por que a idade deste Cálculo está errada.
 $html-didatico:html-wireframe Compare dois lugares para a ação de salvar.
 $html-didatico:html-blueprint Mostre a montagem deste componente e seus contratos.
 $html-didatico:html-proof Apresente os resultados pelo renderer deste projeto.
@@ -38,7 +39,8 @@ tokens, anatomias e primitivos são carregados só para o formato em uso.
 
 - [Fontes e limites](plugins/html-didatico/references/fundamentos.md).
 - [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
-- [Kit de HTML Didático](plugins/html-didatico/references/kit/pecas.html): tokens, dois looks e peças; [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade.
+- [Kit de HTML Didático](plugins/html-didatico/references/kit/pecas.html): tokens, dois looks e peças; [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade. Todo documento nasce de uma cópia: `node plugins/html-didatico/scripts/montar.mjs --novo <base> <destino.html>`.
+- [Playbook Cartão](plugins/html-didatico/references/playbooks/cartao.md): a dúvida da conversa em uma página, com o Em pauta e uma figura por pergunta. A [leitura pela figura](plugins/html-didatico/references/visual/design.md#leitura-pela-figura) confere, pergunta por pergunta, o que a figura e a legenda mostram sozinhas.
 - [Guia interno de escrita](plugins/html-didatico/references/escrita/guia.md): síntese e consulta progressiva ao texto de Strunk, sem entrada pública.
 - [Aulas reais](plugins/html-didatico/references/exemplos/aulas/README.md): O que é um exame, Números e unidades e as três aulas do canvas de Prescrição (Fórmula magistral, Cadastrados, Tomada, limite e lâmpada), com a anatomia do quadro e os padrões que se repetem.
 - [Decisões em boards](plugins/html-didatico/references/decisoes/formato.md): motor (`gerar.py`), peças do DietFlow DS (`pecas.js`, [catálogo](plugins/html-didatico/references/decisoes/pecas.md)), folha `decisoes.css`, [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e dois arquivos de decisões reais em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/).
@@ -74,7 +76,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.1
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.7.0
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -85,7 +87,7 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.6.1
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.7.0
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
@@ -97,7 +99,7 @@ os comandos a outra versão.
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.6.1
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.7.0
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -113,7 +115,7 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.6.1
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.7.0
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.

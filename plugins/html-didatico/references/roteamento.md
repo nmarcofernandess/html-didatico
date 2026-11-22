@@ -7,6 +7,7 @@ a intenção sem fabricar evidência. Não carregue os seis playbooks por rotina
 | Pergunta ou resultado | Skill | Distinção |
 |---|---|---|
 | Entender ou simplificar, sem pedir arquivo visual | [Explicar com Clareza](../skills/explain-clearly/SKILL.md) | Resposta em texto; não gera HTML automaticamente. |
+| Ver uma dúvida da conversa: um defeito, uma feature, um exemplo, um "me mostra" | [HTML Didático](../skills/html-didatico/SKILL.md) | Cartão: uma página, com o Em pauta e uma figura por pergunta. |
 | Manual, quickstart, narrativa, explicação visual de sistema, aula | [HTML Didático](../skills/html-didatico/SKILL.md) | Manual, editorial, sistemas e aula são modos internos. |
 | Maquete, layout, estrutura ou comportamento de interface a decidir | [HTML Wireframe](../skills/html-wireframe/SKILL.md) | Uma maquete basta; compare alternativas apenas quando a decisão pedir. |
 | Como componentes se montam; árvore, children, slots, props, types | [HTML Blueprint](../skills/html-blueprint/SKILL.md) | Montagem e contratos; não é comparação de layouts. |
@@ -18,7 +19,9 @@ Wireframe. “Blueprint do layout” pertence a Wireframe se a pergunta é onde 
 as regiões; Blueprint se é como as peças se compõem. “Explique este sistema”
 sem pedido visual começa em texto; “explique em HTML” usa HTML Didático.
 “Compare as APIs destes componentes” usa Blueprint quando o eixo é contrato;
-“compare duas formas de organizar a tela” usa Wireframe. “Faça uma aula de X”
+“compare duas formas de organizar a tela” usa Wireframe. “Me mostra isso”, “desenha esse bug” ou “não entendi, quero ver” no meio de uma
+conversa usam HTML Didático com o playbook Cartão, mesmo sem a palavra HTML.
+“Faça uma aula de X”
 usa HTML Didático com o playbook Aula; dúvidas de produto dentro dela viram a tab
 Dúvidas, não um wireframe à parte. “Um board por decisão”, “como está em dev e
 como ficaria” ou uma fila de códigos de decisão (C-03, R-01) de uma spec usam

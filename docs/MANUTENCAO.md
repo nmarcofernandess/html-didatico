@@ -43,8 +43,10 @@ design system direto para "guardar" uma mudança; a próxima geração apaga.
 ## Receita ou exemplo novo
 
 Monte com as classes do kit, em qualquer lugar. Para virar arquivo do plugin,
-parta de `references/kit/starter.html` (que traz o kit embutido), cole o corpo
-e rode o `check.mjs`. Exemplo-ouro novo entra em `references/kit/ouro/`.
+crie-o com `node plugins/html-didatico/scripts/montar.mjs --novo starter <destino.html>`
+(a cópia traz o kit embutido), escreva o corpo e rode o `check.mjs`. Exemplo-ouro
+novo entra em `references/kit/ouro/` e, se for base de documento, na lista `BASES`
+do `montar.mjs`.
 
 ## O que o design system não guarda
 

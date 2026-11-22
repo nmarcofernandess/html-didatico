@@ -13,9 +13,9 @@ das instruções e as saídas produzidas nesta revisão.
 | Explicar com Clareza | “Explique por que uma tag nova não atualiza uma instalação fixada na antiga, em texto.” | Referência fixa do marketplace; [resposta](examples/clareza.md) mantém cadeia causal e não gera HTML. |
 | Decisões em Boards | “Transforme as onze perguntas do cadastro de exames em boards.” | [Arquivo de decisões real](../plugins/html-didatico/references/decisoes/exemplos/exames-modelo.py); o motor gera mapa, D01–D11, `decisoes.css` e `canvas.json` numa pasta `project/` com o DS registrado, e recusa canvas sem o DS. |
 
-Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html),
+Os exemplos-ouro de HTML Didático, [cartão](../plugins/html-didatico/references/kit/ouro/cartao.html), [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html),
 [explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html) e [aula](../plugins/html-didatico/references/kit/ouro/aula.html), são o caso de regressão visual:
-`node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos três e na
+`node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos quatro e na
 [folha de peças](../plugins/html-didatico/references/kit/pecas.html).
 
 ## Casos de fronteira
@@ -34,6 +34,10 @@ Os exemplos-ouro de HTML Didático, [passo a passo](../plugins/html-didatico/ref
 | Mesmo projeto, resultado real obtido | Preencher o mesmo arquivo e atualizar revisão/veredito. |
 | “Faça um mural e cite este pack” | HTML Didático, link para o pack; mural não vira proof. |
 | “Revise só a pontuação” | Recurso interno de escrita; sem HTML obrigatório. |
+| “Me mostra por que a idade deste Cálculo está errada”, no meio da conversa | HTML Didático, playbook Cartão: uma página a partir de `montar.mjs --novo cartao`, com a pergunta, a resposta, o Em pauta e uma figura por pergunta. O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html) é o caso. |
+| Cartão pronto, antes de entregar | Duas leituras: sem a conversa (só o Em pauta) e só pela figura (cada pergunta com o que a figura e a legenda mostram). A entrega lista cada pergunta com a figura que a responde. |
+| A dúvida tem quatro perguntas ou dois casos | Documento ou aula, com uma parte por pergunta; não um cartão esticado. |
+| O pedido traz uma explicação longa de quem domina o assunto | Documento: o raciocínio e os exemplos dela ficam, cada exemplo como figura. Não vira cartão nem resumo. |
 | “Me dá um exemplo de aula” | HTML Didático, playbook Aula: aponta as [aulas reais](../plugins/html-didatico/references/exemplos/aulas/README.md); nunca responde que não há exemplo. |
 | “Faça uma aula de como a dose é calculada” | HTML Didático, playbook Aula: só a tab Aula, sem barra de tabs. |
 | “Uma aula e um teste do pedido de exames” | Playbook Aula com Aula e Na tela; o protótipo funciona no clique e mostra só o decidido. |

@@ -35,6 +35,7 @@
   /* Tipo por papel. Seis papéis na página, dois na cena. */
   --text-display: clamp(2.5rem, 7vw, 4.25rem);
   --text-numeral: 4.5rem;
+  --text-card: clamp(1.75rem, 4.2vw, 2.5rem);  /* a pergunta de um cartão */
   --text-title: 1.75rem;
   --text-subtitle: 1.25rem;
   --text-lead: 1.125rem;
@@ -209,6 +210,7 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 .table th { color: var(--color-ink); font-weight: 700; border-bottom-color: var(--color-ink); white-space: nowrap; }
 .table td:first-child { color: var(--color-ink); font-weight: 600; }
 .table q { quotes: '“' '”'; }
+.win .table tr:last-child td { border-bottom: 0; }
 
 /* Aviso: uma condição que muda o resultado. O rótulo diz o tipo; a cor é de status. */
 .note { display: grid; gap: var(--gap-tied); padding: var(--inset-surface); border-radius: var(--radius-m); background: var(--color-paper-2); max-width: var(--measure); }
@@ -260,6 +262,22 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 .closing { padding-top: var(--gap-break); display: grid; gap: var(--gap-block); justify-items: center; text-align: center; }
 
 .foot { margin-top: var(--gap-part); padding-top: var(--s-4); border-top: var(--line-strong) solid var(--color-ink); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--gap-tied) var(--s-4); font: 400 var(--text-micro)/1.4 var(--font-label); color: var(--color-ink-2); }
+
+/* Cartão: uma dúvida da conversa em uma página. A capa leva a pergunta e a resposta; "Em pauta" situa
+   quem não leu a conversa; cada parte responde a uma pergunta com uma figura. Sem trilho, abas ou carimbo. */
+.page--card { --scene-min: 0rem; }
+.page--card .cover { padding-block: var(--gap-figure) var(--gap-block); }
+.page--card .plate { margin-bottom: var(--gap-block); }
+.page--card .cover h1 { font-size: var(--text-card); line-height: 1.1; letter-spacing: -0.015em; text-transform: none; max-width: 22ch; }
+.page--card .cover__sub { max-width: var(--measure); }
+.page--card .part { padding-block: var(--gap-block); }
+.page--card .part h2 { font-size: var(--text-subtitle); line-height: 1.25; letter-spacing: 0; }
+.page--card .foot { margin-top: var(--gap-block); }
+.brief__label { font-size: var(--text-small); font-weight: 700; line-height: 1.3; color: var(--color-ink); }
+.brief > .brief__label + * { margin-top: var(--gap-inside); }
+
+/* Fonte: de onde vem o fato e até onde a conferência foi, em uma linha. */
+.src { max-width: var(--measure); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-2); }
 
 /* ── 4. FIGURA ─────────────────────────────────────────────────────────────── */
 
@@ -416,12 +434,17 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
 
 /* Linha do tempo: o caso real em datas absolutas. A cor do topo é o dado e vem com o texto que a explica. */
 .timeline { display: flex; flex-wrap: wrap; gap: var(--line); border: var(--line) solid var(--edge); background: var(--edge); font: 400 var(--ui-text)/1.4 var(--font-body); color: var(--color-ink-2); }
-.timeline > li { flex: 1 1 8.5rem; padding: var(--s-3) var(--inset-piece); border-top: var(--line-strong) solid var(--color-fill); background: var(--color-surface); }
+.timeline > li { --mark: var(--color-fill); flex: 1 1 8.5rem; padding: var(--s-3) var(--inset-piece); border-top: var(--line-strong) solid var(--mark); background: var(--color-surface); }
 .timeline > li > b { display: block; margin-bottom: var(--gap-tied); font: 700 var(--ui-meta)/1.4 var(--font-mono); }
-.timeline > .is-ok { border-top-color: var(--color-ok); }
-.timeline > .is-warn { border-top-color: var(--color-warn); }
-.timeline > .is-err { border-top-color: var(--color-err); }
-.timeline > .is-on { border-top-color: var(--color-accent); }
+.timeline > .is-ok { --mark: var(--color-ok); }
+.timeline > .is-warn { --mark: var(--color-warn); }
+.timeline > .is-err { --mark: var(--color-err); }
+.timeline > .is-on { --mark: var(--color-accent); }
+/* Em figura estreita a linha do tempo desce: uma data por linha, a marca na borda de leitura. */
+@container (max-width: 26rem) {
+  .timeline { flex-direction: column; }
+  .timeline > li { flex: none; border-top: 0; border-left: var(--line-strong) solid var(--mark); }
+}
 
 /* Árvore: onde cada responsabilidade mora. Arquivo à esquerda, o que ele faz à direita. */
 .tree { display: grid; gap: var(--gap-tied); font-size: var(--text-small); line-height: 1.5; }
@@ -450,6 +473,8 @@ kbd { border: var(--line) solid var(--edge); border-bottom-width: 2px; border-ra
   .table tr { padding-block: var(--s-3); border-bottom: var(--line) solid var(--color-rule); }
   .table td { padding: 0; border: 0; }
   .table td + td { margin-top: var(--gap-inside); }
+  .win .table tr:last-child { padding-bottom: 0; border-bottom: 0; }
+  .win .table tr:first-child { padding-top: 0; }
   .table td[data-th]::before { content: attr(data-th); display: block; font-size: var(--text-micro); color: var(--color-ink-3); font-weight: 400; }
 }
 /* Cena em figura estreita: segundo desenho, não aperto. A lateral recolhe para o item ativo,

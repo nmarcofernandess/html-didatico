@@ -93,7 +93,9 @@ O documento é parado. Quando o pedido inclui movimento: um momento só, `transf
 Uma figura mostra uma relação. Ela é de um de dois tipos:
 
 - **Cena:** um recorte da tela, para o que a pessoa vê e faz. Peças: `win`, `row`, `list`, `kv`, `field`, `pair`, `btn`, `seg`, `chip`, `toggle`, `avatar`, `banner`, `toast`, `menu`, `term`, `bar`, `cursor`.
-- **Esquema:** um desenho de como as coisas se ligam. Peças: `flow`, `link`, `bars`, `matrix`, `tree`, `files`, `code`, `layers`, `timeline`, `stat`.
+- **Esquema:** um desenho de como as coisas se ligam. Peças: `flow`, `link`, `bars`, `matrix`, `tree`, `files`, `code`, `layers`, `timeline`, `stat` e a `table` dentro de uma janela.
+
+Qual das duas, e qual peça, sai da pergunta que a figura responde: a tabela está em [Conteúdo](../conteudo.md#3-espinha).
 
 A marcação de cada peça está no código-fonte da [folha de peças](../kit/pecas.html).
 
@@ -118,6 +120,40 @@ Simplifique as palavras e mantenha o contexto.
 | Chapada | Tudo com a mesma borda e o mesmo peso | Tinta forte no assunto, o resto recua |
 | Sem cara | Poderia ser de qualquer produto | O nome da tela, o menu real, o look do documento |
 
+### Leitura pela figura
+
+A figura prova a frase quando a resposta se vê nela. A revisão da cena confere
+isso pergunta por pergunta, olhando só a figura e a legenda:
+
+1. **Liste as perguntas centrais:** as que o leitor faria, uma por parte ou quadro.
+2. **Cubra a prosa.** Para cada pergunta, anote o que dá para perceber só pela
+   figura e pela legenda: os valores, o objeto que lidera, a relação desenhada.
+   Quando o [check](../../scripts/check.mjs) roda, ele recorta cada figura e lista
+   as palavras dela; sem ele, leia a marcação da figura e a `figcaption`.
+3. **Compare com a resposta da parte** e dê um de três vereditos:
+
+| O que se percebe | Veredito | Conserto |
+|---|---|---|
+| A resposta, com o dado do caso | Passa | Nenhum |
+| Os fatos, sem a relação entre eles | A representação serve a outra pergunta | Troque pela que esta pergunta pede, na tabela de [Conteúdo](../conteudo.md#3-espinha) |
+| O assunto, sem a resposta | A figura ilustra | Redesenhe com o caso, ou tire a figura e a parte |
+
+4. **Confira a legenda.** Ela diz a conclusão que a figura mostra, com o dado do
+   caso: "Dois aniversários caem entre a data clínica e o dia em que o Cálculo foi
+   aberto". O nome da peça e a repetição do título ficam fora.
+
+O [cartão-ouro](../kit/ouro/cartao.html) passa assim:
+
+| Pergunta | Figura | O que se percebe só nela e na legenda |
+|---|---|---|
+| Onde a inconsistência aparece? | A ficha do Cálculo | Data clínica 05/11/2025 e Idade 46 lado a lado; a data foi escolhida, a idade foi contada em 22/11/2026; naquele dia a Ana tinha 44 |
+| De onde vêm os dois anos? | A linha do tempo | Os aniversários de 45 e de 46 anos ficam entre a data clínica e o dia em que a idade é contada |
+| O que mexe na idade? | A tabela de gestos | Abrir o Cálculo e digitar mudam a idade; "Trocar a data clínica" vem marcado com "Fica como estava" |
+
+Pergunta sem figura que a responda e figura sem pergunta são o mesmo defeito:
+numa falta a figura, na outra sobra a parte. Na entrega, cada pergunta aparece
+com a figura que a responde.
+
 ### Esquema
 
 - **Uma linha explica uma relação.** Se o layout já a deixa óbvia, a linha sai.
@@ -127,7 +163,8 @@ Simplifique as palavras e mantenha o contexto.
 - **Arquivos (`files`):** só os caminhos que a explicação usa; a nota de cada linha diz para que serve.
 - **Código (`code`):** o trecho literal da fonte, encurtado com reticências e nunca reescrito; `is-mark` nas linhas que importam.
 - **Camadas (`layers`):** a ordem é o que acontece antes de quê; o chip diz o estado de cada uma.
-- **Linha do tempo (`timeline`):** datas absolutas, no formato dd/mm/aaaa; a cor do topo é o dado e o texto diz o que aconteceu.
+- **Linha do tempo (`timeline`):** datas absolutas, no formato dd/mm/aaaa; a cor do topo é o dado e o texto diz o que aconteceu. Marque as pontas de que a parte fala e deixe o meio quieto. Em figura estreita ela desce, uma data por linha.
+- **Tabela em figura (`table` dentro de `win`):** quando a pergunta é o que muda o quê. Uma marca só, na célula de que a parte fala; o resto em texto.
 - **Contorno tracejado** (`is-off` em `tree` e `bars`) marca o que existe e não roda.
 
 ## Looks

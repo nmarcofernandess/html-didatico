@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.7.0 — 22/11/2026
+
+- **Cartão**, nova anatomia de HTML Didático: uma dúvida da conversa (um defeito, uma feature, um exemplo, um "me mostra") em uma página. A capa leva a pergunta e a resposta; o **Em pauta** situa quem não leu o chat, ao lado da cena em que a dúvida aparece; depois vem uma parte por pergunta, cada uma com a figura que a responde. Playbook em `references/playbooks/cartao.md` e cartão-ouro em `references/kit/ouro/cartao.html`, com o caso da Ana: um Cálculo datado de 05/11/2025 que mostra 46 anos quando ela tinha 44.
+- **Leitura pela figura**, em Design: a revisão da cena confere, pergunta por pergunta, o que o leitor percebe só pela figura e pela legenda, com três vereditos (passa; a representação serve a outra pergunta; a figura só ilustra). O cartão-ouro é o exemplo: a ficha mostra onde a inconsistência aparece, a linha do tempo explica os dois anos e a tabela mostra que gestos mexem na idade. Vale para toda entrega e não depende do render.
+- **A pergunta escolhe a representação**, em Conteúdo: a tabela "a forma segue a ideia" passa a partir da pergunta do leitor (onde aparece, por que deu esse valor, o que muda o quê, em que ordem, quanto pesa, qual escolher). Para cada pergunta, duas representações são consideradas e fica aquela em que a resposta se vê sem a prosa.
+- **O nó, antes da ficha**, em Conteúdo: a pergunta em pauta com o caso real, o que prende, a régua em que os casos cabem e a palavra que carrega o modelo; a forma com começo, meio e fim; e a regra de que o raciocínio e os exemplos de quem pediu ficam, cada exemplo como figura. Uma pergunta, uma parte: a parte que repete a ideia da anterior sai.
+- **Todo documento nasce de uma cópia:** `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|starter> <destino.html>` cria o arquivo com o kit embutido e recusa sobrescrever. A skill, o playbook didático, o da Aula e o do Cartão mandam usar o comando; página escrita do zero não é entrega.
+- `scripts/check.mjs`: recorta cada figura e lista a legenda e as palavras dela (bloco "Leitura pela figura"); avisa quando a legenda repete o título da parte; reprova cartão sem Em pauta ou sem figura e avisa cartão com trilho, abas, carimbo, mais de quatro figuras, pergunta sem figura ou mais de 280 palavras de prosa. Cabeçalho de tabela escondido no celular deixa de contar como texto cortado, e figura com tabela fica fora do aviso de palavras.
+- Kit: `page--card`, `brief`, `brief__label` e `src`; tabela dentro de janela, como figura; a linha do tempo desce em figura estreita, uma data por linha, com a marca na borda de leitura. A folha de peças mostra as peças novas.
+- Roteamento e descrição da skill reconhecem o pedido de ver ("me mostra", "desenha esse bug") como cartão, mesmo sem a palavra HTML.
+
 ## 2.6.1 — 21/11/2026
 
 - Aula-ouro: sai o link para `BANCADA.html`, herdado da aula de Números e unidades, que apontava para um arquivo fora do plugin.

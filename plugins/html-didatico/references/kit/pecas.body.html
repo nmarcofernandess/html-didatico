@@ -120,6 +120,12 @@
         </div>
       </div>
 
+      <div class="prose brief">
+        <p class="brief__label">Em pauta</p>
+        <p><code>prose brief</code> com <code>brief__label</code>: o parágrafo que abre um cartão e situa quem não leu a conversa. Com <code>page page--card</code> na página, a capa leva a pergunta e as partes ficam mais próximas; o modelo é o <code>ouro/cartao.html</code>.</p>
+      </div>
+      <p class="src"><code>src</code>: de onde vem o fato e até onde a conferência foi, em uma linha.</p>
+
       <aside class="band">
         <div class="prose"><h2>Faixa</h2><p>Um caminho alternativo. No máximo uma por documento.</p></div>
         <div class="stack"><code>um comando ou uma frase digitada</code></div>
@@ -285,7 +291,22 @@
               <li class="is-on"><b>03/09/2026</b>A descoberta</li>
             </ol>
           </div>
-          <figcaption><code>timeline</code>: datas absolutas; a cor do topo é o dado</figcaption>
+          <figcaption><code>timeline</code>: datas absolutas; a cor do topo é o dado; em figura estreita, uma data por linha</figcaption>
+        </figure>
+
+        <figure class="fig">
+          <div class="fig__stage">
+            <div class="win"><div class="win__body">
+              <table class="table">
+                <thead><tr><th>Gesto</th><th>Idade</th></tr></thead>
+                <tbody>
+                  <tr><td>Abrir um Cálculo novo</td><td data-th="Idade"><b>Preenchida</b></td></tr>
+                  <tr><td>Trocar a data clínica</td><td data-th="Idade"><span class="chip chip--err">Fica como estava</span></td></tr>
+                </tbody>
+              </table>
+            </div></div>
+          </div>
+          <figcaption><code>table</code> dentro de <code>win</code>: o que muda o quê, com uma marca só</figcaption>
         </figure>
 
       </div>

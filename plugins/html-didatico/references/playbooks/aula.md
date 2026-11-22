@@ -13,7 +13,8 @@ seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
 
 A base de toda aula é a [aula-ouro](../kit/ouro/aula.html): o kit embutido, as
 cinco tabs, o quadro-pergunta e uma dúvida na gramática inteira. Copie o arquivo
-para o destino e troque o conteúdo, tab por tab; não comece do zero nem do
+para o destino (`node scripts/montar.mjs --novo aula <destino.html>`, a partir da
+raiz do plugin) e troque o conteúdo, tab por tab; não comece do zero nem do
 starter vazio. Antes de escrever, abra também as [aulas reais](../exemplos/aulas/README.md):
 O que é um exame é o padrão de didática; Números e unidades é este playbook
 inteiro no kit, com as cinco tabs; Fórmula magistral, Cadastrados e Tomada,
@@ -46,7 +47,8 @@ Com uma tab só, não desenhe a barra de tabs: a página é a aula.
 ## Antes de escrever: entender
 
 A aula não é resumo de fontes. Ela só se escreve depois de entender como a
-coisa funciona de verdade.
+coisa funciona de verdade e de achar [o nó](../conteudo.md#o-nó-antes-da-ficha):
+a pergunta em pauta, o que prende e a régua em que os casos cabem.
 
 1. **Leia as leis primeiro.** Se o assunto já tem aula, abra a tab Leis da
    versão anterior. Nada no documento contradiz uma lei sem nova decisão do
@@ -70,7 +72,8 @@ nasceria.
   quantidade é de uma dose ou do dia?".
 - **Uma frase de resposta** logo abaixo. Ela carrega o líder da figura.
 - **Uma figura que prova a frase**: cena ou esquema do kit, com os dados da
-  ficha.
+  ficha. A prova se confere pela [leitura pela figura](../visual/design.md#leitura-pela-figura):
+  a resposta precisa aparecer só com a figura e a legenda.
 - **A fonte em uma linha** quando o fato vem de pesquisa. A evidência entra
   destilada: a conclusão e a origem. O percurso da pesquisa fica fora.
 - **A regra do quadro na última linha**, em negrito: o que o leitor leva dali.
@@ -185,6 +188,8 @@ ele reprova os quatro primeiros.
 | Tab fora do roteador: resumo de PRD, "Funcionamento canônico" | O que está decidido vai para Leis; o resto fica na fonte |
 | Opção sem figura, ou figuras de casos diferentes | Uma figura por opção, todas com o mesmo caso e o mesmo número |
 | Print de estado vazio ou de erro como figura de quadro | A figura prova a frase do quadro; print de produto só ao lado da proposta, em Dúvidas |
+| Quadro que repete a ideia do anterior com outra figura | Uma pergunta, um quadro, com a figura que responde melhor |
+| Inventário de fatos certos, sem o nó | A pergunta em pauta, o que prende e a régua; os fatos se organizam em volta |
 | Fala sobre o documento: "um HTML ajuda a decidir", "comece pela 02" | O documento mostra; quem decide sabe por onde começar pelo mapa das tabs |
 
 ## Entrega

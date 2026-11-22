@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // html-didatico · check
 // Renderiza o documento em três larguras, salva os screenshots e mede o que dá para medir.
+// Também recorta cada figura e lista o que ela mostra sozinha, para a leitura pela figura (references/visual/design.md).
 // Uso: node scripts/check.mjs <arquivo.html> [--out <pasta>] [--widths 390,768,1280] [--json]
 // Sai com código 1 quando há FALHA. AVISO pede leitura: conserte ou justifique na entrega.
 
@@ -69,6 +70,13 @@ for (const w of widths) {
       const r = el.getBoundingClientRect(), cs = getComputedStyle(el)
       return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none' && +cs.opacity > 0.05
     }
+    const escondido = el => {
+      for (let n = el; n && n !== document.body; n = n.parentElement) {
+        const r = n.getBoundingClientRect()
+        if (r.width <= 1.5 && r.height <= 1.5 && getComputedStyle(n).overflow !== 'visible') return true
+      }
+      return false
+    }
     const rotulo = el => {
       const id = el.id ? `#${el.id}` : ''
       const cls = typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : ''
@@ -78,7 +86,7 @@ for (const w of widths) {
     const naFigura = el => el.closest('figure, .fig, .vis, .diorama, [data-fig]')
     const semTexto = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'])
     const comTexto = [...document.body.querySelectorAll('*')].filter(el =>
-      !semTexto.has(el.tagName) && !el.closest('svg') && visivel(el) &&
+      !semTexto.has(el.tagName) && !el.closest('svg') && visivel(el) && !escondido(el) &&
       [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim().length > 0))
 
     // cor: fundo efetivo e contraste WCAG
@@ -168,6 +176,10 @@ for (const w of widths) {
       const fr = f.getBoundingClientRect()
       const cortaFilhos = getComputedStyle(f).overflow !== 'visible'
       const textos = comTexto.filter(el => f.contains(el) && !el.closest('figcaption'))
+      f.setAttribute('data-check-fig', i + 1)
+      const proprioDe = el => [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').replace(/\s+/g, ' ').trim()
+      const leitura = textos.map(proprioDe).filter(Boolean)
+      const tituloDaParte = f.closest('section, .tabs__panel')?.querySelector('h2, h3')?.textContent.trim() ?? ''
       const palavras = textos.reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(w => w.replace(/[^\p{L}\p{N}]/gu, '').length > 1).length, 0)
       const cortado = [], vaza = []
       for (const el of textos) {
@@ -181,7 +193,7 @@ for (const w of widths) {
           if (t.right > ar.right + 1 || t.bottom > ar.bottom + 1) { cortado.push(trecho(el)); break }
         }
       }
-      return { n: i + 1, legenda, palavras, strings: textos.length, cortado: [...new Set(cortado)], vaza: [...new Set(vaza)], largura: Math.round(fr.width), altura: Math.round(fr.height) }
+      return { n: i + 1, legenda, palavras, leitura, tituloDaParte, tabela: !!f.querySelector('table'), strings: textos.length, cortado: [...new Set(cortado)], vaza: [...new Set(vaza)], largura: Math.round(fr.width), altura: Math.round(fr.height) }
     })
 
     // densidade de leitura: palavras de prosa por tela (janela de 900px), fora de figura e navegação
@@ -198,11 +210,15 @@ for (const w of widths) {
       palavras: prosa.filter(el => s.contains(el)).reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length, 0),
     }))
 
+    const semFigura = [...document.querySelectorAll('.part')].filter(visivel)
+      .filter(s => s.querySelector('h2') && !s.querySelector('figure, .fig, table')).map(s => trecho(s.querySelector('h2')))
+    const palavrasForaDeTabela = prosa.filter(el => !el.closest('table')).reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length, 0)
+
     const infinitas = [...document.querySelectorAll('*')].filter(el => getComputedStyle(el).animationIterationCount === 'infinite' && getComputedStyle(el).animationName !== 'none').map(rotulo)
     const doc = document.documentElement
     return {
       rolagemHorizontal: doc.scrollWidth > doc.clientWidth + 1 ? doc.scrollWidth - doc.clientWidth : 0,
-      pequeno, caps, contraste, apertado, medida, titulo, figuras, partes, infinitas,
+      pequeno, caps, contraste, apertado, medida, titulo, figuras, partes, infinitas, semFigura, palavrasForaDeTabela,
       mono: charsTotal ? +(charsMono / charsTotal * 100).toFixed(1) : 0,
       palavrasPorTela: { max: Math.max(0, ...janelas), mediana: ordenadas[Math.floor(ordenadas.length / 2)] ?? 0 },
       palavrasDeProsa: marcas.reduce((s, m) => s + m.n, 0),
@@ -211,6 +227,12 @@ for (const w of widths) {
     }
   })
   porLargura[w].screenshot = shot
+  if (w === Math.max(...widths)) {
+    for (const f of porLargura[w].figuras) {
+      f.recorte = resolve(outDir, `${nome}-fig-${f.n}.png`)
+      await page.locator(`[data-check-fig="${f.n}"]`).screenshot({ path: f.recorte }).catch(() => { f.recorte = '' })
+    }
+  }
   await ctx.close()
 }
 await browser.close()
@@ -260,18 +282,31 @@ if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(s
 const duvidas = html.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
 const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
 if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
+// Contrato do cartão: situa quem não leu a conversa, responde com figura e cabe em uma página.
+const cartao = /class="[^"]*\bpage--card\b/.test(html)
+if (cartao) {
+  if (!/class="[^"]*\bbrief__label\b/.test(html)) falhas.push('cartão sem "Em pauta": escreva a situação para quem não leu a conversa (onde, o que existia, o gesto, o que muda, o que falta)')
+  if (!maior.figuras.length) falhas.push('cartão sem figura: cada pergunta é respondida por uma figura com legenda')
+  if (/class="[^"]*\b(?:tabs|rail|stamp)\b/.test(html)) avisos.push('cartão com trilho, abas ou carimbo: isso é de documento; o cartão é uma página só')
+  if (maior.figuras.length > 4) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
+  if (maior.semFigura.length) avisos.push(`pergunta sem figura no cartão (${maior.semFigura.length}): ${lista(maior.semFigura, t => `"${t}"`)}`)
+  if (maior.palavrasForaDeTabela > 280) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras de prosa (referência: até 280): passe conteúdo para a figura ou vire documento`)
+}
 if (transitionAll) falhas.push('transition: all no CSS; liste as propriedades')
 if (temAnimacao && !temReducedMotion) falhas.push('há animação ou transição sem bloco prefers-reduced-motion')
 
 for (const f of maior.figuras) {
   if (!f.legenda) avisos.push(`figura ${f.n} sem legenda (figcaption)`)
-  if (f.palavras > 28) avisos.push(`figura ${f.n} com ${f.palavras} palavras reais: palavra só no assunto, barra no resto`)
+  if (f.palavras > 28 && !f.tabela) avisos.push(`figura ${f.n} com ${f.palavras} palavras reais: palavra só no assunto, barra no resto`)
+  const chave = t => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+  if (f.legenda && f.tituloDaParte && chave(f.legenda) === chave(f.tituloDaParte)) avisos.push(`legenda da figura ${f.n} repete o título da parte: a legenda diz o que a figura mostra, com o dado do caso`)
 }
 if (maior.caps.length) avisos.push(`rótulos em caixa-alta ou com tracking (${maior.caps.length}): ${lista(maior.caps, i => `"${i.texto}"`)}`)
 if (maior.mono > 12) avisos.push(`${maior.mono}% do texto em mono fora de código: mono é para código, identificador e número`)
 if (maior.medida.length) avisos.push(`linha longa demais (${maior.medida.length}): ${lista(maior.medida, i => `${i.caracteresPorLinha} caracteres "${i.texto}"`)}`)
 if (maior.titulo.length) avisos.push(`título mais perto do bloco anterior do que do seu (${maior.titulo.length}): ${lista(maior.titulo, i => `"${i.texto}" ${i.acima}/${i.abaixo}px`)}`)
-if (maior.palavrasPorTela.max > 150) avisos.push(`tela mais carregada tem ${maior.palavrasPorTela.max} palavras de prosa: reparta a parte ou passe conteúdo para a figura`)
+// O cartão tem medida própria (o total da página), então a medida por tela não se aplica a ele.
+if (!cartao && maior.palavrasPorTela.max > 150) avisos.push(`tela mais carregada tem ${maior.palavrasPorTela.max} palavras de prosa: reparta a parte ou passe conteúdo para a figura`)
 if (literaisDeCor.length) avisos.push(`${literaisDeCor.length} cores literais fora dos tokens: ${[...new Set(literaisDeCor)].slice(0, 6).join(' ')}`)
 if (espacoCru.length > 3) avisos.push(`${espacoCru.length} espaçamentos em px fora da escala: ${[...new Set(espacoCru.map(d => d.valor))].slice(0, 8).join(' | ')}`)
 if (maior.infinitas.length) avisos.push(`animação em loop infinito: ${[...new Set(maior.infinitas)].join(', ')}`)
@@ -286,7 +321,7 @@ const resumo = {
     palavrasDeProsa: maior.palavrasDeProsa,
     palavrasPorTela: maior.palavrasPorTela,
     partes: maior.partes,
-    figuras: maior.figuras.map(f => ({ n: f.n, legenda: f.legenda, palavras: f.palavras })),
+    figuras: maior.figuras.map(f => ({ n: f.n, legenda: f.legenda, palavras: f.palavras, leitura: f.leitura, recorte: f.recorte })),
     monoPct: maior.mono,
     coresLiterais: literaisDeCor.length,
     espacosCrus: espacoCru.length,
@@ -303,6 +338,14 @@ else {
   falhas.forEach(f => console.log(`FALHA  ${f}`))
   avisos.forEach(a => console.log(`AVISO  ${a}`))
   if (!falhas.length && !avisos.length) console.log('OK     nada a relatar')
+  if (maior.figuras.length) {
+    console.log('\nLEITURA PELA FIGURA  cubra a prosa: cada pergunta central precisa estar respondida em uma destas figuras, só com o que está aqui')
+    for (const f of maior.figuras) {
+      console.log(`  Fig. ${f.n}  legenda: ${f.legenda || '(sem legenda)'}`)
+      console.log(`          na figura: ${f.leitura.slice(0, 18).join(' · ')}${f.leitura.length > 18 ? ` · +${f.leitura.length - 18}` : ''}`)
+      if (f.recorte) console.log(`          recorte: ${f.recorte}`)
+    }
+  }
   console.log(`screenshots: ${resumo.screenshots.join('  ')}`)
   console.log(falhas.length ? `\n${falhas.length} falha(s). Conserte e rode de novo.` : `\nSem falhas. ${avisos.length} aviso(s): conserte ou justifique. Agora olhe os screenshots.`)
 }
