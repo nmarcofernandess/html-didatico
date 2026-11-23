@@ -31,6 +31,20 @@ O design system no Claude é uma vitrine do kit, gerado e nunca editado lá.
 
 Endereço: https://claude.ai/artifact/4qkdmqk1fvJZK58isz2Uqa
 
+## O que a marcação gerada promete
+
+- A raiz de cada componente tem como classe o próprio nome (`w-field`, `d-part`) e o
+  estado em `data-*`. O `kit.css` veste por aí.
+- Alguns componentes levam também uma classe curta da 3.x (`page`, `part`, `fig`,
+  `cover`, `tabs__panel`, `chip`…). Elas não têm regra no `kit.css`: existem porque o
+  `check.mjs` lê `.part`, `.fig`, `.page--card`, `.cover__sub` e `.tabs__panel`. Para
+  tirar uma, mude o check junto.
+- `slot` passa adiante na raiz: é como `d-part` acha a figura (`slot="fig"`) e
+  `d-band` acha o lado (`slot="aside"`), seja o filho um componente ou não.
+- `montar.mjs --atualizar` troca o kit só em documento 4.x. Um documento da 3.x é
+  escrito em marcação que o kit 4 não veste; ele fica como está ou tem o corpo
+  reescrito com componentes.
+
 ## Mudar ou criar um componente
 
 1. Em `kit.js`, um `def('w-nome', { grupo, doc, props, ex, html })`; em `kit.css`,

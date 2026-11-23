@@ -7,6 +7,10 @@ import { fileURLToPath } from 'node:url'
 import { execSync } from 'node:child_process'
 import { KIT_CSS, KIT_JS, SPRITE, REFS, ROOT, COMENTARIO, ICONES, HD, px, esc } from './kit.mjs'
 
+// O formato do Design System pede pasta com nome de identificador JS: d-cover vira DCover, w-field vira WField
+// (o mesmo nome de um componente React numa versão para vídeo).
+const pasta = tag => tag.split('-').map(p => p[0].toUpperCase() + p.slice(1)).join('')
+
 const RAIZ = path.resolve(process.argv[2] ?? fileURLToPath(new URL('./saida', import.meta.url))) + '/'
 const OUT = RAIZ + 'project/'
 const COMMIT = (() => { try { return execSync('git rev-parse --short HEAD', { cwd: REFS, encoding: 'utf8' }).trim() } catch { return 'sem-git' } })()
@@ -17,7 +21,6 @@ const TEMA = 'light'
 
 // ── tokens.json ─────────────────────────────────────────────────────────────
 const token = k => ROOT[k]
-const COMPAT = k => /^--(color-accent|line-strong|edge|font-label)/.test(k)  // nomes da 3.x: só apontam para os atuais
 const hex8 = v => {
   const m = v.match(/^rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)$/)
   if (!m) return v
@@ -33,7 +36,7 @@ const USO_COR = {
   ok: 'Status ok, sempre com rótulo ou ícone.', 'ok-soft': 'Fundo de chip, linha e aviso ok.', warn: 'Status de atenção, sempre com rótulo ou ícone.', 'warn-soft': 'Fundo de chip, linha e aviso de atenção.', err: 'Status de erro, sempre com rótulo ou ícone.', 'err-soft': 'Fundo de chip, linha e aviso de erro.',
 }
 const usoDe = (k, mapa = {}) => mapa[k.replace(/^--(color-)?/, '')] ?? (COMENTARIO[k] ? frase(COMENTARIO[k]) : (() => { throw new Error('token sem descrição: ' + k) })())
-const cores = Object.keys(ROOT).filter(k => k.startsWith('--color-') && !COMPAT(k)).map(k => ({ name: k.slice(2), value: { [TEMA]: cor(token(k)) }, usage: usoDe(k, USO_COR) }))
+const cores = Object.keys(ROOT).filter(k => k.startsWith('--color-')).map(k => ({ name: k.slice(2), value: { [TEMA]: cor(token(k)) }, usage: usoDe(k, USO_COR) }))
 const comp = k => /^[\d.]+(px|rem)$/.test(token(k)) ? token(k) : px(k) + 'px'
 const espaco = Object.keys(ROOT).filter(k => /^--(s-\d|gap-|inset-|gutter)/.test(k)).map(k => ({ name: k.slice(2), value: comp(k), usage: /^--s-/.test(k) ? 'Passo da escala de base 4. Use pelo papel, não direto.' : `${usoDe(k)} Aponta para ${token(k).match(/--s-\d/)[0].slice(2)}.` }))
 const raio = [['--radius-s', 'Chip pequeno, botão, campo.'], ['--radius-m', 'Janela, figura, menu.'], ['--radius-pill', 'Chip, pino e avatar: totalmente redondo.']].map(([k, usage]) => ({ name: k.slice(2), value: token(k), usage }))
@@ -111,7 +114,7 @@ for (const [tag, c] of Object.entries(HD.componentes)) {
   const partes = [leitura(c)]
   for (const f of JUNTA[tag] ?? []) { const cf = HD.componentes[f]; partes.push(`### \`<${f}>\`\n\n${cf.doc}\n\n${tabela(cf.props)}`) }
   cartoes.push(tag)
-  put(`components/${tag}/preview.html`, `<!-- @dsCard group="${c.grupo}" height=${ALT[tag] ?? 260} -->
+  put(`components/${pasta(tag)}/preview.html`, `<!-- @dsCard group="${c.grupo}" height=${ALT[tag] ?? 260} -->
 <!doctype html>
 <html lang="pt-BR">
 <head><meta charset="utf-8"><title>${tag}</title><style>body { padding: var(--s-5); }</style></head>
@@ -121,7 +124,7 @@ ${comAmbiente(tag, ex)}
 </body>
 </html>
 `)
-  put(`components/${tag}/README.md`, `# \`<${tag}>\`\n\n${partes.join('\n')}\n## Exemplo\n\n\`\`\`html\n${ex}\n\`\`\`\n\n${/^w-/.test(tag) ? 'Valem em qualquer `w-*`: `mark`, `pin` e `click`. ' : ''}O \`bundle.js\` troca a tag pela marcação do componente ao carregar; o \`bundle.css\` a veste.\n`)
+  put(`components/${pasta(tag)}/README.md`, `# \`<${tag}>\`\n\n${partes.join('\n')}\n## Exemplo\n\n\`\`\`html\n${ex}\n\`\`\`\n\n${/^w-/.test(tag) ? 'Valem em qualquer `w-*`: `mark`, `pin` e `click`. ' : ''}O \`bundle.js\` troca a tag pela marcação do componente ao carregar; o \`bundle.css\` a veste.\n`)
 }
 
 // ── ícones: um SVG por símbolo do sprite ────────────────────────────────────
@@ -178,7 +181,6 @@ Phosphor, licença MIT, em \`assets/Icons\`. Um tamanho por cena, cor única. O 
 - \`--color-dot\` é um preto com transparência no kit; aqui está como hexadecimal com alfa.
 - \`--text-display\` e \`--text-card\` são fluidos no kit; aqui está o valor máximo.
 - A face condensada vem de \`font-stretch: condensed\`, que o formato de tokens não guarda; a pilha de fontes é a do kit. As famílias são do sistema (Helvetica Neue, Arial Narrow, SF Mono); não há arquivo de fonte.
-- Os nomes de compatibilidade da versão 3 (\`color-accent*\`, \`line-strong\`, \`edge\`, \`font-label\`) só apontam para os tokens atuais e ficam apenas no \`bundle.css\`.
 - Origem: \`nmarcofernandess/html-didatico\`, commit \`${COMMIT}\`, arquivos \`plugins/html-didatico/references/kit/kit.css\` e \`kit.js\`. Gerado por \`tools/design-system/gerar.mjs\`.
 `)
 put('Design.md', fs.readFileSync(REFS + 'visual/design.md', 'utf8'))

@@ -3,7 +3,7 @@
 // Gera os arquivos autocontidos a partir da fonte única do kit em references/kit/ (kit.css, kit.js, sprite.svg).
 // Rode depois de qualquer mudança no kit:  node scripts/montar.mjs
 //   escreve starter.html, pecas.html (a folha de peças, gerada do registro de componentes) e componentes.md.
-// Também reembute o kit atual num documento já escrito:  node scripts/montar.mjs --atualizar <arquivo.html>
+// Também reembute o kit atual num documento 4.x já escrito:  node scripts/montar.mjs --atualizar <arquivo.html>
 // E cria um documento novo a partir de uma base pronta:   node scripts/montar.mjs --novo <base> <destino.html>
 
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -70,7 +70,7 @@ const secoes = GRUPOS.map(([grupo, rotulo, frase]) => {
     const codigo = `<pre class="snippet" slot="fig">${esc(c.ex ?? `<${c.tag}>…</${c.tag}>`)}</pre>`
     return `        <d-part title="${c.tag}" id="peca-${c.tag}">\n          <p>${esc(c.doc)}</p>\n          ${tabelaDeProps(c.props)}\n          ${vivo}\n          ${codigo}\n        </d-part>`
   }).join('\n')
-  return `      <d-tab label="${rotulo}" id="${rotulo.toLowerCase()}">\n        <d-part title="${rotulo}" wide><p>${esc(frase)}</p></d-part>\n${partes}\n      </d-tab>`
+  return `      <d-tab label="${rotulo}" id="${rotulo.toLowerCase()}">\n        <d-part title="${rotulo}" id="sobre-${rotulo.toLowerCase()}" wide><p>${esc(frase)}</p></d-part>\n${partes}\n      </d-tab>`
 }).join('\n\n')
 
 const referencia = `# Componentes do kit
@@ -79,9 +79,10 @@ Gerado de \`kit.js\` por \`scripts/montar.mjs\`; não edite à mão. A aparênci
 Escreva o documento com estes componentes: cada um vira a marcação semântica que o kit veste.
 Props são atributos; sem valor, valem como ligadas (\`mark\`, \`on\`). Filhos entram onde a tabela diz.
 
-Valem em qualquer \`w-*\`: \`mark\` (a caneta contorna ou realça), \`pin="1"\` (número magenta no canto),
-\`click\` com \`x\`/\`y\` opcionais (cursor sobre o alvo). Em \`d-part\`, um filho com \`slot="fig"\` vai para a
-coluna da figura, junto de \`w-fig\` e \`table.table\`.
+Valem em qualquer \`w-*\`: \`mark\` (a caneta contorna ou realça; em \`w-code\`, escolhe as linhas), \`pin="1"\`
+(número magenta no canto), \`click\` com \`x\`/\`y\` opcionais (cursor sobre o alvo). Em \`d-part\`, qualquer filho com
+\`slot="fig"\`, componente ou não, vai para a coluna da figura, junto de \`w-fig\` e \`table.table\`; em \`d-band\`,
+\`slot="aside"\` vai para a direita.
 
 ${GRUPOS.map(([grupo, , frase]) => `## ${grupo}\n\n${frase}\n\n${Object.values(HD.componentes).filter(c => c.grupo === grupo).map(c => `### \`<${c.tag}>\`\n\n${c.doc}\n\n${Object.entries(c.props).map(([k, v]) => `- \`${k}\`: ${v}`).join('\n') || '- só filhos'}\n${c.ex ? `\n\`\`\`html\n${c.ex}\n\`\`\`\n` : ''}`).join('\n')}`).join('\n')}`
 
@@ -113,10 +114,16 @@ if (c >= 0) {
   let html = readFileSync(alvo, 'utf8')
   const a = html.indexOf(INI), b = html.indexOf(FIM)
   if (a < 0 || b < 0) { console.error('Este arquivo não tem os marcadores do kit.'); process.exit(1) }
+  // Um documento da 3.x é escrito em marcação (.part, .win…) que o kit 4 não veste mais: trocar só o kit
+  // daria uma página que parece migrada e não está. Ele fica como está, ou o corpo é reescrito com componentes.
+  const corpo = html.slice(html.indexOf('<body'))
+  if (!/<[dw]-[a-z]+[\s>]/.test(corpo)) {
+    console.error('Este documento é da 3.x: o corpo não usa componentes d-*/w-*, e o kit 4 não veste a marcação antiga.\nReescreva o corpo com componentes e monte com --corpo, ou deixe o documento como está.')
+    process.exit(1)
+  }
   html = html.slice(0, a) + INI + '\n' + css + '\n' + html.slice(b)
   html = html.replace(/<svg class="sprite"[\s\S]*?<\/svg>/, sprite)
   html = html.replace(/<script>\n\/\/ html-didatico · kit[\s\S]*?<\/script>/, () => `<script>\n${js}\n</script>`)
-  html = html.replace(/(<html[^>]*?)\s+data-look="[^"]*"/, '$1') // a 3.x tinha dois looks; a 4.0 tem um
   writeFileSync(alvo, html)
   console.log('kit atualizado em', alvo)
 } else {

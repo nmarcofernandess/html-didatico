@@ -6,21 +6,31 @@
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
   const VERSAO = '4.0.0'
-  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+  // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
+  const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
-  const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  const slug = s => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   const ico = n => (n && n !== true ? `<svg class="ico" aria-hidden="true"><use href="#i-${esc(n)}"/></svg>` : '')
-  const num = v => parseFloat(String(v ?? '').replace(/\./g, '').replace(',', '.'))
-  // Texto solto vira parágrafo; HTML já com blocos passa como está.
-  const paragrafo = k => (k.trim() && !/^\s*<(p|ul|ol|div|table|figure|section|h[1-6])\b/i.test(k) ? `<p>${k.trim()}</p>` : k)
+  // Número escrito como se lê: 1.610 e 1.610,5 (ponto de milhar), 62,5 e 0.5 (decimal).
+  const num = v => {
+    const s = String(v ?? '').trim()
+    return parseFloat(s.includes(',') ? s.replace(/\./g, '').replace(',', '.') : /^-?\d{1,3}(\.\d{3})+$/.test(s) ? s.replace(/\./g, '') : s)
+  }
+  const numOu = (v, padrao) => { const n = num(v); return isNaN(n) ? padrao : n }
+  // Texto solto vira parágrafo; HTML que já começa num bloco passa como está.
+  const paragrafo = k => (k.trim() && !/^\s*<(p|ul|ol|dl|div|table|figure|section|article|aside|header|footer|nav|details|blockquote|pre|form|hr|h[1-6])\b/i.test(k) ? `<p>${k.trim()}</p>` : k)
+  // Refaz o HTML de um nó: texto volta escapado, comentário do autor não vira texto na página.
+  const html = n => (n.nodeType === 1 ? n.outerHTML : n.nodeType === 3 ? esc(n.textContent) : '')
 
-  // Props que viram data-* na raiz: o estado que o CSS lê. Texto (título, legenda) não vai para atributo.
+  // Props que viram data-* na raiz: o estado que o CSS lê (o tom, o tipo, se está marcado).
+  // O texto que se lê (título, legenda, valor) vai para o miolo.
   const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status']
   const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
     const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
     const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
     const style = estilo || x ? ` style="${x}${estilo}"` : ''
-    const id = p.id ? ` id="${esc(p.id)}"` : ''
+    // slot passa adiante: é como o pai (d-part, d-band) acha a figura e o lado depois de montar o filho.
+    const id = (p.id ? ` id="${esc(p.id)}"` : '') + (p.slot && p.slot !== true ? ` slot="${esc(p.slot)}"` : '')
     const pino = p.pin && p.pin !== true ? `<span class="pin">${esc(p.pin)}</span>` : ''
     const cursor = p.click ? '<svg class="cursor" aria-hidden="true"><use href="#i-cursor-fill"/></svg>' : ''
     return `<${tag} class="${nome}${cls ? ' ' + cls : ''}"${id}${dados}${style}${attrs}>${miolo}${pino}${cursor}</${tag}>`
@@ -28,6 +38,7 @@
   const filhos = (el, sel) => [...el.children].filter(c => c.matches(sel))
 
   const C = {}
+  let semNome = 0
   // grupo: Documento | Tela | Esquema | Caneta. props: nome → o que faz. ex: o exemplo que a folha de peças mostra.
   const def = (tag, spec) => { C[tag] = { tag, ...spec } }
 
@@ -53,7 +64,7 @@
       const fig = filhos(el, '.w-fig, table.table, [slot="fig"]')
       fig.forEach(f => f.removeAttribute('slot'))
       const lado = fig.length && !p.wide
-      const resto = [...el.childNodes].filter(n => !fig.includes(n)).map(n => (n.nodeType === 1 ? n.outerHTML : n.textContent)).join('')
+      const resto = [...el.childNodes].filter(n => !fig.includes(n)).map(html).join('')
       const titulo = p.title ? `<h2>${esc(p.title)}</h2>` : ''
       const texto = titulo || resto.trim() ? `<div class="prose">${titulo}${resto}</div>` : ''
       const figuras = fig.map(f => f.outerHTML).join('')
@@ -66,8 +77,10 @@
     props: { rail: 'trilho no topo com um atalho por passo (quatro passos ou mais)' },
     html: (p, k, el) => {
       const partes = filhos(el, '.d-part')
+      // Todo passo do trilho precisa de endereço: a parte sem título ganha passo-N.
+      partes.forEach((s, i) => { if (!s.id) s.id = `passo-${i + 1}` })
       const trilho = p.rail ? `<nav class="rail" aria-label="Passos">${partes.map((s, i) => `<a href="#${esc(s.id)}"><b>${i + 1}</b>${esc(s.querySelector('h2')?.textContent ?? '')}</a>`).join('')}</nav>` : ''
-      return trilho + raiz('div', 'd-steps', p, k)
+      return trilho + raiz('div', 'd-steps', p, el.innerHTML)
     },
   })
   def('d-tabs', {
@@ -82,11 +95,14 @@
   def('d-tab', {
     grupo: 'Documento', doc: 'Uma aba de d-tabs. O id vira endereço: #id abre a aba.',
     props: { label: 'o nome na aba', id: 'âncora (padrão: o rótulo sem acento)' },
-    html: (p, k) => `<section class="tabs__panel" role="tabpanel" id="${esc(p.id || slug(p.label))}" data-label="${esc(p.label)}" aria-labelledby="tab-${esc(p.id || slug(p.label))}">${k}</section>`,
+    html: (p, k) => {
+      const id = p.id || slug(p.label) || `aba-${++semNome}`
+      return `<section class="tabs__panel" role="tabpanel" id="${esc(id)}" data-label="${esc(p.label ?? id)}" aria-labelledby="tab-${esc(id)}">${k}</section>`
+    },
   })
   def('d-note', {
     grupo: 'Documento', doc: 'Aviso: uma condição que muda o resultado. O rótulo diz o tipo.',
-    props: { tone: 'warn | err | ok | mark', label: 'o tipo do aviso, em palavras' },
+    props: { tone: 'warn | err | ok; mark só quando o aviso é o próprio assunto da parte (a proposta)', label: 'o tipo do aviso, em palavras' },
     ex: '<d-note tone="warn" label="Antes de gerar">A demanda vazia gera uma escala vazia.</d-note>',
     html: (p, k) => {
       const i = { warn: 'warning-fill', err: 'x-circle-fill', ok: 'check-circle-fill' }[p.tone] ?? 'info-fill'
@@ -117,7 +133,7 @@
     html: (p, k, el) => {
       const lado = filhos(el, '[slot="aside"]')
       lado.forEach(f => f.removeAttribute('slot'))
-      const resto = [...el.childNodes].filter(n => !lado.includes(n)).map(n => (n.nodeType === 1 ? n.outerHTML : n.textContent)).join('')
+      const resto = [...el.childNodes].filter(n => !lado.includes(n)).map(html).join('')
       return raiz('aside', 'd-band band', p, `<div class="prose">${p.title ? `<h2>${esc(p.title)}</h2>` : ''}${paragrafo(resto)}</div><div class="band__aside">${lado.map(f => f.outerHTML).join('')}</div>`)
     },
   })
@@ -178,7 +194,7 @@
     props: { label: 'o rótulo do produto', value: 'o que está escrito', unit: 'unidade à direita', icon: 'ícone à direita', state: 'focus | caret', tone: 'warn | err', hint: 'a linha abaixo do campo', ph: 'barra no lugar do valor (largura em %)' },
     ex: '<w-field label="Peso" value="62 kg" state="focus"></w-field>',
     html: p => raiz('div', 'w-field field', p,
-      `${p.label ? `<span class="field__label">${esc(p.label)}</span>` : ''}<span class="field__box">${p.value ? `<span>${esc(p.value)}</span>` : ''}${p.ph ? `<i class="field__ph" style="--w:${num(p.ph) || 50}%"></i>` : ''}${p.state === 'caret' ? '<i class="caret"></i>' : ''}<span class="grow"></span>${p.unit ? `<span class="field__unit">${esc(p.unit)}</span>` : ''}${ico(p.icon)}</span>${p.hint ? `<small class="field__hint">${esc(p.hint)}</small>` : ''}`),
+      `${p.label ? `<span class="field__label">${esc(p.label)}</span>` : ''}<span class="field__box">${p.value && p.value !== true ? `<span>${esc(p.value)}</span>` : ''}${p.ph ? `<i class="field__ph" style="--w:${num(p.ph) || 50}%"></i>` : ''}${p.state === 'caret' ? '<i class="caret"></i>' : ''}<span class="grow"></span>${p.unit ? `<span class="field__unit">${esc(p.unit)}</span>` : ''}${ico(p.icon)}</span>${p.hint ? `<small class="field__hint">${esc(p.hint)}</small>` : ''}`),
   })
   def('w-list', {
     grupo: 'Tela', doc: 'Uma lista de linhas separadas por fio. Filhos: w-item.',
@@ -336,7 +352,7 @@
       const pts = filhos(el, '.w-pt'), ns = pts.map(q => num(q.dataset.n)).filter(v => !isNaN(v))
       const [b0, b1] = String(p.band && p.band !== true ? p.band : '').split('-').map(num)
       const todos = [...ns, ...[b0, b1].filter(v => !isNaN(v))]
-      const lo = num(p.min) || Math.min(...todos) - (Math.max(...todos) - Math.min(...todos)) * 0.2, hi = num(p.max) || Math.max(...todos) * 1.06
+      const lo = numOu(p.min, Math.min(...todos) - (Math.max(...todos) - Math.min(...todos)) * 0.2), hi = numOu(p.max, Math.max(...todos) * 1.06)
       const y = v => 100 - ((v - lo) / (hi - lo || 1)) * 100, x = i => pts.length > 1 ? 6 + (i * 88) / (pts.length - 1) : 50
       pts.forEach((q, i) => { const v = num(q.dataset.n), yy = isNaN(v) ? 100 : y(v); q.style.setProperty('--x', x(i) + '%'); q.style.setProperty('--y', yy + '%'); q.style.setProperty('--yn', String(yy)) })
       const caminho = pts.map((q, i) => [x(i), num(q.dataset.n)]).filter(([, v]) => !isNaN(v)).map(([xx, v]) => `${xx},${y(v)}`).join(' ')
@@ -424,8 +440,32 @@
   }
   const montarTudo = (raizDoc = document) => [...raizDoc.querySelectorAll(TAGS.join(','))].reverse().forEach(montar)
 
-  // Comportamento mínimo depois da montagem: conferência, abas e endereço.
-  const ligar = () => {
+  // Abas: uma camada por vez. Cada .tabs controla só a própria lista, então subtabs funcionam.
+  const abasDe = caixa => {
+    const lista = caixa.querySelector(':scope > .tabs__list')
+    const botoes = lista ? [...lista.querySelectorAll('[role=tab]')] : []
+    const abre = id => botoes.forEach(b => {
+      const ativo = b.getAttribute('aria-controls') === id
+      b.setAttribute('aria-selected', String(ativo))
+      const painel = document.getElementById(b.getAttribute('aria-controls'))
+      if (painel) painel.hidden = !ativo
+    })
+    return { botoes, abre }
+  }
+  // Endereço: #id abre as abas que contêm o alvo, de fora para dentro. Rola só na carga e quando o endereço muda,
+  // nunca porque um componente entrou depois na página. As abas são lidas na hora: valem as que entraram depois.
+  const irPara = rolar => {
+    const alvo = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+    if (!alvo) return
+    for (let el = alvo; el; el = el.parentElement) {
+      if (!el.matches('.tabs__panel')) continue
+      const caixa = el.parentElement?.closest('.tabs')
+      if (caixa) abasDe(caixa).abre(el.id)
+    }
+    if (rolar) alvo.scrollIntoView()
+  }
+  // Comportamento mínimo depois da montagem: conferência, abas e endereço. Cada peça liga uma vez.
+  const ligar = (rolar = false) => {
     for (const box of document.querySelectorAll('.d-check')) {
       if (box.dataset.ligado) continue
       box.dataset.ligado = '1'
@@ -434,33 +474,15 @@
       box.addEventListener('change', conta)
       conta()
     }
-    // Abas: uma camada por vez. Cada .tabs controla só a própria lista, então subtabs funcionam.
-    const abas = [...document.querySelectorAll('.tabs')].map(caixa => {
-      const lista = caixa.querySelector(':scope > .tabs__list')
-      const botoes = lista ? [...lista.querySelectorAll('[role=tab]')] : []
-      const abre = id => botoes.forEach(b => {
-        const ativo = b.getAttribute('aria-controls') === id
-        b.setAttribute('aria-selected', String(ativo))
-        document.getElementById(b.getAttribute('aria-controls')).hidden = !ativo
-      })
-      if (!caixa.dataset.ligado) {
-        caixa.dataset.ligado = '1'
-        botoes.forEach(b => b.addEventListener('click', () => abre(b.getAttribute('aria-controls'))))
-        if (botoes[0]) abre(botoes[0].getAttribute('aria-controls'))
-      }
-      return { botoes, abre }
-    })
-    // Endereço: #id abre as abas que contêm o alvo, de fora para dentro, e rola até ele.
-    const irPara = () => {
-      const alvo = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
-      if (!alvo) return
-      const paineis = []
-      for (let el = alvo; el; el = el.parentElement) if (el.matches('.tabs__panel')) paineis.unshift(el)
-      for (const p of paineis) for (const a of abas) if (a.botoes.some(b => b.getAttribute('aria-controls') === p.id)) a.abre(p.id)
-      alvo.scrollIntoView()
+    for (const caixa of document.querySelectorAll('.tabs')) {
+      if (caixa.dataset.ligado) continue
+      caixa.dataset.ligado = '1'
+      const { botoes, abre } = abasDe(caixa)
+      botoes.forEach(b => b.addEventListener('click', () => abre(b.getAttribute('aria-controls'))))
+      if (botoes[0]) abre(botoes[0].getAttribute('aria-controls'))
     }
-    if (!window.__hdHash) { window.__hdHash = true; addEventListener('hashchange', irPara) }
-    irPara()
+    if (!window.__hdHash) { window.__hdHash = true; addEventListener('hashchange', () => irPara(true)) }
+    irPara(rolar)
   }
 
   const HD = { versao: VERSAO, componentes: C, montar, montarTudo, ligar, esc }
@@ -469,7 +491,7 @@
   document.documentElement.classList.add('js')
   // Com o script no <head>, a página ainda está sendo lida: montar antes do fim perderia os filhos
   // que o leitor ainda não leu. Então a primeira montagem espera o documento inteiro.
-  const iniciar = () => { montarTudo(); ligar() }
+  const iniciar = () => { montarTudo(); ligar(true) }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar, { once: true })
   else iniciar()
   // Componente inserido depois (um protótipo, um player) monta sozinho ao entrar na página.

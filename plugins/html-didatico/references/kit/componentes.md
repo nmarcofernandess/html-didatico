@@ -4,9 +4,10 @@ Gerado de `kit.js` por `scripts/montar.mjs`; não edite à mão. A aparência mo
 Escreva o documento com estes componentes: cada um vira a marcação semântica que o kit veste.
 Props são atributos; sem valor, valem como ligadas (`mark`, `on`). Filhos entram onde a tabela diz.
 
-Valem em qualquer `w-*`: `mark` (a caneta contorna ou realça), `pin="1"` (número magenta no canto),
-`click` com `x`/`y` opcionais (cursor sobre o alvo). Em `d-part`, um filho com `slot="fig"` vai para a
-coluna da figura, junto de `w-fig` e `table.table`.
+Valem em qualquer `w-*`: `mark` (a caneta contorna ou realça; em `w-code`, escolhe as linhas), `pin="1"`
+(número magenta no canto), `click` com `x`/`y` opcionais (cursor sobre o alvo). Em `d-part`, qualquer filho com
+`slot="fig"`, componente ou não, vai para a coluna da figura, junto de `w-fig` e `table.table`; em `d-band`,
+`slot="aside"` vai para a direita.
 
 ## Documento
 
@@ -64,7 +65,7 @@ Uma aba de d-tabs. O id vira endereço: #id abre a aba.
 
 Aviso: uma condição que muda o resultado. O rótulo diz o tipo.
 
-- `tone`: warn | err | ok | mark
+- `tone`: warn | err | ok; mark só quando o aviso é o próprio assunto da parte (a proposta)
 - `label`: o tipo do aviso, em palavras
 
 ```html

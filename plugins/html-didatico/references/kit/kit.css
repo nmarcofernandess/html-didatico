@@ -91,14 +91,6 @@
   --radius-m: 6px;
   --radius-pill: 999px;
 
-  /* Compatibilidade: nomes da 3.x apontam para os tokens atuais. */
-  --color-accent: var(--color-ink);
-  --color-accent-ink: var(--color-on-ink);
-  --color-accent-soft: var(--color-mark-soft);
-  --color-accent-on-ink: var(--color-mark-soft);
-  --line-strong: var(--line-mid);
-  --edge: var(--color-wire);
-  --font-label: var(--font-body);
 }
 
 /* ── 2. BASE ───────────────────────────────────────────────────────────────── */
@@ -138,7 +130,6 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .ico { width: 1rem; height: 1rem; flex: none; fill: currentColor; }
-.ico--lg { width: 1.25rem; height: 1.25rem; }
 .grow { flex: 1; min-width: 0; }
 
 /* Componente com pino, cursor ou marca: os enfeites da caneta se posicionam por ele. */
@@ -330,7 +321,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-item > .item__text { flex: 1; min-width: 0; display: grid; gap: 2px; }
 .w-item > .item__text > b { color: var(--color-ink); font-weight: 700; }
 .w-item > .item__text > .item__bar { display: block; width: var(--w, 60%); height: 0.5rem; margin-block: 0.3rem; border-radius: var(--radius-pill); background: var(--color-fill); }
-.w-item > .item__text > small, .meta { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-item > .item__text > small { font-size: var(--ui-meta); color: var(--color-ink-3); }
 .w-item[data-on] { margin-inline: calc(-1 * var(--s-2)); padding-inline: var(--s-2); border-radius: var(--radius-s); background: var(--color-paper-2); }
 .w-item[data-on] + .w-item { border-top-color: transparent; }
 .w-item[data-tone="ok"] .item__text > b { color: var(--color-ok); }
@@ -405,9 +396,11 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 
 /* ── 6. A CANETA: MARCA, PINO E CHAMADA ────────────────────────────────────── */
 
-/* mark em qualquer componente: o contorno magenta de quem explica, por fora do traço do produto. */
-[data-mark]:is(.w-win, .w-field, .w-btn, .w-seg, .w-menu, .w-msg, .w-toast, .w-node, .w-box) { outline: 2px solid var(--color-mark); outline-offset: 3px; }
-.w-field[data-mark] { outline: 0; }
+/* mark em qualquer w-*: o contorno magenta de quem explica, por fora do traço do produto.
+   Os componentes de dentro de uma cena (item, valor, célula, ponto…) trocam o contorno por um realce próprio, logo abaixo.
+   Em w-code, mark escolhe as linhas. */
+[data-mark]:is(.w-fig, .w-win, .w-grid, .w-text, .w-list, .w-btn, .w-seg, .w-toggle, .w-avatar, .w-msg, .w-toast, .w-menu, .w-term, .w-shot,
+  .w-flow, .w-node, .w-bars, .w-matrix, .w-files, .w-line, .w-crit, .w-tree, .w-layers, .w-timeline, .w-box) { outline: 2px solid var(--color-mark); outline-offset: 3px; }
 .w-field[data-mark] > .field__box { outline: 2px solid var(--color-mark); outline-offset: 3px; }
 .w-item[data-mark] > .item__text > b, .w-kv[data-mark] > .kv__v { width: fit-content; background: linear-gradient(transparent 30%, var(--color-mark-soft) 30%, var(--color-mark-soft) 95%, transparent 95%); padding-inline: 0.15em; margin-inline: -0.15em; }
 .w-chip[data-mark] { border-color: var(--color-mark); background: var(--color-mark); color: var(--color-on-mark); font-weight: 700; }
@@ -470,7 +463,6 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-file > .ico { align-self: center; color: var(--color-ink-3); }
 .w-file > .file__note { margin-left: auto; padding-left: var(--s-3); font-family: var(--font-body); color: var(--color-ink-3); text-align: right; }
 .w-file[data-mark] > code { background: var(--color-mark-soft); }
-.w-file[data-mark] { outline: 0; }
 .w-file[data-off] > code { background: none; outline: var(--line) dashed var(--color-ink-3); color: var(--color-ink-3); }
 .w-file > code { padding: 0 var(--s-1); background: none; font-size: inherit; }
 
@@ -511,7 +503,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-when[data-tone="ok"] { --tick: var(--color-ok); }
 .w-when[data-tone="warn"] { --tick: var(--color-warn); }
 .w-when[data-tone="err"] { --tick: var(--color-err); }
-.w-when[data-mark] { --tick: var(--color-mark); outline: 0; }
+.w-when[data-mark] { --tick: var(--color-mark); }
 .w-when[data-mark] > b { color: var(--color-mark-ink); }
 @container (max-width: 26rem) {
   .w-timeline { grid-auto-flow: row; }
@@ -551,7 +543,6 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-stat > b { font: var(--display-weight) 2.5rem/0.9 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
 .w-stat > b > small { margin-left: var(--s-1); font: 700 var(--ui-text)/1 var(--font-body); color: var(--color-ink-2); }
 .w-stat > span { font-size: var(--ui-meta); color: var(--color-ink-3); }
-.w-stat[data-mark] { outline: 0; }
 .w-stat[data-mark] > b { color: var(--color-mark-ink); }
 
 /* Caixa de composição: quem contém quem. Fio contínuo é o que existe; tracejado é slot ou condição;
@@ -568,7 +559,6 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-box[data-kind="off"] > .box__head > b { color: var(--color-ink-3); text-decoration: line-through; }
 .w-box[data-row] { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 .w-box[data-row] > .box__head { grid-column: 1 / -1; }
-.w-box[data-mark] { outline: 2px solid var(--color-mark); outline-offset: 3px; }
 
 /* ── 8. LARGURAS E SAÍDA ───────────────────────────────────────────────────── */
 
@@ -587,6 +577,8 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   .table td { padding: 0; border: 0; }
   .table td + td { margin-top: var(--gap-inside); }
   .table .num { text-align: left; }
+  .table tr.is-mark { padding-inline: var(--s-3); background: var(--color-mark-soft); }
+  .table tr.is-mark td { background: none; }
   .w-win .table tr:last-child { padding-bottom: 0; border-bottom: 0; }
   .w-win .table tr:first-child { padding-top: 0; }
   .table td[data-th]::before { content: attr(data-th); display: block; font-size: var(--text-micro); color: var(--color-ink-3); font-weight: 400; }
