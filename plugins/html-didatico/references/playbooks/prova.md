@@ -1,4 +1,4 @@
-# HTML Proof · contrato de evidência e apresentação
+# Prova · contrato de evidência e apresentação
 
 Este é o owner das regras de proof do plugin. Antes de abrir uma tag, descubra
 se o projeto possui renderer oficial e leia o contrato vigente. **Um pack ainda
@@ -43,7 +43,7 @@ e o histórico durável segue o destino versionado do projeto.
 
 Para essa apresentação manual, leia os [tokens de manual](../visual/tokens-manual.md),
 a [anatomia manual](../visual/anatomia-manual.md) e a
-[receita de cards de proof](../visual/proof.md). Abra o
+[receita de cards de proof](../visual/prova.md). Abra o
 [exemplo C](../exemplos/C-prova-importacao.html) como referência visual histórica:
 é saída de renderer; não é template de prova oficial a preencher manualmente.
 Snippets mostram formato, nunca autorizam repetir comandos históricos sem conferir.

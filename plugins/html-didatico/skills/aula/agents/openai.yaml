@@ -1,0 +1,3 @@
+interface:
+  display_name: "Aula"
+  short_description: "Um assunto inteiro: explicação, passo a passo, mural ou aula."

@@ -1,14 +1,14 @@
 # Reconstruir significado
 
-Use this skill when the problem is not ugly prose but missing understanding.
+Use this reference when the problem is not ugly prose but missing understanding.
 Semantic reconstruction comes before prose.
 The source artifact is evidence of what somebody wrote. It is not automatically
 evidence that the writer understood the product, separated current truth from a
 decision, or explained the right causal chain.
 
-This skill owns **meaning reconstruction**. After the meaning is sound,
+This reference owns **meaning reconstruction**. After the meaning is sound,
 the internal [writing guide](escrita/guia.md) may improve sentence-level expression. If the
-deliverable is visual HTML, the chosen HTML skill owns presentation after this skill has made the story true and teachable.
+deliverable is visual HTML, the chosen HTML skill owns presentation after this reference has made the story true and teachable.
 
 ## Core Law
 
@@ -22,7 +22,7 @@ correct.
 
 ## When to Use
 
-Use this skill for:
+Use this reference for:
 
 - a PRD TL;DR;
 - a spec or Analyst section that is accurate but cognitively opaque;
@@ -47,8 +47,8 @@ Choose the smallest mode that satisfies the request:
 3. **TL;DR** — produce the shortest standalone explanation that preserves the
    causal chain. There is no hard word limit.
 
-This is a standalone skill. It is not a Superflow phase and does not create or
-update `status.json`.
+Explicar and the Núcleo use this reference. It is not a Superflow phase and does
+not create or update `status.json`.
 
 ## Procedure
 
@@ -213,7 +213,7 @@ Meaning and presentation are separate layers:
 
 ```text
 source evidence
-→ explain-clearly: semantic model and causal story
+→ explicar: semantic model and causal story
 → internal writing guide: sentence-level editing
 → chosen HTML skill: layout and visual hierarchy
 ```

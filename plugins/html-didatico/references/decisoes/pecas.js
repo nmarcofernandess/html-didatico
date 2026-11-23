@@ -1,4 +1,4 @@
-    // decisoes-em-boards · peças compartilhadas, coladas no renderVals de cada board pelo motor.
+    // decidir · boards · peças compartilhadas, coladas no renderVals de cada board pelo motor.
     // Tudo aqui monta componentes do DietFlow DS (window.DietFlow); nada desenha controle próprio.
     const R = window.React;
     const DF = window.DietFlow || {};

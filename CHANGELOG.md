@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.0.0 — 23/11/2026
+
+Breaking: as entradas passam a ser escolhidas pela pergunta de quem pede, e não pelo formato do arquivo. IDs antigos removidos, sem aliases; a tabela de migração está no README.
+
+- **Entrada automática.** `html-didatico` deixa de ser "a skill de documentos" e vira a entrada em que ninguém nomeia o tipo: lê o pedido e a conversa, recolhe o que já foi decidido nela, escolhe a forma pelo roteamento e monta. Diz na entrega, em uma linha, qual forma escolheu e por quê. Pedido de Marco no meio da release: "eu peço algo, ele sabe o que eu preciso e monta, sem eu enviesar um tipo".
+- **Seis entradas diretas, com nome em português:** `cartao` ("me mostra"), `aula` ("me ensina"), `decidir` ("estou entre A e B"), `montagem` ("como isso se monta", era `html-blueprint`), `prova` ("funciona mesmo?", era `html-proof`) e `explicar` ("me explica", em texto; era `explain-clearly`). O cartão passa a ser chamável direto. A aula reúne explicação, passo a passo, mural, sistemas e aula em quadros.
+- **Núcleo comum**, em `references/nucleo.md`, primeiro passo das sete: fontes e limites (o antigo `fundamentos.md`), entender, o nó com as perguntas que o acham, a objeção mais forte e visto e lido. Antes, entender e o nó moravam em Conteúdo e só o documento didático passava por eles; montagem, prova e explicação liam só fontes e limites. Conteúdo fica com ficha, leitor, espinha, escrita e cortes.
+- **Uma gramática de decisão**, em `references/decisao.md`: a pergunta com o caso e as saídas, o que acontece, as opções comparadas no mesmo caso, a recomendada e "Responda no chat". Eram três textos (a tab Dúvidas da aula, a skill de boards e a comparação do wireframe), cada um com a sua versão. A tab Dúvidas, os boards e a maquete viram saídas dela.
+- **Decidir sai conforme o host:** no canvas de Design do Claude com o DietFlow DS, um board por decisão (`references/decisoes/boards.md`, que era a skill `decisoes-em-boards`); sem canvas ou sem esse design system, um HTML com uma aba por decisão e a aba Leis; pergunta de layout, a maquete (`playbooks/maquete.md`, que era `html-wireframe`).
+- **Base nova no kit:** `node scripts/montar.mjs --novo decidir <destino.html>`, a partir do decidir-ouro (`references/kit/ouro/decidir.html`), derivado da dúvida e das leis da aula-ouro, sem fato novo.
+- **Fronteira entre a automática e as diretas:** o pedido que não nomeia a forma ("me mostra", "me ensina") entra pela automática; as diretas atendem quem nomeia a forma ou invoca a skill, e aí a escolha de quem pede governa. As sete descrições dizem isso.
+- Roteamento reescrito pela pergunta, com o ciclo (cartão que virou assunto pede aula; aula que abriu escolha pede decisão; a resposta vira lei e volta para a aula) e as fronteiras em lista.
+- Arquivos renomeados para acompanhar as entradas: `playbooks/blueprint.md` → `montagem.md`, `playbooks/proof.md` → `prova.md`, `playbooks/wireframe.md` → `maquete.md`, `visual/proof.md` → `prova.md`, `visual/wireframe.md` → `maquete.md`. O playbook didático passa a se chamar "Documento didático".
+- Manifestos: descrição, texto longo e prompt padrão novos; `displayName` "HTML Didático" no manifesto do Claude Code, aceito por `claude plugin validate`. Validador com os sete IDs.
+- Uma revisão independente do pacote apontou 20 pontos antes da publicação, todos corrigidos: rotas da tab da aula contra o roteamento, "board Foco" sem definição, canvas sem o DietFlow DS sem saída, a automática forçando o kit em formas que têm outra base, regra das decisões já tomadas com dois donos, recomendação da maquete contra a gramática de decisão, e textos parados na estrutura antiga em `html-portatil.md`, `clareza.md` e no playbook Montagem.
+- Limites: é um desenho novo, ainda sem uso real por outro agente. O mural segue como anatomia da Aula, sem exemplo-ouro próprio. Os exemplos de `tests/examples/` são de revisões anteriores e mantêm os nomes da época.
+
 ## 2.9.2 — 23/11/2026
 
 - Ícone refeito a pedido de Marco, que reprovou o primeiro: os dois sinais de tag, um verde-água e um laranja, com uma lâmpada amarela no meio, sem fundo. Um arquivo só, `assets/icon.svg`, serve ao tema claro e ao escuro; sai `icon-dark.svg`.

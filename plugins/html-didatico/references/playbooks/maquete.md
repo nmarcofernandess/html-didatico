@@ -1,12 +1,13 @@
-# HTML Wireframe · maquetes e decisões de interface
+# Maquete · decisões de interface
 
-A pergunta é onde ficam as regiões e como a interface se comportaria. Declare
+Saída de [Decisão](../decisao.md) para pergunta de layout: onde ficam as
+regiões e como a interface se comportaria. Declare
 `WIREFRAME · REV N`, o recorte, estados representados e o que é proposta. Uma
 maquete pode bastar; alternativas entram quando ajudam a decidir uma estrutura.
 A aprovação expressa intenção de produto, sem comprovar implementação nem
 escolher automaticamente componentes para o produto.
 
-Leia a [receita visual](../visual/wireframe.md) e abra o
+Leia a [receita visual](../visual/maquete.md) e abra o
 [exemplo D](../exemplos/D-prancha-unidade-exames.html). O exemplo histórico tem
 conteúdo de domínio próprio: não copie seus dados nem presuma seu estado atual.
 
@@ -24,16 +25,18 @@ conteúdo de domínio próprio: não copie seus dados nem presuma seu estado atu
 
 ## Comparação, quando pedida
 
-Opções da mesma estrutura mantêm o mesmo esqueleto, volume e viewport. Destaque
+A gramática é a de [Decisão](../decisao.md): a pergunta com o caso, as opções no
+mesmo caso, a recomendada e "Responda no chat". Na maquete, opções da mesma
+estrutura mantêm o mesmo esqueleto, volume e viewport. Destaque
 só a diferença. Cada opção informa custo concreto: cliques, visibilidade,
-reaprendizado ou trabalho necessário. Recomende uma quando a evidência permitir;
-se faltar decisão essencial, explique a lacuna sem inventar preferência. Uma
-opção ruim riscada pode explicar um limite concreto.
+reaprendizado ou trabalho necessário. Uma opção ruim riscada pode explicar um
+limite concreto.
 
-Feche com decisões pendentes numeradas e uma recomendação sustentada. Se não
-houver decisão pendente, registre o resultado e seus limites em vez de fabricar
-uma pergunta. Em nova revisão, acrescente “o que mudou”.
+A recomendação e o fecho seguem [Decisão](../decisao.md#a-gramática): a
+recomendada marcada e "Responda no chat". Sem decisão pendente, registre o
+resultado e seus limites em vez de fabricar uma pergunta. Em nova revisão,
+acrescente “o que mudou”.
 
 Confira comparação, ordem de leitura e controles nas larguras relevantes pelo
-contrato HTML compartilhado. Não converta o HTML em código de produto como
+[contrato HTML](../html-portatil.md). Não converta o HTML em código de produto como
 consequência da aprovação. A implementação usa os componentes e patterns reais.

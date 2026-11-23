@@ -1,4 +1,4 @@
-# Receita visual · wireframe
+# Receita visual · maquete
 
 Snippets de apresentação; contratos e conteúdo vêm do playbook do formato.
 
@@ -171,4 +171,4 @@ linha é larga por natureza e o body nunca deve rolar de lado.
 
 Conteúdo, quando houver decisões pendentes: um item por decisão, recomendação
 sustentada e lacunas que impeçam desenhar. Se não houver pendência, registre o
-resultado e o limite; não fabrique uma pergunta. O playbook Wireframe governa o uso.
+resultado e o limite; não fabrique uma pergunta. O playbook Maquete governa o uso.

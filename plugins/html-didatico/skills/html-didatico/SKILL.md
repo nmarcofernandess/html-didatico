@@ -1,40 +1,34 @@
 ---
 name: html-didatico
-description: "Cria cartões de uma página, explicações, manuais, quickstarts e aulas em HTML portátil, com figuras em que a resposta se vê. Use quando pedirem para ver, mostrar ou desenhar um defeito, uma feature, um exemplo ou um sistema. Um cartão responde a uma dúvida da conversa; a aula consolida um assunto em decisão, com Na tela, Dúvidas e Leis quando o pedido pede."
+description: "Entrada automática do plugin, para todo pedido que não nomeia a forma: 'faz um HTML didático disso', 'me mostra', 'desenha isso', 'não entendi, quero ver', 'me ensina', 'organiza isso pra mim', 'decide comigo'. Lê o pedido e a conversa, inclusive o que já foi decidido nela, escolhe sozinha entre cartão, aula, decisão, montagem, prova ou explicação em texto, e monta. Quem pede não precisa nomear o tipo."
 ---
 
 # HTML Didático
 
-O documento põe o assunto na mesa: quem lê vê como ele é, ou onde o problema
-está, sem ter lido a conversa.
+Quem pede diz o que precisa; a forma é escolha desta entrada. Leia a conversa,
+escolha e monte, sem devolver a pergunta "cartão ou aula?".
 
-1. **Fontes, entender e nó.** Leia [fontes e limites](../../references/fundamentos.md).
-   Em [Conteúdo](../../references/conteudo.md), entenda o assunto na fonte, veja
-   se o pedido é apresentar o que existe ou pôr um problema na mesa, ache o nó e
-   liste as perguntas que o leitor faria. Isso vale do cartão à aula.
-2. **Tamanho.** Uma dúvida da conversa (um defeito, uma feature, um exemplo, um
-   "me mostra"), com até três perguntas sobre o mesmo caso, segue o
-   [playbook Cartão](../../references/playbooks/cartao.md). Um assunto inteiro,
-   uma operação ou o raciocínio longo de quem pediu segue o
-   [playbook didático](../../references/playbooks/didatico.md), com o
-   [modo sistemas](../../references/playbooks/sistemas.md) para organização de
-   sistemas. Para consolidar um assunto em construção (como funciona, protótipo,
-   dúvidas e decisões tomadas), acrescente o [playbook Aula](../../references/playbooks/aula.md)
-   e abra as [aulas reais](../../references/exemplos/aulas/README.md) antes de escrever.
-3. **Base.** Todo arquivo nasce de uma cópia do kit, feita pelo
-   [montar](../../scripts/montar.mjs): `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|starter> <destino.html>`,
-   a partir da raiz do plugin. Só o `<main>` muda, conforme o
-   [contrato HTML](../../references/html-portatil.md). Página escrita do zero não
-   é entrega desta skill.
-4. **Figuras e revisão.** Cada pergunta ganha a representação em que a resposta
-   se vê, montada com as peças do kit. Antes de entregar, faça a
-   [leitura pela figura](../../references/visual/design.md#leitura-pela-figura):
-   para cada pergunta, o que se percebe só pela figura e pela legenda. Entregue
-   um HTML só, com fontes e limites: o que foi visto rodando, o que foi lido e a
-   objeção mais forte, como manda a revisão de Conteúdo. O [check](../../scripts/check.mjs) e a
-   inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de
-   verificação é salvo junto do documento.
+1. **Núcleo.** Siga o [Núcleo](../../references/nucleo.md): entenda o assunto na
+   fonte, ache o nó e releia cada fato. Vale para qualquer forma.
+2. **A conversa.** Recolha dela o que o pedido não repete: a pergunta em pauta,
+   com o caso real; o que quem pede já decidiu, com a frase dele e a data; o que
+   ficou aberto, com as opções; e a explicação que ele mesmo deu, que é a fonte
+   principal. O destino de cada decisão já tomada está em
+   [Entender](../../references/nucleo.md#entender-antes-de-tudo).
+3. **A forma.** O que está na mesa escolhe, pela tabela do
+   [roteamento](../../references/roteamento.md): uma dúvida vira cartão; um
+   assunto inteiro, aula; uma escolha aberta, decisão; a composição de peças,
+   montagem; a evidência de que funciona, prova; entender sem pedir para ver,
+   explicação em texto. Em pedido misto, um documento principal. Só pergunte
+   quando duas leituras mudam a entrega e nenhuma pista da conversa resolve: uma
+   pergunta curta sobre o resultado, nunca sobre o formato.
+4. **Montar.** Siga, do começo ao fim, o playbook que a tabela aponta para a
+   forma escolhida e o que ele mandar somar. Cartão, Aula e o HTML de Decidir
+   nascem de uma cópia do kit, feita pelo [montar](../../scripts/montar.mjs); as
+   outras formas usam a base que o playbook indica.
+5. **Entrega.** Em uma linha, a forma escolhida e o que na conversa levou a ela.
+   Depois, o que o playbook pede, com o que foi visto rodando, o que foi lido e a
+   objeção mais forte.
 
-Para layout a decidir, use HTML Wireframe; montagem com contratos, HTML Blueprint;
-evidência de execução, HTML Proof. Sem pedido de ver, uma explicação usa Explicar
-com Clareza. Consulte o [roteamento](../../references/roteamento.md) se houver dúvida.
+Quem nomeia a forma usa as entradas diretas: Cartão, Aula, Decidir, Montagem,
+Prova e Explicar. Aí a escolha dele governa.

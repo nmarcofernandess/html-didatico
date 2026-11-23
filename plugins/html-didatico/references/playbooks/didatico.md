@@ -1,29 +1,31 @@
-# HTML Didático · manual, editorial e sistemas
+# Documento didático · processo, kit e variações
 
 Um documento de página única que alguém lê uma vez e sai sabendo explicar. O
 texto diz como a coisa é; a figura mostra o que se vê e como as partes se ligam.
+É a base das entradas Cartão e Aula, e do HTML de Decidir.
 
 | Recurso | Trabalho |
 |---|---|
+| [Núcleo](../nucleo.md) | Entender o assunto, achar o nó, fontes e limites |
 | [Conteúdo](../conteudo.md) | O que dizer, em que ordem e quanto |
 | [Design](../visual/design.md) | Como a página e as figuras são desenhadas, e por quê |
 | [Starter](../kit/starter.html) e [peças](../kit/pecas.html) | O sistema visual pronto e a marcação de cada peça |
-| [Cartão](../kit/ouro/cartao.html), [passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html) e [aula](../kit/ouro/aula.html) | O padrão de qualidade: um documento completo por anatomia |
+| [Cartão](../kit/ouro/cartao.html), [passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html), [aula](../kit/ouro/aula.html) e [decidir](../kit/ouro/decidir.html) | O padrão de qualidade: um documento completo por anatomia |
 
 ## Processo
 
-1. **Entender, nó, ficha e leitor.** Leia [Conteúdo](../conteudo.md):
-   [entenda](../conteudo.md#entender-antes-de-tudo) o assunto na fonte, veja se o
-   pedido é apresentar o que existe ou pôr um problema na mesa, ache o nó e monte
-   a ficha de fatos. Defina quem lê e a pergunta dele. A pergunta
+1. **Entender, nó, ficha e leitor.** Pelo [Núcleo](../nucleo.md),
+   [entenda](../nucleo.md#entender-antes-de-tudo) o assunto na fonte, veja se o
+   pedido é apresentar o que existe ou pôr um problema na mesa e ache o nó. Em
+   [Conteúdo](../conteudo.md), monte a ficha de fatos e defina quem lê e a pergunta dele. A pergunta
    escolhe o tamanho e a anatomia: cartão, passo a passo, explicação ou mural.
-   Uma dúvida da conversa, com até três perguntas, segue o [playbook Cartão](cartao.md).
+   Uma dúvida da conversa que cabe em até três telas do mesmo caso segue o [playbook Cartão](cartao.md).
 2. **Espinha.** Uma linha por pergunta do leitor: o que a parte ensina de novo e
    a representação em que a resposta se vê. Para cada figura, o recorte e as
    palavras reais. Mostre a espinha em um bloco curto no começo da resposta e
    siga; o usuário redireciona se quiser.
 3. **Base.** Crie o arquivo por cópia, a partir da raiz do plugin:
-   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|starter> <destino.html>`.
+   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|starter> <destino.html>`.
    O kit chega inteiro e ninguém o redigita; sem Node, copie o mesmo arquivo com
    `cp`. Escolha o look em `<html data-look="manual">` ou `"editorial"`.
 4. **Página.** Abra o exemplo-ouro da anatomia e copie a composição dele. Escreva
@@ -43,8 +45,9 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    se o seu é o mais carregado, o mais vazio ou o mais chapado dos dois, esse é o
    próximo conserto. Ordem: conteúdo, enquadramento, hierarquia, acabamento. Uma
    inspeção, um lote de consertos, uma confirmação.
-7. **Leitura.** Aplique a seção 5 de Conteúdo: a objeção mais forte, visto e
-   lido, e os cortes. O teste de uma
+7. **Leitura.** Aplique a seção 5 de Conteúdo, com os cortes, e o que o
+   [Núcleo](../nucleo.md#antes-de-entregar) pede de toda entrega: a objeção mais
+   forte e visto e lido. O teste de uma
    leitura com outro leitor fica para quando o usuário pedir ou o documento for
    longo.
 
@@ -57,11 +60,12 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 - **O kit se copia.** Tokens e peças ficam como estão. O que o documento tem de
   único vai no bloco "desta página", com os tokens do kit e a escala de espaço.
 - **Uma figura mostra uma relação,** tem legenda e sobrevive ao celular. Diorama
-  não substitui screenshot de evidência: esse resultado usa HTML Proof.
+  não substitui screenshot de evidência: esse resultado é da entrada Prova.
 
 ## Variações
 
-Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
+Uma base e seus parâmetros. Cartão e Aula são entradas públicas; look, camada,
+anatomia e sistemas são parâmetros internos.
 
 - **Look** é um bloco de tokens: `manual` para operação, onboarding, quickstart e
   runbook; `editorial` para problema, mecanismo, decisão e narrativa. Um look
@@ -74,8 +78,8 @@ Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
 - **Anatomia** vem da pergunta do leitor e do exemplo-ouro correspondente.
 - **Sistemas** soma a sequência narrativa do [modo sistemas](sistemas.md) e usa
   as peças de esquema do kit.
-- **Aula** consolida um assunto em construção, com tabs abertas pelo pedido; a
-  gramática está no [playbook Aula](aula.md).
+- **Aula com tabs** consolida um assunto em construção, com tabs abertas pelo
+  pedido; a gramática está no [playbook Aula](aula.md).
 - **Cartão** responde a uma dúvida da conversa em uma página, com o caso em uma
   linha e as telas citadas na explicação; antes dele vêm entender e achar o nó, e a gramática está no [playbook Cartão](cartao.md).
 

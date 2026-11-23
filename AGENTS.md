@@ -1,9 +1,13 @@
 # HTML Didático · instruções de manutenção
 
-Skills públicas ficam em `plugins/html-didatico/skills/`: somente as seis
-entradas documentadas no README. Recursos compartilhados e playbooks ficam em
+Skills públicas ficam em `plugins/html-didatico/skills/`: somente as sete
+entradas documentadas no README, a automática (`html-didatico`) e as seis
+diretas. Recursos compartilhados e playbooks ficam em
 `plugins/html-didatico/references/`, sem `SKILL.md` interno ou aliases públicos.
 Cada regra tem um owner; carregue receitas e referências conforme a tarefa.
+O núcleo comum (`references/nucleo.md`) é o primeiro passo de toda entrada; a
+escolha da forma mora em `references/roteamento.md` e a gramática de decisão,
+em `references/decisao.md`.
 
 O manifesto portátil `plugin.json`, os três manifestos de compatibilidade
 (`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`) e os três marketplaces da

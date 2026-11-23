@@ -1,4 +1,4 @@
-# Receita visual · proof
+# Receita visual · prova
 
 Snippets de apresentação; contratos e conteúdo vêm do playbook do formato.
 

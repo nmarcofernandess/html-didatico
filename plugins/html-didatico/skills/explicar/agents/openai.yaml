@@ -1,0 +1,3 @@
+interface:
+  display_name: "Explicar"
+  short_description: "Significado, causas e consequências em texto, no chat."

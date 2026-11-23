@@ -6,8 +6,8 @@
   "plugins": [
     {
       "name": "html-didatico",
-      "version": "2.9.2",
-      "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
+      "version": "3.0.0",
+      "description": "Você pede e a entrada automática escolhe a forma. Seis entradas diretas, pela pergunta: Cartão, Aula, Decidir, Montagem, Prova e Explicar.",
       "source": {
         "source": "local",
         "path": "./plugins/html-didatico"

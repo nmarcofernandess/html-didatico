@@ -1,7 +1,7 @@
 {
   "name": "html-didatico",
-  "version": "2.9.2",
-  "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
+  "version": "3.0.0",
+  "description": "Você pede e a entrada automática escolhe a forma. Seis entradas diretas, pela pergunta: Cartão, Aula, Decidir, Montagem, Prova e Explicar.",
   "author": {
     "name": "Marco Antonio",
     "url": "https://github.com/nmarcofernandess"
@@ -10,11 +10,11 @@
   "interface": {
     "displayName": "HTML Didático",
     "shortDescription": "HTML e explicações claras",
-    "longDescription": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards. Regras compartilhadas e playbooks carregados por formato; escrita e Elements of Style são recursos internos.",
+    "longDescription": "Você diz o que precisa e a entrada automática, HTML Didático, escolhe a forma. Seis entradas diretas, pela pergunta: Cartão (me mostra), Aula (me ensina), Decidir (estou entre A e B), Montagem (como isso se monta), Prova (funciona mesmo?) e Explicar (me explica, em texto). Todas passam pelo mesmo núcleo: entender na fonte, achar o nó e reler cada fato.",
     "developerName": "Marco Antonio",
     "category": "Productivity",
     "capabilities": [],
-    "defaultPrompt": "Transforme esta explicação técnica num HTML didático autocontido: situe o leitor, mostre onde as coisas moram, como funcionam e por quê, com um diorama por seção.",
+    "defaultPrompt": "Faça um HTML didático disto: entenda o assunto na fonte, ache o nó e escolha a forma que responde à minha pergunta.",
     "logo": "./assets/icon.svg",
     "composerIcon": "./assets/icon.svg",
     "brandColor": "#F2622E"

@@ -2,60 +2,13 @@
 
 Escreva como quem já domina o assunto: diga como a coisa é, na ordem em que o leitor precisa saber, e pare.
 
-Este arquivo é dono da etapa de entender, do nó, da voz, da ordem e da quantidade do documento didático. As fontes e seus limites são de [Fontes e limites](fundamentos.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md).
+Este arquivo é dono da voz, da ordem e da quantidade do documento didático: o cartão e a aula. Entender o assunto, achar o nó e o que toda entrega declara são do [Núcleo](nucleo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md).
 
-O trabalho começa por entender o assunto e achar o nó, e segue em cinco passos, nesta ordem. Os quatro primeiros constroem; o quinto corta. A lista de cortes só entra no fim, porque pensar no que evitar enquanto se escreve puxa exatamente o que se queria evitar.
-
-## Entender, antes de tudo
-
-Todo documento, do cartão à aula, sai de quem entendeu o assunto na fonte. O tamanho da entrega muda; esta etapa vale em todos, e vai até a regra do nó ficar respondida.
-
-1. **As decisões que já existem.** Leia o que quem pediu já decidiu sobre o assunto: as leis de uma aula anterior, uma spec aceita, uma ordem dada na conversa. O documento segue cada decisão; o que diverge vira pergunta a quem pediu (numa aula, a tab Dúvidas).
-2. **O sistema.** Quem é o dono, quais dados, quem escreve e quem lê, o ciclo de vida, o contrato e a regra que não pode quebrar. Com a skill `architecture-research` disponível, use-a.
-3. **A fonte, relida.** Cada fato é relido na fonte, como manda [Fontes e limites](fundamentos.md): a intenção, na spec e na decisão; o comportamento atual, no código vigente ou na tela.
-
-## O nó, antes da ficha
-
-Quem pede costuma conhecer os fatos; falta vê-los organizados. O pedido tem um de dois trabalhos, e o nó muda com ele:
-
-| O pedido | O nó | O documento conta, com começo, meio e fim |
-|---|---|---|
-| Apresentar o que existe: como funciona, o que foi feito, onde estamos | O modelo: a regra que gera os casos e a palavra que a carrega | A história da anatomia escolhida na seção 2: numa explicação, o que é, um caso acompanhado do começo ao fim, a regra e o que muda o resultado |
-| Pôr um problema na mesa: um defeito, uma decisão travada, uma proposta | O que prende | A dor com o número real, por que as tentativas falharam, a virada, a regra menor que resolve, o que ela decide e o que fica declarado como resto |
-
-Uma apresentação conta o que existe como existe. Dor, virada e tentativa fracassada entram quando a fonte as tem.
-
-Antes da ficha, ache:
-
-- **A pergunta em pauta,** com o caso real e o número dele: "Por que um Cálculo de 05/11/2025 mostra a Ana com 46 anos?".
-- **O que prende,** num problema. As duas verdades que valem ao mesmo tempo e fazem a conversa andar em círculo (a data é a do registro; a idade é a do dia em que ele foi aberto), ou a pergunta que vinha sendo feita no lugar da certa.
-- **A régua.** Quando há muitos casos, a escala em que todos cabem: do aviso que ninguém precisa ao que trava o trabalho; da troca que só ecoa o número escolhido à que apaga o que vinha depois. Com cada caso no seu ponto da régua, a decisão aparece.
-- **A palavra que carrega o modelo,** a mesma do começo ao fim.
-
-### Perguntas que acham o nó
-
-Faça-as nesta ordem e pare quando uma frase explicar todos os casos. Numa apresentação, bastam a 1, a 2, a 3 e a 6.
-
-1. **Onde mais isso aparece?** O caso do pedido é um exemplar. Liste os irmãos: as outras telas, campos ou módulos com a mesma forma.
-2. **Que regra gera todos?** Diga-a em uma frase e teste prevendo um caso que ninguém mostrou. O que não couber fica nomeado como exceção.
-3. **Quem já resolveu?** O padrão do mercado, a biblioteca em uso, um caso irmão no próprio sistema, uma decisão anterior.
-4. **Onde o erro nasce?** O ponto mais alto em que a regra pode morar, para o erro nem chegar a existir, e os nomes que somem do sistema quando ela sobe para lá.
-5. **O que diz duas coisas ao mesmo tempo?** Problema que resiste por meses costuma ter duas verdades valendo juntas.
-6. **O que a pessoa faz?** Ande pelo gesto de quem usa: quem é, o que acabou de fazer, o que quer, o que acontece na segunda visita.
-
-Num defeito de causa desconhecida, quatro perguntas vêm antes: qual é o irmão que funciona e o que ele tem de diferente; que fato, barato de conferir, divide as causas em duas; a hipótese explica tudo o que foi visto; e, no fim, o que impedia de fato e o que foi melhoria no caminho.
-
-O nó ainda falta quando ele pede duas frases, quando sobra uma pergunta sobre um módulo específico, ou quando a solução acrescenta um nome ao sistema e não apaga nenhum.
-
-**A tentativa que falhou entra com o caso em que quebra:** "tolerar o valor antigo fora da faixa: o mesmo número vale ou deixa de valer conforme de onde veio". Sem o caso, ela é histórico e fica na conversa ou no registro que o projeto já usa.
-
-O contrato de cada tela, a lista de decisões e a matriz de casos são fonte. Eles viram documento didático quando se organizam em volta do nó.
-
-**O material de quem pediu fica.** Quando o pedido traz a explicação de quem domina o assunto, ela é a fonte principal: a ordem do raciocínio, os nomes e os exemplos são dela. Cada exemplo vira uma figura, desenhada como a tela em que ele acontece. A revisão tira repetição; o raciocínio fica inteiro, e o documento tem o tamanho que ele tem.
+O trabalho começa no Núcleo, por entender o assunto e achar o nó, e segue aqui em cinco passos, nesta ordem. Os quatro primeiros constroem; o quinto corta. A lista de cortes só entra no fim, porque pensar no que evitar enquanto se escreve puxa exatamente o que se queria evitar.
 
 ## 1. Ficha de fatos
 
-Tudo o que o documento tem de específico vem da fonte: o código, a spec, a conversa, a tela. A ficha resume em cinco linhas o que [Fontes e limites](fundamentos.md) e, quando o assunto está opaco, [Reconstruir significado](clareza.md) estabeleceram:
+Tudo o que o documento tem de específico vem da fonte: o código, a spec, a conversa, a tela. A ficha resume em cinco linhas o que o [Núcleo](nucleo.md) e, quando o assunto está opaco, [Reconstruir significado](clareza.md) estabeleceram:
 
 - **A coisa.** O nome exato, como aparece na tela. O que ela é e onde aparece.
 - **O caso.** Um caso real que atravessa o documento inteiro, com os nomes, valores e mensagens da fonte. Em Cadastrados, acompanhar um item: Sistema → Duplicar para editar → Meu cadastro.
@@ -141,9 +94,7 @@ Gaste palavras onde a ficha sabe mais: uma parte pode ter duas linhas e a seguin
 
 **Leitura pela figura.** Para cada pergunta, cubra a prosa e confira o que a figura e a legenda mostram sozinhas. O método e os três vereditos estão em [Design](visual/design.md#leitura-pela-figura).
 
-**A objeção mais forte.** Diga em uma frase o que faria a explicação estar errada e confira na fonte. Ela fica na entrega, fora do documento, com o resultado da conferência; o que não deu para conferir entra como limite.
-
-**Visto e lido.** A entrega separa o que foi observado rodando do que foi lido no código ou na spec. No cartão, isso mora no estado (`src`).
+**A objeção mais forte e visto e lido** são do [Núcleo](nucleo.md#antes-de-entregar) e valem para toda entrega.
 
 **Cortes, cada um com o que entra no lugar:**
 

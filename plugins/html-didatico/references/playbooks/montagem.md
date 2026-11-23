@@ -1,4 +1,4 @@
-# HTML Blueprint · playbook de composição
+# Montagem · playbook de composição
 
 Uma folha técnica mostra a montagem do componente, dos elementos mais básicos
 ao consumidor específico. O desenho fica à esquerda; seus contratos, à direita.
@@ -130,7 +130,7 @@ uma fronteira ou ambiguidade que o desenho não possa resolver sozinho.
 
 ## 5. Separe o mapa atual do projeto proposto
 
-Um blueprint pode investigar o que existe ou propor uma composição futura.
+Uma montagem pode investigar o que existe ou propor uma composição futura.
 O cabeçalho declara qual é o caso. Em proposta sobre base existente, preserve
 os componentes comprovados e marque cada mudança localmente.
 
@@ -140,7 +140,7 @@ persistência e lifecycle continuam com seus donos reais. Aparência semelhante
 não prova contrato compartilhável. Se a fronteira ainda for hipótese, mantenha
 essa hipótese visível em vez de torná-la arquitetura aceita.
 
-Esta receita produz documentação e wireframes. Não autoriza implementar o
+Esta receita produz documentação e desenhos. Não autoriza implementar o
 produto, criar wrappers, mudar APIs, migrar dados, publicar ou alterar acessos.
 Siga o pedido e as permissões vigentes para essas ações.
 
@@ -155,7 +155,7 @@ Siga o pedido e as permissões vigentes para essas ações.
   somente onde muda, inclusive em callbacks e mods.
 - **Artefato:** cumpra a [verificação HTML compartilhada](../html-portatil.md), incluindo contrato abaixo da própria peça no mobile e impressão sem cortes.
 - **Limite de prova:** leitura de código comprova estrutura, não funcionamento.
-  O blueprint não é proof de runtime. Informe quais verificações foram feitas,
+  A montagem desenhada não é prova de runtime. Informe quais verificações foram feitas,
   quais falharam e quais não puderam ser executadas.
 
 ## Correções rápidas
@@ -166,7 +166,7 @@ Siga o pedido e as permissões vigentes para essas ações.
 | Um catálogo de componentes | Acrescente a montagem que os reúne até o consumidor real. |
 | Um tutorial cheio de parágrafos | Passe significado para nomes, encaixes, cotas e contratos. |
 | Uma API perfeita sem fonte | Identifique o que é proposta e exponha o que falta verificar. |
-| Uma prancha D com várias opções | Escolha E se a pergunta é como monta; D se a pergunta é qual layout escolher. |
+| Uma prancha com várias opções de layout | Montagem se a pergunta é como monta; Decidir, com a maquete, se é qual layout escolher. |
 
 **Saída:** um HTML one-page reutilizável, com árvore, composição progressiva,
 contratos laterais, deltas locais e fontes. A receita exemplar define o rigor

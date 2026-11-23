@@ -4,7 +4,7 @@
 // Rode depois de qualquer mudança no kit:  node scripts/montar.mjs
 // Também reembute o kit atual num documento já escrito:  node scripts/montar.mjs --atualizar <arquivo.html>
 // E cria um documento novo a partir de uma base pronta:   node scripts/montar.mjs --novo <base> <destino.html>
-// Bases: cartao, explicacao, passo-a-passo, aula (os exemplos-ouro) e starter (o kit com a página em branco).
+// Bases: cartao, explicacao, passo-a-passo, aula, decidir (os exemplos-ouro) e starter (o kit com a página em branco).
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -40,7 +40,7 @@ ${js}
 </html>
 `
 
-const BASES = { cartao: 'ouro/cartao.html', explicacao: 'ouro/explicacao.html', 'passo-a-passo': 'ouro/passo-a-passo.html', aula: 'ouro/aula.html', starter: 'starter.html' }
+const BASES = { cartao: 'ouro/cartao.html', explicacao: 'ouro/explicacao.html', 'passo-a-passo': 'ouro/passo-a-passo.html', aula: 'ouro/aula.html', decidir: 'ouro/decidir.html', starter: 'starter.html' }
 const i = process.argv.indexOf('--atualizar'), n = process.argv.indexOf('--novo')
 if (n >= 0) {
   // O documento nasce de uma cópia: o kit chega inteiro e ninguém o redigita. Depois é só trocar o <main>.

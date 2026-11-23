@@ -1,0 +1,3 @@
+interface:
+  display_name: "Montagem"
+  short_description: "Como as peças se montam: árvore, children, slots e contratos."

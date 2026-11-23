@@ -1,7 +1,8 @@
 # HTML portátil e verificação visual
 
-Este é o contrato comum dos quatro formatos HTML. A anatomia e os tokens vêm
-do playbook escolhido; o estilo de manual não governa Blueprint ou Wireframe.
+Este é o contrato comum dos HTML do plugin: Cartão, Aula, Decidir, Montagem e a
+Prova manual. A anatomia e os tokens vêm do playbook escolhido; o estilo de
+manual não governa a Montagem nem a maquete.
 Renderer oficial mantém o contrato do projeto quando sua publicação distribui
 HTML e assets como pacote. Não altere saída gerada para satisfazer esta receita.
 

@@ -7,7 +7,8 @@ do trabalho pedem, e nunca para mostrar processo. Pedido pequeno, documento
 pequeno.
 
 Este playbook soma ao [didático](didatico.md): ficha, kit, figuras e leitura
-seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma.
+seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma; a da
+dúvida é de [Decisão](../decisao.md).
 
 ## Exemplos
 
@@ -36,9 +37,9 @@ ordem é fixa.
 
 | Pedido | Tabs |
 |---|---|
-| "Me explica como X funciona" | Aula |
+| "Uma aula de como X funciona" | Aula |
 | "Uma aula e um teste de X" | Aula, Na tela |
-| "Estou entre A e B para X" | Aula, Dúvidas |
+| "Uma aula de X", com uma escolha aberta no assunto | Aula, Dúvidas |
 | Continuação de uma aula com decisões tomadas | Aula e as que o estado pede, com Leis |
 | "O que muda no sistema por causa disso?" | Aula, Leis, Roadmap |
 
@@ -46,8 +47,8 @@ Com uma tab só, não desenhe a barra de tabs: a página é a aula.
 
 ## Antes de escrever: entender
 
-A aula se escreve depois de [entender](../conteudo.md#entender-antes-de-tudo)
-como a coisa funciona de verdade e de achar [o nó](../conteudo.md#o-nó-antes-da-ficha).
+A aula se escreve depois de [entender](../nucleo.md#entender-antes-de-tudo)
+como a coisa funciona de verdade e de achar [o nó](../nucleo.md#o-nó).
 Na aula, somam-se dois cuidados:
 
 1. **As leis da versão anterior** são a fonte do passo 1 de Entender: se o
@@ -96,32 +97,22 @@ Um **protótipo que funciona**: o leitor clica, marca, digita e vê o resultado.
 - Recorte a tela em que a regra aparece, em tamanho de leitura. Várias telas,
   um protótipo por tela, cada uma com um título que a nomeia.
 - O protótipo mostra o comportamento; ele não comprova o produto. Comparar com o
-  produto em uso é [HTML Proof](proof.md).
+  produto em uso é [Prova](prova.md).
 
 ## Dúvidas
 
-Uma subtab por dúvida (peça `tabs tabs--sub` dentro da tab), numeradas de 1 a n.
-Cada painel tem `id="duvida-n"`, para o link da Aula e para a resposta.
+Cada dúvida segue a gramática de [Decisão](../decisao.md): a pergunta com o caso
+e as saídas, o que acontece, as opções comparadas no mesmo caso e a resposta com
+a recomendada. A marcação de cada painel é a do
+[HTML com uma aba por decisão](../decisao.md#html-com-uma-aba-por-decisão). Da
+tab, só isto:
 
-Cada dúvida tem um título e três passos:
+- Uma subtab por dúvida (peça `tabs tabs--sub` dentro da tab), numeradas de 1 a
+  n, com `id="duvida-n"` em cada painel, para o link da Aula e para a resposta.
+- Para outro quadro da Aula, um link; nunca o número dele.
 
-| Passo | Mostra |
-|---|---|
-| Título | A pergunta com o caso e as saídas: "Triglicerídeos sem jejum: desejável abaixo de 150 ou de 175 mg/dL?" |
-| O que acontece | A situação concreta que faz a pergunta existir |
-| Comparando | As opções lado a lado (`cols`; três opções, `cols cols--3`), cada uma com a figura e o resultado no mesmo caso. A evidência mora aqui: a fonte, os números, como o mercado faz. Quando a dúvida é sobre a tela, o produto em uso entra como print, ao lado da proposta |
-| Sua resposta | Tabela das opções (A, B e, se houver, C), uma frase cada, a recomendada com o chip "Recomendada"; embaixo, um `note` com "Responda no chat: 2A ou 2B" |
-
-- Quando a recomendação é manter o que existe, a coluna do produto em uso vem
-  primeiro e diz isso.
-- Nenhum código de nota (C-03, D04, "quadro 18"): mostre o fato, ou leve ao
-  quadro da Aula por link.
-- A opção se chama pelo que faz ("A · Sem teto"), nunca "Uma possibilidade".
-- A recomendação escolhe uma opção. "Confrontar em bancada" ou "comparar antes
-  de propor" não é recomendação: se a fonte ainda não deixa escolher, a dúvida
-  não está pronta e entra na entrega como pendência, fora do documento.
-- A gramática é a mesma da skill `decisoes-em-boards` (pergunta, quadros,
-  opções, recomendada). As mesmas decisões servem ao HTML e aos boards de canvas.
+Decisões fora de uma aula, ou no canvas de Design, saem pelas outras
+[saídas de Decisão](../decisao.md#a-saída).
 
 ## Leis
 
@@ -179,7 +170,7 @@ ele reprova os quatro primeiros.
 | CSS próprio: faixa de cabeçalho, cards e tabs desenhados do zero | Copie a aula-ouro; o kit fica embutido como está |
 | Código de nota em qualquer tab: "a 07", "PRD 03", "162/05", "D-427" | Mostre o fato; para outro quadro, um link |
 | Opção sem nome: "Uma possibilidade", "Outra possibilidade" | "A · Sem teto": a letra e o que a opção faz |
-| Dúvida sem recomendada ou sem "Responda no chat" | A tabela Sua resposta, com o chip e a nota |
+| Dúvida sem recomendada ou sem "Responda no chat" | A tabela Sua resposta, com o chip e a nota, como em [Decisão](../decisao.md) |
 | Tab fora do roteador: resumo de PRD, "Funcionamento canônico" | O que está decidido vai para Leis; o resto fica na fonte |
 | Opção sem figura, ou figuras de casos diferentes | Uma figura por opção, todas com o mesmo caso e o mesmo número |
 | Print de estado vazio ou de erro como figura de quadro | A figura prova a frase do quadro; print de produto só ao lado da proposta, em Dúvidas |

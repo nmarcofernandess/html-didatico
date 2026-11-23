@@ -9,11 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins/html-didatico"
 EXPECTED = {
     "html-didatico": "HTML Didático",
-    "html-wireframe": "HTML Wireframe",
-    "html-blueprint": "HTML Blueprint",
-    "html-proof": "HTML Proof",
-    "explain-clearly": "Explicar com Clareza",
-    "decisoes-em-boards": "Decisões em Boards",
+    "cartao": "Cartão",
+    "aula": "Aula",
+    "decidir": "Decidir",
+    "montagem": "Montagem",
+    "prova": "Prova",
+    "explicar": "Explicar",
 }
 
 

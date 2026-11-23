@@ -6,7 +6,7 @@ pequeno: uma pergunta, o caso em uma linha e as telas do produto em que a
 resposta se vê. A jornada para chegar a ele é a de todo documento: entender e achar o nó. O cartão é
 curto porque o entendimento está pronto, e não porque o trabalho foi menor.
 
-Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de lá.
+Este playbook soma ao [didático](didatico.md): kit e figuras seguem de lá; fontes e limites, do [Núcleo](../nucleo.md).
 
 ## Quando é cartão
 
@@ -14,13 +14,14 @@ Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de 
 |---|---|
 | "Me mostra", "desenha isso", "não entendi X"; um defeito, uma feature ou um exemplo em pauta na conversa | Cartão |
 | Uma dúvida que se explica em até três telas do mesmo caso | Cartão |
-| Um assunto inteiro, uma operação com vários passos, o raciocínio longo de quem pediu | [Documento](didatico.md) |
-| Várias decisões abertas, ou um assunto que vai receber respostas e voltar | [Aula](aula.md) |
+| Um assunto inteiro, uma operação com vários passos, o raciocínio longo de quem pediu | Aula, pelo [playbook didático](didatico.md) |
+| Um assunto em construção, que vai receber respostas e voltar | Aula com tabs, pelo [playbook Aula](aula.md) |
+| Uma ou mais decisões abertas, sem aula do assunto | [Decisão](../decisao.md) |
 
 ## A jornada
 
-1. **Entenda antes.** Siga [Entender, antes de tudo](../conteudo.md#entender-antes-de-tudo)
-   e ache [o nó](../conteudo.md#o-nó-antes-da-ficha): num cartão que apresenta o
+1. **Entenda antes.** Siga [Entender, antes de tudo](../nucleo.md#entender-antes-de-tudo)
+   e ache [o nó](../nucleo.md#o-nó): num cartão que apresenta o
    que existe, o nó é a regra; num defeito, é o que prende.
 2. **Conte a explicação em poucas frases,** para você, fora do cartão. No
    cartão-ouro foram seis: o contexto clínico dá a data do registro; a idade vem
@@ -76,7 +77,7 @@ lista de fontes ficam na conversa: quem quiser, pergunta.
 2. **Só pela figura.** Faça a [leitura pela figura](../visual/design.md#leitura-pela-figura):
    cada frase da explicação do passo 2 precisa aparecer em uma tela, na anotação
    ou na legenda dela.
-3. **A objeção e o estado.** Aplique [A objeção mais forte e Visto e lido](../conteudo.md#5-revisão):
+3. **A objeção e o estado.** Aplique [A objeção mais forte e Visto e lido](../nucleo.md#antes-de-entregar):
    a objeção vai na entrega; o visto e o lido, no estado.
 
 ## O que não passa
@@ -87,12 +88,12 @@ lista de fontes ficam na conversa: quem quiser, pergunta.
 | Esquema genérico no lugar da tela do produto | O editor, o modal e o card reais, com os nomes deles |
 | Uma tela por caso diferente | O mesmo caso atravessa todas |
 | Página própria, fora do kit | `--novo cartao`, e só o `<main>` muda |
-| Cartão feito sem ler o sistema | Entender, em Conteúdo, antes |
+| Cartão feito sem ler o sistema | Entender, no Núcleo, antes |
 | Fato tirado de resumo ou de memória | O fato relido na fonte |
 | Dor ou virada inventada para um assunto que só pede apresentação | O que existe, como existe |
 | Trilho, abas, carimbo, partes com título | Isso é de documento |
 
 ## Entrega
 
-O arquivo e, em duas ou três linhas: as telas e o que cada uma mostra, o que foi
-visto rodando, o que foi lido, a objeção mais forte e o que não foi conferido.
+O arquivo e, em duas ou três linhas: as telas e o que cada uma mostra, a objeção
+mais forte e o que não foi conferido. O visto e o lido já estão no estado.

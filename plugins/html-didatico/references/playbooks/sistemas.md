@@ -1,4 +1,4 @@
-# Explicar sistemas · modo interno de HTML Didático
+# Explicar sistemas · modo interno da Aula
 
 Situe o leitor: o documento conta uma organização, sem reproduzir a conversa em
 pergunta/resposta. A sequência pode ser adaptada ao que o leitor precisa entender:
@@ -21,4 +21,4 @@ figura necessária: explorer (`files`), editor com linhas marcadas (`code`), cha
 e linha do tempo (`timeline`). As regras de cada uma estão em
 [Design](../visual/design.md#esquema). Ícones do sprite do kit; trechos de código
 literais, abreviados com indicação de recorte. Para anatomia com
-children/slots/types, o resultado específico pertence a HTML Blueprint.
+children/slots/types, o resultado específico pertence à entrada Montagem.
