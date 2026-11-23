@@ -5,11 +5,13 @@ description: "Cria cartões de uma página, explicações, manuais, quickstarts 
 
 # HTML Didático
 
-O documento põe o problema na mesa: quem lê vê onde ele está, sem ter lido a conversa.
+O documento põe o assunto na mesa: quem lê vê como ele é, ou onde o problema
+está, sem ter lido a conversa.
 
-1. **Fontes e nó.** Leia [fontes e limites](../../references/fundamentos.md). Em
-   [Conteúdo](../../references/conteudo.md), ache o nó e liste as perguntas que o
-   leitor faria.
+1. **Fontes, entender e nó.** Leia [fontes e limites](../../references/fundamentos.md).
+   Em [Conteúdo](../../references/conteudo.md), entenda o assunto na fonte, veja
+   se o pedido é apresentar o que existe ou pôr um problema na mesa, ache o nó e
+   liste as perguntas que o leitor faria. Isso vale do cartão à aula.
 2. **Tamanho.** Uma dúvida da conversa (um defeito, uma feature, um exemplo, um
    "me mostra"), com até três perguntas sobre o mesmo caso, segue o
    [playbook Cartão](../../references/playbooks/cartao.md). Um assunto inteiro,
@@ -28,7 +30,8 @@ O documento põe o problema na mesa: quem lê vê onde ele está, sem ter lido a
    se vê, montada com as peças do kit. Antes de entregar, faça a
    [leitura pela figura](../../references/visual/design.md#leitura-pela-figura):
    para cada pergunta, o que se percebe só pela figura e pela legenda. Entregue
-   um HTML só, com fontes e limites. O [check](../../scripts/check.mjs) e a
+   um HTML só, com fontes e limites: o que foi visto rodando, o que foi lido e a
+   objeção mais forte, como manda a revisão de Conteúdo. O [check](../../scripts/check.mjs) e a
    inspeção visual rodam quando o usuário pede ou quando o risco pede; nada de
    verificação é salvo junto do documento.
 

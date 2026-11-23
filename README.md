@@ -68,7 +68,7 @@ A versão 2.0.0 remove nomes públicos antigos; atualize chamadas salvas.
 | explain-clearly | Explicar com Clareza, preservando o ID. |
 | writing-clearly-and-concisely | Recurso interno compartilhado; texto e créditos preservados. |
 
-## Instalação da release 2.3.0
+## Instalação da release 2.9.0
 
 O repositório é privado. Use a credencial já autorizada e, no SSH, seu alias de
 conta quando necessário. Tag, versão em `main` e instalação são estados distintos.
@@ -76,7 +76,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.8.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.0
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -87,7 +87,7 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.8.0
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.0
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
@@ -99,7 +99,7 @@ os comandos a outra versão.
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.8.0
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.9.0
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -115,7 +115,7 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.8.0
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.9.0
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.
@@ -129,7 +129,7 @@ não apague nem substitua instalações independentes por suposição.
 
 Execute `python3 scripts/validate-package.py` para catálogo, versões e links.
 Os [casos de uso](tests/cases.md) cobrem as seis saídas e roteamento ambíguo;
-a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) a [da 2.3.0](docs/verification-2.3.0.md) a [da 2.4.0](docs/verification-2.4.0.md) a [da 2.5.0](docs/verification-2.5.0.md) e a [da 2.6.0](docs/verification-2.6.0.md) registram o que foi observado.
+a [verificação da 2.0.0](docs/verification-2.0.0.md) a [da 2.1.0](docs/verification-2.1.0.md) a [da 2.2.0](docs/verification-2.2.0.md) a [da 2.3.0](docs/verification-2.3.0.md) a [da 2.4.0](docs/verification-2.4.0.md) a [da 2.5.0](docs/verification-2.5.0.md) a [da 2.6.0](docs/verification-2.6.0.md) a [da 2.7.0](docs/verification-2.7.0.md) a [da 2.8.0](docs/verification-2.8.0.md) e a [da 2.9.0](docs/verification-2.9.0.md) registram o que foi observado.
 Para HTML Didático, `node plugins/html-didatico/scripts/check.mjs <arquivo.html>` renderiza e mede um documento;
 depois de mudar `references/kit/kit.css` ou `kit.js`, rode `node plugins/html-didatico/scripts/montar.mjs`.
 A validação estrutural não simula a resposta de outro modelo ou o seletor de um

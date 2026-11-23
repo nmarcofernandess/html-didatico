@@ -12,8 +12,10 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 
 ## Processo
 
-1. **Nó, ficha e leitor.** Leia [Conteúdo](../conteudo.md), ache o nó e monte a
-   ficha de fatos a partir da fonte. Defina quem lê e a pergunta dele. A pergunta
+1. **Entender, nó, ficha e leitor.** Leia [Conteúdo](../conteudo.md):
+   [entenda](../conteudo.md#entender-antes-de-tudo) o assunto na fonte, veja se o
+   pedido é apresentar o que existe ou pôr um problema na mesa, ache o nó e monte
+   a ficha de fatos. Defina quem lê e a pergunta dele. A pergunta
    escolhe o tamanho e a anatomia: cartão, passo a passo, explicação ou mural.
    Uma dúvida da conversa, com até três perguntas, segue o [playbook Cartão](cartao.md).
 2. **Espinha.** Uma linha por pergunta do leitor: o que a parte ensina de novo e
@@ -41,7 +43,8 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    se o seu é o mais carregado, o mais vazio ou o mais chapado dos dois, esse é o
    próximo conserto. Ordem: conteúdo, enquadramento, hierarquia, acabamento. Uma
    inspeção, um lote de consertos, uma confirmação.
-7. **Leitura.** Aplique os cortes da seção 5 de Conteúdo. O teste de uma
+7. **Leitura.** Aplique a seção 5 de Conteúdo: a objeção mais forte, visto e
+   lido, e os cortes. O teste de uma
    leitura com outro leitor fica para quando o usuário pedir ou o documento for
    longo.
 
@@ -74,10 +77,11 @@ Uma base e quatro parâmetros. Nenhum deles é uma nova entrada pública.
 - **Aula** consolida um assunto em construção, com tabs abertas pelo pedido; a
   gramática está no [playbook Aula](aula.md).
 - **Cartão** responde a uma dúvida da conversa em uma página, com o caso em uma
-  linha e as telas citadas na explicação; a jornada é a da aula e a gramática está no [playbook Cartão](cartao.md).
+  linha e as telas citadas na explicação; antes dele vêm entender e achar o nó, e a gramática está no [playbook Cartão](cartao.md).
 
 ## Entrega
 
 Entregue o arquivo e, em poucas linhas: a anatomia e o look escolhidos, cada
-pergunta com a figura que a responde, as fontes lidas e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
+pergunta com a figura que a responde, o que foi visto rodando e o que foi lido,
+a objeção mais forte e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
 com o motivo; se não rodou, não é preciso dizer nada.

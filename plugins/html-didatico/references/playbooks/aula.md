@@ -46,19 +46,14 @@ Com uma tab só, não desenhe a barra de tabs: a página é a aula.
 
 ## Antes de escrever: entender
 
-A aula não é resumo de fontes. Ela só se escreve depois de entender como a
-coisa funciona de verdade e de achar [o nó](../conteudo.md#o-nó-antes-da-ficha):
-a pergunta em pauta, o que prende e a régua em que os casos cabem.
+A aula se escreve depois de [entender](../conteudo.md#entender-antes-de-tudo)
+como a coisa funciona de verdade e de achar [o nó](../conteudo.md#o-nó-antes-da-ficha).
+Na aula, somam-se dois cuidados:
 
-1. **Leia as leis primeiro.** Se o assunto já tem aula, abra a tab Leis da
-   versão anterior. Nada no documento contradiz uma lei sem nova decisão do
-   usuário; o que contradiz vira dúvida.
-2. **Entenda o sistema.** Com a skill `architecture-research` disponível, use-a.
-   Sem ela, responda o mesmo: quem é o dono, quais dados, quem escreve e quem
-   lê, o ciclo de vida, o contrato e a regra que não pode quebrar. Cada fato vem
-   da fonte (código, spec, decisão, tela); fato do produto em uso é conferido no
-   código vigente.
-3. **Monte a ficha** de [Conteúdo](../conteudo.md#1-ficha-de-fatos) com duas
+1. **As leis da versão anterior** são a fonte do passo 1 de Entender: se o
+   assunto já tem aula, abra a tab Leis. Mudar uma lei pede nova decisão do
+   usuário; o que diverge vira dúvida.
+2. **Monte a ficha** de [Conteúdo](../conteudo.md#1-ficha-de-fatos) com duas
    linhas a mais: o que está decidido (vai para Leis) e o que está aberto, com
    as opções (vai para Dúvidas). O que a fonte não dá fica fora e entra na
    entrega como pendência.
@@ -83,8 +78,8 @@ quadros ou mais, abra com o trilho (`rail`). O fecho tem três quadros fixos,
 nesta ordem, quando há material:
 
 1. **"Qual é a regra, afinal?"**: a regra inteira, em uma tabela.
-2. **"Funciona com os casos difíceis?"**: a regra aplicada aos casos que
-   quebravam as tentativas anteriores.
+2. **"Funciona com os casos difíceis?"**: a regra aplicada aos casos de
+   borda; num problema, aos que quebravam as tentativas anteriores.
 3. **A ficha**: o modelo de dados ou o contrato que sai da regra, quando o
    assunto é dado ou peça de sistema.
 
@@ -189,7 +184,8 @@ ele reprova os quatro primeiros.
 | Opção sem figura, ou figuras de casos diferentes | Uma figura por opção, todas com o mesmo caso e o mesmo número |
 | Print de estado vazio ou de erro como figura de quadro | A figura prova a frase do quadro; print de produto só ao lado da proposta, em Dúvidas |
 | Quadro que repete a ideia do anterior com outra figura | Uma pergunta, um quadro, com a figura que responde melhor |
-| Inventário de fatos certos, sem o nó | A pergunta em pauta, o que prende e a régua; os fatos se organizam em volta |
+| Inventário de fatos certos, sem o nó | A pergunta em pauta, o nó (a regra, ou o que prende) e a régua; os fatos se organizam em volta |
+| Dor ou virada inventada num assunto que só pede apresentação | O que existe, como existe: o caso do começo ao fim e a regra |
 | Fala sobre o documento: "um HTML ajuda a decidir", "comece pela 02" | O documento mostra; quem decide sabe por onde começar pelo mapa das tabs |
 
 ## Entrega

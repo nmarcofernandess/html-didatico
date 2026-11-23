@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.9.0 — 23/11/2026
+
+- **Entender, antes de tudo**, em Conteúdo: a etapa de entender o assunto na fonte (as decisões que já existem, o sistema, a fonte relida) passa a ter um dono só e vale do cartão à aula. O playbook Aula fica com o que é dela (a tab Leis e as duas linhas a mais da ficha) e o Cartão e o didático apontam para Conteúdo.
+- **Dois trabalhos do pedido**, em "O nó, antes da ficha": apresentar o que existe (o nó é a regra que gera os casos) e pôr um problema na mesa (o nó é o que prende). Cada um tem a sua história com começo, meio e fim. Uma apresentação conta o que existe como existe: dor, virada e tentativa fracassada entram quando a fonte as tem.
+- **Perguntas que acham o nó**: os irmãos do caso, a regra que gera todos, quem já resolveu, onde o erro nasce, o que diz duas coisas ao mesmo tempo, o gesto de quem usa; quatro perguntas para defeito de causa desconhecida; e os sinais de que o nó ainda falta. Vêm das correções de Marco reunidas em 22/11/2026.
+- **A tentativa que falhou entra com o caso em que quebra.** A tabela de cortes dizia para tirar as alternativas, e o nó pedia "por que as tentativas falharam"; as duas regras passam a dizer o mesmo. Sem o caso, a tentativa é histórico.
+- Revisão ganha **A objeção mais forte** (o que faria a explicação estar errada, conferido na fonte) e **Visto e lido** (o que foi observado rodando separado do que foi lido). Fontes e limites: resumo de conversa, memória e documento anterior são pistas; o fato é relido na fonte.
+- Congruência, depois de uma revisão do plugin inteiro: "a jornada é a da aula" sai de Cartão, didático, roteamento e casos, porque entender agora mora em Conteúdo; o estado do cartão passa a dizer o que foi visto rodando e o que foi lido; a entrega do Cartão e do didático pedem a objeção mais forte; "o que prende" vale para problema; as três linhas soltas de `tests/cases.md` voltam para a tabela; o README da raiz aponta as verificações até a 2.9.0.
+- `scripts/check.mjs`: o caso do cartão avisa acima de 30 palavras (antes 32) e o cartão, acima de três figuras (antes quatro), como o texto já dizia. A folga da tela mais carregada (150, contra a referência de cerca de 130) fica: dois exemplos-ouro estão entre os dois números.
+- Motivo: um exemplo feito nesta data saiu de um resumo, afirmou o que a spec não dizia e trocou o modelo do plugin por um vocabulário próprio.
+
 ## 2.8.0 — 22/11/2026
 
 - Cartão refeito a pedido de Marco: o primeiro cartão-ouro tinha texto demais e fora feito sem entender o sistema. O que chega é pequeno, e a jornada é a da aula inteira: leis, sistema e nó antes de qualquer desenho.

@@ -34,19 +34,22 @@ Os exemplos-ouro de HTML Didático, [cartão](../plugins/html-didatico/reference
 | Mesmo projeto, resultado real obtido | Preencher o mesmo arquivo e atualizar revisão/veredito. |
 | “Faça um mural e cite este pack” | HTML Didático, link para o pack; mural não vira proof. |
 | “Revise só a pontuação” | Recurso interno de escrita; sem HTML obrigatório. |
-| “Me mostra por que a idade deste Cálculo está errada”, no meio da conversa | HTML Didático, playbook Cartão: depois da jornada da aula, uma página a partir de `montar.mjs --novo cartao`, com a pergunta, o caso em uma linha e as telas que a explicação cita. O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html) é o caso. |
+| “Me mostra por que a idade deste Cálculo está errada”, no meio da conversa | HTML Didático, playbook Cartão: depois de entender e achar o nó, uma página a partir de `montar.mjs --novo cartao`, com a pergunta, o caso em uma linha e as telas que a explicação cita. O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html) é o caso. |
 | Cartão pronto, antes de entregar | Duas leituras: sem a conversa (título, caso e primeira tela bastam) e só pela figura (cada frase da explicação aparece numa tela, na anotação ou na legenda). Até 90 palavras fora das figuras. |
 | A dúvida pede mais de três telas ou dois casos | Documento ou aula, com uma parte por pergunta; não um cartão esticado. |
 | O pedido traz uma explicação longa de quem domina o assunto | Documento: o raciocínio e os exemplos dela ficam, cada exemplo como figura. Não vira cartão nem resumo. |
+| “Me mostra como o Peso se comporta”, sem defeito em pauta | HTML Didático, pedido de apresentação: o nó é a regra que gera os casos. O documento conta o que existe, com um caso do começo ao fim; não inventa dor, virada nem tentativa fracassada. |
+| “Me mostra o que a outra IA fez e se foi a melhor saída” | HTML Didático, problema na mesa: o que prendia, as tentativas com o caso em que cada uma quebra, a virada e a regra menor. A entrega separa o que foi visto rodando do que foi lido e traz a objeção mais forte, com o resultado da conferência. |
+| O agente já tem um resumo do assunto, feito por ele ou por outro chat | O resumo é pista: cada fato que entra é relido no código, na spec, na decisão ou na tela. |
 | “Me dá um exemplo de aula” | HTML Didático, playbook Aula: aponta as [aulas reais](../plugins/html-didatico/references/exemplos/aulas/README.md); nunca responde que não há exemplo. |
 | “Faça uma aula de como a dose é calculada” | HTML Didático, playbook Aula: só a tab Aula, sem barra de tabs. |
 | “Uma aula e um teste do pedido de exames” | Playbook Aula com Aula e Na tela; o protótipo funciona no clique e mostra só o decidido. |
 | “Estou entre duas faixas para o Triglicerídeos” | Playbook Aula com Aula e Dúvidas: uma subtab, três passos, recomendada marcada, “Responda no chat”. |
 | Aula existente; o usuário respondeu “2A” | Mesmo documento: a dúvida sai, a lei entra datada, Aula e Na tela refletem; nada contradiz uma lei sem nova decisão. |
+| “C-03 e R-01 da spec: decide comigo vendo a tela” | Decisões em Boards: códigos saem do board; cada pergunta traz o caso e o fato de dev conferido. |
+| “Ícone de lápis ou de engrenagem no cabeçalho?” | HTML Wireframe: escolha visual pontual, não board de decisão. |
+| Codex, sem canvas: “um board por decisão para a spec 162” | Aula com a tab Dúvidas, copiada da aula-ouro: uma subtab por decisão, opções com nome e figura no mesmo caso, recomendada e “Responda no chat”, sem código de nota. O check reprova HTML próprio, código de nota, “Uma possibilidade” e dúvida sem resposta. |
 
 Avalie as rotas contra `references/roteamento.md` no pacote. Exercite a regressão
 do renderer com fontes que comprovem sua existência e ausência do pack; o título
 de uma referência antiga não pode justificar fallback manual.
-| “C-03 e R-01 da spec: decide comigo vendo a tela” | Decisões em Boards: códigos saem do board; cada pergunta traz o caso e o fato de dev conferido. |
-| “Ícone de lápis ou de engrenagem no cabeçalho?” | HTML Wireframe: escolha visual pontual, não board de decisão. |
-| Codex, sem canvas: “um board por decisão para a spec 162” | Aula com a tab Dúvidas, copiada da aula-ouro: uma subtab por decisão, opções com nome e figura no mesmo caso, recomendada e “Responda no chat”, sem código de nota. O check reprova HTML próprio, código de nota, “Uma possibilidade” e dúvida sem resposta. |

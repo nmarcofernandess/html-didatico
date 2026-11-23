@@ -9,7 +9,9 @@ Separe fato confirmado, decisão, trabalho em curso, inferência e desconhecido.
 Código comprova existência e composição; intenção de produto depende do contrato
 e das decisões. Desenho, teste passado e aceite humano têm alcances diferentes.
 Rotule exemplos hipotéticos e propostas no ponto em que aparecem. Números,
-mensagens, comandos e nomes reais não são preenchimento decorativo.
+mensagens, comandos e nomes reais não são preenchimento decorativo. Resumo de
+conversa, memória e documento anterior são pistas: o fato que entra no
+documento é relido na fonte.
 
 Se o significado estiver técnico, incompleto, contestado ou opaco, leia
 [Reconstruir significado](clareza.md) antes de desenhar ou polir a frase.

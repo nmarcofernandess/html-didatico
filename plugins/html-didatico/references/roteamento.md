@@ -7,7 +7,7 @@ a intenção sem fabricar evidência. Não carregue os seis playbooks por rotina
 | Pergunta ou resultado | Skill | Distinção |
 |---|---|---|
 | Entender ou simplificar, sem pedir arquivo visual | [Explicar com Clareza](../skills/explain-clearly/SKILL.md) | Resposta em texto; não gera HTML automaticamente. |
-| Ver uma dúvida da conversa: um defeito, uma feature, um exemplo, um "me mostra" | [HTML Didático](../skills/html-didatico/SKILL.md) | Cartão: uma página, com o caso em uma linha e as telas do produto; a jornada é a da aula. |
+| Ver uma dúvida da conversa: um defeito, uma feature, um exemplo, um "me mostra" | [HTML Didático](../skills/html-didatico/SKILL.md) | Cartão: uma página, com o caso em uma linha e as telas do produto, depois de entender e achar o nó. |
 | Manual, quickstart, narrativa, explicação visual de sistema, aula | [HTML Didático](../skills/html-didatico/SKILL.md) | Manual, editorial, sistemas e aula são modos internos. |
 | Maquete, layout, estrutura ou comportamento de interface a decidir | [HTML Wireframe](../skills/html-wireframe/SKILL.md) | Uma maquete basta; compare alternativas apenas quando a decisão pedir. |
 | Como componentes se montam; árvore, children, slots, props, types | [HTML Blueprint](../skills/html-blueprint/SKILL.md) | Montagem e contratos; não é comparação de layouts. |

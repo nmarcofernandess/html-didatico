@@ -3,7 +3,7 @@
 O cartão responde a uma dúvida que apareceu no meio do trabalho: um defeito, uma
 feature, um "como isso funciona", um exemplo pedido. O que chega a quem pediu é
 pequeno: uma pergunta, o caso em uma linha e as telas do produto em que a
-resposta se vê. A jornada para chegar a ele é a da aula, inteira. O cartão é
+resposta se vê. A jornada para chegar a ele é a de todo documento: entender e achar o nó. O cartão é
 curto porque o entendimento está pronto, e não porque o trabalho foi menor.
 
 Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de lá.
@@ -19,10 +19,9 @@ Este playbook soma ao [didático](didatico.md): fontes, kit e figuras seguem de 
 
 ## A jornada
 
-1. **Entenda como a aula manda.** Siga [Antes de escrever: entender](aula.md#antes-de-escrever-entender):
-   as leis primeiro, depois o sistema (quem é o dono, quais dados, quem escreve e
-   quem lê, o ciclo de vida, a regra que não pode quebrar), cada fato conferido na
-   fonte. Ache [o nó](../conteudo.md#o-nó-antes-da-ficha).
+1. **Entenda antes.** Siga [Entender, antes de tudo](../conteudo.md#entender-antes-de-tudo)
+   e ache [o nó](../conteudo.md#o-nó-antes-da-ficha): num cartão que apresenta o
+   que existe, o nó é a regra; num defeito, é o que prende.
 2. **Conte a explicação em poucas frases,** para você, fora do cartão. No
    cartão-ouro foram seis: o contexto clínico dá a data do registro; a idade vem
    do nascimento; se a idade na data difere da de hoje, cadeado; se a data difere
@@ -60,7 +59,7 @@ cartão: o [check](../../scripts/check.mjs) reprova documento fora do kit.
 | As telas | De uma a três, lado a lado, na ordem em que acontecem | `cols` ou `cols cols--3`, uma `fig` por tela |
 | A anotação | Ao lado da tela, o que ela não diz sozinha: de onde vem o valor, o que fica igual | `link` com `chip` |
 | A legenda | O que a tela mostra, em até doze palavras | `figcaption` |
-| O estado | Uma linha: o que já está no produto, o que falta e a data da leitura | `src` |
+| O estado | Uma linha: o que foi visto rodando, o que foi lido, o que falta no produto e a data da leitura | `src` |
 
 ## Texto
 
@@ -69,7 +68,7 @@ linha. O que é regra ainda fora do produto aparece dito no estado, com a figura
 a que se refere. O caminho da investigação, a consequência em parágrafo e a
 lista de fontes ficam na conversa: quem quiser, pergunta.
 
-## Revisão: duas leituras
+## Revisão: duas leituras e a objeção
 
 1. **Sem a conversa.** Com o título, o caso e a primeira tela, alguém que não
    leu o chat sabe de que situação se trata? Onde depende do chat, ponha o nome
@@ -77,6 +76,8 @@ lista de fontes ficam na conversa: quem quiser, pergunta.
 2. **Só pela figura.** Faça a [leitura pela figura](../visual/design.md#leitura-pela-figura):
    cada frase da explicação do passo 2 precisa aparecer em uma tela, na anotação
    ou na legenda dela.
+3. **A objeção e o estado.** Aplique [A objeção mais forte e Visto e lido](../conteudo.md#5-revisão):
+   a objeção vai na entrega; o visto e o lido, no estado.
 
 ## O que não passa
 
@@ -86,10 +87,12 @@ lista de fontes ficam na conversa: quem quiser, pergunta.
 | Esquema genérico no lugar da tela do produto | O editor, o modal e o card reais, com os nomes deles |
 | Uma tela por caso diferente | O mesmo caso atravessa todas |
 | Página própria, fora do kit | `--novo cartao`, e só o `<main>` muda |
-| Cartão feito sem ler o sistema | A jornada da aula, antes |
+| Cartão feito sem ler o sistema | Entender, em Conteúdo, antes |
+| Fato tirado de resumo ou de memória | O fato relido na fonte |
+| Dor ou virada inventada para um assunto que só pede apresentação | O que existe, como existe |
 | Trilho, abas, carimbo, partes com título | Isso é de documento |
 
 ## Entrega
 
 O arquivo e, em duas ou três linhas: as telas e o que cada uma mostra, o que foi
-lido e o que não foi conferido.
+visto rodando, o que foi lido, a objeção mais forte e o que não foi conferido.

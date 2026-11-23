@@ -287,10 +287,10 @@ const cartao = /class="[^"]*\bpage--card\b/.test(html)
 if (cartao) {
   const caso = html.match(/class="cover__sub"[^>]*>([\s\S]*?)<\/p>/)?.[1].replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean) ?? []
   if (!caso.length) falhas.push('cartão sem o caso em uma linha (cover__sub): quem, o quê e quando, com os números que as telas usam')
-  else if (caso.length > 32) avisos.push(`o caso do cartão tem ${caso.length} palavras (referência: uma linha, até 30): o resto vai para as telas`)
+  else if (caso.length > 30) avisos.push(`o caso do cartão tem ${caso.length} palavras (referência: uma linha, até 30): o resto vai para as telas`)
   if (!maior.figuras.length) falhas.push('cartão sem figura: cada pergunta é respondida por uma figura com legenda')
   if (/class="[^"]*\b(?:tabs|rail|stamp)\b/.test(html)) avisos.push('cartão com trilho, abas ou carimbo: isso é de documento; o cartão é uma página só')
-  if (maior.figuras.length > 4) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
+  if (maior.figuras.length > 3) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
   if (maior.semFigura.length) avisos.push(`pergunta sem figura no cartão (${maior.semFigura.length}): ${lista(maior.semFigura, t => `"${t}"`)}`)
   if (maior.palavrasForaDeTabela > 90) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras fora das figuras (referência: até 90): o que a tela mostra sai do texto; o que sobra vira legenda`)
 }
