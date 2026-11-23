@@ -1,27 +1,21 @@
-<div class="page">
+<!-- Documento em branco. Escreva com componentes (referência: componentes.md; vitrine: pecas.html).
+     Para uma forma pronta, prefira montar.mjs --novo <cartao|explicacao|passo-a-passo|aula|decidir|prova|montagem|maquete>. -->
+<d-doc>
 
-  <header class="cover">
-    <div class="plate"><span>{{tipo do documento}} <b>{{identificador}}</b></span><span>{{data}}</span></div>
-    <h1>{{título}}</h1>
-    <p class="cover__sub">{{o que é, em uma linha}}</p>
-    <p class="cover__lead">{{o que o leitor consegue fazer quando terminar}}</p>
-  </header>
+  <d-cover kind="{{forma}}" subject="{{produto · assunto}}" date="{{dd/mm/aaaa}}" sub="{{o caso em uma linha, com os números}}" lead="{{o que o leitor consegue fazer no fim}}">{{título}}</d-cover>
 
   <main>
-    <!-- Escreva só aqui. A marcação de cada peça está em references/kit/pecas.html; o exemplo-ouro
-         mais próximo em references/kit/ouro/ mostra a composição. Uma parte = um assunto, um título, uma figura. -->
-    <section class="part part--side" id="{{id}}">
-      <div class="prose">
-        <h2>{{título da parte}}</h2>
-        <p>{{texto}}</p>
-      </div>
-      <figure class="fig">
-        <div class="fig__stage">{{cena}}</div>
-        <figcaption>{{o que a figura mostra}}</figcaption>
-      </figure>
-    </section>
+    <d-part title="{{a pergunta do leitor}}">
+      <p>{{a resposta em uma ou duas frases, com o dado do caso}}</p>
+      <w-fig cap="{{a conclusão que a figura mostra, com o dado do caso}}">
+        <w-win title="{{nome da tela}}">
+          <w-field label="{{rótulo}}" value="{{valor}}" mark></w-field>
+          <w-text lines="2"></w-text>
+        </w-win>
+      </w-fig>
+    </d-part>
   </main>
 
-  <footer class="foot"><span>{{produto ou projeto}}</span><span>{{identificador}} · {{data}}</span></footer>
+  <d-foot left="{{produto · assunto}}" right="{{documento · dd/mm/aaaa}}"></d-foot>
 
-</div>
+</d-doc>

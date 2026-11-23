@@ -1,0 +1,51 @@
+<!-- Cartão: a pergunta, o caso em uma linha e as telas que a explicação cita, lado a lado e no mesmo caso.
+     A legenda diz o que a tela prova. A caneta (mark, pin) aponta o dado de cada tela; o resto é traço. -->
+<d-doc card>
+
+  <d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980. O Cálculo é de 05/11/2025 e foi aberto em 22/11/2026: 44 anos na data, 46 no dia.">Que data vale num Cálculo retroativo?</d-cover>
+
+  <main>
+    <d-part id="telas" wide>
+      <d-cols n="3">
+
+        <w-fig cap="O Cálculo avisa a data passada e trava a idade nela">
+          <w-win title="Cálculo" icon="calendar-blank" tone="warn" heading="Dados do Paciente">
+            <w-grid>
+              <w-field label="Idade" value="44" icon="lock" mark pin="1"></w-field>
+              <w-field label="Peso"></w-field>
+            </w-grid>
+          </w-win>
+          <w-callout label="Calendário">data passada: 05/11/2025</w-callout>
+          <w-callout pin="1" mark>44 na data, 46 no dia</w-callout>
+        </w-fig>
+
+        <w-fig cap="O import mostra de quando é a avaliação escolhida">
+          <w-win title="Importar de Antropometria">
+            <w-list>
+              <w-item title="10/11/2021" meta="62 kg · 1,65 m" tag="selecionada" tagtone="ink" on mark pin="2"></w-item>
+              <w-item bar="46"></w-item>
+            </w-list>
+            <w-btn kind="primary" click x="78%" y="58%">Importar</w-btn>
+          </w-win>
+          <w-callout pin="2" mark>data clínica da avaliação</w-callout>
+        </w-fig>
+
+        <w-fig cap="Entram as medidas; a data e a idade do Cálculo ficam">
+          <w-win title="Cálculo" icon="calendar-blank" tone="warn" heading="Dados do Paciente">
+            <w-grid>
+              <w-field label="Idade" value="44" icon="lock"></w-field>
+              <w-field label="Peso" value="62 kg" state="focus" mark pin="3"></w-field>
+            </w-grid>
+          </w-win>
+          <w-callout label="Calendário">fica 05/11/2025</w-callout>
+          <w-callout pin="3" mark>da avaliação de 2021</w-callout>
+        </w-fig>
+
+      </d-cols>
+      <d-src>Em dev em 22/11/2026: as figuras 2 e 3. Faltam os sinais da figura 1: o calendário ainda não avisa, e a idade vem com 46, a do dia. Paciente ilustrativa.</d-src>
+    </d-part>
+  </main>
+
+  <d-foot left="DietFlow · Cálculo" right="Data clínica, idade e import · 22/11/2026"></d-foot>
+
+</d-doc>

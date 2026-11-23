@@ -1,21 +1,23 @@
 /* Folha de peças: catálogo, não composição. Para compor, parta de um exemplo-ouro em ouro/. */
-.looks { display: flex; gap: var(--gap-inside); margin-top: var(--gap-block); }
-.looks button { cursor: pointer; }
-.specimens { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--gap-block); align-items: start; }
-.specimens--wide { grid-template-columns: minmax(0, 1fr); }
-.scale { display: grid; gap: var(--gap-inside); font-size: var(--text-small); }
-.scale > li { display: grid; grid-template-columns: 8.5rem 1.5rem 6rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: center; }
-.scale > li > code { justify-self: start; }
-.scale > li > i { display: block; height: var(--s-3); width: var(--v); background: var(--color-ink); }
-.scale > li > span { color: var(--color-ink-2); }
-.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: var(--gap-pieces); font-size: var(--text-micro); }
-.swatches > li { display: grid; gap: var(--gap-tied); }
-.swatches > li > i { display: block; height: var(--s-7); border: var(--line) solid var(--color-rule); border-radius: var(--radius-s); background: var(--c); }
 .roles { display: grid; gap: var(--gap-text); }
-.roles > li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; }
+.roles > li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; }
 .roles > li > code { justify-self: start; }
+.role--display { font: var(--display-weight) 2.25rem/1 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+.role--title { font: var(--title-weight) var(--text-title)/1.05 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+.role--subtitle { font: 700 var(--text-subtitle)/1.25 var(--font-body); color: var(--color-ink); }
+.role--lead { font-size: var(--text-lead); }
+.role--small { font-size: var(--text-small); }
+.role--ui { font: 700 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink); }
+.role--meta { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: var(--gap-pieces); font-size: var(--text-micro); }
+.swatches > li { display: grid; gap: var(--gap-tied); }
+.swatches > li > i { display: block; height: var(--s-7); border: var(--line) solid var(--color-rule); background: var(--c); }
+.rules { display: grid; gap: var(--gap-block); font-size: var(--text-small); }
+.rules > li { display: grid; gap: var(--gap-inside); }
+.rules > li > i { display: block; height: var(--h); background: var(--color-ink); }
+.peca__props { margin-top: var(--gap-text); }
+.peca__props td:first-child { white-space: nowrap; }
+.snippet { margin-top: var(--s-3); padding: var(--s-3) var(--s-4); overflow-x: auto; border-left: var(--line-mid) solid var(--color-ink); background: var(--color-paper-2); font: 400 var(--ui-meta)/1.6 var(--font-mono); color: var(--color-ink); white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 46rem) {
-  .scale > li { grid-template-columns: 8.5rem 1.5rem minmax(0, 1fr); }
-  .scale > li > i { display: none; }
   .roles > li { grid-template-columns: minmax(0, 1fr); gap: var(--gap-tied); }
 }

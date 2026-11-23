@@ -2,24 +2,31 @@
 // html-didatico · montar
 // Gera os arquivos autocontidos a partir da fonte única do kit em references/kit/ (kit.css, kit.js, sprite.svg).
 // Rode depois de qualquer mudança no kit:  node scripts/montar.mjs
+//   escreve starter.html, pecas.html (a folha de peças, gerada do registro de componentes) e componentes.md.
 // Também reembute o kit atual num documento já escrito:  node scripts/montar.mjs --atualizar <arquivo.html>
 // E cria um documento novo a partir de uma base pronta:   node scripts/montar.mjs --novo <base> <destino.html>
-// Bases: cartao, explicacao, passo-a-passo, aula, decidir (os exemplos-ouro) e starter (o kit com a página em branco).
 
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import vm from 'node:vm'
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const ler = p => readFileSync(resolve(raiz, p), 'utf8')
 const css = ler('references/kit/kit.css').trimEnd(), js = ler('references/kit/kit.js').trimEnd(), sprite = ler('references/kit/sprite.svg').trim()
 
+// O registro de componentes roda em Node do mesmo jeito que no navegador, sem DOM: só lemos os metadados.
+const ctx = { window: {}, queueMicrotask }
+vm.runInNewContext(js, ctx)
+const HD = ctx.window.HD
+const esc = HD.esc
+
 const INI = '/* ══ KIT ══ não edite daqui até o fim do kit; mude references/kit/kit.css e rode scripts/montar.mjs */'
 const FIM = '/* ══ FIM DO KIT ══ */'
 const pagina = '\n/* ── DESTA PÁGINA ── só o que este documento tem de único, sempre com os tokens do kit. */\n'
 
-const documento = ({ titulo, look = 'manual', corpo, cssDaPagina = '' }) => `<!DOCTYPE html>
-<html lang="pt-BR" data-look="${look}">
+const documento = ({ titulo, corpo, cssDaPagina = '' }) => `<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,17 +47,67 @@ ${js}
 </html>
 `
 
-const BASES = { cartao: 'ouro/cartao.html', explicacao: 'ouro/explicacao.html', 'passo-a-passo': 'ouro/passo-a-passo.html', aula: 'ouro/aula.html', decidir: 'ouro/decidir.html', starter: 'starter.html' }
-const i = process.argv.indexOf('--atualizar'), n = process.argv.indexOf('--novo')
-if (n >= 0) {
-  // O documento nasce de uma cópia: o kit chega inteiro e ninguém o redigita. Depois é só trocar o <main>.
+// ── A folha de peças e a referência em texto saem do mesmo registro ──
+const GRUPOS = [
+  ['Documento', 'Documento', 'O chassi: capa, partes, abas, avisos e o pé. Monta a página; não desenha o produto.'],
+  ['Tela', 'Tela', 'O wireframe do produto: janela, campo, lista, botão, mensagem. Traço preto, contexto em cinza.'],
+  ['Caneta', 'Caneta', 'Quem explica: marca, pino e chamada em magenta. Valem em qualquer componente (mark, pin, click).'],
+  ['Esquema', 'Esquema', 'O blueprint: fluxo, barras, matriz, arquivos, código, camadas, linha do tempo e composição.'],
+]
+const SEM_AO_VIVO = new Set(['d-doc', 'd-cover', 'd-part', 'd-steps', 'd-tabs', 'd-tab', 'd-cols', 'd-band', 'w-fig'])
+const tabelaDeProps = props => {
+  const linhas = Object.entries(props)
+  return linhas.length
+    ? `<table class="table peca__props"><thead><tr><th>Prop</th><th>O que faz</th></tr></thead><tbody>${linhas.map(([k, v]) => `<tr><td><code>${esc(k)}</code></td><td>${esc(v)}</td></tr>`).join('')}</tbody></table>`
+    : '<p>Sem props próprias; só filhos.</p>'
+}
+const secoes = GRUPOS.map(([grupo, rotulo, frase]) => {
+  const pecas = Object.values(HD.componentes).filter(c => c.grupo === grupo)
+  const partes = pecas.map(c => {
+    const vivo = c.ex && !SEM_AO_VIVO.has(c.tag)
+      ? (c.tag.startsWith('w-') ? `<w-fig cap="${esc(c.doc.split(/[.:]/)[0])}">${c.ex}</w-fig>` : `<div slot="fig" class="peca__live">${c.ex}</div>`)
+      : ''
+    const codigo = `<pre class="snippet" slot="fig">${esc(c.ex ?? `<${c.tag}>…</${c.tag}>`)}</pre>`
+    return `        <d-part title="${c.tag}" id="peca-${c.tag}">\n          <p>${esc(c.doc)}</p>\n          ${tabelaDeProps(c.props)}\n          ${vivo}\n          ${codigo}\n        </d-part>`
+  }).join('\n')
+  return `      <d-tab label="${rotulo}" id="${rotulo.toLowerCase()}">\n        <d-part title="${rotulo}" wide><p>${esc(frase)}</p></d-part>\n${partes}\n      </d-tab>`
+}).join('\n\n')
+
+const referencia = `# Componentes do kit
+
+Gerado de \`kit.js\` por \`scripts/montar.mjs\`; não edite à mão. A aparência mora em \`kit.css\`.
+Escreva o documento com estes componentes: cada um vira a marcação semântica que o kit veste.
+Props são atributos; sem valor, valem como ligadas (\`mark\`, \`on\`). Filhos entram onde a tabela diz.
+
+Valem em qualquer \`w-*\`: \`mark\` (a caneta contorna ou realça), \`pin="1"\` (número magenta no canto),
+\`click\` com \`x\`/\`y\` opcionais (cursor sobre o alvo). Em \`d-part\`, um filho com \`slot="fig"\` vai para a
+coluna da figura, junto de \`w-fig\` e \`table.table\`.
+
+${GRUPOS.map(([grupo, , frase]) => `## ${grupo}\n\n${frase}\n\n${Object.values(HD.componentes).filter(c => c.grupo === grupo).map(c => `### \`<${c.tag}>\`\n\n${c.doc}\n\n${Object.entries(c.props).map(([k, v]) => `- \`${k}\`: ${v}`).join('\n') || '- só filhos'}\n${c.ex ? `\n\`\`\`html\n${c.ex}\n\`\`\`\n` : ''}`).join('\n')}`).join('\n')}`
+
+const BASES = { cartao: 'ouro/cartao.html', explicacao: 'ouro/explicacao.html', 'passo-a-passo': 'ouro/passo-a-passo.html', aula: 'ouro/aula.html', decidir: 'ouro/decidir.html', prova: 'ouro/prova.html', montagem: 'ouro/montagem.html', maquete: 'ouro/maquete.html', starter: 'starter.html' }
+const i = process.argv.indexOf('--atualizar'), n = process.argv.indexOf('--novo'), c = process.argv.indexOf('--corpo')
+if (c >= 0) {
+  // Documento a partir de um corpo escrito só com componentes: o kit entra inteiro, o corpo como está.
+  // O <title> sai do <d-cover> (o filho) quando não vem por argumento. Um <style data-pagina> no corpo vira o bloco "desta página".
+  const [origem, destino, tituloArg] = process.argv.slice(c + 1)
+  if (!origem || !destino) { console.error('Uso: node scripts/montar.mjs --corpo <corpo.html> <destino.html> ["título"]'); process.exit(1) }
+  let corpo = readFileSync(resolve(origem), 'utf8')
+  const estilo = corpo.match(/<style data-pagina>([\s\S]*?)<\/style>/)
+  corpo = corpo.replace(/<style data-pagina>[\s\S]*?<\/style>\s*/, '')
+  const titulo = tituloArg ?? corpo.match(/<d-cover[^>]*>([\s\S]*?)<\/d-cover>/)?.[1].replace(/<[^>]+>/g, '').trim() ?? 'html-didatico'
+  mkdirSync(dirname(resolve(destino)), { recursive: true })
+  writeFileSync(resolve(destino), documento({ titulo, corpo, cssDaPagina: estilo ? estilo[1].trim() + '\n' : '' }))
+  console.log(`montado: ${resolve(destino)}`)
+} else if (n >= 0) {
+  // O documento nasce de uma cópia: o kit chega inteiro e ninguém o redigita. Depois é só trocar o corpo.
   const base = BASES[process.argv[n + 1]], destino = process.argv[n + 2]
   if (!base || !destino) { console.error(`Uso: node scripts/montar.mjs --novo <${Object.keys(BASES).join('|')}> <destino.html>`); process.exit(1) }
   const alvo = resolve(destino)
   if (existsSync(alvo)) { console.error(`Já existe: ${alvo}. Escolha outro nome ou edite esse arquivo.`); process.exit(1) }
   mkdirSync(dirname(alvo), { recursive: true })
   copyFileSync(resolve(raiz, 'references/kit', base), alvo)
-  console.log(`criado: ${alvo}\nbase: references/kit/${base}\nTroque o título, a capa e o conteúdo do <main>. O bloco do kit e o sprite ficam como estão.`)
+  console.log(`criado: ${alvo}\nbase: references/kit/${base}\nTroque o título, a capa e o corpo. O bloco do kit, o sprite e o script ficam como estão.`)
 } else if (i >= 0) {
   const alvo = resolve(process.argv[i + 1])
   let html = readFileSync(alvo, 'utf8')
@@ -59,14 +116,22 @@ if (n >= 0) {
   html = html.slice(0, a) + INI + '\n' + css + '\n' + html.slice(b)
   html = html.replace(/<svg class="sprite"[\s\S]*?<\/svg>/, sprite)
   html = html.replace(/<script>\n\/\/ html-didatico · kit[\s\S]*?<\/script>/, () => `<script>\n${js}\n</script>`)
+  html = html.replace(/(<html[^>]*?)\s+data-look="[^"]*"/, '$1') // a 3.x tinha dois looks; a 4.0 tem um
   writeFileSync(alvo, html)
   console.log('kit atualizado em', alvo)
 } else {
   writeFileSync(resolve(raiz, 'references/kit/starter.html'), documento({ titulo: '{{título}}', corpo: ler('references/kit/starter.body.html') }))
-  let n = 1
-  try {
-    writeFileSync(resolve(raiz, 'references/kit/pecas.html'), documento({ titulo: 'html-didatico · peças do kit', corpo: ler('references/kit/pecas.body.html'), cssDaPagina: ler('references/kit/pecas.css') }))
-    n++
-  } catch { /* a folha de peças é opcional na montagem */ }
-  console.log(`montado: references/kit/starter.html${n > 1 ? ' e references/kit/pecas.html' : ''}`)
+  const corpo = ler('references/kit/pecas.body.html').replace('{{versao}}', HD.versao).replace('<!-- COMPONENTES -->', secoes)
+  writeFileSync(resolve(raiz, 'references/kit/pecas.html'), documento({ titulo: 'html-didatico · peças do kit', corpo, cssDaPagina: ler('references/kit/pecas.css') }))
+  writeFileSync(resolve(raiz, 'references/kit/componentes.md'), referencia)
+  // Os exemplos-ouro têm fonte em ouro/<nome>.body.html; o .html ao lado é gerado e acompanha o kit.
+  const ouro = readdirSync(resolve(raiz, 'references/kit/ouro')).filter(f => f.endsWith('.body.html'))
+  for (const f of ouro) {
+    let corpo = ler(`references/kit/ouro/${f}`)
+    const estilo = corpo.match(/<style data-pagina>([\s\S]*?)<\/style>/)
+    corpo = corpo.replace(/<style data-pagina>[\s\S]*?<\/style>\s*/, '')
+    const titulo = corpo.match(/<d-cover[^>]*>([\s\S]*?)<\/d-cover>/)?.[1].replace(/<[^>]+>/g, '').trim() ?? f
+    writeFileSync(resolve(raiz, 'references/kit/ouro', f.replace('.body.html', '.html')), documento({ titulo, corpo, cssDaPagina: estilo ? estilo[1].trim() + '\n' : '' }))
+  }
+  console.log(`montado: references/kit/starter.html, pecas.html, componentes.md (${Object.keys(HD.componentes).length} componentes) e ${ouro.length} exemplo(s)-ouro`)
 }

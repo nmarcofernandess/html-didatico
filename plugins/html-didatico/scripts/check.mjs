@@ -35,8 +35,8 @@ try {
 const html = readFileSync(file, 'utf8')
 const css = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map(m => m[1]).join('\n').replace(/\/\*[\s\S]*?\*\//g, '')
 
-// Blocos de token: :root e [data-look]. Ali os literais são permitidos; fora dali, não.
-const semTokens = css.replace(/([^{}]+)\{([^{}]*)\}/g, (regra, seletor) => /^\s*(?::root|\[data-look|html\[data-look)/.test(seletor) ? '' : regra)
+// Bloco de tokens: :root. Ali os literais são permitidos; fora dali, não.
+const semTokens = css.replace(/([^{}]+)\{([^{}]*)\}/g, (regra, seletor) => /^\s*:root\b/.test(seletor) ? '' : regra)
 
 const literaisDeCor = [...semTokens.matchAll(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|hsla?\([^)]*\)|oklch\([^)]*\)/gi)].map(m => m[0])
 const espacoCru = [...semTokens.matchAll(/(?:^|[;{\s])((?:padding|margin|gap|row-gap|column-gap)(?:-[a-z]+)?)\s*:\s*([^;}]+)/gi)]
@@ -53,14 +53,20 @@ mkdirSync(outDir, { recursive: true })
 const nome = basename(file).replace(/\.html?$/i, '')
 const browser = await chromium.launch()
 const porLargura = {}
+const errosDeScript = new Set(), soltos = new Set()
+let vivo = ''
 
 for (const w of widths) {
   const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce' })
   const page = await ctx.newPage()
+  page.on('pageerror', e => errosDeScript.add(e.message))
   await page.goto(pathToFileURL(resolve(file)).href)
   await page.waitForTimeout(250)
+  // Componente que sobrou sem montar: nome inventado ou script quebrado.
+  for (const t of await page.evaluate(() => [...document.querySelectorAll('*')].map(el => el.localName).filter(n => /^[dw]-[a-z]/.test(n)))) soltos.add(t)
   // Abas: o check lê todas as camadas, uma abaixo da outra, como na impressão.
   await page.evaluate(() => document.querySelectorAll('.tabs__panel[hidden]').forEach(p => { p.hidden = false }))
+  if (w === Math.max(...widths)) vivo = (await page.content()).replace(/<(script|style)[\s\S]*?<\/\1>|<svg class="sprite"[\s\S]*?<\/svg>/gi, ' ')
   const shot = resolve(outDir, `${nome}-${w}.png`)
   await page.screenshot({ path: shot, fullPage: true })
 
@@ -120,9 +126,9 @@ for (const w of widths) {
       const proprio = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent.trim()).join(' ').trim()
       charsTotal += proprio.length
       const mono = /mono|menlo|consolas|courier|cascadia/i.test(cs.fontFamily.split(',')[0])
-      if (mono && !el.closest('code, pre, kbd, samp, .code, .files, .term')) charsMono += proprio.length
+      if (mono && !el.closest('code, pre, kbd, samp, .code, .files, .term, .w-code, .w-files, .w-term, .snippet')) charsMono += proprio.length
 
-      if (fs < 11) pequeno.push({ el: rotulo(el), px: fs, texto: trecho(el) })
+      if (fs < 11.5) pequeno.push({ el: rotulo(el), px: fs, texto: trecho(el) })
       const tracking = cs.letterSpacing === 'normal' ? 0 : px(cs.letterSpacing) / fs
       if (fs <= 15 && (cs.textTransform === 'uppercase' || tracking > 0.03) && /[a-zà-ú]{3,}/i.test(proprio))
         caps.push({ el: rotulo(el), px: fs, texto: trecho(el) })
@@ -210,7 +216,7 @@ for (const w of widths) {
       palavras: prosa.filter(el => s.contains(el)).reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length, 0),
     }))
 
-    const semFigura = [...document.querySelectorAll('.part')].filter(visivel)
+    const semFigura = [...document.querySelectorAll('.d-part, .part')].filter(visivel)
       .filter(s => s.querySelector('h2') && !s.querySelector('figure, .fig, table')).map(s => trecho(s.querySelector('h2')))
     const palavrasForaDeTabela = prosa.filter(el => !el.closest('table')).reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length, 0)
 
@@ -263,7 +269,7 @@ const lista = (itens, f, n = 4) => itens.slice(0, n).map(f).join(' · ') + (iten
 for (const w of widths) {
   const d = porLargura[w], em = `em ${w}px`
   if (d.rolagemHorizontal) falhas.push(`rolagem horizontal ${em}: o documento passa ${d.rolagemHorizontal}px da tela`)
-  if (d.pequeno.length) falhas.push(`texto abaixo de 11px ${em} (${d.pequeno.length}): ${lista(d.pequeno, i => `${i.px}px "${i.texto}"`)}`)
+  if (d.pequeno.length) falhas.push(`texto abaixo de 12px ${em} (${d.pequeno.length}): ${lista(d.pequeno, i => `${i.px}px "${i.texto}"`)}`)
   for (const f of d.figuras) {
     if (f.cortado.length) falhas.push(`figura ${f.n} corta palavra real ${em}: ${lista(f.cortado, t => `"${t}"`)}`)
     if (f.vaza.length) falhas.push(`figura ${f.n} vaza da moldura ${em}: ${lista(f.vaza, t => `"${t}"`)}`)
@@ -273,23 +279,29 @@ for (const w of widths) {
 if (maior.contraste.length) falhas.push(`contraste abaixo do mínimo (${maior.contraste.length}): ${lista(maior.contraste, i => `${i.razao}:1 "${i.texto}"`)}`)
 if (tiques.residuo.length) falhas.push(`resíduo no texto: ${lista(tiques.residuo, t => `"${t}"`)}`)
 // Contrato do HTML Didático, lido no arquivo: o kit embutido, nenhum código de nota, opção com nome, dúvida com resposta.
-if (!html.includes('══ KIT ══') || !/<html[^>]*data-look=/.test(html)) falhas.push('documento fora do kit: parta do starter ou de um exemplo-ouro, com o kit embutido e data-look no <html>')
-const visivel = html.replace(/<(script|style|svg)[\s\S]*?<\/\1>/gi, ' ').replace(/<!--[\s\S]*?-->/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ')
+if (!html.includes('══ KIT ══')) falhas.push('documento fora do kit: parta do starter ou de um exemplo-ouro (montar.mjs --novo ou --corpo), com o kit embutido')
+if (errosDeScript.size) falhas.push(`erro de script na página: ${[...errosDeScript].slice(0, 3).join(' · ')}`)
+if (soltos.size) falhas.push(`componente que não existe no kit: ${[...soltos].map(t => `<${t}>`).join(' ')}; veja references/kit/componentes.md`)
+// Peça escrita à mão onde há componente: o corpo (fora do kit e do script) usa classes que só os componentes deviam gerar.
+const corpoAutoral = html.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>|<svg class="sprite"[\s\S]*?<\/svg>/gi, '')
+const aMao = [...new Set([...corpoAutoral.matchAll(/class="(?:[^"]*\s)?(win|field|row|fig|part|cover|plate|btn|chip|seg|flow|link|bars|matrix|layers|timeline|banner|toast|kv|stat|files|tree|note|band|stamp|rail)(?:\s[^"]*)?"/g)].map(m => m[1]))]
+if (aMao.length) avisos.push(`peça escrita à mão no corpo (${aMao.join(', ')}): use o componente (d-*/w-*), que gera a marcação; marcação à mão é diorama`)
+const visivel = vivo.replace(/<(script|style|svg)[\s\S]*?<\/\1>/gi, ' ').replace(/<!--[\s\S]*?-->/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ')
 const codigos = [...visivel.matchAll(/\b(?:PRD|SPEC|ADR|RFC)[ -]?\d{1,3}\b|\b[CDRQ]-\d{2,4}\b|\b\d{3}\/\d{2}\b|\b(?:a|à|da|na|pela|pelo|do|no) 0\d\b|\b(?:quadro|aula|desenho|board|card) \d+(?:\.\d+)?\b/gi)].map(m => m[0])
 if (codigos.length) falhas.push(`código de nota no texto (${codigos.length}): ${lista([...new Set(codigos)], c => `"${c}"`)}; mostre o fato ou leve ao quadro por link`)
-const semNome = [...html.matchAll(/<h[2-6][^>]*>\s*((?:Uma|Outra) (?:possibilidade|opção|alternativa)|Opção \d|Alternativa [A-Z\d])\s*<\/h[2-6]>/gi)].map(m => m[1])
+const semNome = [...vivo.matchAll(/<h[2-6][^>]*>\s*((?:Uma|Outra) (?:possibilidade|opção|alternativa)|Opção \d|Alternativa [A-Z\d])\s*<\/h[2-6]>/gi)].map(m => m[1])
 if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(semNome, s => `"${s}"`)}; a opção se chama pelo que faz, A · <o que muda>`)
-const duvidas = html.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
+const duvidas = vivo.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
 const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
 if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
 // Contrato do cartão: a pergunta, o caso em uma linha e as telas; pouco texto, uma página.
-const cartao = /class="[^"]*\bpage--card\b/.test(html)
+const cartao = /class="[^"]*\bpage--card\b/.test(vivo)
 if (cartao) {
-  const caso = html.match(/class="cover__sub"[^>]*>([\s\S]*?)<\/p>/)?.[1].replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean) ?? []
+  const caso = vivo.match(/class="cover__sub"[^>]*>([\s\S]*?)<\/p>/)?.[1].replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean) ?? []
   if (!caso.length) falhas.push('cartão sem o caso em uma linha (cover__sub): quem, o quê e quando, com os números que as telas usam')
   else if (caso.length > 30) avisos.push(`o caso do cartão tem ${caso.length} palavras (referência: uma linha, até 30): o resto vai para as telas`)
   if (!maior.figuras.length) falhas.push('cartão sem figura: cada pergunta é respondida por uma figura com legenda')
-  if (/class="[^"]*\b(?:tabs|rail|stamp)\b/.test(html)) avisos.push('cartão com trilho, abas ou carimbo: isso é de documento; o cartão é uma página só')
+  if (/class="[^"]*\b(?:tabs|rail|stamp)\b/.test(vivo)) avisos.push('cartão com trilho, abas ou carimbo: isso é de documento; o cartão é uma página só')
   if (maior.figuras.length > 3) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
   if (maior.semFigura.length) avisos.push(`pergunta sem figura no cartão (${maior.semFigura.length}): ${lista(maior.semFigura, t => `"${t}"`)}`)
   if (maior.palavrasForaDeTabela > 90) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras fora das figuras (referência: até 90): o que a tela mostra sai do texto; o que sobra vira legenda`)

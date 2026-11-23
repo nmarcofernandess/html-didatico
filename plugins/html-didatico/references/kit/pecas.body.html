@@ -1,329 +1,110 @@
-<div class="page">
+<d-doc>
 
-  <header class="cover">
-    <div class="plate"><span>Folha de peças <b>html-didatico</b></span><span>2.1.0</span></div>
-    <h1>Peças do kit</h1>
-    <p class="cover__sub">Tokens, peças de página, de cena e de esquema</p>
-    <p class="cover__lead">Copie a marcação de cada peça do código-fonte desta página. Para compor um documento, parta de um exemplo-ouro em <code>ouro/</code>.</p>
-    <div class="looks" role="group" aria-label="Look">
-      <button class="btn" type="button" data-set-look="manual">Look manual</button>
-      <button class="btn" type="button" data-set-look="editorial">Look editorial</button>
-    </div>
-  </header>
+  <d-cover kind="Folha de peças" subject="html-didatico" date="{{versao}}" sub="Os tokens e os componentes da biblioteca. Cada peça mostra o que faz, as props e o exemplo vivo." lead="Para compor um documento, escreva componentes e parta de um exemplo-ouro em ouro/. O código de cada exemplo está embaixo dele.">Peças do kit</d-cover>
 
   <main>
+    <d-tabs>
 
-    <section class="part" id="espaco">
-      <div class="prose"><h2>Espaço por função</h2><p>Escolha o espaço pela relação entre as duas coisas.</p></div>
-      <ul class="scale">
-        <li><code>--gap-tied</code><b>4</b><i style="--v: 4px"></i><span>título e subtítulo, rótulo e valor</span></li>
-        <li><code>--gap-inside</code><b>8</b><i style="--v: 8px"></i><span>ícone e texto, dentro de uma peça</span></li>
-        <li><code>--gap-pieces</code><b>12</b><i style="--v: 12px"></i><span>peças vizinhas da cena ou lista</span></li>
-        <li><code>--gap-text</code><b>16</b><i style="--v: 16px"></i><span>parágrafos</span></li>
-        <li><code>--gap-block</code><b>32</b><i style="--v: 32px"></i><span>blocos da mesma parte</span></li>
-        <li><code>--gap-figure</code><b>48</b><i style="--v: 48px"></i><span>coluna de texto e figura</span></li>
-        <li><code>--gap-part</code><b>64</b><i style="--v: 64px"></i><span>acima e abaixo de cada parte</span></li>
-        <li><code>--gap-break</code><b>96</b><i style="--v: 96px"></i><span>troca de assunto</span></li>
-        <li><code>--inset-piece</code><b>12</b><i style="--v: 12px"></i><span>palavras e a borda da peça</span></li>
-        <li><code>--inset-surface</code><b>16</b><i style="--v: 16px"></i><span>conteúdo e a borda da janela</span></li>
-        <li><code>--inset-scene</code><b>24</b><i style="--v: 24px"></i><span>cena e moldura da figura</span></li>
-      </ul>
-    </section>
+      <d-tab label="Ideia" id="ideia">
+        <d-part title="Um rótulo nutricional desenhado a caneta" wide>
+          <p>A página é um rótulo: <b>fio grosso</b> abre e fecha, <b>fio médio</b> separa seções, <b>fio fino</b> separa linhas. Título em grotesca condensada preta. Números em negrito.</p>
+          <p>Dentro da figura, tudo é wireframe. <b>Tinta preta desenha o produto.</b> <mark>Magenta é a caneta de quem explica</mark>: marca o assunto, numera, chama a atenção e carimba. O magenta não tem outro uso.</p>
+          <d-cols n="3">
+            <w-fig cap="O produto, em traço: contexto em cinza, assunto em tinta">
+              <w-win title="Dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" state="focus"></w-field>
+                <w-text lines="2"></w-text>
+              </w-win>
+            </w-fig>
+            <w-fig cap="A caneta marca o dado de que a parte fala">
+              <w-win title="Dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" mark pin="1"></w-field>
+                <w-text lines="2"></w-text>
+              </w-win>
+              <w-callout pin="1" mark>aceita 1.000 mcg</w-callout>
+            </w-fig>
+            <w-fig cap="O status é do produto e vem com rótulo">
+              <w-win title="Dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" tone="warn"></w-field>
+                <w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>
+              </w-win>
+            </w-fig>
+          </d-cols>
+        </d-part>
+      </d-tab>
 
-    <section class="part" id="tipo">
-      <div class="prose"><h2>Tipo por papel</h2></div>
-      <ul class="roles">
-        <li><code>display</code><span style="font: var(--display-weight) var(--text-title)/1.1 var(--font-display); color: var(--color-ink); text-transform: var(--display-case)">Título da capa</span></li>
-        <li><code>title</code><span style="font: var(--display-weight) var(--text-title)/1.15 var(--font-display); color: var(--color-ink)">Título de parte</span></li>
-        <li><code>subtitle</code><span style="font: var(--display-weight) var(--text-subtitle)/1.25 var(--font-display); color: var(--color-ink)">Subtítulo</span></li>
-        <li><code>lead</code><span style="font-size: var(--text-lead)">A frase da capa que diz o que o leitor consegue fazer no fim.</span></li>
-        <li><code>body</code><span>O corpo do documento, em 16px, com linhas de 45 a 75 caracteres.</span></li>
-        <li><code>small</code><span style="font-size: var(--text-small)">Tabela, aviso, caminho.</span></li>
-        <li><code>ui-text</code><span style="font-size: var(--ui-text); color: var(--color-ink); font-weight: 600">Nome e valor dentro da cena</span></li>
-        <li><code>ui-meta</code><span style="font-size: var(--ui-meta); color: var(--color-ink-3)">Metadado dentro da cena</span></li>
-      </ul>
-    </section>
+      <d-tab label="Tokens" id="tokens">
+        <d-part title="Espaço por função" id="espaco">
+          <p>Escolha o espaço pela relação entre as duas coisas, nunca pelo número.</p>
+          <table class="table scale" slot="fig">
+            <thead><tr><th>Token</th><th class="num">px</th><th>Entre</th></tr></thead>
+            <tbody>
+              <tr><td><code>--gap-tied</code></td><td class="num">4</td><td>título e subtítulo, rótulo e valor</td></tr>
+              <tr><td><code>--gap-inside</code></td><td class="num">8</td><td>ícone e texto, dentro de uma peça</td></tr>
+              <tr><td><code>--gap-pieces</code></td><td class="num">12</td><td>peças vizinhas da cena ou lista</td></tr>
+              <tr><td><code>--gap-text</code></td><td class="num">16</td><td>parágrafos</td></tr>
+              <tr><td><code>--gap-block</code></td><td class="num">32</td><td>blocos da mesma parte</td></tr>
+              <tr><td><code>--gap-figure</code></td><td class="num">48</td><td>coluna de texto e figura</td></tr>
+              <tr><td><code>--gap-part</code></td><td class="num">64</td><td>acima e abaixo de cada parte</td></tr>
+              <tr><td><code>--gap-break</code></td><td class="num">96</td><td>troca de assunto</td></tr>
+              <tr><td><code>--inset-piece</code></td><td class="num">12</td><td>palavras e a borda da peça</td></tr>
+              <tr><td><code>--inset-surface</code></td><td class="num">16</td><td>conteúdo e a borda da janela</td></tr>
+              <tr><td><code>--inset-scene</code></td><td class="num">24</td><td>cena e moldura da figura</td></tr>
+            </tbody>
+          </table>
+        </d-part>
 
-    <section class="part" id="cor">
-      <div class="prose"><h2>Cor</h2><p>O acento é sinal e ocupa menos de 5% da tela. Cor de status significa status.</p></div>
-      <ul class="swatches">
-        <li><i style="--c: var(--color-paper)"></i>paper</li>
-        <li><i style="--c: var(--color-paper-2)"></i>paper-2</li>
-        <li><i style="--c: var(--color-surface)"></i>surface</li>
-        <li><i style="--c: var(--color-fill)"></i>fill</li>
-        <li><i style="--c: var(--color-rule)"></i>rule</li>
-        <li><i style="--c: var(--color-ink-3)"></i>ink-3</li>
-        <li><i style="--c: var(--color-ink-2)"></i>ink-2</li>
-        <li><i style="--c: var(--color-ink)"></i>ink</li>
-        <li><i style="--c: var(--color-accent)"></i>accent</li>
-        <li><i style="--c: var(--color-accent-soft)"></i>accent-soft</li>
-        <li><i style="--c: var(--color-ok)"></i>ok</li>
-        <li><i style="--c: var(--color-warn)"></i>warn</li>
-        <li><i style="--c: var(--color-err)"></i>err</li>
-      </ul>
-    </section>
-
-    <section class="part" id="pagina">
-      <div class="prose">
-        <h2>Peças de página</h2>
-        <p>A capa, o trilho e o rodapé estão nesta própria página. O caminho diz onde a coisa fica no produto:</p>
-        <p class="path"><span>Onde</span> <b>Menu lateral</b> <b>Setores</b> <b>Novo Setor</b></p>
-      </div>
-
-      <table class="table">
-        <thead><tr><th>Aparece</th><th>O que significa</th><th>O que fazer</th></tr></thead>
-        <tbody>
-          <tr><td><span class="banner banner--warn"><svg class="ico" aria-hidden="true"><use href="#i-warning-fill"/></svg>Texto literal do aviso</span></td><td data-th="O que significa">O que o sistema fez.</td><td data-th="O que fazer">A ação do leitor.</td></tr>
-          <tr><td><span class="banner banner--err"><svg class="ico" aria-hidden="true"><use href="#i-x-circle-fill"/></svg>Texto literal do erro</span></td><td data-th="O que significa">O que impediu.</td><td data-th="O que fazer">Como resolver.</td></tr>
-        </tbody>
-      </table>
-
-      <div class="specimens">
-        <aside class="note"><b class="note__label">Nota</b><p>Uma condição que muda o resultado, junto do passo que ela afeta.</p></aside>
-        <aside class="note note--warn"><b class="note__label"><svg class="ico" aria-hidden="true"><use href="#i-warning-fill"/></svg>Atenção</b><p>Variações: <code>note--warn</code>, <code>note--err</code>, <code>note--ok</code>.</p></aside>
-      </div>
-
-      <div class="check">
-        <div class="check__head"><span>Conferência</span><output>0/2</output></div>
-        <ul>
-          <li><label><input type="checkbox"><span>Um pré-requisito</span><small>01</small></label></li>
-          <li><label><input type="checkbox"><span>Outro pré-requisito</span><small>02</small></label></li>
-        </ul>
-      </div>
-
-      <div class="tabs">
-        <div class="tabs__list" role="tablist">
-          <button role="tab" type="button" aria-controls="aba-produto">Produto</button>
-          <button role="tab" type="button" aria-controls="aba-arquitetura">Arquitetura</button>
-        </div>
-        <div class="tabs__panel" id="aba-produto" role="tabpanel"><section class="part"><div class="prose"><p>A camada de produto: o que a pessoa encontra, faz e obtém.</p></div></section></div>
-        <div class="tabs__panel" id="aba-arquitetura" role="tabpanel"><section class="part"><div class="prose"><p>A camada de arquitetura: a árvore de arquivos e um caso seguido da tela até a gravação.</p></div></section></div>
-      </div>
-
-      <div class="tabs">
-        <div class="tabs__list" role="tablist">
-          <button role="tab" type="button" aria-controls="aba-aula">Aula</button>
-          <button role="tab" type="button" aria-controls="aba-duvidas">Dúvidas</button>
-        </div>
-        <div class="tabs__panel" id="aba-aula" role="tabpanel"><section class="part"><div class="prose"><p>Abas de uma aula. A dúvida aberta é citada por link: <a href="#duvida-2">dúvida 2</a>.</p></div></section></div>
-        <div class="tabs__panel" id="aba-duvidas" role="tabpanel">
-          <section class="part">
-            <div class="tabs tabs--sub">
-              <div class="tabs__list" role="tablist">
-                <button role="tab" type="button" aria-controls="duvida-1">1 · Uma dúvida</button>
-                <button role="tab" type="button" aria-controls="duvida-2">2 · Outra dúvida</button>
-              </div>
-              <div class="tabs__panel" id="duvida-1" role="tabpanel"><div class="prose"><p><code>tabs tabs--sub</code>: abas dentro de uma aba, uma por dúvida. Cada uma termina com a recomendada marcada <span class="chip chip--ok">Recomendada</span> e o pedido de resposta.</p></div><aside class="note"><b class="note__label">Responda no chat</b><p>1A ou 1B.</p></aside></div>
-              <div class="tabs__panel" id="duvida-2" role="tabpanel"><div class="prose"><p>O endereço <code>#duvida-2</code> abre a aba Dúvidas e esta subtab. <span class="chip chip--ok">Recomendada</span></p></div><aside class="note"><b class="note__label">Responda no chat</b><p>2A ou 2B.</p></aside></div>
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <p class="src"><code>src</code>: o estado e a fonte, em uma linha. Com <code>page page--card</code> na página, a capa leva a pergunta e o caso, e as telas ficam lado a lado em <code>cols cols--3</code>; o modelo é o <code>ouro/cartao.html</code>.</p>
-
-      <aside class="band">
-        <div class="prose"><h2>Faixa</h2><p>Um caminho alternativo. No máximo uma por documento.</p></div>
-        <div class="stack"><code>um comando ou uma frase digitada</code></div>
-      </aside>
-
-      <div class="closing"><div class="stamp"><span>Carimbo<br>de fecho</span></div></div>
-    </section>
-
-    <section class="part" id="cena">
-      <div class="prose"><h2>Peças de cena</h2><p>Um recorte da tela, em tamanho de leitura. Palavras reais no assunto, barras no resto.</p></div>
-      <div class="specimens">
-
-        <figure class="fig">
-          <div class="fig__stage fig__stage--bleed" style="--scene-h: 16rem">
-            <div class="win win--split">
-              <div class="win__bar"><span class="grow">Nome do app</span><span class="meta">meta</span></div>
-              <div class="win__side">
-                <div class="row is-on"><svg class="ico" aria-hidden="true"><use href="#i-squares-four"/></svg><span class="grow">Item ativo</span></div>
-                <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg><span class="grow">Item</span></div>
-                <div class="row"><span class="bar" style="--w: 62%"></span></div>
-                <div class="row"><span class="bar" style="--w: 44%"></span></div>
-                <div class="row"><span class="bar" style="--w: 70%"></span></div>
-              </div>
-              <div class="win__body">
-                <div class="win__title">Título da tela</div>
-                <span class="bar" style="--w: 70%"></span>
-                <span class="bar" style="--w: 45%"></span>
-                <span class="bar" style="--w: 58%"></span>
-              </div>
-            </div>
-          </div>
-          <figcaption><code>win win--split</code> com <code>win__bar</code>, <code>win__side</code>, <code>win__body</code>, saindo da moldura</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="win"><div class="win__body">
-              <div class="field is-focus"><span>Rótulo</span><div>Valor digitado<i class="caret"></i></div></div>
-              <div class="pair">
-                <div class="field"><span>Abre</span><div>06h</div></div>
-                <div class="field"><span>Fecha</span><div>22h</div></div>
-              </div>
-              <div class="field"><span>Opção</span><span class="seg"><span>Uma</span><span class="is-on">Outra</span></span></div>
-            </div></div>
-          </div>
-          <figcaption><code>field</code>, <code>field is-focus</code>, <code>pair</code>, <code>seg</code>, <code>caret</code></figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="win"><div class="win__body">
-              <div class="list">
-                <div class="row row--line"><span class="avatar">AN</span><span class="grow"><b>Nome</b><small>metadado</small></span><span class="chip">chip</span></div>
-                <div class="row row--line"><span class="avatar">BE</span><span class="grow"><b>Nome</b><small>metadado</small></span><span class="chip chip--ok">ok</span></div>
-                <div class="row row--line"><span class="avatar">CA</span><span class="grow"><span class="bar" style="--w: 52%"></span></span><span class="toggle is-on"></span></div>
-              </div>
-            </div></div>
-          </div>
-          <figcaption><code>list</code>, <code>row row--line</code>, <code>avatar</code>, <code>chip</code>, <code>toggle</code>, <code>bar</code></figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div style="display: flex; flex-wrap: wrap; gap: var(--gap-pieces)">
-              <span class="btn">Botão</span>
-              <span class="btn btn--ink">Tinta</span>
-              <span class="btn btn--primary target">Principal<svg class="cursor" style="--x: 86%; --y: 60%" aria-hidden="true"><use href="#i-cursor-fill"/></svg></span>
-            </div>
-            <div class="banner banner--ok"><svg class="ico" aria-hidden="true"><use href="#i-check-circle-fill"/></svg>Mensagem literal do sistema</div>
-            <div class="toast"><svg class="ico" aria-hidden="true"><use href="#i-info-fill"/></svg>Toast com o texto literal</div>
-            <div class="menu"><div class="row is-on">Item do menu</div><div class="row">Outro item</div></div>
-          </div>
-          <figcaption><code>btn</code>, <code>target</code> com <code>cursor</code>, <code>banner</code>, <code>toast</code>, <code>menu</code></figcaption>
-        </figure>
-
-      </div>
-    </section>
-
-    <section class="part" id="esquema">
-      <div class="prose"><h2>Peças de esquema</h2><p>Como as coisas se ligam. Uma linha explica uma relação.</p></div>
-      <div class="specimens">
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <ol class="flow"><li>Sistema</li><li class="to" aria-hidden="true"></li><li class="is-on">Duplicar para editar</li><li class="to" aria-hidden="true"></li><li>Meu cadastro<small>editável</small></li></ol>
-          </div>
-          <figcaption><code>flow</code>: estados ou ações em ordem; empilha em figura estreita</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="link"><span class="avatar">AN</span><span class="dash"></span><span class="chip">Atendimento</span></div>
-            <div class="link"><span class="avatar">BE</span><span class="dash"></span><span class="chip">Caixa</span></div>
-          </div>
-          <figcaption><code>link</code>: quem vai para onde</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <ol class="bars">
-              <li data-v="2" style="--v: 34"><i></i><span>Seg</span></li>
-              <li data-v="3" style="--v: 51"><i></i><span>Ter</span></li>
-              <li data-v="4" style="--v: 68" class="is-on"><i></i><span>Qua</span></li>
-            </ol>
-          </div>
-          <figcaption><code>bars</code>: o número escrito, a altura reforça</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="matrix" style="--cols: 4"><span class="head"></span><span class="head">S</span><span class="head">T</span><span class="head">Q</span><span class="who">AN</span><span>T</span><span class="is-on">F</span><span>T</span></div>
-            <div class="stat"><b>395</b><span>um número grande por cena</span></div>
-          </div>
-          <figcaption><code>matrix</code> e <code>stat</code></figcaption>
-        </figure>
-
-      </div>
-
-      <div class="specimens">
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="win">
-              <div class="win__bar">projeto</div>
-              <div class="files">
-                <div class="row"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg>projeto</div>
-                <div class="row row--ok" style="--i: 1"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg>miniapp<span class="meta">para que serve</span></div>
-                <div class="row row--err" style="--i: 1"><svg class="ico" aria-hidden="true"><use href="#i-folder"/></svg>golden<span class="meta">chave desligada</span></div>
-                <div class="row" style="--i: 2"><svg class="ico" aria-hidden="true"><use href="#i-file-text"/></svg>fluxo.spec.ts</div>
-              </div>
-            </div>
-          </div>
-          <figcaption><code>files</code> com <code>row</code>, recuo <code>--i</code> e status <code>row--ok</code>, <code>row--err</code></figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="win">
-              <div class="win__bar">golden/fluxo.spec.ts</div>
-              <ol class="code" style="--from: 3"><li>test.skip(</li><li class="is-mark">  process.env.CI &amp;&amp;</li><li>  !process.env.RUN_GOLDEN,</li><li>)</li></ol>
-            </div>
-          </div>
-          <figcaption><code>code</code>: trecho literal, <code>--from</code> é a primeira linha, <code>is-mark</code> a que importa</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <ol class="layers">
-              <li>Banco<span class="chip">vazio</span></li>
-              <li>Fixtures<span class="chip chip--ok">tudo</span></li>
-              <li>Caso<span class="chip chip--warn">sob medida</span></li>
-            </ol>
-            <div class="row"><span class="toggle is-on"></span><code>CI</code><span class="toggle"></span><code>RUN_GOLDEN</code><span class="chip">pula</span></div>
-          </div>
-          <figcaption><code>layers</code> e uma chave feita de <code>row</code>, <code>toggle</code> e <code>chip</code></figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <ol class="timeline">
-              <li class="is-ok"><b>02/08/2026</b>Último resultado bom</li>
-              <li class="is-err"><b>27/08/2026</b>O erro nasce</li>
-              <li class="is-on"><b>03/09/2026</b>A descoberta</li>
-            </ol>
-          </div>
-          <figcaption><code>timeline</code>: datas absolutas; a cor do topo é o dado; em figura estreita, uma data por linha</figcaption>
-        </figure>
-
-        <figure class="fig">
-          <div class="fig__stage">
-            <div class="win"><div class="win__body">
-              <table class="table">
-                <thead><tr><th>Gesto</th><th>Idade</th></tr></thead>
-                <tbody>
-                  <tr><td>Abrir um Cálculo novo</td><td data-th="Idade"><b>Preenchida</b></td></tr>
-                  <tr><td>Trocar a data clínica</td><td data-th="Idade"><span class="chip chip--err">Fica como estava</span></td></tr>
-                </tbody>
-              </table>
-            </div></div>
-          </div>
-          <figcaption><code>table</code> dentro de <code>win</code>: o que muda o quê, com uma marca só</figcaption>
-        </figure>
-
-      </div>
-
-      <ul class="tree">
-        <li><code>pasta/</code>
-          <ul>
-            <li><code>arquivo.ts</code><span>a responsabilidade dele, em uma linha</span></li>
-            <li><code>outro.ts</code><span>a responsabilidade dele</span></li>
-            <li class="is-off"><code>parado.ts</code><span>existe e não roda: contorno tracejado</span></li>
+        <d-part title="Tipo por papel" id="tipo">
+          <p>Uma família só, a Helvetica Neue, em duas larguras. A condensada preta é a do rótulo.</p>
+          <ul class="roles" slot="fig">
+            <li><code>display</code><span class="role role--display">Título da capa</span></li>
+            <li><code>title</code><span class="role role--title">Título de parte</span></li>
+            <li><code>subtitle</code><span class="role role--subtitle">Subtítulo em negrito</span></li>
+            <li><code>lead</code><span class="role role--lead">A frase da capa que diz o que o leitor consegue fazer.</span></li>
+            <li><code>body</code><span>O corpo, em 16px, com linhas de 45 a 75 caracteres.</span></li>
+            <li><code>small</code><span class="role role--small">Tabela, aviso, caminho, legenda.</span></li>
+            <li><code>ui-text</code><span class="role role--ui">Nome e valor dentro da cena</span></li>
+            <li><code>ui-meta</code><span class="role role--meta">Metadado dentro da cena</span></li>
           </ul>
-        </li>
-      </ul>
-    </section>
+        </d-part>
 
+        <d-part title="Cor" id="cor">
+          <p>Neutros sem matiz, um magenta e três cores de status. O magenta ocupa menos de 5% da tela; cor de status sempre vem com rótulo ou ícone.</p>
+          <ul class="swatches" slot="fig">
+            <li><i style="--c: var(--color-paper)"></i>paper</li>
+            <li><i style="--c: var(--color-paper-2)"></i>paper-2</li>
+            <li><i style="--c: var(--color-surface)"></i>surface</li>
+            <li><i style="--c: var(--color-fig)"></i>fig</li>
+            <li><i style="--c: var(--color-fill)"></i>fill</li>
+            <li><i style="--c: var(--color-rule)"></i>rule</li>
+            <li><i style="--c: var(--color-wire)"></i>wire</li>
+            <li><i style="--c: var(--color-ink-3)"></i>ink-3</li>
+            <li><i style="--c: var(--color-ink-2)"></i>ink-2</li>
+            <li><i style="--c: var(--color-ink)"></i>ink</li>
+            <li><i style="--c: var(--color-mark)"></i>mark</li>
+            <li><i style="--c: var(--color-mark-soft)"></i>mark-soft</li>
+            <li><i style="--c: var(--color-ok)"></i>ok</li>
+            <li><i style="--c: var(--color-warn)"></i>warn</li>
+            <li><i style="--c: var(--color-err)"></i>err</li>
+            <li><i style="--c: var(--color-err-soft)"></i>err-soft</li>
+          </ul>
+        </d-part>
+
+        <d-part title="Fios" id="fios">
+          <p>Três espessuras, como no rótulo. A grossa abre e fecha o documento; a média separa a capa, a figura e o cabeçalho da tabela; a fina separa linhas.</p>
+          <ul class="rules" slot="fig">
+            <li><i style="--h: var(--line-heavy)"></i><code>--line-heavy</code> 8px</li>
+            <li><i style="--h: var(--line-mid)"></i><code>--line-mid</code> 3px</li>
+            <li><i style="--h: var(--line)"></i><code>--line</code> 1px</li>
+          </ul>
+        </d-part>
+      </d-tab>
+
+<!-- COMPONENTES -->
+
+    </d-tabs>
   </main>
 
-  <footer class="foot"><span>html-didatico, folha de peças</span><span>2.1.0</span></footer>
+  <d-foot left="html-didatico · kit" right="Folha de peças · gerada de kit.js por scripts/montar.mjs"></d-foot>
 
-</div>
-<script>
-  // Troca de look, só nesta folha.
-  for (const b of document.querySelectorAll('[data-set-look]')) b.addEventListener('click', () => { document.documentElement.dataset.look = b.dataset.setLook })
-</script>
+</d-doc>
