@@ -70,8 +70,8 @@ A versão 2.0.0 remove nomes públicos antigos; atualize chamadas salvas.
 
 ## Instalação da release 2.9.2
 
-O repositório é privado. Use a credencial já autorizada e, no SSH, seu alias de
-conta quando necessário. Tag, versão em `main` e instalação são estados distintos.
+O repositório é público desde 23/11/2026: a leitura e a instalação por HTTPS
+dispensam credencial. No SSH, use seu alias de conta quando necessário. Tag, versão em `main` e instalação são estados distintos.
 
 Codex:
 

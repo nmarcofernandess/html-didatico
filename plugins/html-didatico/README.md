@@ -39,7 +39,7 @@ permanece. A remoção dos antigos IDs motiva a versão 2.0.0.
 
 Instale pela tag `v2.9.2` do repositório
 [nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
-usando o marketplace suportado pelo host e sua credencial. Confira versão,
+usando o marketplace suportado pelo host; o repositório é público. Confira versão,
 origem e seis skills instaladas, e recarregue a sessão; o checkout sozinho não
 comprova atualização do catálogo.
 
