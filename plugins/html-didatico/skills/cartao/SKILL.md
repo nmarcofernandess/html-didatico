@@ -13,7 +13,7 @@ Uma dúvida, uma página. O cartão é curto porque o entendimento está pronto.
    conte a explicação em poucas frases, marque as telas que elas citam e desenhe
    essas telas no mesmo caso.
 3. **Base.** O arquivo nasce de `node scripts/montar.mjs --novo cartao <destino.html>`,
-   a partir da raiz do plugin. Só o `<main>` muda, conforme o
+   a partir da raiz do plugin. Só o corpo muda, com os [componentes](../../references/kit/componentes.md), conforme o
    [contrato HTML](../../references/html-portatil.md).
 4. **Revisão e entrega.** Faça as duas leituras do playbook, com a
    [leitura pela figura](../../references/visual/design.md#leitura-pela-figura).

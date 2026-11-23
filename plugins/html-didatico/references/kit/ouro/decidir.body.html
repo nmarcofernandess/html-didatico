@@ -1,0 +1,79 @@
+<!-- Decidir: uma aba por decisão, a comparação com as três saídas na mesma dose e a resposta no chat.
+     A caneta (mark) fica só na opção recomendada; as outras duas são traço. -->
+<d-doc>
+
+  <d-cover kind="Decidir" subject="DietFlow · Números e unidades" date="18/11/2026" sub="Uma decisão na mesa e as leis que já valem" lead="O teto de 999 mcg na dose, com as três saídas na mesma B12 de 1.000 mcg.">Números no DietFlow: o que falta decidir</d-cover>
+
+  <main>
+    <d-tabs>
+
+      <d-tab label="1 · Teto de 999 mcg" id="duvida-1">
+        <d-part title="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?">
+          <p><strong>O que acontece.</strong> No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto de digitação, isso recusaria doses que se prescrevem todos os dias: B12 de 1.000 mcg, vitamina A de 3.000 mcg RAE, biotina de 5.000 mcg.</p>
+          <p>O engano de mil vezes já tem duas proteções: o aviso “Lido como milhar” e o limite diário da substância.</p>
+        </d-part>
+
+        <d-part title="Comparando, com a mesma dose" wide>
+          <d-cols n="3">
+
+            <w-fig cap="A · 1.000 mcg entra como está">
+              <w-win title="Vitamina B12 · dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" mark pin="1"></w-field>
+              </w-win>
+              <w-callout pin="1" mark>recomendada</w-callout>
+            </w-fig>
+
+            <w-fig cap="B · 1.000 mcg entra, com um aviso">
+              <w-win title="Vitamina B12 · dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" tone="warn"></w-field>
+                <w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>
+              </w-win>
+            </w-fig>
+
+            <w-fig cap="C · 1.000 mcg é recusado">
+              <w-win title="Vitamina B12 · dose">
+                <w-field label="Quantidade" value="1.000" unit="mcg" tone="err"></w-field>
+                <w-msg tone="err" title="Máximo de 999 mcg">Escreva 1 mg.</w-msg>
+              </w-win>
+            </w-fig>
+
+          </d-cols>
+        </d-part>
+
+        <d-part title="Sua resposta" wide>
+          <table class="table">
+            <thead><tr><th>Opção</th><th>O que faz</th></tr></thead>
+            <tbody>
+              <tr class="is-mark"><td>A · Sem teto <w-chip tone="ink">Recomendada</w-chip></td><td data-th="O que faz">mcg aceita qualquer quantidade; o limite diário e o aviso de milhar protegem. A unidade é escolha de quem prescreve, e a prática escreve 1.000 mcg.</td></tr>
+              <tr><td>B · Aviso acima de 999 mcg</td><td data-th="O que faz">Aceita e mostra uma vez “Acima de 999 mcg: confira se não seria mg”.</td></tr>
+              <tr><td>C · Teto na dose</td><td data-th="O que faz">Recusa acima de 999 mcg; B12 de 1.000 mcg precisa virar 1 mg.</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+        <d-part wide>
+          <d-note tone="mark" label="Responda no chat">1A, 1B ou 1C.</d-note>
+        </d-part>
+      </d-tab>
+
+      <d-tab label="Leis" id="leis">
+        <d-part title="O que já foi decidido" wide>
+          <p>Só decisões de Marco. Nada no produto contradiz uma lei sem nova decisão.</p>
+          <table class="table">
+            <thead><tr><th>Data</th><th>Lei</th><th>Origem</th></tr></thead>
+            <tbody>
+              <tr><td>17/11/2026</td><td data-th="Lei">3000 e 3.000 são três mil; a leitura é 3.000. Copiar e colar preserva o valor.</td><td data-th="Origem">Correção de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">1.000 e 1.234 são milhar: ponto seguido de grupos de três dígitos agrupa. Qualquer outro ponto é decimal: 86.3 é 86,3.</td><td data-th="Origem">Direção de Marco na decisão 5 da Prescrição; fecha a dúvida 1</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">Sem conversão automática de unidade: o nutricionista digita e escolhe a unidade.</td><td data-th="Origem">Diretriz de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">999 mcg é o máximo no contexto da unidade menor. O alcance aguarda resposta na dúvida 1; nenhum teto foi aplicado.</td><td data-th="Origem">Fala de Marco</td></tr>
+              <tr class="superada"><td>17/11/2026</td><td data-th="Lei">Resposta 10A, que recusava 3.000. Superada em 17/11/2026 pela lei do 3.000.</td><td data-th="Origem">Superada</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+      </d-tab>
+
+    </d-tabs>
+  </main>
+
+  <d-foot left="DietFlow · decisões" right="Números e unidades · 18/11/2026"></d-foot>
+
+</d-doc>

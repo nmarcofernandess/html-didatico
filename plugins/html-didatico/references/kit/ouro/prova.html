@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Importação: regimes sem fonte favorito</title>
+<style>
+/* ══ KIT ══ não edite daqui até o fim do kit; mude references/kit/kit.css e rode scripts/montar.mjs */
+/* html-didatico · kit
+   Fonte única do sistema visual: tokens e a aparência de cada componente. Os componentes moram
+   em kit.js (d-* para o documento, w-* para o wireframe); este arquivo só os veste.
+   Um documento novo nasce de uma cópia de kit/starter.html, que traz kit.css, kit.js e o sprite
+   embutidos. Quem escreve um documento escreve só o corpo com componentes e, se faltar algo, o
+   bloco "desta página" com estes tokens. Tokens e componentes não se reescrevem por documento.
+
+   A ideia em uma frase: um rótulo nutricional desenhado a caneta.
+   Tinta preta desenha o produto, em traço de wireframe. Magenta é a caneta de quem explica:
+   marca o assunto, numera, chama a atenção e carimba. Nenhum outro uso para o magenta. */
+
+/* ── 1. TOKENS ─────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Escala de espaço, base 4. São os únicos valores de padding, margin e gap do sistema. */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+  /* Espaço por função. Escolha o espaço pela relação entre as duas coisas, nunca pelo número. */
+  --gap-tied: var(--s-1);       /* duas linhas que são um item só: título e subtítulo, rótulo e valor */
+  --gap-inside: var(--s-2);     /* dentro de uma peça: ícone e texto, número e nome */
+  --gap-pieces: var(--s-3);     /* entre peças vizinhas da mesma cena ou lista */
+  --gap-text: var(--s-4);       /* entre parágrafos */
+  --gap-block: var(--s-6);      /* entre blocos da mesma parte: texto e tabela, texto e aviso */
+  --gap-figure: var(--s-7);     /* entre a coluna de texto e a figura */
+  --gap-part: var(--s-8);       /* acima e abaixo de cada parte */
+  --gap-break: var(--s-9);      /* troca de assunto: depois da capa, antes do fecho */
+  --inset-piece: var(--s-3);    /* recuo das palavras dentro de uma peça */
+  --inset-surface: var(--s-4);  /* recuo dentro de janela, aviso, faixa */
+  --inset-scene: var(--s-5);    /* calha da figura: da moldura até a cena, igual nos quatro lados */
+  --gutter: var(--s-5);         /* calha da página */
+
+  /* Tipo por papel. Seis papéis na página, dois na cena. */
+  --text-display: clamp(2.75rem, 8.5vw, 5.25rem);
+  --text-numeral: 4rem;
+  --text-card: clamp(2.25rem, 5.4vw, 3.5rem);   /* a pergunta de um cartão */
+  --text-title: 2rem;
+  --text-subtitle: 1.25rem;
+  --text-lead: 1.1875rem;
+  --text-body: 1rem;
+  --text-small: 0.8125rem;
+  --text-micro: 0.75rem;
+  --ui-text: 0.8125rem;         /* nomes e valores dentro da cena */
+  --ui-meta: 0.75rem;           /* metadado dentro da cena; nada abaixo disso */
+
+  /* Face: uma família só, em duas larguras. A condensada preta é a do rótulo nutricional. */
+  --font-display: 'Helvetica Neue', 'Arial Narrow', 'Roboto Condensed', Arial, sans-serif;
+  --font-body: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, 'Cascadia Code', Consolas, monospace;
+  --display-stretch: condensed;
+  --display-weight: 900;
+  --title-weight: 700;
+
+  --measure: 62ch;              /* largura máxima da prosa */
+  --page: 56rem;                /* largura do conteúdo */
+  --scene-min: 13rem;
+
+  /* Fios do rótulo: o grosso abre e fecha, o médio separa seções, o fino separa linhas. */
+  --line: 1px;
+  --line-mid: 3px;
+  --line-heavy: 8px;
+  --line-wire: 1.5px;           /* traço do assunto e do foco dentro da cena */
+
+  /* Papel e tinta. Neutros sem matiz: o único matiz da página é o magenta. */
+  --color-paper: #f7f7f4;
+  --color-paper-2: #ebebe7;     /* poço: código, caminho, linha selecionada */
+  --color-surface: #ffffff;     /* o preenchimento do wireframe */
+  --color-fig: #efefeb;         /* chão da figura */
+  --color-dot: rgb(0 0 0 / 0.11);
+  --color-ink: #000000;
+  --color-ink-2: #3a3a37;
+  --color-ink-3: #64645f;
+  --color-rule: #d3d3cd;
+  --color-wire: #8c8c86;        /* contorno do que é contexto na cena (3:1 sobre branco) */
+  --color-fill: #dcdcd7;        /* barra no lugar de palavra */
+  --color-on-ink: #f7f7f4;
+  --color-on-ink-2: #b7b7b1;
+
+  /* A caneta. */
+  --color-mark: #e0007a;
+  --color-mark-ink: #c2006a;    /* texto magenta sobre papel: 5:1 */
+  --color-mark-soft: #ffc4e1;   /* marca-texto: tinta preta por cima */
+  --color-on-mark: #ffffff;
+
+  /* Status do produto, sempre com rótulo ou ícone. Nunca decoração. */
+  --color-ok: #11703a;   --color-ok-soft: #d8eee0;
+  --color-warn: #8a5100; --color-warn-soft: #faeac8;
+  --color-err: #b8231a;  --color-err-soft: #f9dbd7;
+
+  --radius-s: 3px;
+  --radius-m: 6px;
+  --radius-pill: 999px;
+
+  /* Compatibilidade: nomes da 3.x apontam para os tokens atuais. */
+  --color-accent: var(--color-ink);
+  --color-accent-ink: var(--color-on-ink);
+  --color-accent-soft: var(--color-mark-soft);
+  --color-accent-on-ink: var(--color-mark-soft);
+  --line-strong: var(--line-mid);
+  --edge: var(--color-wire);
+  --font-label: var(--font-body);
+}
+
+/* ── 2. BASE ───────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { overflow-x: clip; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  font: 400 var(--text-body)/1.6 var(--font-body);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  counter-reset: fig;
+}
+
+::selection { background: var(--color-mark-soft); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-mark); outline-offset: 2px; }
+
+h1, h2, h3 { color: var(--color-ink); font-family: var(--font-display); text-wrap: balance; }
+h2 { font-size: var(--text-title); font-weight: var(--title-weight); font-stretch: var(--display-stretch); line-height: 1.05; letter-spacing: -0.005em; }
+h3 { font: 700 var(--text-subtitle)/1.25 var(--font-body); }
+p, li, dd { text-wrap: pretty; }
+p { max-width: var(--measure); }
+strong, b { color: var(--color-ink); font-weight: 700; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-color: var(--color-mark); }
+ul, ol { list-style: none; }
+code, kbd, samp { font-family: var(--font-mono); font-size: max(0.88em, var(--text-micro)); color: var(--color-ink); }
+code { background: var(--color-paper-2); border-radius: var(--radius-s); padding: 0 var(--s-1); }
+kbd { border: var(--line) solid var(--color-wire); border-bottom-width: 2px; border-radius: var(--radius-s); background: var(--color-surface); padding: 0 var(--s-1); }
+
+/* Marca-texto: a caneta no meio da prosa, só no dado de que a parte fala. */
+mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, var(--color-mark-soft) 92%, transparent 92%); color: var(--color-ink); padding-inline: 0.1em; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ico { width: 1rem; height: 1rem; flex: none; fill: currentColor; }
+.ico--lg { width: 1.25rem; height: 1.25rem; }
+.grow { flex: 1; min-width: 0; }
+
+/* Componente com pino, cursor ou marca: os enfeites da caneta se posicionam por ele. */
+[data-pin], [data-click] { position: relative; }
+
+/* Prosa: mais ar antes de um título do que depois dele; o título fica colado no que encabeça. */
+.prose > * + * { margin-top: var(--gap-text); }
+.prose > * + h2, .prose > * + h3 { margin-top: var(--gap-block); }
+.prose > h2 + *, .prose > h3 + * { margin-top: var(--s-3); }
+.prose ul, .prose ol { display: grid; gap: var(--gap-inside); max-width: var(--measure); }
+.prose ul > li { padding-left: var(--s-4); position: relative; }
+.prose ul > li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: var(--s-2); height: 2px; background: var(--color-ink); }
+
+/* ── 3. DOCUMENTO (d-*) ───────────────────────────────────────────────────── */
+
+.d-doc { max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); padding-bottom: var(--gap-break); }
+
+/* Capa: o rótulo do documento. Fio grosso em cima, a plaqueta, o título, o caso, fio médio embaixo. */
+.d-cover { padding-top: var(--gap-figure); padding-bottom: var(--gap-block); border-bottom: var(--line-mid) solid var(--color-ink); }
+.d-cover .plate { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-tied) var(--s-3); padding-top: var(--s-3); border-top: var(--line-heavy) solid var(--color-ink); font: 400 var(--text-micro)/1.4 var(--font-body); color: var(--color-ink-2); }
+.d-cover .plate__kind { padding: var(--s-1) var(--s-2); background: var(--color-ink); color: var(--color-on-ink); font: var(--title-weight) var(--text-small)/1 var(--font-display); font-stretch: var(--display-stretch); letter-spacing: 0.01em; }
+.d-cover .plate__subject { color: var(--color-ink); font-weight: 700; }
+.d-cover .plate__ref { font-family: var(--font-mono); }
+.d-cover .plate__date { margin-left: auto; }
+.d-cover h1 { margin-top: var(--gap-block); max-width: 18ch; font-size: var(--text-display); font-weight: var(--display-weight); font-stretch: var(--display-stretch); line-height: 0.92; letter-spacing: -0.012em; overflow-wrap: break-word;
+  /* Registro de risografia: a cópia magenta escapa meio ponto. É o único enfeite da página. */
+  text-shadow: 0.035em 0.03em 0 var(--color-mark-soft); }
+.d-cover .cover__sub { margin-top: var(--s-4); max-width: 44rem; font-size: var(--text-subtitle); line-height: 1.35; color: var(--color-ink); }
+.d-cover .cover__lead { margin-top: var(--s-5); max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); }
+
+/* Trilho: o leitor vê onde está e para onde vai. Só em documento com quatro partes ou mais. */
+.rail { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); border-bottom: var(--line) solid var(--color-ink); }
+.rail a { display: flex; align-items: baseline; gap: var(--gap-inside); padding: var(--s-3) var(--s-3) var(--s-3) 0; color: var(--color-ink-2); font-size: var(--text-small); line-height: 1.3; text-decoration: none; }
+.rail a b { font: var(--display-weight) var(--text-subtitle)/1 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+.rail a:hover { color: var(--color-ink); }
+.rail a:hover b { color: var(--color-mark-ink); }
+
+/* Parte: um assunto, um título, uma figura. Texto sempre na mesma borda de leitura. */
+.d-part { padding-block: var(--gap-part); display: grid; gap: var(--gap-block); }
+.d-part + .d-part { border-top: var(--line) solid var(--color-ink); }
+.d-part[data-side] { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: var(--gap-figure); align-items: start; }
+.d-part > .part__fig { display: grid; gap: var(--gap-block); min-width: 0; }
+
+/* Passos: a sequência é informação, então o número é real (contador), não enfeite. */
+.d-steps { counter-reset: step; }
+.d-steps > .d-part { counter-increment: step; }
+.d-steps > .d-part > .prose::before { content: counter(step); display: block; margin-bottom: var(--s-3); font: var(--display-weight) var(--text-numeral)/0.8 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+
+/* Caminho: onde a coisa fica no produto, do menu até a tela. */
+.d-path { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--gap-tied) var(--gap-inside); width: fit-content; max-width: 100%; padding: var(--s-1) var(--s-3); border-left: var(--line-mid) solid var(--color-ink); background: var(--color-paper-2); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink); }
+.d-path > span { color: var(--color-ink-3); }
+.d-path > b { font-weight: 600; }
+.d-path > b + b::before { content: '›'; margin-right: var(--gap-inside); color: var(--color-ink-3); font-weight: 400; }
+
+/* Tabela: para comparar. Cabeçalho sobre fio médio, linhas em fio fino; no celular cada linha vira bloco. */
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-small); line-height: 1.5; }
+.table th, .table td { padding: var(--s-3) var(--s-4) var(--s-3) 0; text-align: left; vertical-align: top; border-bottom: var(--line) solid var(--color-rule); }
+.table th { color: var(--color-ink); font-weight: 700; border-bottom: var(--line-mid) solid var(--color-ink); white-space: nowrap; }
+.table td:first-child { color: var(--color-ink); font-weight: 700; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table tr.is-mark td { background: linear-gradient(transparent 6px, var(--color-mark-soft) 6px, var(--color-mark-soft) calc(100% - 6px), transparent calc(100% - 6px)); color: var(--color-ink); }
+.table tr.is-off td { color: var(--color-ink-3); text-decoration: line-through; text-decoration-color: var(--color-ink-3); }
+.table q { quotes: '“' '”'; }
+.w-win .table tr:last-child td { border-bottom: 0; }
+
+/* Aviso: uma condição que muda o resultado. O rótulo diz o tipo; a cor é de status. */
+.d-note { display: grid; gap: var(--gap-tied); padding: var(--s-3) var(--inset-surface); border-top: var(--line-mid) solid var(--color-ink); background: var(--color-paper-2); max-width: var(--measure); }
+.d-note .note__label { display: flex; align-items: center; gap: var(--gap-inside); font-size: var(--text-small); font-weight: 700; color: var(--color-ink); }
+.d-note[data-tone="warn"] { background: var(--color-warn-soft); border-top-color: var(--color-warn); } .d-note[data-tone="warn"] .note__label { color: var(--color-warn); }
+.d-note[data-tone="err"] { background: var(--color-err-soft); border-top-color: var(--color-err); }   .d-note[data-tone="err"] .note__label { color: var(--color-err); }
+.d-note[data-tone="ok"] { background: var(--color-ok-soft); border-top-color: var(--color-ok); }     .d-note[data-tone="ok"] .note__label { color: var(--color-ok); }
+.d-note[data-tone="mark"] { background: var(--color-mark-soft); border-top-color: var(--color-mark); }
+.d-note p { color: var(--color-ink-2); font-size: var(--text-small); line-height: 1.5; }
+.d-note[data-tone] p { color: var(--color-ink); }
+
+/* Conferência: lista de pré-requisitos que o leitor marca. */
+.d-check { border: var(--line-mid) solid var(--color-ink); max-width: var(--measure); }
+.d-check .check__head { display: flex; justify-content: space-between; gap: var(--s-4); padding: var(--s-2) var(--inset-surface); background: var(--color-ink); color: var(--color-on-ink); font: var(--title-weight) var(--text-body)/1.3 var(--font-display); font-stretch: var(--display-stretch); }
+.d-check .check__head output { color: var(--color-mark-soft); font-variant-numeric: tabular-nums; }
+.d-check li { border-top: var(--line) solid var(--color-rule); }
+.d-check li:first-child { border-top: 0; }
+.d-check label { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--inset-surface); cursor: pointer; }
+.d-check input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; border: 2px solid var(--color-ink); border-radius: var(--radius-s); display: grid; place-items: center; }
+.d-check input:checked { background: var(--color-ink); }
+.d-check input:checked::after { content: ''; width: 0.5rem; height: 0.3rem; border: solid var(--color-on-ink); border-width: 0 0 2px 2px; transform: translateY(-1px) rotate(-45deg); }
+.d-check label > span { flex: 1; color: var(--color-ink); }
+.d-check input:checked + span { color: var(--color-ink-3); text-decoration: line-through; text-decoration-color: var(--color-mark); text-decoration-thickness: 2px; }
+
+/* Faixa: muda o papel para um caminho alternativo. No máximo uma por documento. */
+.d-band { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: var(--gap-block) var(--gap-figure); margin-block: var(--gap-part); padding: var(--s-7) var(--s-6); background: var(--color-ink); color: var(--color-on-ink-2); }
+.d-band h2 { color: var(--color-on-ink); max-width: 26rem; }
+.d-band .prose p { max-width: 30rem; }
+.d-band strong, .d-band b { color: var(--color-on-ink); }
+.d-band code { display: block; width: fit-content; max-width: 100%; padding: var(--s-2) var(--inset-piece); background: transparent; border: var(--line) solid var(--color-ink-2); color: var(--color-on-ink); font-size: var(--text-small); }
+.d-band .band__aside { display: grid; gap: var(--gap-inside); justify-items: start; }
+
+/* Abas: camadas do mesmo documento para leitores diferentes (Produto, Arquitetura). */
+.tabs__list { display: flex; gap: var(--s-5); overflow-x: auto; border-bottom: var(--line) solid var(--color-ink); scrollbar-width: none; }
+.tabs__list button { flex: none; white-space: nowrap; appearance: none; background: none; border: 0; border-bottom: var(--line-mid) solid transparent; margin-bottom: -1px; padding: var(--s-3) 0 var(--s-2); font: var(--title-weight) var(--text-lead)/1.2 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink-3); cursor: pointer; }
+.tabs__list button:hover { color: var(--color-ink); }
+.tabs__list button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+.js .tabs__panel[hidden] { display: none; }
+/* Subtabs: abas dentro de uma aba, uma por item da mesma lista (as dúvidas de uma aula). */
+.d-tabs[data-sub] > .tabs__list { gap: var(--s-4); margin-top: var(--gap-block); border-bottom-color: var(--color-rule); }
+.d-tabs[data-sub] > .tabs__list button { font: 700 var(--text-small)/1.3 var(--font-body); }
+
+/* Colunas: coisas equivalentes lado a lado, como uma comparação. Empilham no celular. */
+.d-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-block); align-items: start; }
+.d-cols[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Figuras lado a lado: a cena estica e a legenda reserva duas linhas, então as legendas começam juntas. */
+.d-cols > .w-fig { align-self: stretch; grid-template-rows: 1fr auto; }
+.d-cols > .w-fig > figcaption { min-height: calc(2lh + var(--s-2)); }
+
+/* Carimbo: o único gesto de festa. Diz o que o leitor acabou de conseguir. */
+.d-closing { padding-top: var(--gap-break); display: grid; gap: var(--gap-block); justify-items: center; text-align: center; }
+.d-closing .stamp { display: grid; place-items: center; width: 10.5rem; height: 10.5rem; padding: var(--s-4); border: var(--line-mid) solid var(--color-mark); outline: var(--line) solid var(--color-mark); outline-offset: 4px; border-radius: 50%; color: var(--color-mark-ink); font: var(--display-weight) var(--text-subtitle)/1 var(--font-display); font-stretch: var(--display-stretch); transform: rotate(-9deg); }
+
+/* Fonte: de onde vem o fato e até onde a conferência foi, em uma linha. */
+.d-src { max-width: var(--measure); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-2); }
+
+/* Pé: fecha o rótulo com fio grosso. */
+.d-foot { margin-top: var(--gap-part); padding-top: var(--s-3); border-top: var(--line-heavy) solid var(--color-ink); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--gap-tied) var(--s-4); font-size: var(--text-micro); line-height: 1.4; color: var(--color-ink-2); }
+.d-foot b { color: var(--color-ink); }
+
+/* Cartão: uma dúvida da conversa em uma página. A capa leva a pergunta e o caso em uma linha; as telas
+   citadas na explicação ficam lado a lado, cada uma com a legenda curta. Sem trilho, abas ou carimbo. */
+.d-doc[data-card] { --scene-min: 0rem; --page: 68rem; }
+.d-doc[data-card] .d-cover { padding-top: var(--gap-block); }
+.d-doc[data-card] .d-cover h1 { font-size: var(--text-card); line-height: 0.95; max-width: 22ch; }
+.d-doc[data-card] .d-part { padding-block: var(--gap-block); }
+.d-doc[data-card] .d-foot { margin-top: var(--gap-block); }
+
+/* ── 4. FIGURA (.w-fig) ─────────────────────────────────────────────────────── */
+
+/* Moldura da figura: fio médio em cima, chão pontilhado de prancheta. A legenda numera sozinha. */
+.w-fig { container-type: inline-size; counter-increment: fig; display: grid; min-width: 0; border-top: var(--line-mid) solid var(--color-ink); }
+.w-fig > .fig__stage { position: relative; display: grid; align-content: center; gap: var(--gap-pieces); min-height: var(--scene-min); padding: var(--inset-scene); background-color: var(--color-fig); background-image: radial-gradient(var(--color-dot) 1px, transparent 1.2px); background-size: var(--s-4) var(--s-4); background-position: var(--s-2) var(--s-2); overflow: hidden; }
+.w-fig > figcaption { padding-top: var(--s-2); font-size: var(--text-small); line-height: 1.45; color: var(--color-ink-2); }
+.w-fig > figcaption::before { content: 'Fig. ' counter(fig) '\2002'; color: var(--color-ink); font-weight: 700; }
+
+/* Recorte: a tela continua para fora da moldura. Só enchimento passa da borda. */
+.w-fig[data-bleed] > .fig__stage { align-content: start; padding-bottom: 0; height: var(--scene-h, 17rem); }
+.w-fig[data-bleed] > .fig__stage > .w-win { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; min-height: 100%; }
+
+/* ── 5. WIREFRAME: TELA (w-*) ──────────────────────────────────────────────── */
+
+/* Tudo dentro da cena é wireframe: branco, traço cinza para o contexto, tinta preta para o assunto.
+   Tamanho de leitura (13px nomes, 12px metadado). Nada imita um UI system de verdade. */
+:where(.w-win, .w-field, .w-item, .w-btn, .w-seg, .w-chip, .w-toggle, .w-avatar, .w-kv, .w-msg, .w-toast, .w-menu, .w-term, .w-callout, .w-flow, .w-node, .w-bars, .w-val, .w-matrix, .w-cell, .w-files, .w-file, .w-tree, .w-code, .w-layers, .w-layer, .w-timeline, .w-when, .w-stat, .w-text, .w-grid, .w-list, .w-box) { min-width: 0; }
+:where(.w-win, .w-field, .w-list, .w-grid, .w-kv, .w-msg, .w-menu, .w-term, .w-flow, .w-bars, .w-matrix, .w-files, .w-tree, .w-code, .w-layers, .w-timeline, .w-stat, .w-box, .w-text) { display: grid; }
+
+.w-win { position: relative; align-content: start; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
+.w-win > .win__bar { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--gap-inside); min-height: 2.25rem; padding: var(--s-2) var(--inset-piece); border-bottom: var(--line) solid var(--color-rule); color: var(--color-ink); font-weight: 700; }
+.w-win > .win__bar > .grow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-win[data-tone="warn"] > .win__bar .ico { color: var(--color-warn); }
+.w-win[data-tone="err"] > .win__bar .ico { color: var(--color-err); }
+.w-win > .win__body { display: grid; align-content: start; gap: var(--gap-pieces); min-width: 0; padding: var(--inset-surface); }
+.w-win .win__title { font: 700 var(--text-body)/1.3 var(--font-body); color: var(--color-ink); }
+.w-win[data-split] { grid-template-columns: var(--side, 10.5rem) minmax(0, 1fr); grid-template-rows: auto 1fr; }
+.w-win > .win__side { display: grid; align-content: start; gap: 2px; padding: var(--s-2); border-right: var(--line) solid var(--color-rule); border-bottom-left-radius: calc(var(--radius-m) - 1px); background: var(--color-paper); }
+.w-win > .win__side > span { display: flex; align-items: center; gap: var(--gap-inside); padding: var(--s-2); border-radius: var(--radius-s); color: var(--color-ink-2); }
+.w-win > .win__side > span.is-on { background: var(--color-paper-2); color: var(--color-ink); font-weight: 700; }
+
+/* Grade: dois ou três campos curtos lado a lado. */
+.w-grid { grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: var(--gap-pieces); align-items: end; }
+
+/* Barra: enchimento no lugar de palavras que a história não usa. As larguras variam sozinhas. */
+.w-text { gap: var(--s-2); padding-block: 2px; }
+.w-text > i { display: block; width: var(--w, 70%); height: 0.5rem; border-radius: var(--radius-pill); background: var(--color-fill); }
+
+.w-field { gap: var(--gap-tied); }
+.w-field > .field__label { font-size: var(--ui-meta); color: var(--color-ink-2); }
+.w-field > .field__box { position: relative; display: flex; align-items: center; gap: var(--gap-inside); min-height: 2.25rem; padding: var(--s-2) var(--inset-piece); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); color: var(--color-ink); font-weight: 700; }
+.w-field > .field__box > .field__unit { color: var(--color-ink-2); font-weight: 400; }
+.w-field > .field__box > .field__ph { flex: 0 1 var(--w, 50%); height: 0.5rem; border-radius: var(--radius-pill); background: var(--color-fill); }
+.w-field > .field__hint { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-field[data-state="focus"] > .field__box, .w-field[data-state="caret"] > .field__box { border-color: var(--color-ink); box-shadow: 0 0 0 0.5px var(--color-ink); }
+.w-field[data-tone="warn"] > .field__box { border-color: var(--color-warn); background: var(--color-warn-soft); }
+.w-field[data-tone="err"] > .field__box { border-color: var(--color-err); background: var(--color-err-soft); }
+.w-field[data-tone="warn"] > .field__hint { color: var(--color-warn); font-weight: 700; }
+.w-field[data-tone="err"] > .field__hint { color: var(--color-err); font-weight: 700; }
+.caret { flex: none; width: 2px; height: 1.1em; margin-left: calc(-1 * var(--s-1)); background: var(--color-ink); }
+
+/* Lista: linhas separadas por fio fino. O respiro vem do padding da linha. */
+.w-list { display: grid; }
+.w-item { position: relative; display: flex; align-items: center; gap: var(--gap-inside); padding: var(--s-2) 0; border-top: var(--line) solid var(--color-rule); }
+.w-item:first-child { border-top: 0; padding-top: 0; }
+.w-item:last-child { padding-bottom: 0; }
+.w-item > .item__text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.w-item > .item__text > b { color: var(--color-ink); font-weight: 700; }
+.w-item > .item__text > .item__bar { display: block; width: var(--w, 60%); height: 0.5rem; margin-block: 0.3rem; border-radius: var(--radius-pill); background: var(--color-fill); }
+.w-item > .item__text > small, .meta { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-item[data-on] { margin-inline: calc(-1 * var(--s-2)); padding-inline: var(--s-2); border-radius: var(--radius-s); background: var(--color-paper-2); }
+.w-item[data-on] + .w-item { border-top-color: transparent; }
+.w-item[data-tone="ok"] .item__text > b { color: var(--color-ok); }
+.w-item[data-tone="warn"] .item__text > b { color: var(--color-warn); }
+.w-item[data-tone="err"] .item__text > b { color: var(--color-err); }
+.w-item[data-off] { color: var(--color-ink-3); }
+.w-item[data-off] .item__text > b { color: var(--color-ink-3); text-decoration: line-through; }
+
+.w-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--gap-inside); width: fit-content; min-height: 2rem; padding: 0 var(--inset-piece); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); white-space: nowrap; }
+.w-btn[data-kind="primary"] { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-on-ink); }
+.w-btn[data-kind="ghost"] { border-color: transparent; background: none; text-decoration: underline; text-underline-offset: 0.2em; }
+.w-btn[data-kind="danger"] { border-color: var(--color-err); color: var(--color-err); }
+.w-btn[data-off] { border-style: dashed; color: var(--color-ink-3); background: none; }
+
+.w-seg { position: relative; display: inline-flex; width: fit-content; max-width: 100%; border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); }
+.w-seg > span { padding: var(--s-2) var(--inset-piece); color: var(--color-ink-2); font-weight: 700; line-height: 1; white-space: nowrap; }
+.w-seg > span + span { border-left: var(--line) solid var(--color-wire); }
+.w-seg > span:first-child { border-radius: calc(var(--radius-s) - 1px) 0 0 calc(var(--radius-s) - 1px); }
+.w-seg > span:nth-last-child(1 of span) { border-radius: 0 calc(var(--radius-s) - 1px) calc(var(--radius-s) - 1px) 0; }
+.w-seg > span.is-on { background: var(--color-ink); color: var(--color-on-ink); }
+
+.w-chip { display: inline-flex; align-items: center; gap: var(--gap-tied); flex: none; width: fit-content; padding: var(--s-1) var(--s-2); border: var(--line) solid var(--color-wire); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-ink-2); font: 400 var(--ui-meta)/1 var(--font-body); white-space: nowrap; }
+.w-chip[data-tone="ink"] { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-on-ink); font-weight: 700; }
+.w-chip[data-tone="ok"] { border-color: transparent; background: var(--color-ok-soft); color: var(--color-ok); font-weight: 700; }
+.w-chip[data-tone="warn"] { border-color: transparent; background: var(--color-warn-soft); color: var(--color-warn); font-weight: 700; }
+.w-chip[data-tone="err"] { border-color: transparent; background: var(--color-err-soft); color: var(--color-err); font-weight: 700; }
+
+.w-toggle { display: inline-flex; align-items: center; gap: var(--gap-inside); color: var(--color-ink); }
+.w-toggle > i { flex: none; width: 2rem; height: 1.125rem; padding: 2px; border: var(--line) solid var(--color-wire); border-radius: var(--radius-pill); background: var(--color-surface); }
+.w-toggle > i::after { content: ''; display: block; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--color-wire); }
+.w-toggle[data-on] > i { border-color: var(--color-ink); background: var(--color-ink); }
+.w-toggle[data-on] > i::after { margin-left: auto; background: var(--color-surface); }
+
+.w-avatar { display: inline-grid; place-items: center; flex: none; width: 1.75rem; height: 1.75rem; border: var(--line) solid var(--color-ink); border-radius: 50%; background: var(--color-surface); color: var(--color-ink); font: 700 var(--ui-meta)/1 var(--font-body); }
+
+/* Chave e valor: uma linha de ficha. O rótulo em coluna fixa, o valor ao lado. */
+.w-kv { position: relative; grid-template-columns: var(--key, 7.5rem) minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; padding: var(--s-2) 0; border-top: var(--line) solid var(--color-rule); }
+.w-kv:first-child { padding-top: 0; border-top: 0; }
+.w-kv:last-child { padding-bottom: 0; }
+.w-kv > .kv__k { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-kv > .kv__v { color: var(--color-ink); font-weight: 700; }
+.w-kv[data-num] > .kv__v { text-align: right; }
+
+/* Mensagem do sistema, com o texto literal que o produto mostra. */
+.w-msg { position: relative; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--gap-inside); align-items: start; padding: var(--s-2) var(--inset-piece); border-radius: var(--radius-s); background: var(--color-paper-2); color: var(--color-ink); font: 400 var(--ui-text)/1.4 var(--font-body); }
+.w-msg > .ico { margin-top: 0.1rem; grid-row: span 2; }
+.w-msg > b { font-weight: 700; }
+.w-msg > .msg__body { grid-column: 2; }
+.w-msg[data-tone="warn"] { background: var(--color-warn-soft); } .w-msg[data-tone="warn"] > .ico, .w-msg[data-tone="warn"] > b { color: var(--color-warn); }
+.w-msg[data-tone="err"] { background: var(--color-err-soft); }   .w-msg[data-tone="err"] > .ico, .w-msg[data-tone="err"] > b { color: var(--color-err); }
+.w-msg[data-tone="ok"] { background: var(--color-ok-soft); }     .w-msg[data-tone="ok"] > .ico, .w-msg[data-tone="ok"] > b { color: var(--color-ok); }
+
+.w-toast { position: relative; display: flex; align-items: flex-start; gap: var(--gap-inside); width: fit-content; max-width: 100%; padding: var(--s-2) var(--inset-piece); border-radius: var(--radius-m); background: var(--color-ink); color: var(--color-on-ink); font: 400 var(--ui-text)/1.4 var(--font-body); }
+.w-toast > .ico { margin-top: 0.1rem; color: var(--color-on-ink-2); }
+
+.w-menu { position: relative; gap: 2px; width: fit-content; min-width: 10rem; padding: var(--s-1); border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); }
+.w-menu > span { display: flex; align-items: center; gap: var(--gap-inside); padding: var(--s-2); border-radius: var(--radius-s); color: var(--color-ink); }
+.w-menu > span.is-on { background: var(--color-paper-2); font-weight: 700; }
+
+/* Saída de terminal: quando o resultado é o assunto, as linhas são reais, poucas e curtas. */
+.w-term { padding: var(--inset-surface); border-radius: var(--radius-m); background: var(--color-ink); color: var(--color-on-ink); font: 400 var(--ui-meta)/1.7 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.w-term .term__dim { color: var(--color-on-ink-2); }
+
+/* Cursor: onde o leitor clica. Um por cena, sobre o alvo. */
+
+.cursor { position: absolute; left: var(--x, 72%); top: var(--y, 55%); z-index: 3; width: 1.25rem; height: 1.25rem; fill: var(--color-ink); stroke: var(--color-surface); stroke-width: 14; stroke-linejoin: round; paint-order: stroke; pointer-events: none; }
+
+/* Print: a tela real, quando ela é a prova. Sem o arquivo, o vazio hachurado não finge uma imagem. */
+.w-shot { position: relative; display: grid; overflow: hidden; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); }
+.w-shot > img { display: block; width: 100%; height: auto; }
+.w-shot > .shot__falta { display: grid; place-items: center; aspect-ratio: var(--ratio, 16/10); padding: var(--inset-surface); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--color-rule) 9px 10px); color: var(--color-ink-2); font: 700 var(--ui-text)/1.4 var(--font-body); text-align: center; }
+
+/* ── 6. A CANETA: MARCA, PINO E CHAMADA ────────────────────────────────────── */
+
+/* mark em qualquer componente: o contorno magenta de quem explica, por fora do traço do produto. */
+[data-mark]:is(.w-win, .w-field, .w-btn, .w-seg, .w-menu, .w-msg, .w-toast, .w-node, .w-box) { outline: 2px solid var(--color-mark); outline-offset: 3px; }
+.w-field[data-mark] { outline: 0; }
+.w-field[data-mark] > .field__box { outline: 2px solid var(--color-mark); outline-offset: 3px; }
+.w-item[data-mark] > .item__text > b, .w-kv[data-mark] > .kv__v { width: fit-content; background: linear-gradient(transparent 30%, var(--color-mark-soft) 30%, var(--color-mark-soft) 95%, transparent 95%); padding-inline: 0.15em; margin-inline: -0.15em; }
+.w-chip[data-mark] { border-color: var(--color-mark); background: var(--color-mark); color: var(--color-on-mark); font-weight: 700; }
+
+/* Pino: um número magenta no canto do que a legenda ou o texto cita. */
+.pin { position: absolute; top: -0.625rem; right: -0.625rem; z-index: 4; display: grid; place-items: center; min-width: 1.25rem; height: 1.25rem; padding: 0 var(--s-1); border: 2px solid var(--color-surface); border-radius: var(--radius-pill); background: var(--color-mark); color: var(--color-on-mark); font: 700 var(--ui-meta)/1 var(--font-body); }
+[data-pin] > .pin, .callout__label > .pin { background: var(--color-mark); color: var(--color-on-mark); font: 700 var(--ui-meta)/1 var(--font-body); letter-spacing: 0; text-decoration: none; }
+.w-field > .pin { top: calc(var(--ui-meta) * 1.4 - 0.5rem); }
+.w-chip > .pin, .w-btn > .pin { top: -0.75rem; right: -0.75rem; }
+
+/* Chamada: o nome à esquerda, um fio tracejado, o que ele diz ou vira à direita. */
+.w-callout { display: flex; align-items: center; gap: var(--gap-pieces); font: 400 var(--ui-text)/1.3 var(--font-body); color: var(--color-ink-2); }
+.w-callout > .callout__label { flex: none; display: inline-flex; align-items: center; gap: var(--gap-inside); }
+.w-callout[data-strong] > .callout__label { color: var(--color-ink); font-weight: 700; }
+.w-callout > .callout__label > .pin { position: static; border: 0; }
+.w-callout > .callout__dash { flex: 1; min-width: var(--s-5); height: 0; border-top: var(--line) dashed var(--color-ink-3); }
+.w-callout > .callout__value { flex: 0 1 auto; white-space: nowrap; padding: var(--s-1) var(--s-3); border: var(--line) solid var(--color-ink); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-ink); font-weight: 700; text-align: center; }
+.w-callout[data-mark] > .callout__dash { border-top: 2px dotted var(--color-mark); }
+.w-callout[data-mark] > .callout__value { border-color: var(--color-mark); background: var(--color-mark); color: var(--color-on-mark); }
+
+/* ── 7. BLUEPRINT: ESQUEMA (w-*) ───────────────────────────────────────────── */
+
+/* Fluxo: uma sequência de estados ou ações. Em figura estreita, empilha em vez de encolher o texto. */
+.w-flow { display: flex; align-items: center; justify-content: center; gap: var(--gap-inside); font: 700 var(--ui-text)/1.3 var(--font-body); color: var(--color-ink); }
+.w-node { position: relative; flex: 0 1 auto; padding: var(--s-2) var(--inset-piece); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); text-align: center; }
+.w-node[data-on] { border-color: var(--color-ink); box-shadow: 0 0 0 0.5px var(--color-ink); }
+.w-node[data-off] { border-style: dashed; color: var(--color-ink-3); background: none; }
+.w-node > small { display: block; font-size: var(--ui-meta); font-weight: 400; color: var(--color-ink-3); }
+.w-flow > .to { position: relative; flex: none; align-self: center; width: var(--s-5); height: var(--line-wire); background: var(--color-ink); }
+.w-flow > .to::after { content: ''; position: absolute; right: -1px; top: 50%; width: 0.45rem; height: 0.45rem; border: solid var(--color-ink); border-width: var(--line-wire) var(--line-wire) 0 0; transform: translate(0, -50%) rotate(45deg); }
+.w-flow > .to.is-back { background: none; border-top: var(--line-wire) dashed var(--color-ink-3); height: 0; }
+.w-flow > .to.is-back::after { border-color: var(--color-ink-3); }
+@container (max-width: 26rem) {
+  .w-flow { flex-direction: column; align-items: stretch; }
+  .w-flow > .to { width: var(--line-wire); height: var(--s-4); align-self: center; }
+  .w-flow > .to::after { right: 50%; top: auto; bottom: -1px; transform: translate(50%, 0) rotate(135deg); }
+}
+
+/* Barras: quantidades que se comparam. O número fica escrito; a altura só reforça. */
+.w-bars { display: flex; align-items: flex-end; gap: var(--gap-inside); height: 9.5rem; }
+.w-val { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: var(--gap-tied); height: 100%; font: 400 var(--ui-meta)/1.2 var(--font-body); color: var(--color-ink-2); }
+.w-val > b { color: var(--color-ink); font: var(--title-weight) var(--ui-text)/1 var(--font-body); }
+.w-val > i { display: block; width: 100%; height: calc(var(--v) * 1%); min-height: 2px; border: var(--line) solid var(--color-ink); border-bottom: 0; background: var(--color-surface); }
+.w-val[data-off] > i { border-style: dashed; border-color: var(--color-wire); background: none; }
+.w-val[data-mark] > i { border-color: var(--color-mark); background: var(--color-mark-soft); }
+.w-val[data-mark] > b { color: var(--color-mark-ink); }
+
+/* Grade: uma matriz pequena (semana, escala, permissões). */
+.w-matrix { grid-template-columns: repeat(var(--cols, 7), minmax(0, 1fr)); gap: var(--s-1); font: 700 var(--ui-meta)/1 var(--font-body); color: var(--color-ink); }
+.w-cell { display: grid; place-items: center; aspect-ratio: 1; border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); }
+.w-cell[data-head] { aspect-ratio: auto; padding-bottom: var(--s-1); border: 0; background: none; color: var(--color-ink-3); font-weight: 400; }
+.w-cell[data-who] { aspect-ratio: auto; justify-items: start; border: 0; background: none; color: var(--color-ink); }
+.w-cell[data-on] { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-on-ink); }
+.w-cell[data-off] { border-style: dashed; background: none; color: var(--color-ink-3); }
+.w-cell[data-mark] { border-color: var(--color-mark); background: var(--color-mark); color: var(--color-on-mark); }
+
+/* Arquivos: o explorer de um projeto. Nome em mono; a nota diz para que serve. */
+.w-files { gap: 2px; font: 400 var(--ui-meta)/1.4 var(--font-mono); color: var(--color-ink); }
+.w-file { position: relative; display: flex; align-items: baseline; gap: var(--gap-inside); padding: var(--s-1) 0 var(--s-1) calc(var(--i, 0) * var(--s-4)); }
+.w-file > .ico { align-self: center; color: var(--color-ink-3); }
+.w-file > .file__note { margin-left: auto; padding-left: var(--s-3); font-family: var(--font-body); color: var(--color-ink-3); text-align: right; }
+.w-file[data-mark] > code { background: var(--color-mark-soft); }
+.w-file[data-mark] { outline: 0; }
+.w-file[data-off] > code { background: none; outline: var(--line) dashed var(--color-ink-3); color: var(--color-ink-3); }
+.w-file > code { padding: 0 var(--s-1); background: none; font-size: inherit; }
+
+/* Árvore: onde cada responsabilidade mora. Listas aninhadas com code e um texto curto. */
+.w-tree { gap: var(--gap-tied); font-size: var(--text-small); line-height: 1.5; }
+.w-tree ul { display: grid; gap: var(--gap-tied); margin-left: var(--s-2); padding-left: var(--s-4); border-left: var(--line) solid var(--color-ink); }
+.w-tree li > span { color: var(--color-ink-2); }
+.w-tree li > code + span::before { content: '\2002'; }
+.w-tree .is-off > code { background: none; outline: var(--line) dashed var(--color-ink-3); color: var(--color-ink-3); }
+.w-tree .is-mark > code { background: var(--color-mark-soft); }
+
+/* Código: o trecho literal, com número de linha. A caneta marca as linhas que importam. */
+.w-code { counter-reset: ln calc(var(--from, 1) - 1); padding-block: var(--s-2); overflow-x: auto; border-radius: var(--radius-m); background: var(--color-surface); border: var(--line) solid var(--color-wire); font: 400 var(--ui-meta)/1.75 var(--font-mono); color: var(--color-ink); }
+.w-code > span { counter-increment: ln; display: flex; white-space: pre; padding-right: var(--inset-piece); }
+.w-code > span::before { content: counter(ln); flex: none; width: 2.75rem; padding-right: var(--s-3); text-align: right; color: var(--color-ink-3); }
+.w-code > span.is-mark { background: var(--color-mark-soft); }
+.w-code[data-wrap] > span { white-space: pre-wrap; overflow-wrap: anywhere; padding-left: 2ch; text-indent: -2ch; }
+.w-code[data-wrap] > span::before { text-indent: 0; margin-left: -2ch; }
+.w-code > span.is-mark::before { color: var(--color-mark-ink); font-weight: 700; }
+
+/* Camadas: o que acontece antes de quê. Numeram sozinhas; o chip diz o estado de cada uma. */
+.w-layers { counter-reset: layer; font: 700 var(--ui-text)/1.3 var(--font-body); color: var(--color-ink); }
+.w-layer { position: relative; counter-increment: layer; display: flex; align-items: center; gap: var(--gap-pieces); padding: var(--s-3) var(--inset-surface); border: var(--line) solid var(--color-ink); background: var(--color-surface); }
+.w-layer + .w-layer { border-top: 0; }
+.w-layer::before { content: counter(layer); min-width: var(--s-5); font: var(--display-weight) var(--text-subtitle)/1 var(--font-display); font-stretch: var(--display-stretch); }
+.w-layer > .grow > small { display: block; font-weight: 400; font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-layer > .w-chip { margin-left: auto; }
+.w-layer[data-mark] { background: var(--color-mark-soft); }
+.w-layer[data-mark]::before { color: var(--color-mark-ink); }
+.w-layer[data-off] { border-style: dashed; color: var(--color-ink-3); background: none; }
+
+/* Linha do tempo: o caso real em datas absolutas. A cor do topo é o dado e vem com o texto que o explica. */
+.w-timeline { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border: var(--line) solid var(--color-ink); background: var(--color-surface); font: 400 var(--ui-text)/1.4 var(--font-body); color: var(--color-ink-2); }
+.w-when { --tick: var(--color-fill); position: relative; padding: var(--s-3) var(--inset-piece); border-top: 6px solid var(--tick); }
+.w-when + .w-when { border-left: var(--line) solid var(--color-rule); }
+.w-when > b { display: block; margin-bottom: var(--gap-tied); color: var(--color-ink); font: 700 var(--ui-meta)/1.4 var(--font-mono); }
+.w-when[data-on] { --tick: var(--color-ink); }
+.w-when[data-tone="ok"] { --tick: var(--color-ok); }
+.w-when[data-tone="warn"] { --tick: var(--color-warn); }
+.w-when[data-tone="err"] { --tick: var(--color-err); }
+.w-when[data-mark] { --tick: var(--color-mark); outline: 0; }
+.w-when[data-mark] > b { color: var(--color-mark-ink); }
+@container (max-width: 26rem) {
+  .w-timeline { grid-auto-flow: row; }
+  .w-when { border-top: 0; border-left: 6px solid var(--tick); }
+  .w-when + .w-when { border-left: 6px solid var(--tick); border-top: var(--line) solid var(--color-rule); }
+}
+
+/* Linha: a série no tempo. A faixa de referência é um poço; o ponto que não plota fica no chão, vazado. */
+.w-line { --plot-h: 9rem; position: relative; padding: var(--s-5) var(--s-2) var(--s-6); }
+.w-line > .line__plot { position: relative; height: var(--plot-h); border-bottom: var(--line) solid var(--color-ink); }
+.w-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.w-line .line__band { fill: var(--color-paper-2); }
+.w-line .line__path { fill: none; stroke: var(--color-ink); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.w-line .line__bandlabel { position: absolute; right: var(--s-1); top: var(--y); transform: translateY(-100%); padding: var(--s-1) 0; font: 400 var(--ui-meta)/1 var(--font-body); color: var(--color-ink-3); }
+.w-pt { position: absolute; left: var(--x); top: var(--y); width: 0; height: 0; }
+.w-pt > i { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border: 2px solid var(--color-ink); border-radius: 50%; background: var(--color-ink); }
+.w-pt > b { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); font: 700 var(--ui-text)/1 var(--font-body); color: var(--color-ink); white-space: nowrap; }
+.w-pt > small { position: absolute; left: 50%; top: calc((100 - var(--yn, 100)) / 100 * var(--plot-h)); transform: translate(-50%, var(--s-2)); font: 400 var(--ui-meta)/1 var(--font-body); color: var(--color-ink-3); white-space: nowrap; }
+.w-pt > .pin { top: -2rem; right: auto; left: -0.625rem; }
+.w-pt[data-off] > i { background: var(--color-surface); border-style: dashed; border-color: var(--color-ink-3); }
+.w-pt[data-mark] > i { border-color: var(--color-mark); }
+.w-pt[data-mark][data-off] > i { border-style: dashed; border-color: var(--color-mark); }
+.w-pt[data-mark] > b, .w-pt[data-mark] > small { color: var(--color-mark-ink); font-weight: 700; }
+
+/* Critério de prova: o resultado à direita, em palavras; o ícone só repete. */
+.w-crit { position: relative; display: flex; align-items: flex-start; gap: var(--gap-inside); padding: var(--s-2) 0; border-top: var(--line) solid var(--color-rule); font: 400 var(--ui-text)/1.4 var(--font-body); color: var(--color-ink); }
+.w-crit:first-child { border-top: 0; }
+.w-crit > .ico { margin-top: 0.1rem; color: var(--color-ink-3); }
+.w-crit > .crit__text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.w-crit > .crit__text > small { font-size: var(--ui-meta); color: var(--color-ink-2); }
+.w-crit > .crit__status { flex: none; font: 700 var(--ui-meta)/1.6 var(--font-body); color: var(--color-ink-2); }
+.w-crit[data-status="ok"] > .ico, .w-crit[data-status="ok"] > .crit__status { color: var(--color-ok); }
+.w-crit[data-status="err"] > .ico, .w-crit[data-status="err"] > .crit__status { color: var(--color-err); }
+
+/* Número: o único número grande da cena. */
+.w-stat { position: relative; gap: var(--gap-tied); }
+.w-stat > b { font: var(--display-weight) 2.5rem/0.9 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+.w-stat > b > small { margin-left: var(--s-1); font: 700 var(--ui-text)/1 var(--font-body); color: var(--color-ink-2); }
+.w-stat > span { font-size: var(--ui-meta); color: var(--color-ink-3); }
+.w-stat[data-mark] { outline: 0; }
+.w-stat[data-mark] > b { color: var(--color-mark-ink); }
+
+/* Caixa de composição: quem contém quem. Fio contínuo é o que existe; tracejado é slot ou condição;
+   magenta é o que se propõe. O cabeçalho diz o nome e de onde a peça vem. */
+.w-box { position: relative; align-content: start; gap: var(--gap-pieces); padding: var(--s-3); border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
+.w-box > .box__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--gap-inside); }
+.w-box > .box__head > b { color: var(--color-ink); font-weight: 700; }
+.w-box > .box__head > .box__role { align-self: center; padding: 1px var(--s-1); border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); color: var(--color-ink); font: 700 var(--ui-meta)/1 var(--font-mono); }
+.w-box > .box__head > small { font: 400 var(--ui-meta)/1.4 var(--font-mono); color: var(--color-ink-3); }
+.w-box[data-kind="slot"] { border-style: dashed; border-color: var(--color-ink-3); background: none; }
+.w-box[data-kind="new"] { border: 2px solid var(--color-mark); }
+.w-box[data-kind="new"] > .box__head > b { color: var(--color-mark-ink); }
+.w-box[data-kind="off"] { border-style: dashed; border-color: var(--color-wire); background: none; color: var(--color-ink-3); }
+.w-box[data-kind="off"] > .box__head > b { color: var(--color-ink-3); text-decoration: line-through; }
+.w-box[data-row] { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+.w-box[data-row] > .box__head { grid-column: 1 / -1; }
+.w-box[data-mark] { outline: 2px solid var(--color-mark); outline-offset: 3px; }
+
+/* ── 8. LARGURAS E SAÍDA ───────────────────────────────────────────────────── */
+
+/* Abaixo de 46rem a parte empilha: texto primeiro, figura depois. A figura é redesenhada pela
+   largura do próprio container, nunca encolhida. */
+@media (max-width: 60rem) { .d-cols[data-n="3"] { grid-template-columns: minmax(0, 1fr); } }
+
+@media (max-width: 46rem) {
+  .d-part[data-side] { grid-template-columns: minmax(0, 1fr); row-gap: var(--gap-block); }
+  .d-part { padding-block: var(--gap-figure); }
+  .d-band { grid-template-columns: minmax(0, 1fr); padding: var(--s-6) var(--s-5); }
+  .d-cols, .d-cols[data-n] { grid-template-columns: minmax(0, 1fr); }
+  .table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .table, .table tbody, .table tr, .table td { display: block; }
+  .table tr { padding-block: var(--s-3); border-bottom: var(--line) solid var(--color-rule); }
+  .table td { padding: 0; border: 0; }
+  .table td + td { margin-top: var(--gap-inside); }
+  .table .num { text-align: left; }
+  .w-win .table tr:last-child { padding-bottom: 0; border-bottom: 0; }
+  .w-win .table tr:first-child { padding-top: 0; }
+  .table td[data-th]::before { content: attr(data-th); display: block; font-size: var(--text-micro); color: var(--color-ink-3); font-weight: 400; }
+}
+/* Cena em figura estreita: segundo desenho, não aperto. A lateral recolhe para o item ativo,
+   o corpo ganha a largura toda e a janela aparece inteira. */
+@container (max-width: 24rem) {
+  .w-callout > .callout__value { white-space: normal; }
+  .w-win[data-split] { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .w-win > .win__side { border-right: 0; border-bottom: var(--line) solid var(--color-rule); }
+  .w-win > .win__side > span:not(.is-on) { display: none; }
+  .w-win > .win__side:not(:has(.is-on)) { display: none; }
+  .w-fig[data-bleed] > .fig__stage { height: auto; padding-bottom: var(--inset-scene); }
+  .w-fig[data-bleed] > .fig__stage > .w-win { min-height: 0; border-bottom: var(--line) solid var(--color-ink); border-radius: var(--radius-m); }
+  .w-box[data-row] { grid-auto-flow: row; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+@media print {
+  body { background: none; }
+  .d-part, .w-fig, .d-note, .d-check { break-inside: avoid; }
+  .rail, .tabs__list { display: none; }
+  .tabs__panel[hidden] { display: block !important; }
+  .d-cover h1 { text-shadow: none; }
+}
+/* ══ FIM DO KIT ══ */
+
+/* ── DESTA PÁGINA ── só o que este documento tem de único, sempre com os tokens do kit. */
+</style>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+<!-- Ícones: Phosphor Icons, licença MIT (kit/LICENSE-phosphor.txt). Para acrescentar um, copie o path do mesmo pacote. -->
+<symbol id="i-house" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"/></symbol>
+<symbol id="i-user" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></symbol>
+<symbol id="i-users" viewBox="0 0 256 256"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></symbol>
+<symbol id="i-calendar-blank" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol>
+<symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+<symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol>
+<symbol id="i-caret-right" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></symbol>
+<symbol id="i-caret-down" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+<symbol id="i-file-text" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol>
+<symbol id="i-folder" viewBox="0 0 256 256"><path d="M216,72H131.31L104,44.69A15.86,15.86,0,0,0,92.69,40H40A16,16,0,0,0,24,56V200.62A15.4,15.4,0,0,0,39.38,216H216.89A15.13,15.13,0,0,0,232,200.89V88A16,16,0,0,0,216,72ZM40,56H92.69l16,16H40ZM216,200H40V88H216Z"/></symbol>
+<symbol id="i-pencil-simple" viewBox="0 0 256 256"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></symbol>
+<symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"/></symbol>
+<symbol id="i-bell" viewBox="0 0 256 256"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"/></symbol>
+<symbol id="i-chat-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"/></symbol>
+<symbol id="i-list" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
+<symbol id="i-squares-four" viewBox="0 0 256 256"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></symbol>
+<symbol id="i-buildings" viewBox="0 0 256 256"><path d="M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z"/></symbol>
+<symbol id="i-storefront" viewBox="0 0 256 256"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z"/></symbol>
+<symbol id="i-chart-bar" viewBox="0 0 256 256"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z"/></symbol>
+<symbol id="i-sliders-horizontal" viewBox="0 0 256 256"><path d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"/></symbol>
+<symbol id="i-dots-three" viewBox="0 0 256 256"><path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm56-12a12,12,0,1,0,12,12A12,12,0,0,0,196,116ZM60,116a12,12,0,1,0,12,12A12,12,0,0,0,60,116Z"/></symbol>
+<symbol id="i-tag" viewBox="0 0 256 256"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z"/></symbol>
+<symbol id="i-identification-card" viewBox="0 0 256 256"><path d="M200,112a8,8,0,0,1-8,8H152a8,8,0,0,1,0-16h40A8,8,0,0,1,200,112Zm-8,24H152a8,8,0,0,0,0,16h40a8,8,0,0,0,0-16Zm40-80V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56ZM216,200V56H40V200H216Zm-80.26-34a8,8,0,1,1-15.5,4c-2.63-10.26-13.06-18-24.25-18s-21.61,7.74-24.25,18a8,8,0,1,1-15.5-4,39.84,39.84,0,0,1,17.19-23.34,32,32,0,1,1,45.12,0A39.76,39.76,0,0,1,135.75,166ZM96,136a16,16,0,1,0-16-16A16,16,0,0,0,96,136Z"/></symbol>
+<symbol id="i-download-simple" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol>
+<symbol id="i-link" viewBox="0 0 256 256"><path d="M240,88.23a54.43,54.43,0,0,1-16,37L189.25,160a54.27,54.27,0,0,1-38.63,16h-.05A54.63,54.63,0,0,1,96,119.84a8,8,0,0,1,16,.45A38.62,38.62,0,0,0,150.58,160h0a38.39,38.39,0,0,0,27.31-11.31l34.75-34.75a38.63,38.63,0,0,0-54.63-54.63l-11,11A8,8,0,0,1,135.7,59l11-11A54.65,54.65,0,0,1,224,48,54.86,54.86,0,0,1,240,88.23ZM109,185.66l-11,11A38.41,38.41,0,0,1,70.6,208h0a38.63,38.63,0,0,1-27.29-65.94L78,107.31A38.63,38.63,0,0,1,144,135.71a8,8,0,0,0,16,.45A54.86,54.86,0,0,0,144,96a54.65,54.65,0,0,0-77.27,0L32,130.75A54.62,54.62,0,0,0,70.56,224h0a54.28,54.28,0,0,0,38.64-16l11-11A8,8,0,0,0,109,185.66Z"/></symbol>
+<symbol id="i-cursor-fill" viewBox="0 0 256 256"><path d="M220.49,207.8,207.8,220.49a12,12,0,0,1-17,0l-56.57-56.57L115,214.08l-.13.33A15.84,15.84,0,0,1,100.26,224l-.78,0a15.82,15.82,0,0,1-14.41-11L32.8,52.92A15.95,15.95,0,0,1,52.92,32.8L213,85.07a16,16,0,0,1,1.41,29.8l-.33.13-50.16,19.27,56.57,56.56A12,12,0,0,1,220.49,207.8Z"/></symbol>
+<symbol id="i-check-circle-fill" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="i-warning-fill" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"/></symbol>
+<symbol id="i-x-circle-fill" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+<symbol id="i-info-fill" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"/></symbol>
+</svg>
+<!-- Prova: o veredito primeiro, depois o que cada passo prova, o critério e a evidência.
+     A caneta marca só o dado de que a parte fala. Status (ok, warn) só com rótulo e só quando é status real.
+     Sem src, w-shot mostra o vazio hachurado: o print falta neste exemplo, e isso fica à vista. -->
+<d-doc>
+
+  <d-cover kind="Prova" subject="DietFlow · Importação" date="27/09/2026" sub="14 de 14 passos passaram, o gate de validade fechou com 0 disparos e a revisão visual deu passed. Importar favorito ficou fora." lead="Saber quais regimes de importação foram percorridos no browser, o que cada passo prova e o que ficou de fora.">Importação: regimes sem fonte favorito</d-cover>
+
+  <main>
+
+    <d-part title="O que foi provado" id="veredito">
+      <p>Os dois regimes de importação sem fonte favorito foram percorridos no browser, pela porta real: catálogo em massa, autocomplete, cesta e as seis relações entre módulos. Cinco relações funcionam; a sexta, Prescrição ← Exames, ainda não existe, e a prova registra isso de propósito.</p>
+      <w-fig cap="14 de 14 passos verdes, no build de produção, com a identidade da execução ao lado" slot="fig">
+        <w-win title="Proof pack · jornadas/importacao">
+          <w-stat n="14/14" unit="passos">passed, gate sem disparos</w-stat>
+          <w-kv k="Branch" v="codex/123-04-calculo-transversal"></w-kv>
+          <w-kv k="Commit" v="b355b705fed9"></w-kv>
+          <w-kv k="Run" v="1790553106582-60796" num></w-kv>
+          <w-kv k="Pack SHA" v="64b8298bf391" num></w-kv>
+          <w-kv k="Runtime" v="next start (build de produção)"></w-kv>
+          <w-kv k="Fonte" v="importacao-bulk-flow.spec.ts"></w-kv>
+        </w-win>
+      </w-fig>
+    </d-part>
+
+    <d-part title="O gate de validade fechou limpo" id="gate">
+      <p>Durante os 14 passos, nenhum sinal de página quebrada apareceu. Se um deles tivesse disparado, o veredito não seria <strong>passed</strong>, mesmo com todos os passos verdes.</p>
+      <w-fig cap="Os seis sinais do gate ficaram em zero" slot="fig">
+        <w-win title="Gate de validade">
+          <w-list>
+            <w-item title="console.error" tag="0" tagtone="ok"></w-item>
+            <w-item title="pageerror" tag="0" tagtone="ok"></w-item>
+            <w-item title="HTTP 5xx" tag="0" tagtone="ok"></w-item>
+            <w-item title="Redirecionamento para login" tag="0" tagtone="ok"></w-item>
+            <w-item title="404 ou página de erro" tag="0" tagtone="ok"></w-item>
+            <w-item title="Skeleton preso" tag="0" tagtone="ok"></w-item>
+          </w-list>
+        </w-win>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Os 14 passos, por regime" id="passos" wide>
+      <p>Todos passaram. Por regime: seleção (01, 08), porta fechada (02, 03, 04), autocomplete (05), cesta e ordem (06, 07) e relações entre módulos (09, 10, 11, 12, 13, 14). O 12 passou provando uma ausência.</p>
+      <w-fig cap="Cada passo e o seu resultado; o 12 é a ausência declarada, não um defeito">
+        <w-win title="Passos da prova">
+          <w-list>
+            <w-item title="01 · Seleção à frente" tag="passou" tagtone="ok"></w-item>
+            <w-item title="02 · Porta fechada: a duplicata não aparece" tag="passou" tagtone="ok" on></w-item>
+            <w-item title="03 · A forma livre entra direto" tag="passou" tagtone="ok"></w-item>
+            <w-item title="04 · Porta fechada em Exames" tag="passou" tagtone="ok"></w-item>
+            <w-item title="05 · Autocomplete mostra a opção" tag="passou" tagtone="ok"></w-item>
+            <w-item title="06 · A cesta sobrevive ao filtro" tag="passou" tagtone="ok"></w-item>
+            <w-item title="07 · Apply na ordem de clique" tag="passou" tagtone="ok" on></w-item>
+            <w-item title="08 · Seleção no canto" tag="passou" tagtone="ok"></w-item>
+            <w-item title="09 · Cálculo ← Antropometria" tag="passou" tagtone="ok"></w-item>
+            <w-item title="10 · Dieta ← Antropometria" tag="passou" tagtone="ok"></w-item>
+            <w-item title="11 · Dieta ← Cálculo" tag="passou" tagtone="ok"></w-item>
+            <w-item title="12 · Prescrição ← Exames" meta="ainda não implementada" tag="ausência declarada" tagtone="warn" on mark pin="1"></w-item>
+            <w-item title="13 · Exames ← Exames" tag="passou" tagtone="ok"></w-item>
+            <w-item title="14 · Gestação ← Antropometria" tag="passou" tagtone="ok"></w-item>
+          </w-list>
+        </w-win>
+        <w-callout pin="1" mark>a única relação sem porta, registrada como ausência</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 02: a porta fecha na forma, e a duplicata nem aparece" id="passo-02">
+      <p>Quem escolhe vários itens de uma vez não encontra mais a duplicata para decidir: a forma que já está no card vem desabilitada, com o motivo escrito. A forma irmã do mesmo marcador continua livre.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>Há um só diálogo no DOM: o bulk nunca empilha janela.</li>
+        <li>Colecalciferol (D3) vem desabilitado, com o motivo “Já está neste card” no nome acessível.</li>
+        <li>Ergocalciferol (D2), do mesmo marcador, segue selecionável.</li>
+        <li>Clicar na linha fechada não marca nada, e o botão de importar continua desabilitado.</li>
+      </ul>
+      <w-fig cap="Redesenho do que o print mostra: o D3 fechado com o motivo, o D2 livre. O print falta neste exemplo.">
+        <w-win title="Importar de Formulações">
+          <w-list>
+            <w-item title="Vitamina D (Colecalciferol (D3))" meta="Já está neste card" off></w-item>
+            <w-item title="Vitamina D (Ergocalciferol (D2))" meta="Livre para importar" tag="selecionável" tagtone="ink" mark pin="1"></w-item>
+          </w-list>
+          <w-btn kind="primary" off>Importar</w-btn>
+        </w-win>
+        <w-callout pin="1" mark>a forma irmã continua livre</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 07: o apply respeita a ordem em que A e B foram clicados" id="passo-07">
+      <p>A seleção atravessa o filtro e a troca de aba, e a ordem original chega intacta à navegação. A tela de destino fica fora desta prova.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>A URL de destino traz os dois <code>importTemplate</code>.</li>
+        <li>Eles aparecem na ordem A, B, mesmo depois do filtro e da troca de aba.</li>
+      </ul>
+      <p>É um fato de máquina: a evidência é o payload da navegação, sem print.</p>
+      <w-fig cap="O payload da navegação: A antes de B">
+        <w-win title="Evidência de máquina">
+          <w-kv k="importTemplate (1º)" v="a7416c56-c537-48ec-8062-5e67d0662f79" mark pin="1"></w-kv>
+          <w-kv k="importTemplate (2º)" v="161f0264-e5a0-4b0e-8b8a-66e31c6fc2ed"></w-kv>
+        </w-win>
+        <w-callout pin="1" mark>A vem primeiro, como foi clicado</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 12: a porta que não existe não é fingida" id="passo-12">
+      <p>Prescrição ← Exames está declarada no produto como futura. Esta prova confirma que a tela não oferece um botão nem um diálogo falsos. Aqui, passar quer dizer que a ausência é exatamente a declarada.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>Readiness <code>future</code> e a razão da ausência foram lidos da relação viva.</li>
+        <li>Nenhum botão nem diálogo de Resultados de Exames apareceu em Prescrição.</li>
+        <li>A página terminou saudável, sem login, 404 ou 500.</li>
+      </ul>
+      <d-note tone="warn" label="Ausência declarada">O consumer Prescrição ← Exames ainda não foi implementado. Esta prova não a cobre; ela só garante que a ausência é honesta.</d-note>
+      <w-shot alt="Prescrição sem botão nem diálogo de Resultados de Exames" ratio="16/10"></w-shot>
+    </d-part>
+
+    <d-part title="Passo 01: o checkbox entra no fluxo, e o card não se mexe" id="passo-01">
+      <p>Na porta de importação de Prescrição, selecionar o favorito não muda a geometria do card.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>O checkbox fica no fluxo, antes do visual, e não é posicionado de forma absoluta.</li>
+        <li>Largura, altura e posição do card ficam estáveis ao selecionar.</li>
+        <li>Ações individuais: N/A. A porta só oferece seleção e Importar, e isso não é uma ausência a interpretar.</li>
+      </ul>
+      <w-shot alt="Card de Prescrição antes e depois de selecionar, com a mesma geometria"></w-shot>
+    </d-part>
+
+    <d-part title="O que esta prova não cobre" id="limites">
+      <d-note tone="warn" label="Fora do escopo">Importar favorito não rodou aqui: esse regime tem dono no gate de Favoritos e entra por referência ao mesmo receipt, sem nova execução.</d-note>
+      <d-note label="Limite">A revisão visual conferiu 14 de 14 imagens no mesmo run e SHA. Ela não vale como aceite humano nem como prova do que está fora de cada captura.</d-note>
+    </d-part>
+
+    <d-src>Gerado pelo renderer do projeto no run 1790553106582-60796, em 27/09/2026, sobre o commit b355b705fed9. Os prints não estão neste exemplo: as áreas hachuradas marcam onde entram.</d-src>
+
+  </main>
+
+  <d-foot left="DietFlow · Importação" right="Prova · 27/09/2026"></d-foot>
+
+</d-doc>
+<script>
+// html-didatico · kit — a biblioteca de componentes.
+// Cada componente é uma função pura: props (os atributos) e filhos (o HTML de dentro) viram a
+// marcação semântica que kit.css veste. No navegador, <w-field label="Peso" value="62 kg"> é trocado
+// por essa marcação; a mesma função roda num DOM de servidor (Playwright, jsdom) para pré-renderizar,
+// e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
+// d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
+;(() => {
+  const VERSAO = '4.0.0'
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+  const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
+  const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  const ico = n => (n && n !== true ? `<svg class="ico" aria-hidden="true"><use href="#i-${esc(n)}"/></svg>` : '')
+  const num = v => parseFloat(String(v ?? '').replace(/\./g, '').replace(',', '.'))
+  // Texto solto vira parágrafo; HTML já com blocos passa como está.
+  const paragrafo = k => (k.trim() && !/^\s*<(p|ul|ol|div|table|figure|section|h[1-6])\b/i.test(k) ? `<p>${k.trim()}</p>` : k)
+
+  // Props que viram data-* na raiz: o estado que o CSS lê. Texto (título, legenda) não vai para atributo.
+  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status']
+  const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
+    const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
+    const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
+    const style = estilo || x ? ` style="${x}${estilo}"` : ''
+    const id = p.id ? ` id="${esc(p.id)}"` : ''
+    const pino = p.pin && p.pin !== true ? `<span class="pin">${esc(p.pin)}</span>` : ''
+    const cursor = p.click ? '<svg class="cursor" aria-hidden="true"><use href="#i-cursor-fill"/></svg>' : ''
+    return `<${tag} class="${nome}${cls ? ' ' + cls : ''}"${id}${dados}${style}${attrs}>${miolo}${pino}${cursor}</${tag}>`
+  }
+  const filhos = (el, sel) => [...el.children].filter(c => c.matches(sel))
+
+  const C = {}
+  // grupo: Documento | Tela | Esquema | Caneta. props: nome → o que faz. ex: o exemplo que a folha de peças mostra.
+  const def = (tag, spec) => { C[tag] = { tag, ...spec } }
+
+  // ── Documento ────────────────────────────────────────────────────────────
+
+  def('d-doc', {
+    grupo: 'Documento', doc: 'A página inteira. Com card, vira cartão: uma pergunta, uma página.',
+    props: { card: 'cartão de uma página, mais largo, sem trilho nem abas' },
+    html: (p, k) => raiz('div', 'd-doc page', p, k, { cls: p.card ? 'page--card' : '' }),
+  })
+  def('d-cover', {
+    grupo: 'Documento', doc: 'A capa: o rótulo do documento. O filho é o título.',
+    props: { kind: 'a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete', subject: 'produto e assunto', ref: 'código ou revisão do documento (EF-QS-001 · rev. 1.10)', date: 'dd/mm/aaaa', sub: 'o caso em uma linha, com os números', lead: 'o que o leitor consegue no fim' },
+    ex: '<d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.">Que data vale num Cálculo retroativo?</d-cover>',
+    html: (p, k) => raiz('header', 'd-cover cover', p,
+      `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
+      `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
+  })
+  def('d-part', {
+    grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',
+    props: { title: 'o título da parte, de preferência a pergunta do leitor', id: 'âncora', wide: 'empilha texto e figura em largura total' },
+    html: (p, k, el) => {
+      const fig = filhos(el, '.w-fig, table.table, [slot="fig"]')
+      fig.forEach(f => f.removeAttribute('slot'))
+      const lado = fig.length && !p.wide
+      const resto = [...el.childNodes].filter(n => !fig.includes(n)).map(n => (n.nodeType === 1 ? n.outerHTML : n.textContent)).join('')
+      const titulo = p.title ? `<h2>${esc(p.title)}</h2>` : ''
+      const texto = titulo || resto.trim() ? `<div class="prose">${titulo}${resto}</div>` : ''
+      const figuras = fig.map(f => f.outerHTML).join('')
+      return raiz('section', 'd-part part', { ...p, id: p.id || (p.title ? slug(p.title) : undefined) },
+        lado ? `${texto}<div class="part__fig">${figuras}</div>` : texto + figuras, { attrs: lado ? ' data-side' : '' })
+    },
+  })
+  def('d-steps', {
+    grupo: 'Documento', doc: 'Passos numerados de verdade: cada d-part de dentro ganha o seu número. Com rail, abre um trilho.',
+    props: { rail: 'trilho no topo com um atalho por passo (quatro passos ou mais)' },
+    html: (p, k, el) => {
+      const partes = filhos(el, '.d-part')
+      const trilho = p.rail ? `<nav class="rail" aria-label="Passos">${partes.map((s, i) => `<a href="#${esc(s.id)}"><b>${i + 1}</b>${esc(s.querySelector('h2')?.textContent ?? '')}</a>`).join('')}</nav>` : ''
+      return trilho + raiz('div', 'd-steps', p, k)
+    },
+  })
+  def('d-tabs', {
+    grupo: 'Documento', doc: 'Camadas do mesmo documento para leitores diferentes. Filhos: d-tab.',
+    props: { sub: 'abas dentro de uma aba (as dúvidas de uma aula)' },
+    html: (p, k, el) => {
+      const abas = filhos(el, '.tabs__panel')
+      const botoes = abas.map(a => `<button type="button" role="tab" id="tab-${esc(a.id)}" aria-controls="${esc(a.id)}" aria-selected="false">${esc(a.dataset.label)}</button>`).join('')
+      return raiz('div', 'd-tabs tabs', p, `<div class="tabs__list" role="tablist">${botoes}</div>${k}`, { cls: p.sub ? 'tabs--sub' : '' })
+    },
+  })
+  def('d-tab', {
+    grupo: 'Documento', doc: 'Uma aba de d-tabs. O id vira endereço: #id abre a aba.',
+    props: { label: 'o nome na aba', id: 'âncora (padrão: o rótulo sem acento)' },
+    html: (p, k) => `<section class="tabs__panel" role="tabpanel" id="${esc(p.id || slug(p.label))}" data-label="${esc(p.label)}" aria-labelledby="tab-${esc(p.id || slug(p.label))}">${k}</section>`,
+  })
+  def('d-note', {
+    grupo: 'Documento', doc: 'Aviso: uma condição que muda o resultado. O rótulo diz o tipo.',
+    props: { tone: 'warn | err | ok | mark', label: 'o tipo do aviso, em palavras' },
+    ex: '<d-note tone="warn" label="Antes de gerar">A demanda vazia gera uma escala vazia.</d-note>',
+    html: (p, k) => {
+      const i = { warn: 'warning-fill', err: 'x-circle-fill', ok: 'check-circle-fill' }[p.tone] ?? 'info-fill'
+      return raiz('div', 'd-note note', p, `${p.label ? `<p class="note__label">${ico(i)}${esc(p.label)}</p>` : ''}${paragrafo(k)}`)
+    },
+  })
+  def('d-check', {
+    grupo: 'Documento', doc: 'Conferência que o leitor marca. Filhos: li, um item cada.',
+    props: { title: 'o que se confere' },
+    ex: '<d-check title="Antes de gerar"><li>Setor com horário</li><li>Equipe com contrato</li></d-check>',
+    html: (p, k, el) => raiz('div', 'd-check check', p,
+      `<div class="check__head"><span>${esc(p.title ?? 'Conferência')}</span><output></output></div><ul>${[...el.querySelectorAll('li')].map(li => `<li><label><input type="checkbox"><span>${li.innerHTML}</span></label></li>`).join('')}</ul>`),
+  })
+  def('d-path', {
+    grupo: 'Documento', doc: 'Onde a coisa fica no produto, do menu até a tela. Separe os níveis com ›.',
+    props: { label: 'o que vem antes (padrão: Onde)' },
+    ex: '<d-path>Setores › Novo Setor › Regime</d-path>',
+    html: (p, k) => raiz('p', 'd-path', p, `<span>${esc(p.label ?? 'Onde')}</span>${k.split(/\s*(?:›|&gt;)\s*/).filter(Boolean).map(x => `<b>${x}</b>`).join('')}`),
+  })
+  def('d-cols', {
+    grupo: 'Documento', doc: 'Coisas equivalentes lado a lado, como uma comparação. Empilham no celular.',
+    props: { n: '2 ou 3 colunas' },
+    html: (p, k) => raiz('div', 'd-cols cols', p, k, { attrs: ` data-n="${esc(p.n ?? 2)}"` }),
+  })
+  def('d-band', {
+    grupo: 'Documento', doc: 'Faixa preta: um caminho alternativo. Uma por documento, no máximo. slot="aside" vai para a direita.',
+    props: { title: 'o título da faixa' },
+    html: (p, k, el) => {
+      const lado = filhos(el, '[slot="aside"]')
+      lado.forEach(f => f.removeAttribute('slot'))
+      const resto = [...el.childNodes].filter(n => !lado.includes(n)).map(n => (n.nodeType === 1 ? n.outerHTML : n.textContent)).join('')
+      return raiz('aside', 'd-band band', p, `<div class="prose">${p.title ? `<h2>${esc(p.title)}</h2>` : ''}${paragrafo(resto)}</div><div class="band__aside">${lado.map(f => f.outerHTML).join('')}</div>`)
+    },
+  })
+  def('d-closing', {
+    grupo: 'Documento', doc: 'O fecho com carimbo: o único gesto de festa. Diz o que o leitor conseguiu.',
+    props: { stamp: 'o que o carimbo diz, em até três palavras' },
+    ex: '<d-closing stamp="Escala no ar">O rodízio já roda sozinho.</d-closing>',
+    html: (p, k) => raiz('div', 'd-closing closing', p, `<div class="stamp">${esc(p.stamp ?? '')}</div>${paragrafo(k)}`),
+  })
+  def('d-src', {
+    grupo: 'Documento', doc: 'De onde vem o fato e até onde a conferência foi, em uma linha.',
+    props: {},
+    ex: '<d-src>Conferido em dev em 22/11/2026, nas figuras 2 e 3.</d-src>',
+    html: (p, k) => raiz('p', 'd-src src', p, k.trim()),
+  })
+  def('d-foot', {
+    grupo: 'Documento', doc: 'O pé: fecha o rótulo com fio grosso.',
+    props: { left: 'produto e assunto', right: 'o documento e a data' },
+    ex: '<d-foot left="DietFlow · Cálculo" right="Data clínica · 22/11/2026"></d-foot>',
+    html: (p, k) => raiz('footer', 'd-foot foot', p, `<span>${esc(p.left ?? '')}</span><span>${esc(p.right ?? '')}</span>${k}`),
+  })
+
+  // ── Figura e tela (wireframe) ────────────────────────────────────────────
+
+  def('w-fig', {
+    grupo: 'Tela', doc: 'A moldura de toda figura: chão de prancheta e a legenda numerada embaixo.',
+    props: { cap: 'a legenda: a conclusão que a figura mostra, com o dado do caso', bleed: 'a tela continua para fora da moldura', h: 'altura do recorte com bleed (ex.: 17rem)' },
+    html: (p, k) => raiz('figure', 'w-fig fig', p, `<div class="fig__stage"${p.h ? ` style="--scene-h:${esc(p.h)}"` : ''}>${k}</div>${p.cap ? `<figcaption>${esc(p.cap)}</figcaption>` : ''}`),
+  })
+  def('w-win', {
+    grupo: 'Tela', doc: 'Uma janela do produto em wireframe: barra com o nome da tela e o corpo.',
+    props: { title: 'o nome da tela, como no produto', icon: 'ícone à direita da barra', tone: 'warn | err: cor do ícone da barra', heading: 'título dentro do corpo', nav: 'menu lateral: Item|Item|Item', on: 'o item ativo do menu' },
+    ex: '<w-win title="Cálculo" icon="calendar-blank" heading="Dados do Paciente"><w-text lines="2"></w-text></w-win>',
+    html: (p, k) => {
+      const nav = lista(p.nav)
+      const lado = nav.length ? `<div class="win__side">${nav.map(n => `<span class="${n === p.on ? 'is-on' : ''}">${esc(n)}</span>`).join('')}</div>` : ''
+      const barra = p.title ? `<div class="win__bar"><span class="grow">${esc(p.title)}</span>${ico(p.icon)}</div>` : ''
+      return raiz('div', 'w-win win', p, `${barra}${lado}<div class="win__body">${p.heading ? `<div class="win__title">${esc(p.heading)}</div>` : ''}${k}</div>`, { attrs: nav.length ? ' data-split' : '' })
+    },
+  })
+  def('w-grid', {
+    grupo: 'Tela', doc: 'Campos curtos lado a lado.',
+    props: { cols: 'quantas colunas (padrão 2)' },
+    ex: '<w-grid><w-field label="Abre" value="06h"></w-field><w-field label="Fecha" value="22h"></w-field></w-grid>',
+    html: (p, k) => raiz('div', 'w-grid', p, k, { estilo: `--cols:${esc(p.cols ?? 2)};` }),
+  })
+  def('w-text', {
+    grupo: 'Tela', doc: 'Barras no lugar das palavras que a história não usa. Variam de largura sozinhas.',
+    props: { lines: 'quantas linhas (padrão 1)', w: 'largura da primeira, em %' },
+    ex: '<w-text lines="3"></w-text>',
+    html: p => {
+      const larguras = [p.w ? num(p.w) : 88, 64, 76, 52, 70]
+      return raiz('div', 'w-text', p, Array.from({ length: +(p.lines ?? 1) }, (_, i) => `<i style="--w:${larguras[i % larguras.length]}%"></i>`).join(''), { attrs: ' aria-hidden="true"' })
+    },
+  })
+  def('w-field', {
+    grupo: 'Tela', doc: 'Campo: rótulo em cima, o valor na caixa.',
+    props: { label: 'o rótulo do produto', value: 'o que está escrito', unit: 'unidade à direita', icon: 'ícone à direita', state: 'focus | caret', tone: 'warn | err', hint: 'a linha abaixo do campo', ph: 'barra no lugar do valor (largura em %)' },
+    ex: '<w-field label="Peso" value="62 kg" state="focus"></w-field>',
+    html: p => raiz('div', 'w-field field', p,
+      `${p.label ? `<span class="field__label">${esc(p.label)}</span>` : ''}<span class="field__box">${p.value ? `<span>${esc(p.value)}</span>` : ''}${p.ph ? `<i class="field__ph" style="--w:${num(p.ph) || 50}%"></i>` : ''}${p.state === 'caret' ? '<i class="caret"></i>' : ''}<span class="grow"></span>${p.unit ? `<span class="field__unit">${esc(p.unit)}</span>` : ''}${ico(p.icon)}</span>${p.hint ? `<small class="field__hint">${esc(p.hint)}</small>` : ''}`),
+  })
+  def('w-list', {
+    grupo: 'Tela', doc: 'Uma lista de linhas separadas por fio. Filhos: w-item.',
+    props: {},
+    html: (p, k) => raiz('div', 'w-list list', p, k),
+  })
+  def('w-item', {
+    grupo: 'Tela', doc: 'Uma linha de lista: nome, metadado e uma etiqueta. Filhos entram no fim (um botão).',
+    props: { title: 'o nome', meta: 'a linha de baixo', tag: 'etiqueta à direita', tagtone: 'ok | warn | err | ink | mark', icon: 'ícone à esquerda', on: 'linha selecionada', off: 'linha que não vale mais', tone: 'ok | warn | err no nome', bar: 'barra no lugar do nome (largura em %)' },
+    ex: '<w-list><w-item title="10/11/2021" meta="62 kg · 1,65 m" tag="selecionada" tagtone="ink" on></w-item><w-item bar="46"></w-item></w-list>',
+    html: (p, k) => {
+      const nome = p.title ? `<b>${esc(p.title)}</b>` : p.bar ? `<i class="item__bar" style="--w:${num(p.bar) || 50}%"></i>` : ''
+      const tag = p.tag ? `<span class="w-chip chip"${p.tagtone === 'mark' ? ' data-mark' : p.tagtone ? ` data-tone="${esc(p.tagtone)}"` : ''}>${esc(p.tag)}</span>` : ''
+      return raiz('div', 'w-item row', p, `${ico(p.icon)}<span class="item__text">${nome}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</span>${tag}${k}`)
+    },
+  })
+  def('w-btn', {
+    grupo: 'Tela', doc: 'Botão. O primário é o preto; um por tela.',
+    props: { kind: 'primary | ghost | danger', icon: 'ícone antes do texto', off: 'desabilitado' },
+    ex: '<w-btn kind="primary" click>Importar</w-btn>',
+    html: (p, k) => raiz('span', 'w-btn btn', p, `${ico(p.icon)}${k.trim()}`),
+  })
+  def('w-seg', {
+    grupo: 'Tela', doc: 'Controle segmentado: escolha entre poucas opções, todas à vista.',
+    props: { options: 'Opção|Opção|Opção', on: 'a escolhida' },
+    ex: '<w-seg options="5x2|6x1" on="6x1"></w-seg>',
+    html: p => raiz('span', 'w-seg seg', p, lista(p.options).map(o => `<span class="${o === p.on ? 'is-on' : ''}">${esc(o)}</span>`).join('')),
+  })
+  def('w-chip', {
+    grupo: 'Tela', doc: 'Etiqueta curta de estado.',
+    props: { tone: 'ok | warn | err | ink' },
+    ex: '<w-chip tone="ok">Adequado</w-chip>',
+    html: (p, k) => raiz('span', 'w-chip chip', p, k.trim()),
+  })
+  def('w-toggle', {
+    grupo: 'Tela', doc: 'Interruptor com o rótulo do produto.',
+    props: { on: 'ligado' },
+    ex: '<w-toggle on>Lembrete por e-mail</w-toggle>',
+    html: (p, k) => raiz('span', 'w-toggle toggle', p, `<i aria-hidden="true"></i>${k.trim() ? `<span>${k.trim()}</span>` : ''}`),
+  })
+  def('w-avatar', {
+    grupo: 'Tela', doc: 'Iniciais de uma pessoa.',
+    props: {},
+    ex: '<w-avatar>AS</w-avatar>',
+    html: (p, k) => raiz('span', 'w-avatar avatar', p, k.trim()),
+  })
+  def('w-kv', {
+    grupo: 'Tela', doc: 'Uma linha de ficha: rótulo à esquerda, valor ao lado.',
+    props: { k: 'o rótulo', v: 'o valor', num: 'valor numérico, alinhado à direita' },
+    ex: '<w-kv k="Lipídios" v="35,8 g"></w-kv><w-kv k="Valor energético" v="1.610 kcal" mark></w-kv>',
+    html: (p, k) => raiz('div', 'w-kv kv', p, `<span class="kv__k">${esc(p.k ?? '')}</span><span class="kv__v">${esc(p.v ?? '')}${k}</span>`),
+  })
+  def('w-msg', {
+    grupo: 'Tela', doc: 'Mensagem do sistema, com o texto literal que o produto mostra.',
+    props: { tone: 'warn | err | ok', title: 'a primeira linha, em negrito' },
+    ex: '<w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>',
+    html: (p, k) => {
+      const i = { warn: 'warning-fill', err: 'x-circle-fill', ok: 'check-circle-fill' }[p.tone] ?? 'info-fill'
+      return raiz('div', 'w-msg banner', p, `${ico(i)}${p.title ? `<b>${esc(p.title)}</b>` : ''}${k.trim() ? `<span class="msg__body">${k.trim()}</span>` : ''}`)
+    },
+  })
+  def('w-toast', {
+    grupo: 'Tela', doc: 'Aviso que aparece por cima e some.',
+    props: { icon: 'ícone (padrão: check)' },
+    ex: '<w-toast>Escala gerada para dezembro</w-toast>',
+    html: (p, k) => raiz('div', 'w-toast toast', p, `${ico(p.icon ?? 'check-circle-fill')}<span>${k.trim()}</span>`),
+  })
+  def('w-menu', {
+    grupo: 'Tela', doc: 'Menu aberto, com o item de que a parte fala.',
+    props: { items: 'Item|Item|Item', on: 'o item em foco' },
+    ex: '<w-menu items="Duplicar|Arquivar|Excluir" on="Arquivar"></w-menu>',
+    html: p => raiz('div', 'w-menu menu', p, lista(p.items).map(o => `<span class="${o === p.on ? 'is-on' : ''}">${esc(o)}</span>`).join('')),
+  })
+  def('w-term', {
+    grupo: 'Tela', doc: 'Saída de terminal: poucas linhas, reais e curtas.',
+    props: {},
+    ex: '<w-term>$ node scripts/check.mjs cartao.html\n<span class="term__dim">0 falhas · 1 aviso</span></w-term>',
+    html: (p, k) => raiz('pre', 'w-term term', p, k.replace(/^\n+|\s+$/g, '')),
+  })
+
+  def('w-shot', {
+    grupo: 'Tela', doc: 'Um print real da tela, numa moldura. Sem src, o espaço hachurado diz que o print falta.',
+    props: { src: 'o arquivo do print', alt: 'o que o print mostra', ratio: 'proporção do espaço vazio (padrão 16/10)' },
+    ex: '<w-shot alt="Prescrição com o checkbox antes do card"></w-shot>',
+    html: p => raiz('div', 'w-shot', p, p.src ? `<img src="${esc(p.src)}" alt="${esc(p.alt ?? '')}" loading="lazy">` : `<span class="shot__falta">${esc(p.alt ? `Print ausente: ${p.alt}` : 'Print ausente')}</span>`, { estilo: p.src ? '' : `--ratio:${esc(p.ratio ?? '16/10')};` }),
+  })
+
+  // ── A caneta ──────────────────────────────────────────────────────────────
+
+  def('w-callout', {
+    grupo: 'Caneta', doc: 'Chamada: o nome, um fio tracejado e o que ele diz ou vira. Com mark, é a caneta.',
+    props: { label: 'o nome à esquerda', strong: 'nome em tinta forte', pin: 'em vez do nome, o número do pino' },
+    ex: '<w-callout label="Calendário">data passada: 05/11/2025</w-callout><w-callout label="Idade" strong mark>44 na data, 46 no dia</w-callout>',
+    html: (p, k) => {
+      const nome = p.pin && p.pin !== true ? `<span class="pin">${esc(p.pin)}</span>${p.label ? esc(p.label) : ''}` : esc(p.label ?? '')
+      return raiz('div', 'w-callout link', { ...p, pin: undefined }, `<span class="callout__label">${nome}</span><span class="callout__dash" aria-hidden="true"></span><span class="callout__value">${k.trim()}</span>`)
+    },
+  })
+
+  // ── Esquema (blueprint) ──────────────────────────────────────────────────
+
+  def('w-flow', {
+    grupo: 'Esquema', doc: 'Uma sequência de estados ou ações. As setas entram sozinhas entre os w-node.',
+    props: {},
+    ex: '<w-flow><w-node>Pedido</w-node><w-node on sub="com o kit">Composição</w-node><w-node>Check</w-node></w-flow>',
+    html: (p, k, el) => raiz('div', 'w-flow flow', p, filhos(el, '.w-node').map((n, i) => (i ? `<span class="to${n.hasAttribute('data-back') ? ' is-back' : ''}" aria-hidden="true"></span>` : '') + n.outerHTML).join('')),
+  })
+  def('w-node', {
+    grupo: 'Esquema', doc: 'Um estado do fluxo.',
+    props: { sub: 'a linha de baixo', on: 'o estado de que a parte fala', off: 'existe e não roda', back: 'a seta que chega aqui é de volta (tracejada)' },
+    html: (p, k) => raiz('span', 'w-node', p, `${k.trim()}${p.sub && p.sub !== true ? `<small>${esc(p.sub)}</small>` : ''}`, {}),
+  })
+  def('w-bars', {
+    grupo: 'Esquema', doc: 'Quantidades que se comparam. O número fica escrito; a altura só reforça. Filhos: w-val.',
+    props: { max: 'o valor que enche a barra (padrão: o maior)' },
+    ex: '<w-bars><w-val n="12">Seg</w-val><w-val n="31" mark>Qua</w-val><w-val n="20">Sex</w-val><w-val n="0" off>Dom</w-val></w-bars>',
+    html: (p, k, el) => {
+      const vals = filhos(el, '.w-val'), max = num(p.max) || Math.max(...vals.map(v => num(v.dataset.n) || 0), 1)
+      vals.forEach(v => v.style.setProperty('--v', String(Math.round(((num(v.dataset.n) || 0) / max) * 100))))
+      return raiz('div', 'w-bars bars', p, vals.map(v => v.outerHTML).join(''))
+    },
+  })
+  def('w-val', {
+    grupo: 'Esquema', doc: 'Uma barra de w-bars. O filho é o rótulo embaixo.',
+    props: { n: 'o número escrito em cima', unit: 'a unidade', off: 'existe e está vazio' },
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('div', 'w-val', p, `<b>${esc(n)}${n && p.unit ? ` ${esc(p.unit)}` : ''}</b><i></i><span>${k.trim()}</span>`, { attrs: ` data-n="${esc(n)}"` }) },
+  })
+  def('w-matrix', {
+    grupo: 'Esquema', doc: 'Uma matriz pequena: semana, escala, permissões. Filhos: w-cell.',
+    props: { cols: 'quantas colunas', head: 'cabeçalho: A|B|C (comece com | para deixar o canto vazio)' },
+    ex: '<w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell mark>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix>',
+    html: (p, k) => raiz('div', 'w-matrix matrix', p, (p.head && p.head !== true ? String(p.head).split('|').map(x => x.trim()) : []).map(h => `<span class="w-cell" data-head>${esc(h)}</span>`).join('') + k, { estilo: `--cols:${esc(p.cols ?? 7)};` }),
+  })
+  def('w-cell', {
+    grupo: 'Esquema', doc: 'Uma célula de w-matrix.',
+    props: { on: 'preenchida', off: 'vazia de propósito', who: 'a coluna do nome' },
+    html: (p, k) => raiz('span', 'w-cell', p, k.trim()),
+  })
+  def('w-files', {
+    grupo: 'Esquema', doc: 'Os arquivos que a explicação usa. Filhos: w-file.',
+    props: {},
+    ex: '<w-files><w-file path="kit/kit.css" note="tokens e aparência" mark></w-file><w-file path="kit/kit.js" note="os componentes"></w-file></w-files>',
+    html: (p, k) => raiz('div', 'w-files files', p, k),
+  })
+  def('w-file', {
+    grupo: 'Esquema', doc: 'Um arquivo: o caminho em mono e para que serve.',
+    props: { path: 'o caminho', note: 'para que serve', dir: 'é pasta', i: 'recuo (nível)', off: 'existe e não é usado' },
+    html: p => raiz('div', 'w-file', p, `${ico(p.dir ? 'folder' : 'file-text')}<code>${esc(p.path ?? '')}</code>${p.note ? `<span class="file__note">${esc(p.note)}</span>` : ''}`, { estilo: p.i ? `--i:${esc(p.i)};` : '' }),
+  })
+  def('w-line', {
+    grupo: 'Esquema', doc: 'Uma série no tempo: pontos ligados por linha, com a faixa de referência. Filhos: w-pt.',
+    props: { band: 'a faixa de referência: 70-99', min: 'o piso do eixo (padrão: um pouco abaixo do menor)', max: 'o teto do eixo', unit: 'a unidade da faixa' },
+    ex: '<w-line band="70-99" unit="mg/dL" min="60" max="115"><w-pt n="94">03/06</w-pt><w-pt n="102">15/07</w-pt><w-pt n="99">02/08</w-pt><w-pt off mark>27/08</w-pt></w-line>',
+    html: (p, k, el) => {
+      const pts = filhos(el, '.w-pt'), ns = pts.map(q => num(q.dataset.n)).filter(v => !isNaN(v))
+      const [b0, b1] = String(p.band && p.band !== true ? p.band : '').split('-').map(num)
+      const todos = [...ns, ...[b0, b1].filter(v => !isNaN(v))]
+      const lo = num(p.min) || Math.min(...todos) - (Math.max(...todos) - Math.min(...todos)) * 0.2, hi = num(p.max) || Math.max(...todos) * 1.06
+      const y = v => 100 - ((v - lo) / (hi - lo || 1)) * 100, x = i => pts.length > 1 ? 6 + (i * 88) / (pts.length - 1) : 50
+      pts.forEach((q, i) => { const v = num(q.dataset.n), yy = isNaN(v) ? 100 : y(v); q.style.setProperty('--x', x(i) + '%'); q.style.setProperty('--y', yy + '%'); q.style.setProperty('--yn', String(yy)) })
+      const caminho = pts.map((q, i) => [x(i), num(q.dataset.n)]).filter(([, v]) => !isNaN(v)).map(([xx, v]) => `${xx},${y(v)}`).join(' ')
+      const faixa = !isNaN(b0) && !isNaN(b1) ? `<rect x="0" y="${y(b1)}" width="100" height="${y(b0) - y(b1)}" class="line__band"/>` : ''
+      const rotulo = !isNaN(b0) && !isNaN(b1) ? `<span class="line__bandlabel" style="--y:${y(b0)}%">${esc(p.band)}${p.unit ? ` ${esc(p.unit)}` : ''}</span>` : ''
+      return raiz('div', 'w-line', p, `<div class="line__plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${faixa}<polyline points="${caminho}" class="line__path"/></svg>${rotulo}${pts.map(q => q.outerHTML).join('')}</div>`)
+    },
+  })
+  def('w-pt', {
+    grupo: 'Esquema', doc: 'Um ponto de w-line. O filho é o rótulo do eixo (a data).',
+    props: { n: 'o valor (sem n: o ponto existe e não plota)', off: 'não entra na linha', mark: 'o ponto de que a parte fala' },
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('span', 'w-pt', p, `<i></i>${n ? `<b>${esc(n)}</b>` : ''}<small>${k.trim()}</small>`, { attrs: ` data-n="${esc(n)}"` }) },
+  })
+  def('w-crit', {
+    grupo: 'Esquema', doc: 'Um critério de prova com o resultado: cumprido, falhou ou não se aplica (e por quê).',
+    props: { status: 'ok | err | na', why: 'a justificativa (obrigatória em na)' },
+    ex: '<w-crit status="ok">Checkbox no fluxo, antes do visual</w-crit><w-crit status="na" why="a porta só oferece seleção e Importar">Ações individuais</w-crit>',
+    html: (p, k) => {
+      const i = { ok: 'check-circle-fill', err: 'x-circle-fill', na: 'info-fill' }[p.status] ?? 'info-fill'
+      const nome = { ok: 'cumprido', err: 'falhou', na: 'não se aplica' }[p.status] ?? ''
+      return raiz('div', 'w-crit', p, `${ico(i)}<span class="crit__text">${k.trim()}${p.why ? `<small>${esc(p.why)}</small>` : ''}</span><span class="crit__status">${nome}</span>`)
+    },
+  })
+  def('w-tree', {
+    grupo: 'Esquema', doc: 'Onde cada responsabilidade mora: listas aninhadas com code e um texto curto.',
+    props: {},
+    ex: '<w-tree><ul><li><code>kit.js</code><span>os componentes</span><ul><li class="is-mark"><code>w-field</code><span>o campo</span></li></ul></li></ul></w-tree>',
+    html: (p, k) => raiz('div', 'w-tree tree', p, k),
+  })
+  def('w-code', {
+    grupo: 'Esquema', doc: 'O trecho literal da fonte, com número de linha. Escreva < como &lt;.',
+    props: { from: 'o número da primeira linha', mark: 'linhas marcadas pela caneta, contadas a partir de from: 3,4', wrap: 'quebra linha longa em vez de rolar (o recuo da quebra fica pendurado)' },
+    ex: '<w-code from="40" mark="41">const max = 999\nif (v > max) return erro</w-code>',
+    html: (p, k) => {
+      const linhas = k.replace(/^\n+|\s+$/g, '').split('\n')
+      const recuo = Math.min(...linhas.filter(l => l.trim()).map(l => l.match(/^ */)[0].length))
+      const de = +(p.from ?? 1), marcadas = String(p.mark && p.mark !== true ? p.mark : '').split(',').map(Number)
+      return raiz('pre', 'w-code code', { ...p, mark: undefined }, linhas.map((l, i) => `<span class="${marcadas.includes(de + i) ? 'is-mark' : ''}">${l.slice(recuo) || ' '}</span>`).join(''), { estilo: `--from:${de};` })
+    },
+  })
+  def('w-layers', {
+    grupo: 'Esquema', doc: 'O que acontece antes de quê. Numeram sozinhas. Filhos: w-layer.',
+    props: {},
+    ex: '<w-layers><w-layer tag="roda" tagtone="ok">Digitação</w-layer><w-layer tag="falta" tagtone="warn" mark>Aviso de milhar</w-layer><w-layer off>Limite diário</w-layer></w-layers>',
+    html: (p, k) => raiz('div', 'w-layers layers', p, k),
+  })
+  def('w-layer', {
+    grupo: 'Esquema', doc: 'Uma camada.',
+    props: { sub: 'a linha de baixo', tag: 'o estado', tagtone: 'ok | warn | err | ink', off: 'existe e não roda' },
+    html: (p, k) => raiz('div', 'w-layer', p, `<span class="grow">${k.trim()}${p.sub && p.sub !== true ? `<small>${esc(p.sub)}</small>` : ''}</span>${p.tag ? `<span class="w-chip chip"${p.tagtone ? ` data-tone="${esc(p.tagtone)}"` : ''}>${esc(p.tag)}</span>` : ''}`),
+  })
+  def('w-timeline', {
+    grupo: 'Esquema', doc: 'O caso real em datas absolutas. Filhos: w-when.',
+    props: {},
+    ex: '<w-timeline><w-when date="15/11/1980">Ana nasce</w-when><w-when date="05/11/2025" mark>Data do Cálculo: 44 anos</w-when><w-when date="22/11/2026" tone="warn">Cálculo aberto: 46</w-when></w-timeline>',
+    html: (p, k) => raiz('div', 'w-timeline timeline', p, k),
+  })
+  def('w-when', {
+    grupo: 'Esquema', doc: 'Uma data da linha do tempo. A cor do topo é o dado.',
+    props: { date: 'dd/mm/aaaa', tone: 'ok | warn | err', on: 'tinta forte' },
+    html: (p, k) => raiz('div', 'w-when', p, `<b>${esc(p.date ?? '')}</b>${k.trim()}`),
+  })
+  def('w-stat', {
+    grupo: 'Esquema', doc: 'O único número grande da cena.',
+    props: { n: 'o número', unit: 'a unidade' },
+    ex: '<w-stat n="1.610" unit="kcal">valor energético total</w-stat>',
+    html: (p, k) => raiz('div', 'w-stat stat', p, `<b>${esc(p.n ?? '')}${p.unit ? `<small>${esc(p.unit)}</small>` : ''}</b><span>${k.trim()}</span>`),
+  })
+  def('w-box', {
+    grupo: 'Esquema', doc: 'Caixa de composição: quem contém quem. Contínua existe; tracejada é slot; magenta é proposta.',
+    props: { title: 'o nome da peça', meta: 'de onde vem (pacote, arquivo)', role: 'selo do papel na hierarquia (P1, F2, E1, T1)', kind: 'slot | new | off', row: 'filhos lado a lado' },
+    ex: '<w-box title="Busca" meta="ui/SmartAutocomplete.tsx"><w-box title="Autocomplete" kind="slot"></w-box><w-box title="Filtro por grupo" kind="new"></w-box></w-box>',
+    html: (p, k) => raiz('div', 'w-box', p, `${p.title || p.meta || p.role ? `<div class="box__head">${p.role ? `<span class="box__role">${esc(p.role)}</span>` : ''}${p.title ? `<b>${esc(p.title)}</b>` : ''}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</div>` : ''}${k}`),
+  })
+
+  // ── Montagem ─────────────────────────────────────────────────────────────
+
+  const TAGS = Object.keys(C)
+  const propsDe = el => { const p = {}; for (const a of el.attributes) p[a.name] = a.value === '' ? true : a.value; return p }
+  // Monta um elemento: os filhos primeiro, depois ele, trocado pela própria marcação.
+  const montar = el => {
+    const spec = C[el.localName]
+    if (!spec || !el.isConnected) return
+    el.outerHTML = spec.html(propsDe(el), el.innerHTML, el)
+  }
+  const montarTudo = (raizDoc = document) => [...raizDoc.querySelectorAll(TAGS.join(','))].reverse().forEach(montar)
+
+  // Comportamento mínimo depois da montagem: conferência, abas e endereço.
+  const ligar = () => {
+    for (const box of document.querySelectorAll('.d-check')) {
+      if (box.dataset.ligado) continue
+      box.dataset.ligado = '1'
+      const saida = box.querySelector('output'), itens = [...box.querySelectorAll('input[type=checkbox]')]
+      const conta = () => { if (saida) saida.textContent = `${itens.filter(i => i.checked).length}/${itens.length}` }
+      box.addEventListener('change', conta)
+      conta()
+    }
+    // Abas: uma camada por vez. Cada .tabs controla só a própria lista, então subtabs funcionam.
+    const abas = [...document.querySelectorAll('.tabs')].map(caixa => {
+      const lista = caixa.querySelector(':scope > .tabs__list')
+      const botoes = lista ? [...lista.querySelectorAll('[role=tab]')] : []
+      const abre = id => botoes.forEach(b => {
+        const ativo = b.getAttribute('aria-controls') === id
+        b.setAttribute('aria-selected', String(ativo))
+        document.getElementById(b.getAttribute('aria-controls')).hidden = !ativo
+      })
+      if (!caixa.dataset.ligado) {
+        caixa.dataset.ligado = '1'
+        botoes.forEach(b => b.addEventListener('click', () => abre(b.getAttribute('aria-controls'))))
+        if (botoes[0]) abre(botoes[0].getAttribute('aria-controls'))
+      }
+      return { botoes, abre }
+    })
+    // Endereço: #id abre as abas que contêm o alvo, de fora para dentro, e rola até ele.
+    const irPara = () => {
+      const alvo = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+      if (!alvo) return
+      const paineis = []
+      for (let el = alvo; el; el = el.parentElement) if (el.matches('.tabs__panel')) paineis.unshift(el)
+      for (const p of paineis) for (const a of abas) if (a.botoes.some(b => b.getAttribute('aria-controls') === p.id)) a.abre(p.id)
+      alvo.scrollIntoView()
+    }
+    if (!window.__hdHash) { window.__hdHash = true; addEventListener('hashchange', irPara) }
+    irPara()
+  }
+
+  const HD = { versao: VERSAO, componentes: C, montar, montarTudo, ligar, esc }
+  if (typeof window !== 'undefined') window.HD = HD
+  if (typeof document === 'undefined') return
+  document.documentElement.classList.add('js')
+  // Com o script no <head>, a página ainda está sendo lida: montar antes do fim perderia os filhos
+  // que o leitor ainda não leu. Então a primeira montagem espera o documento inteiro.
+  const iniciar = () => { montarTudo(); ligar() }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar, { once: true })
+  else iniciar()
+  // Componente inserido depois (um protótipo, um player) monta sozinho ao entrar na página.
+  if (window.customElements) for (const tag of TAGS) if (!customElements.get(tag)) {
+    customElements.define(tag, class extends HTMLElement {
+      connectedCallback() {
+        if (document.readyState === 'loading') return
+        queueMicrotask(() => { if (!this.isConnected) return; montarTudo(this); montar(this); ligar() })
+      }
+    })
+  }
+})()
+</script>
+</body>
+</html>

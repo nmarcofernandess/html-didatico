@@ -23,23 +23,28 @@ Playbooks e receitas ficam em `references/`, fora da descoberta de skills.
 Carregue só a forma pertinente. Não existem aliases públicos para os modos ou
 para `writing-clearly-and-concisely`.
 
-Cartão, Aula e o HTML de Decidir nascem do [kit](references/kit/pecas.html): cria-se o arquivo por cópia
-(`node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|starter> <destino.html>`),
-escreve-se só a página e, quando pedido, roda-se o [check](scripts/check.mjs). [Conteúdo](references/conteudo.md)
-e [design](references/visual/design.md) dizem o que escrever e como desenhar; os
-[exemplos-ouro](references/kit/ouro/) são o padrão de qualidade.
+Todo HTML do plugin usa um design system só: tokens compartilhados e uma
+biblioteca de componentes, `d-*` para o documento e `w-*` para o wireframe e o
+blueprint da figura ([referência](references/kit/componentes.md),
+[folha de peças](references/kit/pecas.html)). A página é um rótulo nutricional
+desenhado a caneta: tinta preta desenha o produto, magenta é a caneta de quem
+explica. Cria-se o arquivo por cópia
+(`node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|prova|montagem|maquete|starter> <destino.html>`),
+escreve-se só o corpo com componentes e, quando pedido, roda-se o [check](scripts/check.mjs).
+[Conteúdo](references/conteudo.md) e [design](references/visual/design.md) dizem o que
+escrever e como desenhar; os [exemplos-ouro](references/kit/ouro/) são o padrão de qualidade.
 
 O [playbook Prova](references/playbooks/prova.md) governa provas: pack ainda não
 gerado não demonstra ausência de renderer. Nunca edite à mão saída oficial.
-Os [exemplos A–E](references/exemplos/) são históricos, preservados sem alterações;
-seus assets externos e status não comprovam o estado atual dos projetos.
+Os exemplos históricos (A–H), de antes do design system, saíram do pacote e
+ficam no repositório, em `docs/historico/exemplos/`, só como registro.
 
 Na 3.0.0 os IDs mudam, sem aliases: html-wireframe e decisoes-em-boards viram
 `decidir`; html-blueprint vira `montagem`; html-proof vira `prova`;
 explain-clearly vira `explicar`; `html-didatico` continua, como entrada
 automática, e ganha `cartao` e `aula` como entradas diretas.
 
-Instale pela tag `v3.0.0` do repositório
+Instale pela tag `v4.0.0` do repositório
 [nmarcofernandess/html-didatico](https://github.com/nmarcofernandess/html-didatico),
 usando o marketplace suportado pelo host; o repositório é público. Confira versão,
 origem e sete skills instaladas, e recarregue a sessão; o checkout sozinho não

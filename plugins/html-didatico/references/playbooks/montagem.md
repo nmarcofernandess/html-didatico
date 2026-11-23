@@ -6,9 +6,12 @@ Ao descer, o leitor reconhece as mesmas peças dentro de uma composição maior.
 
 Use para anatomia de componentes, composição com `children`/slots, mapa de
 primitivos e features, ou investigação de uma interface antes de implementá-la.
-O exemplo completo está em [E-blueprint-componentes.html](../exemplos/E-blueprint-componentes.html).
-Leia seu HTML e abra-o antes de desenhar outro. Copie a gramática visual,
-nunca nomes, props ou arquitetura sem conferir o projeto de destino.
+O exemplo completo é o [montagem-ouro](../kit/ouro/montagem.html); comece dele com
+`node scripts/montar.mjs --novo montagem <destino.html>`. O desenho é feito com os
+componentes de blueprint do [kit](../kit/componentes.md): `w-box` aninhados (contínua
+existe, `kind="slot"` é slot ou condição, `kind="new"` é proposta, `role` dá o selo
+P/F/E/T), `w-files`, `w-tree` e `w-code` com o recorte literal do contrato. Copie a
+forma, nunca nomes, props ou arquitetura sem conferir o projeto de destino.
 
 ## 1. Investigue de fora para dentro; apresente de dentro para fora
 

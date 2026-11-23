@@ -41,12 +41,12 @@ fizerem parte do contrato real. O planejamento não cria obrigação de executar
 uma campanha fora do pedido. Mantenha nome estável; revisão/data ficam no arquivo
 e o histórico durável segue o destino versionado do projeto.
 
-Para essa apresentação manual, leia os [tokens de manual](../visual/tokens-manual.md),
-a [anatomia manual](../visual/anatomia-manual.md) e a
-[receita de cards de proof](../visual/prova.md). Abra o
-[exemplo C](../exemplos/C-prova-importacao.html) como referência visual histórica:
-é saída de renderer; não é template de prova oficial a preencher manualmente.
-Snippets mostram formato, nunca autorizam repetir comandos históricos sem conferir.
+Sem renderer oficial, a prova é um documento do kit: parta do
+[prova-ouro](../kit/ouro/prova.html) com `node scripts/montar.mjs --novo prova <destino.html>`.
+Veredito em `w-stat`, metadados em `w-kv`, critérios em `w-crit` (cumprido, falhou
+ou não se aplica, com o porquê), evidência em `w-shot` (o print real; sem ele, o
+vazio hachurado diz que falta). O exemplo mostra formato; nunca autoriza repetir
+comandos históricos sem conferir.
 
 ## Anatomia e integridade
 

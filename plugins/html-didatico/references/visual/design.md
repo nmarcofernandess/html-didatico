@@ -1,8 +1,8 @@
 # Design
 
-A página é um documento de leitura dentro de uma moldura. A moldura pertence ao look: capa, plaqueta, trilho, legenda de figura, o jeito de compor tabela e aviso. Ali o look aparece inteiro. A coluna de leitura fica calma: face de leitura, contraste real, medida real, nada atrás do texto. O look nunca decide a ordem de leitura.
+A página é um rótulo nutricional desenhado a caneta. O rótulo é a moldura: fio grosso abre e fecha, fio médio separa a capa, a figura e o cabeçalho da tabela, fio fino separa linhas; o título é uma grotesca condensada preta. Dentro da figura, tudo é wireframe e blueprint: **tinta preta desenha o produto**, contexto em cinza e assunto em tinta. **Magenta é a caneta de quem explica**: marca o dado de que a parte fala, numera, chama a atenção e carimba. O magenta não tem outro uso. A coluna de leitura fica calma: face de leitura, contraste real, medida real, nada atrás do texto.
 
-O [kit](../kit/pecas.html) já toma quase todas as decisões abaixo. Este arquivo é dono dos princípios de design e do método da figura em HTML Didático; ele explica por quê, para que cada escolha nova siga a mesma lógica. O que dizer e quanto dizer é de [Conteúdo](../conteudo.md).
+Há um design system só, com tokens compartilhados, e uma biblioteca de componentes: `d-*` monta o documento, `w-*` desenha a figura. A [folha de peças](../kit/pecas.html) mostra cada um vivo e a [referência](../kit/componentes.md) lista as props. O kit já toma quase todas as decisões abaixo. Este arquivo é dono dos princípios de design e do método da figura em HTML Didático; ele explica por quê, para que cada escolha nova siga a mesma lógica. O que dizer e quanto dizer é de [Conteúdo](../conteudo.md).
 
 ## Os sete eixos
 
@@ -43,11 +43,11 @@ O espaço é escolhido pela relação entre as duas coisas. O kit dá um nome a 
 ### 3. Tipo
 
 - **Seis papéis na página** (`display`, `title`, `subtitle`, `lead`, `body`, `small`) e **dois na cena** (`ui-text` 13px, `ui-meta` 12px).
-- **Duas famílias** (título e corpo) mais a mono.
+- **Uma família, duas larguras:** a Helvetica Neue normal no corpo e a condensada preta no título; a mono só para código.
 - **Corpo de 16px, linhas de 45 a 75 caracteres,** entrelinha de 1,5 a 1,65.
 - **Nada abaixo de 12px.** Texto de 9 ou 10px faz a cena ler como wireframe: use 13px nos nomes, 12px no metadado e menos linhas.
 - **Caixa de frase** em rótulo, legenda, cabeçalho de tabela e botão, sem espaçamento de letras. Maiúsculas ficam para o título da capa e o carimbo.
-- **Mono para código, comando digitado, identificador e número medido.** No look manual ela também compõe a moldura: plaqueta, número do trilho, legenda de figura.
+- **Mono para código, comando digitado, identificador e número medido.** Nunca para parecer técnico, nunca na moldura.
 - **Um título tem um peso e uma cor.** A ênfase vem da quebra de linha ou de uma segunda linha em outro tamanho.
 - **Hierarquia por tamanho, peso, espaço e tom juntos,** com dois ou três pesos na página.
 - **Números que se comparam usam algarismos tabulares** (já ligado no `body`).
@@ -55,11 +55,11 @@ O espaço é escolhido pela relação entre as duas coisas. O kit dá um nome a 
 ### 4. Cor
 
 - **Toda cor passa por token.** Fora do bloco de tokens o CSS só usa `var(--color-…)`.
-- **Quatro camadas:** papel, tinta, neutros tingidos na direção do papel, um acento.
-- **O acento é sinal:** o botão principal, a opção escolhida, o dado de que a parte fala. Menos de 5% de qualquer tela.
+- **Quatro camadas:** papel, tinta, neutros sem matiz, a caneta magenta.
+- **Tinta é o produto; magenta é quem explica.** O botão principal, a opção escolhida e o foco do produto ficam em tinta preta. O magenta marca só o dado de que a parte fala (`mark`, `pin`, `w-callout mark`, `<mark>` na prosa) e o carimbo. Menos de 5% de qualquer tela.
 - **Cor de status significa status:** `ok`, `warn`, `err`, sempre com rótulo ou ícone ao lado.
 - **Quieto ainda é legível.** Texto 4,5:1 contra o fundo real; texto grande, ícone e borda de campo 3:1. `--color-ink-3` passa sobre papel e superfície; sobre os fundos tingidos de status use `--color-ink-2`.
-- **Superfícies tingidas.** O papel e a superfície puxam para o matiz do look.
+- **Neutros sem matiz.** Papel, poço e fio são cinzas puros; o único matiz da página é o magenta, e o status quando há status.
 
 ### 5. Conteúdo real
 
@@ -76,7 +76,7 @@ O espaço é escolhido pela relação entre as duas coisas. O kit dá um nome a 
 ### 6. Detalhe
 
 - **Escada de superfície:** espaço em branco, depois fio, depois poço tingido, depois superfície com borda. Suba um degrau só quando o anterior não separa.
-- **Borda ou sombra, uma das duas.** O look manual usa fio; o editorial usa sombra suave.
+- **Fio, nunca sombra.** O kit separa com fio e espaço; sombra não existe no sistema.
 - **Uma camada de contenção.** Conteúdo dentro de janela já está contido.
 - **Raios concêntricos:** o raio de dentro é o de fora menos o recuo.
 - **Alinhe pela borda de leitura.** O texto das partes fica sempre na mesma coluna; a figura fica na outra.
@@ -92,20 +92,23 @@ O documento é parado. Quando o pedido inclui movimento: um momento só, `transf
 
 Uma figura mostra uma relação. Ela é de um de dois tipos:
 
-- **Cena:** um recorte da tela, para o que a pessoa vê e faz. Peças: `win`, `row`, `list`, `kv`, `field`, `pair`, `btn`, `seg`, `chip`, `toggle`, `avatar`, `banner`, `toast`, `menu`, `term`, `bar`, `cursor`.
-- **Esquema:** um desenho de como as coisas se ligam. Peças: `flow`, `link`, `bars`, `matrix`, `tree`, `files`, `code`, `layers`, `timeline`, `stat` e a `table` dentro de uma janela.
+- **Cena (wireframe):** um recorte da tela, para o que a pessoa vê e faz. Componentes: `w-win`, `w-field`, `w-grid`, `w-list` com `w-item`, `w-kv`, `w-btn`, `w-seg`, `w-chip`, `w-toggle`, `w-avatar`, `w-msg`, `w-toast`, `w-menu`, `w-term`, `w-text`, `w-shot`, e o cursor (`click`).
+- **Esquema (blueprint):** um desenho de como as coisas se ligam. Componentes: `w-flow` com `w-node`, `w-bars` com `w-val`, `w-matrix` com `w-cell`, `w-tree`, `w-files` com `w-file`, `w-code`, `w-layers` com `w-layer`, `w-timeline` com `w-when`, `w-stat`, `w-box` e a `table` dentro de uma `w-win`.
+- **A caneta:** `mark` e `pin` valem em qualquer componente; `w-callout` liga um nome ao que ele diz, e com `mark` é a anotação de quem explica.
+
+Uma figura é sempre feita de componentes. Marcação desenhada à mão (o diorama) custa mais tokens, diverge entre documentos e não vira vídeo; o [check](../../scripts/check.mjs) a aponta. Se falta um componente, ele entra no [kit](../kit/kit.js) e na folha de peças, não no documento.
 
 Qual das duas, e qual peça, sai da pergunta que a figura responde: a tabela está em [Conteúdo](../conteudo.md#3-espinha).
 
-A marcação de cada peça está no código-fonte da [folha de peças](../kit/pecas.html).
+As props e um exemplo de cada componente estão na [referência](../kit/componentes.md); a [folha de peças](../kit/pecas.html) mostra todos vivos.
 
 ### Método da cena
 
 1. **Decida o recorte antes de montar.** Onde a história acontece: o painel, o formulário, a linha. A cena mostra esse pedaço em tamanho de leitura. Uma figura de 450px mostra um terço da tela em tamanho real.
 2. **Liste as palavras reais** (eixo 5) e marque o assunto.
 3. **Copie a cena mais próxima do exemplo-ouro** e troque o conteúdo. A estrutura, os tamanhos e os espaços ficam.
-4. **Monte com as peças do kit.** Contexto em cinza quieto e barras; tinta forte no assunto; um `cursor` sobre o alvo quando a parte pede um clique.
-5. **Se a tela continua, deixe-a sair da moldura** (`fig__stage--bleed`). Só enchimento passa da borda: a ação, o resultado e toda palavra real ficam inteiros, com uma calha de folga.
+4. **Monte com componentes.** Contexto em cinza e `w-text`; tinta forte no assunto; a caneta (`mark`, `pin`, `w-callout mark`) no dado de que a parte fala; `click` sobre o alvo quando a parte pede um clique.
+5. **Se a tela continua, deixe-a sair da moldura** (`w-fig bleed`). Só enchimento passa da borda: a ação, o resultado e toda palavra real ficam inteiros, com uma calha de folga.
 6. **Em figura estreita, redesenhe.** Recorte mais perto, empilhe, tire o apoio. O tipo mantém o tamanho.
 
 Simplifique as palavras e mantenha o contexto.
@@ -118,7 +121,7 @@ Simplifique as palavras e mantenha o contexto.
 | De menos | Duas peças soltas num vazio | A tela em volta, em cinza quieto |
 | Encaixotada | A janela inteira encolhida, com margem igual em volta | Recorte no painel da história, em tamanho de leitura |
 | Chapada | Tudo com a mesma borda e o mesmo peso | Tinta forte no assunto, o resto recua |
-| Sem cara | Poderia ser de qualquer produto | O nome da tela, o menu real, o look do documento |
+| Sem cara | Poderia ser de qualquer produto | O nome da tela, o menu real, a caneta no dado do caso |
 
 ### Leitura pela figura
 
@@ -164,21 +167,21 @@ com a figura que a responde.
 - **Estilos de linha têm significado:** contínua para ida, tracejada para ligação ou volta. Uma relação, uma cor.
 - **O número fica escrito;** a altura da barra reforça.
 - **Em figura estreita o fluxo empilha** (o kit faz isso).
-- **Arquivos (`files`):** só os caminhos que a explicação usa; a nota de cada linha diz para que serve.
-- **Código (`code`):** o trecho literal da fonte, encurtado com reticências e nunca reescrito; `is-mark` nas linhas que importam.
-- **Camadas (`layers`):** a ordem é o que acontece antes de quê; o chip diz o estado de cada uma.
-- **Linha do tempo (`timeline`):** datas absolutas, no formato dd/mm/aaaa; a cor do topo é o dado e o texto diz o que aconteceu. Marque as pontas de que a parte fala e deixe o meio quieto. Em figura estreita ela desce, uma data por linha.
-- **Tabela em figura (`table` dentro de `win`):** quando a pergunta é o que muda o quê. Uma marca só, na célula de que a parte fala; o resto em texto.
-- **Contorno tracejado** (`is-off` em `tree` e `bars`) marca o que existe e não roda.
+- **Arquivos (`w-files`):** só os caminhos que a explicação usa; a nota de cada linha diz para que serve.
+- **Código (`w-code`):** o trecho literal da fonte, encurtado com reticências e nunca reescrito; `mark` nas linhas que importam.
+- **Camadas (`w-layers`):** a ordem é o que acontece antes de quê; o chip diz o estado de cada uma.
+- **Linha do tempo (`w-timeline`):** datas absolutas, no formato dd/mm/aaaa; a cor do topo é o dado e o texto diz o que aconteceu. Marque as pontas de que a parte fala e deixe o meio quieto. Em figura estreita ela desce, uma data por linha.
+- **Tabela em figura (`table` dentro de `w-win`):** quando a pergunta é o que muda o quê. Uma marca só, na célula de que a parte fala; o resto em texto.
+- **Contorno tracejado** (`off`, ou `kind="slot"` em `w-box`) marca o que existe e não roda, ou o lugar vazio.
+- **Composição (`w-box`):** quem contém quem. Fio contínuo é o que existe, tracejado é slot ou condição, magenta (`kind="new"`) é o que se propõe.
 
-## Looks
+## Um sistema, sem looks
 
-Um look é um bloco de tokens: fontes, cores, raios, sombra, fundo da figura. A cena é escrita uma vez e acompanha qualquer look.
+Não há looks. Há um conjunto de tokens em `:root` no [kit.css](../kit/kit.css) e todo documento usa os mesmos: a mesma capa, o mesmo fio, a mesma caneta. Um documento difere pelo conteúdo e pela forma (cartão, aula, prova), nunca pelo estilo.
 
-- `data-look="manual"`: manual técnico impresso. Papel quente, grotesca geométrica, laranja de sinal, mono na moldura, figura sobre papel quadriculado.
-- `data-look="editorial"`: revista de produto. Papel frio, serifa no título, verde-musgo de sinal, figura em poço tingido.
-
-**Look novo.** Copie um dos blocos em [kit.css](../kit/kit.css), troque os valores e rode o [montar](../../scripts/montar.mjs). Os grupos seguem o formato DESIGN.md (cores, tipografia, espaçamento, raios), então um design system publicado nesse formato vira look por mapeamento direto. Confira o contraste de cada par com o [check](../../scripts/check.mjs).
+- **Componente novo** nasce no [kit.js](../kit/kit.js), com grupo, resumo, props e exemplo, e ganha aparência no kit.css; o [montar](../../scripts/montar.mjs) o leva à folha de peças e à referência.
+- **Ajuste de um documento** cabe no bloco "desta página", com até três regras e só tokens.
+- **Os componentes são o contrato** de uma futura versão React (por exemplo, para vídeo no Remotion): mesmo nome, mesmas props, mesma marcação.
 
 ## Reflexos e o que fazer no lugar
 
@@ -191,9 +194,11 @@ Estes são os defaults em que um modelo cai. O kit já evita a maioria; a lista 
 | Três cards iguais de ícone, título e texto | A forma que a ideia pede: tabela, lista, cena |
 | Card dentro de card | Uma camada; dentro dela, fio ou espaço |
 | Faixa colorida na lateral do aviso | Poço tingido com rótulo |
-| Sombra dura deslocada | Fio, ou a sombra do look |
+| Sombra dura deslocada | Fio |
 | Mono para parecer técnico | A face do corpo, um passo menor |
 | Gradiente, brilho, vidro | Cor chapada do token |
+| Magenta como enfeite (título, botão, aba) | Tinta preta; o magenta é só a caneta no dado |
+| Figura desenhada com divs e classes à mão | O componente; se não existe, ele entra no kit |
 | Emoji ou glifo como ícone | Ícone do sprite |
 | Logo ou monograma inventado | O nome em texto |
 | Janela de navegador ou de sistema desenhada | A barra do próprio app (`win__bar`) ou nenhuma |

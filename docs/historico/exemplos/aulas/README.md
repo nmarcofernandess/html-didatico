@@ -1,6 +1,8 @@
 # Aulas reais
 
-Quatro aulas do DietFlow, feitas pelo playbook [Aula](../../playbooks/aula.md) e
+> Histórico, de antes do design system 4.0.0: copie a didática, nunca o estilo nem a marcação.
+
+Quatro aulas do DietFlow, feitas pelo playbook [Aula](../../../../plugins/html-didatico/references/playbooks/aula.md) e
 pela gramática que deu origem a ele. São documentos históricos: os bytes ficam
 como vieram, e os fatos de produto valem para a data de cada um. Copie a forma,
 nunca o conteúdo.
@@ -14,7 +16,7 @@ nunca o conteúdo.
 | [H · Tomada, limite e lâmpada](H-prescricao-canvas/Limite.dc.html) | idem | Só dentro do canvas | Aula em três blocos com intertítulo (A tomada, O limite, A lâmpada e o documento) e um Blueprint no fim |
 
 O F foi feito para tela larga, antes do kit: no celular ele rola para o lado e
-o [check](../../../scripts/check.mjs) aponta letra pequena e contraste baixo. A
+o [check](../../../../plugins/html-didatico/scripts/check.mjs) aponta letra pequena e contraste baixo. A
 didática é o padrão; a forma visual atual é a do kit e do G.
 
 As páginas H dependem do runtime do canvas (`support.js`) e do DietFlow DS,
@@ -24,7 +26,7 @@ que não vêm aqui; as folhas e scripts da página (`aula.css`, `formula.css`,
 ## A anatomia de um quadro
 
 As aulas de canvas usam classes `au-*`; num documento do plugin, a mesma
-anatomia se monta com as peças do [kit](../../kit/pecas.html).
+anatomia se monta com as peças do [kit](../../../../plugins/html-didatico/references/kit/pecas.html).
 
 ```html
 <section class="au-q" id="q2">

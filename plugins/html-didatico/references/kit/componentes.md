@@ -24,6 +24,7 @@ A capa: o rótulo do documento. O filho é o título.
 
 - `kind`: a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete
 - `subject`: produto e assunto
+- `ref`: código ou revisão do documento (EF-QS-001 · rev. 1.10)
 - `date`: dd/mm/aaaa
 - `sub`: o caso em uma linha, com os números
 - `lead`: o que o leitor consegue no fim
@@ -404,7 +405,7 @@ Uma barra de w-bars. O filho é o rótulo embaixo.
 Uma matriz pequena: semana, escala, permissões. Filhos: w-cell.
 
 - `cols`: quantas colunas
-- `head`: cabeçalho: A|B|C
+- `head`: cabeçalho: A|B|C (comece com | para deixar o canto vazio)
 
 ```html
 <w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell mark>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix>
@@ -438,6 +439,38 @@ Um arquivo: o caminho em mono e para que serve.
 - `i`: recuo (nível)
 - `off`: existe e não é usado
 
+### `<w-line>`
+
+Uma série no tempo: pontos ligados por linha, com a faixa de referência. Filhos: w-pt.
+
+- `band`: a faixa de referência: 70-99
+- `min`: o piso do eixo (padrão: um pouco abaixo do menor)
+- `max`: o teto do eixo
+- `unit`: a unidade da faixa
+
+```html
+<w-line band="70-99" unit="mg/dL" min="60" max="115"><w-pt n="94">03/06</w-pt><w-pt n="102">15/07</w-pt><w-pt n="99">02/08</w-pt><w-pt off mark>27/08</w-pt></w-line>
+```
+
+### `<w-pt>`
+
+Um ponto de w-line. O filho é o rótulo do eixo (a data).
+
+- `n`: o valor (sem n: o ponto existe e não plota)
+- `off`: não entra na linha
+- `mark`: o ponto de que a parte fala
+
+### `<w-crit>`
+
+Um critério de prova com o resultado: cumprido, falhou ou não se aplica (e por quê).
+
+- `status`: ok | err | na
+- `why`: a justificativa (obrigatória em na)
+
+```html
+<w-crit status="ok">Checkbox no fluxo, antes do visual</w-crit><w-crit status="na" why="a porta só oferece seleção e Importar">Ações individuais</w-crit>
+```
+
 ### `<w-tree>`
 
 Onde cada responsabilidade mora: listas aninhadas com code e um texto curto.
@@ -454,6 +487,7 @@ O trecho literal da fonte, com número de linha. Escreva < como &lt;.
 
 - `from`: o número da primeira linha
 - `mark`: linhas marcadas pela caneta, contadas a partir de from: 3,4
+- `wrap`: quebra linha longa em vez de rolar (o recuo da quebra fica pendurado)
 
 ```html
 <w-code from="40" mark="41">const max = 999
@@ -514,6 +548,7 @@ Caixa de composição: quem contém quem. Contínua existe; tracejada é slot; m
 
 - `title`: o nome da peça
 - `meta`: de onde vem (pacote, arquivo)
+- `role`: selo do papel na hierarquia (P1, F2, E1, T1)
 - `kind`: slot | new | off
 - `row`: filhos lado a lado
 

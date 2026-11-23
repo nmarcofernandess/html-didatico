@@ -16,11 +16,35 @@ A base de toda aula é a [aula-ouro](../kit/ouro/aula.html): o kit embutido, as
 cinco tabs, o quadro-pergunta e uma dúvida na gramática inteira. Copie o arquivo
 para o destino (`node scripts/montar.mjs --novo aula <destino.html>`, a partir da
 raiz do plugin) e troque o conteúdo, tab por tab; não comece do zero nem do
-starter vazio. Antes de escrever, abra também as [aulas reais](../exemplos/aulas/README.md):
-O que é um exame é o padrão de didática; Números e unidades é este playbook
-inteiro no kit, com as cinco tabs; Fórmula magistral, Cadastrados e Tomada,
-limite e lâmpada mostram aula longa, aula curta e aula em blocos. Copie a
-forma, nunca o conteúdo: os fatos delas valem para a data de cada uma.
+starter vazio. Copie a forma, nunca o conteúdo: os fatos da aula-ouro valem para
+a data dela.
+
+### O quadro
+
+Cada quadro é uma `d-part` cujo título é a pergunta; a frase responde com o caso;
+a figura (`w-fig`, ou uma tabela com `slot="fig"`) prova a frase; a fonte entra
+em uma linha (`d-src`); a regra que se leva fecha em `<p><b>…</b></p>`.
+
+```html
+<d-part title="Quem lê o que você escreve?">
+  <p>Três leitores. <b>Cada um precisa de um número diferente.</b></p>
+  <w-fig cap="…a conclusão, com o dado do caso">…componentes w-*…</w-fig>
+  <d-src>Exemplo: … catálogo de dev em 11/11/2026.</d-src>
+</d-part>
+```
+
+As aulas reais que deram origem a este playbook repetem cinco padrões:
+
+- A pergunta seguinte nasce da resposta anterior; nenhum quadro apresenta o
+  modelo pronto para justificar depois.
+- O caso real entra no título ou na frase (1000 mg de bisglicinato, 3.000, o
+  bombom), nunca um exemplo genérico.
+- A fonte oficial (ANVISA, FHIR, o catálogo de dev com data) entra destilada,
+  numa linha, debaixo da figura.
+- O caso difícil tem quadro próprio, com título de pergunta ("E se trocar a
+  forma?", "E o Geral?").
+- O fecho resume a regra numa tabela e a aplica aos casos que quebravam as
+  tentativas anteriores.
 
 ## O roteador
 
@@ -148,9 +172,8 @@ cada rodada; tab sem material sai.
 ## Forma
 
 - Copie a [aula-ouro](../kit/ouro/aula.html). As tabs, o quadro, a figura e a
-  dúvida são peças do kit; CSS de página só no bloco "desta página", com os
-  tokens do kit. O look segue o assunto: `editorial` para modelo,
-  regra e decisão; `manual` quando a aula ensina uma operação.
+  dúvida são componentes do kit (`d-tabs`, `d-part`, `w-fig`, `w-*`); CSS de
+  página só no bloco "desta página", com os tokens do kit. Não há look a escolher.
 - Com a skill `olho-semicerrado` disponível, use-a na composição e na revisão.
 - Verificar é opcional: quando pedido, ou quando o protótipo tem comportamento
   que só o clique confirma. O [check](../../scripts/check.mjs) lê todas as tabs,
@@ -167,7 +190,7 @@ ele reprova os quatro primeiros.
 
 | Não passa | Faça |
 |---|---|
-| CSS próprio: faixa de cabeçalho, cards e tabs desenhados do zero | Copie a aula-ouro; o kit fica embutido como está |
+| CSS próprio ou figura desenhada à mão: faixa de cabeçalho, cards, tabs, diorama | Copie a aula-ouro; o kit fica embutido e a figura é feita de componentes |
 | Código de nota em qualquer tab: "a 07", "PRD 03", "162/05", "D-427" | Mostre o fato; para outro quadro, um link |
 | Opção sem nome: "Uma possibilidade", "Outra possibilidade" | "A · Sem teto": a letra e o que a opção faz |
 | Dúvida sem recomendada ou sem "Responda no chat" | A tabela Sua resposta, com o chip e a nota, como em [Decisão](../decisao.md) |

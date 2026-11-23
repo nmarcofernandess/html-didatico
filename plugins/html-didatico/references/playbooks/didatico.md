@@ -25,12 +25,14 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    palavras reais. Mostre a espinha em um bloco curto no começo da resposta e
    siga; o usuário redireciona se quiser.
 3. **Base.** Crie o arquivo por cópia, a partir da raiz do plugin:
-   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|starter> <destino.html>`.
+   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|prova|montagem|maquete|starter> <destino.html>`.
    O kit chega inteiro e ninguém o redigita; sem Node, copie o mesmo arquivo com
-   `cp`. Escolha o look em `<html data-look="manual">` ou `"editorial"`.
+   `cp`. Há um design system só: não há look a escolher.
 4. **Página.** Abra o exemplo-ouro da anatomia e copie a composição dele. Escreva
-   só o `<main>`, com as peças da [folha de peças](../kit/pecas.html). O texto
-   segue a seção 4 de Conteúdo.
+   só o corpo, com os componentes da [referência](../kit/componentes.md) (`d-*` no
+   documento, `w-*` na figura); a [folha de peças](../kit/pecas.html) mostra cada um
+   vivo. Peça desenhada à mão é diorama: se falta um componente, ele entra no kit.
+   O texto segue a seção 4 de Conteúdo.
 5. **Figuras.** Leia [Design](../visual/design.md) e monte cada cena pelo método
    de lá, partindo da cena mais próxima do exemplo-ouro. Feche com a
    [leitura pela figura](../visual/design.md#leitura-pela-figura): para cada
@@ -57,27 +59,21 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
   sem rede, CSS e script embutidos, fontes do sistema, ícones do sprite.
 - **Fatos da fonte.** Nome, valor, mensagem e tela vêm da ficha. O que a fonte
   não dá fica fora e entra na entrega como pendência.
-- **O kit se copia.** Tokens e peças ficam como estão. O que o documento tem de
-  único vai no bloco "desta página", com os tokens do kit e a escala de espaço.
+- **O kit se copia.** Tokens e componentes ficam como estão. O que o documento
+  tem de único vai no bloco "desta página", com os tokens do kit e a escala de espaço.
 - **Uma figura mostra uma relação,** tem legenda e sobrevive ao celular. Diorama
   não substitui screenshot de evidência: esse resultado é da entrada Prova.
 
 ## Variações
 
-Uma base e seus parâmetros. Cartão e Aula são entradas públicas; look, camada,
-anatomia e sistemas são parâmetros internos.
-
-- **Look** é um bloco de tokens: `manual` para operação, onboarding, quickstart e
-  runbook; `editorial` para problema, mecanismo, decisão e narrativa. Um look
-  novo segue "Looks" em [Design](../visual/design.md#looks). A gramática do look
-  manual vem do [exemplo A](../exemplos/A-manual-escalaflow-quickstart.html) e a
-  do editorial, do [exemplo B](../exemplos/B-editorial-panorama-export-v2.html);
-  os dois são históricos, e a referência atual são os exemplos-ouro.
+Uma base e seus parâmetros. Cartão e Aula são entradas públicas; camada,
+anatomia e sistemas são parâmetros internos. O estilo não é parâmetro: todo
+documento usa o mesmo [design system](../visual/design.md#um-sistema-sem-looks).
 - **Camada** é uma aba: Produto por padrão, Arquitetura quando o documento também
   serve a quem mexe no código.
 - **Anatomia** vem da pergunta do leitor e do exemplo-ouro correspondente.
 - **Sistemas** soma a sequência narrativa do [modo sistemas](sistemas.md) e usa
-  as peças de esquema do kit.
+  os componentes de esquema do kit.
 - **Aula com tabs** consolida um assunto em construção, com tabs abertas pelo
   pedido; a gramática está no [playbook Aula](aula.md).
 - **Cartão** responde a uma dúvida da conversa em uma página, com o caso em uma
@@ -85,7 +81,7 @@ anatomia e sistemas são parâmetros internos.
 
 ## Entrega
 
-Entregue o arquivo e, em poucas linhas: a anatomia e o look escolhidos, cada
+Entregue o arquivo e, em poucas linhas: a anatomia escolhida, cada
 pergunta com a figura que a responde, o que foi visto rodando e o que foi lido,
 a objeção mais forte e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
 com o motivo; se não rodou, não é preciso dizer nada.

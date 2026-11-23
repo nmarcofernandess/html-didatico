@@ -1,0 +1,510 @@
+<!-- Aula: um assunto consolidado em cinco abas. Cada parte é uma pergunta do leitor, a frase que a responde e a figura que a prova.
+     A caneta (mark) marca o dado de que a parte fala; o resto é traço. -->
+<style data-pagina>
+  .w-field input { flex: 1; min-width: 0; padding: 0; border: 0; outline: 0; background: none; font: inherit; color: inherit; }
+  .w-field:focus-within .field__box { border-color: var(--color-ink); box-shadow: 0 0 0 var(--line) var(--color-ink); }
+  .w-seg > span, .w-btn { cursor: pointer; }
+</style>
+<d-doc>
+
+  <d-cover kind="Aula" subject="DietFlow · Números e unidades" date="18/11/2026" sub="Digitar, conferir e calcular" lead="Como um número aparece na tela, o que a conta conserva e como cada caso foi fechado, com o porquê e o porque não.">Números no DietFlow</d-cover>
+
+  <main>
+    <d-tabs>
+
+      <!-- ═════════ AULA ═════════ -->
+      <d-tab label="Aula" id="aula">
+        <d-steps rail>
+
+          <d-part title="O que significa 3.000?" id="milhar">
+            <p>Três mil. Digitar 3000 ou colar 3.000 leva à mesma quantidade; o ponto só organiza os milhares na leitura.</p>
+            <p><b>Copiar e colar preserva o valor.</b></p>
+            <w-fig cap="Duas grafias, a mesma quantidade">
+              <w-win title="Quantidade">
+                <w-kv k="Você digita" v="3000"></w-kv>
+                <w-kv k="Você cola" v="3.000"></w-kv>
+                <w-kv k="Ao terminar" v="3.000 mg" mark></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E se eu digitar 30.9?" id="ponto">
+            <p>O campo aceita e mostra 30,9 ao terminar: trinta vírgula nove. O ponto decimal vem de teclado e de cópia de outros sistemas, e a vírgula é a forma de ler.</p>
+            <p><b>30.9 nunca vira 309.</b></p>
+            <w-fig cap="O ponto decimal vira vírgula na leitura">
+              <w-win title="Peso medido">
+                <w-kv k="Você digita" v="30.9"></w-kv>
+                <w-kv k="Você lê" v="30,9 kg" mark></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E o 1.234?" id="mil-ou-decimal">
+            <p>É mil duzentos e trinta e quatro. Ponto seguido de grupos de exatamente três dígitos é milhar; qualquer outro ponto é decimal. Para o decimal, escreve-se 1,234.</p>
+            <p>Só na dose e no resultado de exame o ponto pode ser as duas coisas, e o engano seria de mil vezes: densidade urinária 1,020 contra mil e vinte. Ali, quando o ponto vira milhar, o campo diz uma vez como leu.</p>
+            <p><b>Ponto em grupo de três é milhar; o resto é decimal.</b></p>
+            <table class="table">
+              <thead><tr><th>Campo</th><th>Casas</th><th>1.234 vira</th></tr></thead>
+              <tbody>
+                <tr><td>Peso</td><td data-th="Casas">até 2</td><td data-th="1.234 vira">1.234 kg, fora da faixa: recusado</td></tr>
+                <tr><td>Valor da consulta</td><td data-th="Casas">2</td><td data-th="1.234 vira">R$ 1.234,00</td></tr>
+                <tr><td>Dose em mg</td><td data-th="Casas">até 6</td><td data-th="1.234 vira">1.234 mg, com o aviso de milhar</td></tr>
+                <tr><td>Dose em mcg</td><td data-th="Casas">até 6</td><td data-th="1.234 vira">1.234 mcg, com o aviso de milhar</td></tr>
+                <tr><td>Resultado de exame</td><td data-th="Casas">as do laudo</td><td data-th="1.234 vira">1.234, com o aviso de milhar</td></tr>
+              </tbody>
+            </table>
+          </d-part>
+
+          <d-part title="O que muda ao editar?" id="edicao">
+            <p>Em repouso o campo mostra 3.000. Ao receber o foco, abre 3000, sem o ponto, para editar sem tropeçar no separador. Sair sem digitar nada não grava nem restaura valor antigo.</p>
+            <p><b>Focar e sair não é editar.</b></p>
+            <w-fig cap="A apresentação muda; a quantidade não">
+              <w-grid>
+                <w-field label="Em repouso" value="3.000" unit="mg"></w-field>
+                <w-field label="Durante a edição" value="3000" state="caret" unit="mg" mark></w-field>
+              </w-grid>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E se eu digitar uma letra?" id="letras">
+            <p>Ela não entra. Uma colagem com letras é recusada inteira: o campo não guarda o pedaço numérico do começo. A recusa é dita uma vez, sem adorno permanente.</p>
+            <p>O resultado de exame que é texto, como “Reagente”, continua aceitando texto: a regra vale para o ramo numérico.</p>
+            <p><b>Letra não entra; colagem com letra não deixa prefixo.</b></p>
+            <w-fig cap="Colar “12 mg/dia” não grava 12 por engano">
+              <w-field label="Dose" value="12" unit="mg"></w-field>
+              <w-msg tone="warn" title="Colagem recusada" mark>“12 mg/dia” tem letras. O valor continua 12 mg.</w-msg>
+            </w-fig>
+          </d-part>
+
+          <d-part title="O campo mostra toda a conta?" id="conta">
+            <p>Não. Lipídios de 322 kcal são 322 ÷ 9 gramas, uma dízima. O resumo mostra 35,8 g; a conta continua com o valor inteiro, e o total fica em 1.610 kcal.</p>
+            <p>Se alguém regravasse os 35,8 g como origem, o total viraria 1.610,2 kcal. Esse é o erro que a regra evita, não uma opção.</p>
+            <p><b>O resumo serve à leitura. A conta conserva a precisão.</b></p>
+            <w-fig cap="Leitura em texto; o cálculo usa 322 ÷ 9">
+              <w-win title="Distribuição de macronutrientes">
+                <w-kv k="Lipídios" v="35,8 g"></w-kv>
+                <w-kv k="Valor energético total" v="1.610 kcal" mark></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="Todos os campos têm duas casas?" id="campos">
+            <p>Não. Cada campo tem faixa e casas próprias. A meta de peso aceita seis casas; altura, uma; o resultado de exame guarda os zeros do laudo; dinheiro sempre mostra duas e digitar 15 é quinze reais.</p>
+            <d-src>Censo do código em 17/11/2026, base <code>04b08c6</code>: 16 famílias de campos numéricos. É o que o código suporta, não necessidade clínica.</d-src>
+            <p><b>A regra pertence ao campo, não só à unidade.</b></p>
+            <table class="table">
+              <thead><tr><th>Campo</th><th>Faixa</th><th>Casas</th></tr></thead>
+              <tbody>
+                <tr><td>Peso</td><td data-th="Faixa">0,1 a 500 kg</td><td data-th="Casas">até 2</td></tr>
+                <tr><td>Altura</td><td data-th="Faixa">10 a 250 cm</td><td data-th="Casas">até 1</td></tr>
+                <tr><td>Meta de peso</td><td data-th="Faixa">aceita negativo</td><td data-th="Casas">até 6</td></tr>
+                <tr><td>Faixas do cadastro de exames</td><td data-th="Faixa">por exame</td><td data-th="Casas">até 4</td></tr>
+                <tr><td>Resultado de exame</td><td data-th="Faixa">por exame</td><td data-th="Casas">as do laudo, com zeros</td></tr>
+                <tr><td>Valor da consulta</td><td data-th="Faixa">a partir de 0</td><td data-th="Casas">2, sempre</td></tr>
+              </tbody>
+            </table>
+          </d-part>
+
+          <d-part title="E o número que vem do sistema?" id="maquina">
+            <p>Banco e API escrevem o decimal com ponto e sem milhar: “1.234” ali é um vírgula dois três quatro. Se passasse pelo leitor de quem digita, viraria mil duzentos e trinta e quatro.</p>
+            <p><b>Texto de máquina nunca passa pelo leitor de quem digita.</b></p>
+            <w-fig cap="O mesmo texto, dois donos, duas leituras">
+              <w-list>
+                <w-item title="Do banco: “1.234”" meta="leitor da máquina" tag="1,234" tagtone="ink" on mark></w-item>
+                <w-item title="Digitado: “1.234”" meta="leitor de quem digita" tag="1.234"></w-item>
+              </w-list>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E a unidade?" id="unidade">
+            <p>Quem escolhe é o nutricionista: ele digita a quantidade e seleciona a unidade. O campo não troca 0,5 mg por 500 mcg ao sair.</p>
+            <p>No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto, isso recusaria doses comuns, como B12 de 1.000 mcg; por isso está separado para decisão na <a href="#duvida-1">dúvida 1</a>, e nenhum teto foi aplicado.</p>
+            <p><b>Sem conversão automática de unidade.</b></p>
+            <w-fig cap="A quantidade e a unidade vêm de quem prescreve">
+              <w-grid>
+                <w-field label="Dose" value="0,5"></w-field>
+                <w-field label="Unidade" value="mg" icon="caret-down" mark></w-field>
+              </w-grid>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E se eu colar 3.000 e apagar um zero?" id="colagem">
+            <p>Fica 300. Uma colagem válida entra no campo do jeito que a edição abre, sem o ponto de milhar: 3000. Apagar um zero dá 300.</p>
+            <p><em>Por que não deixar o 3.000 colado como está?</em> Porque apagar um zero deixaria 3.00, e um ponto sem grupo de três é decimal: três. Normalizar ao colar fecha esse caminho. Digitar tecla por tecla continua livre até sair do campo; só a colagem inteira é lida na hora.</p>
+            <p><b>Colagem válida já entra como edição.</b></p>
+            <w-fig cap="A colagem não deixa ponto ambíguo no rascunho">
+              <w-win title="Quantidade">
+                <w-kv k="Você cola" v="3.000"></w-kv>
+                <w-kv k="No campo" v="3000"></w-kv>
+                <w-kv k="Apaga um zero" v="300 mg" mark></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="O 15 vira 15,00?" id="zeros">
+            <p>Só no dinheiro. O valor da consulta mostra sempre duas casas: digitar 15 é R$ 15,00, nunca R$ 0,15. Na dose e nas quantidades, nenhum zero é acrescentado: 5 mg continua 5 mg.</p>
+            <p>É a regra de segurança de prescrição: zero à direita numa dose (5,0 mg) pode ser lido como 50 mg, e dose menor que um sempre leva zero à esquerda (0,5, nunca ,5). Quem digita ,5 lê 0,5 ao sair. O laudo de exame é a exceção: guarda os zeros que o laboratório escreveu, porque ali o zero diz a precisão da medida.</p>
+            <p><em>Por que não duas casas em tudo?</em> Porque um zero que ninguém digitou vira informação falsa: 5,00 mg sugere uma precisão que a prescrição não tem.</p>
+            <p><b>Duas casas só no dinheiro; zero à esquerda sempre; o laudo guarda os seus.</b></p>
+            <w-fig cap="Zeros com significado ficam; zeros inventados não entram">
+              <w-win title="Ao sair do campo">
+                <w-kv k="Consulta 15" v="R$ 15,00" mark></w-kv>
+                <w-kv k="Dose ,5" v="0,5 mg"></w-kv>
+                <w-kv k="Dose 5,0" v="5 mg"></w-kv>
+                <w-kv k="Exame 0,00100" v="0,00100 mg/dL"></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E a meta calculada com mais casas que o campo?" id="meta-calculada">
+            <p>O campo abre o valor na escala dele, sem erro. O distribuidor calcula 9,0659… g de proteína para o café; o campo aceita duas casas e abre 9,07. Sair sem digitar não regrava nada: a conta continua com 9,0659… g.</p>
+            <p><em>Por que não arredondar o valor gravado?</em> Porque o total em kcal deixaria de fechar o VET, o mesmo erro do 35,8 g. <em>Por que não mostrar tudo?</em> Porque o campo acusava “até 2 casas” num número que o próprio sistema fez. A validação vale só para o que a pessoa digitou.</p>
+            <p><b>Só o que foi digitado é validado e gravado.</b></p>
+            <w-fig cap="A projeção serve à edição; o fato não muda">
+              <w-win title="Metas por refeição · Café">
+                <w-kv k="Calculado" v="9,065911… g"></w-kv>
+                <w-kv k="No campo" v="9,07 g"></w-kv>
+                <w-kv k="Sair sem digitar" v="9,065911… g, intacto" mark></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+          <d-part title="E o calculado que não cabe na coluna?" id="calculado-coluna">
+            <p>Aparece com até 8 dígitos significativos, o mesmo limite da digitação: 88888888 × 54,5% mostra 48444444. O valor inteiro, 48.444.443,96, fica na dica e ao focar a célula. A conta e o documento não mudam.</p>
+            <p>Vale para a Qtd. ativo ou da forma quando é calculada e para os dois valores da coluna UL. Decisão 8C de Marco, em 18/11/2026.</p>
+            <p><em>Por que não alargar a coluna?</em> Porque tiraria espaço de todas as linhas comuns para um caso extremo, e um valor de 12 caracteres voltaria a cortar.</p>
+            <p><b>Resumo na coluna; o valor inteiro a um toque.</b></p>
+            <w-fig cap="A coluna mostra o resumo; a conta guarda o inteiro">
+              <w-win title="Fórmula · Qtd. ativo">
+                <w-kv k="Antes" v="48444443, (cortado)"></w-kv>
+                <w-kv k="Na coluna" v="48444444" mark></w-kv>
+                <w-kv k="Na dica" v="48.444.443,96"></w-kv>
+              </w-win>
+            </w-fig>
+          </d-part>
+
+        </d-steps>
+
+        <d-part title="Qual é a regra, afinal?" id="regra" wide>
+          <table class="table">
+            <thead><tr><th>Situação</th><th>Resultado</th></tr></thead>
+            <tbody>
+              <tr><td>Digitar 3000 ou colar 3.000</td><td data-th="Resultado">Três mil; lê-se 3.000</td></tr>
+              <tr><td>Digitar 30.9</td><td data-th="Resultado">Trinta vírgula nove; lê-se 30,9</td></tr>
+              <tr><td>Digitar 1.234</td><td data-th="Resultado">Mil duzentos e trinta e quatro; ponto em grupo de três é milhar</td></tr>
+              <tr><td>Focar e sair sem digitar</td><td data-th="Resultado">Nada é gravado</td></tr>
+              <tr><td>Letra no campo numérico</td><td data-th="Resultado">Não entra; colagem com letra é recusada inteira</td></tr>
+              <tr><td>Colar 3.000 e apagar um zero</td><td data-th="Resultado">300; a colagem entra sem o ponto de milhar</td></tr>
+              <tr><td>Ponto lido como milhar na dose ou no exame</td><td data-th="Resultado">Aviso uma vez: “Lido como milhar”</td></tr>
+              <tr><td>15 no dinheiro; ,5 e 5,0 na dose</td><td data-th="Resultado">R$ 15,00; 0,5 mg; 5 mg</td></tr>
+              <tr><td>Quantidade calculada</td><td data-th="Resultado">Resumo na leitura; a conta conserva o valor inteiro</td></tr>
+              <tr><td>Meta calculada com mais casas que o campo</td><td data-th="Resultado">Abre na escala do campo, sem erro; sair sem digitar não regrava</td></tr>
+              <tr><td>Calculado que não cabe na coluna</td><td data-th="Resultado">Até 8 dígitos significativos; o inteiro na dica e no foco</td></tr>
+              <tr><td>Número do banco ou da API</td><td data-th="Resultado">Leitor próprio, com ponto decimal</td></tr>
+              <tr><td>Unidade</td><td data-th="Resultado">Escolhida pelo nutricionista; sem troca automática</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+
+        <d-part title="Funciona com os casos difíceis?" id="casos" wide>
+          <table class="table">
+            <thead><tr><th>Caso</th><th>Como fica</th></tr></thead>
+            <tbody>
+              <tr><td>1.234</td><td data-th="Como fica">Mil duzentos e trinta e quatro; o decimal se escreve 1,234</td></tr>
+              <tr><td>86.3</td><td data-th="Como fica">86,3: o ponto não forma grupo de três</td></tr>
+              <tr><td>0.001</td><td data-th="Como fica">0,001: zero inicial nunca forma milhar</td></tr>
+              <tr><td>1,234.56</td><td data-th="Como fica">Recusado: mistura americana; o valor confirmado continua</td></tr>
+              <tr><td>1.020 num exame</td><td data-th="Como fica">Mil e vinte, com o aviso de milhar; a densidade se escreve 1,020</td></tr>
+              <tr><td>0,00100 mg/dL num exame</td><td data-th="Como fica">Os zeros do laudo ficam</td></tr>
+              <tr><td>15 no valor da consulta</td><td data-th="Como fica">R$ 15,00, nunca R$ 0,15</td></tr>
+              <tr><td>Peso de 3.000</td><td data-th="Como fica">Três mil quilos, fora da faixa: recusado, sem virar 3</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+      </d-tab>
+
+      <!-- ═════════ NA TELA ═════════ -->
+      <d-tab label="Na tela" id="na-tela">
+        <d-part title="Teste o campo">
+          <p>Escolha o campo, digite e saia com Tab ou Enter. Ao focar, o valor abre sem o ponto de milhar. Letras não entram.</p>
+          <p>Os exemplos colocam um texto no campo como se fosse colado.</p>
+          <w-fig cap="Protótipo do estado decidido; não é o componente do app">
+            <w-win title="Dose" id="proto-tela">
+              <w-seg id="perfis" options="Dose|Peso|Exame" on="Dose"></w-seg>
+              <w-seg id="perfis-2" options="Consulta|Porções"></w-seg>
+              <w-field id="proto-campo" label="Quantidade" value="3.000" unit="mg"></w-field>
+              <w-msg id="proto-msg" tone="ok" title="Pronto">Digite ou cole um exemplo.</w-msg>
+              <w-grid id="exemplos" cols="3">
+                <w-btn>3000</w-btn><w-btn>3.000</w-btn><w-btn>30.9</w-btn>
+                <w-btn>86.3</w-btn><w-btn>1.234</w-btn><w-btn>1.020</w-btn>
+                <w-btn>0.001</w-btn><w-btn>,5</w-btn><w-btn>1,234.56</w-btn>
+                <w-btn>12 mg/dia</w-btn><w-btn>15</w-btn><w-btn>0,00100</w-btn>
+              </w-grid>
+            </w-win>
+          </w-fig>
+        </d-part>
+      </d-tab>
+
+      <!-- ═════════ DÚVIDAS ═════════ -->
+      <d-tab label="Dúvidas · 1" id="duvidas">
+        <d-tabs sub>
+          <d-tab label="1 · Teto de 999 mcg" id="duvida-1">
+
+            <d-part title="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?">
+              <h3>O que acontece</h3>
+              <p>No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto de digitação, isso recusaria doses que se prescrevem todos os dias: B12 de 1.000 mcg, vitamina A de 3.000 mcg RAE, biotina de 5.000 mcg.</p>
+              <p>O engano de mil vezes já tem duas proteções: o aviso “Lido como milhar” e o limite diário da substância.</p>
+            </d-part>
+
+            <d-part title="Comparando, com a mesma dose" wide>
+              <d-cols n="3">
+                <w-fig cap="A · 1.000 mcg entra como está">
+                  <w-win title="Vitamina B12 · dose">
+                    <w-field label="Quantidade" value="1.000" unit="mcg" mark></w-field>
+                  </w-win>
+                </w-fig>
+                <w-fig cap="B · 1.000 mcg entra, com um aviso">
+                  <w-win title="Vitamina B12 · dose">
+                    <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
+                    <w-msg tone="warn" title="Acima de 999 mcg" mark>Confira se não seria mg.</w-msg>
+                  </w-win>
+                </w-fig>
+                <w-fig cap="C · 1.000 mcg é recusado">
+                  <w-win title="Vitamina B12 · dose">
+                    <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
+                    <w-msg tone="err" title="Máximo de 999 mcg" mark>Escreva 1 mg.</w-msg>
+                  </w-win>
+                </w-fig>
+              </d-cols>
+            </d-part>
+
+            <d-part title="Sua resposta">
+              <d-note label="Responda no chat">1A, 1B ou 1C.</d-note>
+              <table class="table">
+                <thead><tr><th>Opção</th><th>O que faz</th></tr></thead>
+                <tbody>
+                  <tr><td>A · Sem teto <w-chip tone="ok">Recomendada</w-chip></td><td data-th="O que faz">mcg aceita qualquer quantidade; o limite diário e o aviso de milhar protegem. A unidade é escolha de quem prescreve, e a prática escreve 1.000 mcg.</td></tr>
+                  <tr><td>B · Aviso acima de 999 mcg</td><td data-th="O que faz">Aceita e mostra uma vez “Acima de 999 mcg: confira se não seria mg”.</td></tr>
+                  <tr><td>C · Teto na dose</td><td data-th="O que faz">Recusa acima de 999 mcg; B12 de 1.000 mcg precisa virar 1 mg.</td></tr>
+                </tbody>
+              </table>
+            </d-part>
+
+          </d-tab>
+        </d-tabs>
+      </d-tab>
+
+      <!-- ═════════ LEIS ═════════ -->
+      <d-tab label="Leis" id="leis">
+        <d-part title="O que já foi decidido" wide>
+          <p>Só decisões de Marco. Nada na aula, no protótipo ou no código contradiz uma lei sem nova decisão.</p>
+          <table class="table">
+            <thead><tr><th>Data</th><th>Lei</th><th>Origem</th></tr></thead>
+            <tbody>
+              <tr><td>17/11/2026</td><td data-th="Lei">3000 e 3.000 são três mil; a leitura é 3.000. Copiar e colar preserva o valor.</td><td data-th="Origem">Correção de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">30.9 é 30,9, nunca 309.</td><td data-th="Origem">Correção de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">1.000 e 1.234 são milhar: ponto seguido de grupos de três dígitos agrupa. Qualquer outro ponto é decimal: 86.3 é 86,3.</td><td data-th="Origem">Direção de Marco na decisão 5 da Prescrição; fecha a dúvida 1</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">A leitura agrupa os milhares; a edição abre sem agrupamento.</td><td data-th="Origem">Resposta 9B</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">Letra não entra em campo numérico, sem adornos excessivos.</td><td data-th="Origem">Diretriz de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">Sem conversão automática de unidade: o nutricionista digita e escolhe a unidade.</td><td data-th="Origem">Diretriz de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">999 mcg é o máximo no contexto da unidade menor. O alcance aguarda resposta na dúvida 1; nenhum teto foi aplicado.</td><td data-th="Origem">Fala de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei">A precisão interna da conta não aparece como campo do produto.</td><td data-th="Origem">Crítica de Marco a “35,77777777777778”</td></tr>
+              <tr><td>18/11/2026</td><td data-th="Lei">O valor calculado que não cabe na coluna aparece com até 8 dígitos significativos; o inteiro fica na dica e no foco.</td><td data-th="Origem">Decisão 8C de Marco</td></tr>
+              <tr><td>17/11/2026</td><td data-th="Lei"><s>Resposta 10A, que recusava 3.000.</s> Superada em 17/11/2026 pela lei do 3.000.</td><td data-th="Origem">Superada</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+      </d-tab>
+
+      <!-- ═════════ ROADMAP ═════════ -->
+      <d-tab label="Roadmap" id="roadmap">
+        <d-part title="O que muda em dev" wide>
+          <p>Lido no código em 18/11/2026, dev <code>147ea54</code>. A implementação anda em fatias, abaixo.</p>
+          <table class="table">
+            <thead><tr><th>No produto</th><th>Muda para</th><th>Lei</th></tr></thead>
+            <tbody>
+              <tr><td>O leitor recusa 1.000 como ambíguo</td><td data-th="Muda para">Lê 1.000 e 1.234 como milhar; 86.3 como 86,3</td><td data-th="Lei">Ponto em grupo de três é milhar</td></tr>
+              <tr><td>O campo guarda a letra digitada e recusa depois</td><td data-th="Muda para">A letra não entra; colagem com letra é recusada inteira</td><td data-th="Lei">Letra não entra</td></tr>
+              <tr><td>O campo mostra 3000 em repouso</td><td data-th="Muda para">3.000 em repouso; 3000 ao editar</td><td data-th="Lei">Leitura agrupa; edição sem agrupamento</td></tr>
+              <tr><td>A colagem entra como texto cru</td><td data-th="Muda para">Colagem válida entra sem milhar; inválida é recusada inteira</td><td data-th="Lei">Copiar e colar preserva</td></tr>
+              <tr><td>Nenhum aviso quando o ponto vira milhar</td><td data-th="Muda para">“Lido como milhar” uma vez, na dose e no exame</td><td data-th="Lei">Ponto em grupo de três é milhar</td></tr>
+              <tr><td>Meta calculada abre vermelha (“até 2 casas”)</td><td data-th="Muda para">Abre na escala do campo; só o digitado é validado</td><td data-th="Lei">A precisão interna não vira campo</td></tr>
+              <tr><td>Qtd. ativo calculada corta seco</td><td data-th="Muda para">Até 8 dígitos significativos; o inteiro na dica</td><td data-th="Lei">8C</td></tr>
+              <tr><td>Texto do banco passa pelo leitor de quem digita (<code>ambiguousDot: serialized</code>)</td><td data-th="Muda para">Leitor de máquina próprio, com ponto decimal</td><td data-th="Lei">Texto de máquina nunca passa pelo leitor de quem digita</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+
+        <d-part title="Onde mexer, junto" wide>
+          <p>Leitor, campo e quem grava mudam na mesma entrega por família. Mudar só a formatação e chamar de transversal não fecha.</p>
+          <table class="table">
+            <thead><tr><th>Família</th><th>Donos</th></tr></thead>
+            <tbody>
+              <tr><td>Biblioteca</td><td data-th="Donos"><code>src/lib/numeric/</code>: parse, display, range, zod</td></tr>
+              <tr><td>Campos</td><td data-th="Donos"><code>useNumericDraft</code>, <code>NumericField</code>, <code>TableNumericCell</code>, <code>DataCard</code></td></tr>
+              <tr><td>Doses e Aviar</td><td data-th="Donos"><code>TomadasSection</code>, <code>CardFormulacao</code>, <code>DoseConhecidaPanel</code>, <code>core/dose.ts</code></td></tr>
+              <tr><td>Exames</td><td data-th="Donos"><code>exam-value-drafts</code>, <code>ExamValueField</code>, <code>exam-value.ts</code></td></tr>
+              <tr><td>Medidas, metas e energia</td><td data-th="Donos">ranges de antropometria, gestação e anamnese; <code>AjusteObjetivo</code>, <code>GastoEnergeticoV2</code></td></tr>
+              <tr><td>Alimentos, receitas, dinheiro, agenda</td><td data-th="Donos"><code>food-numeric</code>, <code>refeicao-ranges</code>, <code>money-numeric</code>, <code>plano-atendimento-numeric</code></td></tr>
+              <tr><td>Saídas</td><td data-th="Donos">Exportação, PDF e Care recebem o valor e a projeção, nunca o texto do campo</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+
+        <d-part title="Fatias" wide>
+          <p>Cada fatia é um PR para dev. A ordem protege o que já funciona: primeiro a regra, depois os campos, por fim cada família.</p>
+          <table class="table">
+            <thead><tr><th>Fatia</th><th>O quê</th><th>Situação</th></tr></thead>
+            <tbody>
+              <tr><td>1 · Biblioteca</td><td data-th="O quê">Leitor de quem digita com a regra do milhar, leitor de máquina, apresentação por perfil, tabela-ouro e contrato</td><td data-th="Situação">Em andamento</td></tr>
+              <tr><td>2 · Campos</td><td data-th="O quê">Repouso agrupado e edição sem milhar; letra bloqueada; colagem; aviso de milhar; validar só o digitado; Esc</td><td data-th="Situação">Depois da 1</td></tr>
+              <tr><td>3 · Famílias</td><td data-th="O quê">Dose da Prescrição, exames, dinheiro e Metas por refeição, conferidos nas telas reais</td><td data-th="Situação">Depois da 2</td></tr>
+              <tr><td>8C · Calculado na coluna</td><td data-th="O quê">Qtd. ativo e UL com 8 dígitos significativos e o inteiro na dica</td><td data-th="Situação">Em andamento</td></tr>
+            </tbody>
+          </table>
+        </d-part>
+
+        <d-part title="Como reconhecer que funcionou">
+          <ul>
+            <li>3000, 3.000 e a cópia da leitura dão três mil; focar e sair grava zero vezes.</li>
+            <li>30.9 dá 30,9; 1,234 dá 1,234.</li>
+            <li>Digitar 3. → 3.0 → 3.00 → 3.000 não grava nada no meio; o final é mil.</li>
+            <li>Letra e colagem com letra: recusa inteira, sem prefixo gravado.</li>
+            <li>Exame 0,00100 guarda o texto com os zeros; 15 em dinheiro é quinze.</li>
+            <li>“1.234” vindo da API nunca passa pelo leitor de quem digita.</li>
+            <li>Salvar com o campo em foco usa o que está digitado; Esc cancela sem gravar.</li>
+            <li>Colar 3.000 e apagar um zero dá 300.</li>
+            <li>1.020 num exame mostra “Lido como milhar” uma vez; 1.020 no peso não mostra nada.</li>
+            <li>15 no dinheiro lê R$ 15,00; ,5 na dose lê 0,5; 5,0 na dose lê 5.</li>
+            <li>A meta de 9,0659… g abre 9,07 sem erro e continua 9,0659… se ninguém digitar.</li>
+          </ul>
+        </d-part>
+      </d-tab>
+
+    </d-tabs>
+  </main>
+
+  <d-foot left="DietFlow · aula" right="Números e unidades · 18/11/2026"></d-foot>
+
+</d-doc>
+
+<script>
+// Na tela: o campo numérico do estado decidido, sobre a marcação que w-field, w-seg, w-btn e w-msg geram.
+// Onde a leitura depende de dúvida aberta, usa a recomendação e diz qual.
+const perfis = [
+  { nome: 'Dose', rotulo: 'Quantidade', unidade: 'mg', casas: 6, min: 0, inicial: '3000' },
+  { nome: 'Peso', rotulo: 'Peso medido', unidade: 'kg', casas: 2, min: 0.1, max: 500, inicial: '68.4' },
+  { nome: 'Exame', rotulo: 'Resultado', unidade: 'mg/dL', exato: true, sinal: true, inicial: '0.00100' },
+  { nome: 'Valor da consulta', rotulo: 'Valor', unidade: 'R$', casas: 2, min: 0, max: 99999999.99, dinheiro: true, inicial: '150' },
+  { nome: 'Porções', rotulo: 'Porções da receita', unidade: 'porções', casas: 0, min: 1, max: 999, inicial: '4' },
+]
+
+addEventListener('DOMContentLoaded', () => {
+const raiz = document.getElementById('proto-campo')
+const caixa = raiz.querySelector('.field__box')
+const rotulo = raiz.querySelector('.field__label')
+const unidade = raiz.querySelector('.field__unit')
+const msg = document.getElementById('proto-msg')
+const barra = document.querySelector('#proto-tela .win__bar > span')
+const seg = [...document.querySelectorAll('#perfis > span, #perfis-2 > span')]
+
+const campo = document.createElement('input')
+campo.inputMode = 'decimal'; campo.autocomplete = 'off'; campo.spellcheck = false
+caixa.firstElementChild.replaceWith(campo)
+
+let perfil = perfis[0], confirmado = perfil.inicial, sujo = false
+
+const virgula = n => String(n).replace('.', ',')
+const leitura = (v, p, agrupar = true) => {
+  if (v === null) return ''
+  let [i, f] = v.replace('-', '').split('.')
+  if (p.dinheiro) f = (f || '').padEnd(2, '0')
+  if (agrupar) i = i.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return (v.startsWith('-') ? '-' : '') + i + (f ? ',' + f : '')
+}
+
+// Texto de quem digita → decimal com ponto, ou recusa com o motivo.
+function ler(bruto, p) {
+  const t = bruto.trim()
+  if (t === '') return { valor: null }
+  if (/[^0-9.,+-]/.test(t)) return { recusa: 'tem letras ou símbolos' }
+  let d, duvida = null
+  if (/^[+-]?[1-9]\d{0,2}(\.\d{3})+(,\d+)?$/.test(t)) {
+    d = t.replaceAll('.', '').replace(',', '.')
+    if (/^[+-]?[1-9]\d{0,2}\.\d{3}$/.test(t) && (p.exato || p.casas >= 3)) duvida = 'milhar'
+  } else if (t.includes(',') && t.includes('.')) {
+    return { recusa: 'mistura vírgula de milhar e ponto decimal' }
+  } else if ((t.match(/[.,]/g) || []).length > 1) {
+    return { recusa: 'formato não reconhecido' }
+  } else {
+    d = t.replace(',', '.')
+  }
+  if (!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(d)) return { recusa: 'formato não reconhecido' }
+  if (d.startsWith('-') && !p.sinal) return { recusa: 'este campo não aceita negativo' }
+  d = d.replace(/^\+/, '').replace(/^(-?)\./, '$10.').replace(/^(-?)0+(?=\d)/, '$1').replace(/\.$/, '')
+  const f = (d.split('.')[1] || '')
+  if (p.casas === 0 && f) return { recusa: 'este campo aceita só inteiros', duvida }
+  if (p.casas != null && f.length > p.casas) return { recusa: `este campo aceita até ${p.casas} casas`, duvida }
+  if (!p.exato) d = d.includes('.') ? d.replace(/0+$/, '').replace(/\.$/, '') : d
+  const n = Number(d)
+  if ((p.min != null && n < p.min) || (p.max != null && n > p.max))
+    return { recusa: `fora da faixa (${virgula(p.min)} a ${p.max != null ? leitura(String(p.max), {}) : '…'} ${p.unidade})`, duvida }
+  return { valor: d, duvida }
+}
+
+function repousar() { campo.value = leitura(confirmado, perfil); sujo = false }
+function avisar(tone, titulo, texto) {
+  msg.dataset.tone = tone
+  msg.querySelector('b').textContent = titulo
+  msg.querySelector('.msg__body').textContent = texto
+}
+const livre = () => avisar('ok', 'Pronto', 'Digite ou cole um exemplo.')
+
+function confirmar(bruto) {
+  const r = ler(bruto, perfil)
+  if ('recusa' in r) {
+    avisar('err', 'Recusado', `“${bruto}”: ${r.recusa}. O valor continua ${leitura(confirmado, perfil) || 'vazio'}.`)
+  } else {
+    confirmado = r.valor
+    if (r.duvida === 'milhar') avisar('warn', 'Lido como milhar', `${leitura(r.valor, perfil)}. Para decimal, digite ${leitura(r.valor, perfil).replace('.', ',')}.`)
+    else livre()
+  }
+  repousar()
+}
+
+function escolher(p) {
+  perfil = p; confirmado = p.inicial
+  barra.textContent = p.nome
+  rotulo.textContent = p.rotulo
+  unidade.textContent = p.unidade
+  p.dinheiro ? caixa.prepend(unidade) : caixa.append(unidade)
+  seg.forEach((s, i) => s.classList.toggle('is-on', perfis[i] === p))
+  livre(); repousar()
+}
+
+seg.forEach((s, i) => s.addEventListener('click', () => escolher(perfis[i])))
+document.querySelectorAll('#exemplos .w-btn').forEach(b => b.addEventListener('click', () => confirmar(b.textContent)))
+
+campo.addEventListener('focus', () => { campo.value = leitura(confirmado, perfil, false); sujo = false })
+campo.addEventListener('beforeinput', e => {
+  if (e.data && /[^0-9.,+-]/.test(e.data)) { e.preventDefault(); avisar('warn', 'Letra não entra', 'Este campo é numérico.') }
+})
+campo.addEventListener('paste', e => {
+  const texto = (e.clipboardData || window.clipboardData).getData('text')
+  if (/[^0-9.,+\-\s]/.test(texto)) { e.preventDefault(); confirmar(texto); campo.blur() }
+  else {
+    // Colagem válida entra sem o ponto de milhar: apagar um zero de 3.000 dá 300, não 3.
+    const r = ler(texto, perfil)
+    if (!('recusa' in r) && r.valor !== null) { e.preventDefault(); campo.value = leitura(r.valor, perfil, false); sujo = true }
+  }
+})
+campo.addEventListener('input', () => { sujo = true })
+campo.addEventListener('keydown', e => {
+  if (e.key === 'Enter') campo.blur()
+  if (e.key === 'Escape') { sujo = false; campo.blur() }
+})
+campo.addEventListener('blur', () => { if (sujo) confirmar(campo.value); else { livre(); repousar() } })
+
+escolher(perfis[0])
+})
+</script>

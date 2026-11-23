@@ -15,7 +15,7 @@ Desambigue termos antes de usá-los. Use 1–2 frases por bloco quando bastar; o
 mecanismo carrega os detalhes. Números e caminhos vêm das fontes; aproximações
 são identificadas. O que existe mas não roda aparece como limite/tracejado.
 
-Monte as figuras com as peças de esquema do [kit](../kit/pecas.html), conforme a
+Monte as figuras com os componentes de esquema do [kit](../kit/componentes.md) (`w-flow`, `w-box`, `w-tree`, `w-files`, `w-layers`, `w-timeline`), conforme a
 figura necessária: explorer (`files`), editor com linhas marcadas (`code`), chave
 (`toggle`), árvore (`tree`), camadas (`layers`), barras com contagem real (`bars`)
 e linha do tempo (`timeline`). As regras de cada uma estão em

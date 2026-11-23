@@ -1,0 +1,144 @@
+<!-- Passo a passo: uma figura por passo; a caneta marca o que o passo pede para fazer, o cursor fica no alvo do clique. -->
+<d-doc>
+
+  <d-cover kind="Passo a passo" subject="EscalaFlow · Primeira escala" date="23/11/2026" sub="Manual de operação EF-QS-001, rev. 1.10. Do zero ao rodízio em 6 passos." lead="Siga a sequência. Cada passo leva minutos. No fim, o motor monta a escala, e as folgas caem no lugar sozinhas.">Primeira escala</d-cover>
+
+  <main>
+
+    <d-steps rail>
+
+      <d-part title="Empresa" id="p1">
+        <p>Clique no nome da empresa, no topo do menu. Preencha o nome e a semana de trabalho. Uma vez só: nunca mais volta aqui.</p>
+        <d-path>Menu lateral › topo › Empresa</d-path>
+        <w-fig cap="O nome da empresa abre o cadastro">
+          <w-win title="Empresa" nav="Mercado Central|Setores|Colaboradores|Assistente IA" on="Mercado Central" heading="Empresa" click x="12%" y="22%">
+            <w-field label="Nome da empresa" value="Mercado Central" state="caret" mark pin="1"></w-field>
+            <w-field label="Semana de trabalho"></w-field>
+            <w-btn kind="primary">Salvar</w-btn>
+          </w-win>
+          <w-callout pin="1" mark>nome da empresa</w-callout>
+        </w-fig>
+      </d-part>
+
+      <d-part title="Setor" id="p2">
+        <p>Crie o setor onde a escala vai viver. Defina o horário de funcionamento e o regime: <strong>5x2</strong> (5 dias + 2 folgas) ou <strong>6x1</strong> (6 dias + 1 folga, o padrão do varejo).</p>
+        <d-path>Setores › Novo Setor</d-path>
+        <w-fig cap="Setor com horário e regime">
+          <w-win title="Novo Setor">
+            <w-field label="Nome" value="Padaria"></w-field>
+            <w-grid>
+              <w-field label="Abre" value="06h"></w-field>
+              <w-field label="Fecha" value="22h"></w-field>
+            </w-grid>
+            <w-seg options="5x2|6x1" on="6x1" mark></w-seg>
+          </w-win>
+          <w-callout label="Regime" mark>6x1, o padrão do varejo</w-callout>
+        </w-fig>
+      </d-part>
+
+      <d-part title="Postos" id="p3">
+        <p>Dentro do setor, crie os postos de trabalho. Cada posto carrega um tipo de contrato; os contratos já vêm prontos de fábrica.</p>
+        <d-path>Setores › seu setor › Postos</d-path>
+        <w-fig cap="Cada posto com o seu contrato">
+          <w-win title="Postos">
+            <w-list>
+              <w-item title="Atendimento" tag="CLT 44h 6x1" mark pin="1"></w-item>
+              <w-item title="Produção" tag="CLT 44h 6x1"></w-item>
+              <w-item title="Caixa" tag="CLT 36h 6x1"></w-item>
+            </w-list>
+          </w-win>
+          <w-callout pin="1" mark>posto e contrato</w-callout>
+        </w-fig>
+      </d-part>
+
+      <d-part title="Equipe" id="p4">
+        <p>Cadastre as pessoas. Cada uma entra no setor e assume um posto. Folgas preferidas e horários ficam para depois: o básico já gera escala.</p>
+        <d-path>Colaboradores › Novo</d-path>
+        <w-fig cap="Cada pessoa ligada a um posto">
+          <w-win title="Colaboradores">
+            <w-list>
+              <w-item title="Ana" tag="Atendimento" tagtone="ink" mark pin="1"></w-item>
+              <w-item title="Bê" tag="Atendimento" tagtone="ink"></w-item>
+              <w-item title="Carla" tag="Produção" tagtone="ink"></w-item>
+              <w-item title="Dida" tag="Caixa" tagtone="ink"></w-item>
+            </w-list>
+          </w-win>
+          <w-callout pin="1" mark>pessoa no posto</w-callout>
+        </w-fig>
+      </d-part>
+
+      <d-part title="Demanda" id="p5">
+        <p>Diga quantas pessoas você precisa, por dia e por horário. O motor garante essa cobertura na hora de distribuir a equipe.</p>
+        <d-path>Setores › seu setor › Demanda</d-path>
+        <w-fig cap="Cobertura mínima por dia">
+          <w-bars max="4">
+            <w-val n="2">Seg</w-val>
+            <w-val n="2">Ter</w-val>
+            <w-val n="2">Qua</w-val>
+            <w-val n="2">Qui</w-val>
+            <w-val n="3">Sex</w-val>
+            <w-val n="4" mark>Sáb</w-val>
+            <w-val n="2">Dom</w-val>
+          </w-bars>
+        </w-fig>
+      </d-part>
+
+      <d-part title="Gerar e oficializar" id="p6">
+        <p>Escolha o período e clique em <strong>Gerar Escala</strong>. O motor monta tudo em segundos e respeita as 20 regras da CLT. Revise o rascunho. Se gostou, oficialize.</p>
+        <d-path>Setores › seu setor › Gerar Escala</d-path>
+        <w-fig cap="A escala gerada: T trabalha, F folga">
+          <w-btn kind="primary" click>Gerar Escala</w-btn>
+          <w-matrix cols="8" head="Quem|S|T|Q|Q|S|S|D">
+            <w-cell who>AN</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell>
+            <w-cell who>BE</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell off>F</w-cell>
+            <w-cell who>CA</w-cell><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell>
+            <w-cell who>DI</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell>
+          </w-matrix>
+        </w-fig>
+      </d-part>
+
+    </d-steps>
+
+    <d-band title="Sem vontade de clicar, fale com o assistente.">
+      <p>O Assistente IA (menu lateral) faz cada passo deste manual por conversa: cadastra, configura, gera e explica.</p>
+      <div slot="aside">
+        <code>Crie o setor Padaria, 6x1, das 6h às 22h</code>
+        <code>Cadastra a Maria, CLT 44h, no posto Caixa</code>
+        <code>Gera a escala de março e me mostra as folgas</code>
+      </div>
+    </d-band>
+
+    <d-check title="Pré-voo: pronto para gerar quando">
+      <li>Empresa salva</li>
+      <li>Setor com horário e regime</li>
+      <li>Pelo menos 1 posto criado</li>
+      <li>Pessoas ligadas aos postos</li>
+      <li>Demanda definida</li>
+    </d-check>
+
+    <d-part title="Avisos depois de gerar" id="avisos" wide>
+      <table class="table">
+        <thead><tr><th>Aparece</th><th>O que significa</th><th>O que fazer</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><w-msg tone="warn">Escala gerada com ajustes</w-msg></td>
+            <td data-th="O que significa">Normal. O sistema flexibilizou regras internas para fechar a conta. A escala continua dentro da CLT.</td>
+            <td data-th="O que fazer">Revise e siga.</td>
+          </tr>
+          <tr>
+            <td><w-msg tone="err">Impossível gerar</w-msg></td>
+            <td data-th="O que significa">Falta gente para a demanda pedida.</td>
+            <td data-th="O que fazer">Reduza a cobertura mínima ou cadastre mais pessoas.</td>
+          </tr>
+        </tbody>
+      </table>
+      <d-note tone="warn" label="Rascunho não vale">A escala só conta depois de Oficializar. Até lá, gere quantas versões quiser.</d-note>
+    </d-part>
+
+    <d-closing stamp="Primeira escala conquistada">Daqui em diante é manutenção: férias, trocas e dias avulsos, tudo na própria grade ou pelo assistente.</d-closing>
+
+  </main>
+
+  <d-foot left="EscalaFlow · Primeira escala" right="Manual de primeira escala · 23/11/2026"></d-foot>
+
+</d-doc>

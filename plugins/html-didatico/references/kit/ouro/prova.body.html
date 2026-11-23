@@ -1,0 +1,138 @@
+<!-- Prova: o veredito primeiro, depois o que cada passo prova, o critério e a evidência.
+     A caneta marca só o dado de que a parte fala. Status (ok, warn) só com rótulo e só quando é status real.
+     Sem src, w-shot mostra o vazio hachurado: o print falta neste exemplo, e isso fica à vista. -->
+<d-doc>
+
+  <d-cover kind="Prova" subject="DietFlow · Importação" date="27/09/2026" sub="14 de 14 passos passaram, o gate de validade fechou com 0 disparos e a revisão visual deu passed. Importar favorito ficou fora." lead="Saber quais regimes de importação foram percorridos no browser, o que cada passo prova e o que ficou de fora.">Importação: regimes sem fonte favorito</d-cover>
+
+  <main>
+
+    <d-part title="O que foi provado" id="veredito">
+      <p>Os dois regimes de importação sem fonte favorito foram percorridos no browser, pela porta real: catálogo em massa, autocomplete, cesta e as seis relações entre módulos. Cinco relações funcionam; a sexta, Prescrição ← Exames, ainda não existe, e a prova registra isso de propósito.</p>
+      <w-fig cap="14 de 14 passos verdes, no build de produção, com a identidade da execução ao lado" slot="fig">
+        <w-win title="Proof pack · jornadas/importacao">
+          <w-stat n="14/14" unit="passos">passed, gate sem disparos</w-stat>
+          <w-kv k="Branch" v="codex/123-04-calculo-transversal"></w-kv>
+          <w-kv k="Commit" v="b355b705fed9"></w-kv>
+          <w-kv k="Run" v="1790553106582-60796" num></w-kv>
+          <w-kv k="Pack SHA" v="64b8298bf391" num></w-kv>
+          <w-kv k="Runtime" v="next start (build de produção)"></w-kv>
+          <w-kv k="Fonte" v="importacao-bulk-flow.spec.ts"></w-kv>
+        </w-win>
+      </w-fig>
+    </d-part>
+
+    <d-part title="O gate de validade fechou limpo" id="gate">
+      <p>Durante os 14 passos, nenhum sinal de página quebrada apareceu. Se um deles tivesse disparado, o veredito não seria <strong>passed</strong>, mesmo com todos os passos verdes.</p>
+      <w-fig cap="Os seis sinais do gate ficaram em zero" slot="fig">
+        <w-win title="Gate de validade">
+          <w-list>
+            <w-item title="console.error" tag="0" tagtone="ok"></w-item>
+            <w-item title="pageerror" tag="0" tagtone="ok"></w-item>
+            <w-item title="HTTP 5xx" tag="0" tagtone="ok"></w-item>
+            <w-item title="Redirecionamento para login" tag="0" tagtone="ok"></w-item>
+            <w-item title="404 ou página de erro" tag="0" tagtone="ok"></w-item>
+            <w-item title="Skeleton preso" tag="0" tagtone="ok"></w-item>
+          </w-list>
+        </w-win>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Os 14 passos, por regime" id="passos" wide>
+      <p>Todos passaram. Por regime: seleção (01, 08), porta fechada (02, 03, 04), autocomplete (05), cesta e ordem (06, 07) e relações entre módulos (09, 10, 11, 12, 13, 14). O 12 passou provando uma ausência.</p>
+      <w-fig cap="Cada passo e o seu resultado; o 12 é a ausência declarada, não um defeito">
+        <w-win title="Passos da prova">
+          <w-list>
+            <w-item title="01 · Seleção à frente" tag="passou" tagtone="ok"></w-item>
+            <w-item title="02 · Porta fechada: a duplicata não aparece" tag="passou" tagtone="ok" on></w-item>
+            <w-item title="03 · A forma livre entra direto" tag="passou" tagtone="ok"></w-item>
+            <w-item title="04 · Porta fechada em Exames" tag="passou" tagtone="ok"></w-item>
+            <w-item title="05 · Autocomplete mostra a opção" tag="passou" tagtone="ok"></w-item>
+            <w-item title="06 · A cesta sobrevive ao filtro" tag="passou" tagtone="ok"></w-item>
+            <w-item title="07 · Apply na ordem de clique" tag="passou" tagtone="ok" on></w-item>
+            <w-item title="08 · Seleção no canto" tag="passou" tagtone="ok"></w-item>
+            <w-item title="09 · Cálculo ← Antropometria" tag="passou" tagtone="ok"></w-item>
+            <w-item title="10 · Dieta ← Antropometria" tag="passou" tagtone="ok"></w-item>
+            <w-item title="11 · Dieta ← Cálculo" tag="passou" tagtone="ok"></w-item>
+            <w-item title="12 · Prescrição ← Exames" meta="ainda não implementada" tag="ausência declarada" tagtone="warn" on mark pin="1"></w-item>
+            <w-item title="13 · Exames ← Exames" tag="passou" tagtone="ok"></w-item>
+            <w-item title="14 · Gestação ← Antropometria" tag="passou" tagtone="ok"></w-item>
+          </w-list>
+        </w-win>
+        <w-callout pin="1" mark>a única relação sem porta, registrada como ausência</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 02: a porta fecha na forma, e a duplicata nem aparece" id="passo-02">
+      <p>Quem escolhe vários itens de uma vez não encontra mais a duplicata para decidir: a forma que já está no card vem desabilitada, com o motivo escrito. A forma irmã do mesmo marcador continua livre.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>Há um só diálogo no DOM: o bulk nunca empilha janela.</li>
+        <li>Colecalciferol (D3) vem desabilitado, com o motivo “Já está neste card” no nome acessível.</li>
+        <li>Ergocalciferol (D2), do mesmo marcador, segue selecionável.</li>
+        <li>Clicar na linha fechada não marca nada, e o botão de importar continua desabilitado.</li>
+      </ul>
+      <w-fig cap="Redesenho do que o print mostra: o D3 fechado com o motivo, o D2 livre. O print falta neste exemplo.">
+        <w-win title="Importar de Formulações">
+          <w-list>
+            <w-item title="Vitamina D (Colecalciferol (D3))" meta="Já está neste card" off></w-item>
+            <w-item title="Vitamina D (Ergocalciferol (D2))" meta="Livre para importar" tag="selecionável" tagtone="ink" mark pin="1"></w-item>
+          </w-list>
+          <w-btn kind="primary" off>Importar</w-btn>
+        </w-win>
+        <w-callout pin="1" mark>a forma irmã continua livre</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 07: o apply respeita a ordem em que A e B foram clicados" id="passo-07">
+      <p>A seleção atravessa o filtro e a troca de aba, e a ordem original chega intacta à navegação. A tela de destino fica fora desta prova.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>A URL de destino traz os dois <code>importTemplate</code>.</li>
+        <li>Eles aparecem na ordem A, B, mesmo depois do filtro e da troca de aba.</li>
+      </ul>
+      <p>É um fato de máquina: a evidência é o payload da navegação, sem print.</p>
+      <w-fig cap="O payload da navegação: A antes de B">
+        <w-win title="Evidência de máquina">
+          <w-kv k="importTemplate (1º)" v="a7416c56-c537-48ec-8062-5e67d0662f79" mark pin="1"></w-kv>
+          <w-kv k="importTemplate (2º)" v="161f0264-e5a0-4b0e-8b8a-66e31c6fc2ed"></w-kv>
+        </w-win>
+        <w-callout pin="1" mark>A vem primeiro, como foi clicado</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Passo 12: a porta que não existe não é fingida" id="passo-12">
+      <p>Prescrição ← Exames está declarada no produto como futura. Esta prova confirma que a tela não oferece um botão nem um diálogo falsos. Aqui, passar quer dizer que a ausência é exatamente a declarada.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>Readiness <code>future</code> e a razão da ausência foram lidos da relação viva.</li>
+        <li>Nenhum botão nem diálogo de Resultados de Exames apareceu em Prescrição.</li>
+        <li>A página terminou saudável, sem login, 404 ou 500.</li>
+      </ul>
+      <d-note tone="warn" label="Ausência declarada">O consumer Prescrição ← Exames ainda não foi implementado. Esta prova não a cobre; ela só garante que a ausência é honesta.</d-note>
+      <w-shot alt="Prescrição sem botão nem diálogo de Resultados de Exames" ratio="16/10"></w-shot>
+    </d-part>
+
+    <d-part title="Passo 01: o checkbox entra no fluxo, e o card não se mexe" id="passo-01">
+      <p>Na porta de importação de Prescrição, selecionar o favorito não muda a geometria do card.</p>
+      <p><strong>Critério</strong></p>
+      <ul>
+        <li>O checkbox fica no fluxo, antes do visual, e não é posicionado de forma absoluta.</li>
+        <li>Largura, altura e posição do card ficam estáveis ao selecionar.</li>
+        <li>Ações individuais: N/A. A porta só oferece seleção e Importar, e isso não é uma ausência a interpretar.</li>
+      </ul>
+      <w-shot alt="Card de Prescrição antes e depois de selecionar, com a mesma geometria"></w-shot>
+    </d-part>
+
+    <d-part title="O que esta prova não cobre" id="limites">
+      <d-note tone="warn" label="Fora do escopo">Importar favorito não rodou aqui: esse regime tem dono no gate de Favoritos e entra por referência ao mesmo receipt, sem nova execução.</d-note>
+      <d-note label="Limite">A revisão visual conferiu 14 de 14 imagens no mesmo run e SHA. Ela não vale como aceite humano nem como prova do que está fora de cada captura.</d-note>
+    </d-part>
+
+    <d-src>Gerado pelo renderer do projeto no run 1790553106582-60796, em 27/09/2026, sobre o commit b355b705fed9. Os prints não estão neste exemplo: as áreas hachuradas marcam onde entram.</d-src>
+
+  </main>
+
+  <d-foot left="DietFlow · Importação" right="Prova · 27/09/2026"></d-foot>
+
+</d-doc>

@@ -1,0 +1,85 @@
+<!-- Maquete: a tela em wireframe e, quando ajuda a decidir, as alternativas no mesmo caso.
+     Tinta desenha o card; cinza é contexto; a caneta (mark, pin) fica só no que está em disputa. -->
+<d-doc>
+
+  <d-cover kind="Maquete" subject="DietFlow · Exames" date="27/08/2026" sub="Maria trouxe um laudo em mmol/L. O cadastro da glicose só tem faixa em mg/dL." lead="Você vê como o card da Evolução fica com a coleta de 27/08 e escolhe como tratar a unidade.">O 5,5 aparece. A linha não mente.</d-cover>
+
+  <main>
+    <d-part title="Como fica o card da Evolução?" id="card">
+      <p>Três coletas estão em mg/dL e a de 27/08 veio em mmol/L. O header guarda o que o papel diz; a linha só plota o que tem faixa. É o card que já existe, com um ponto que some.</p>
+      <d-note tone="mark" label="Proposta">Header com o 5,5 mmol/L, sem alerta e sem Aviso Clínico. A coleta de 27/08 fica fora da linha.</d-note>
+      <w-fig cap="O header mostra 5,5 mmol/L; a linha plota as três coletas em mg/dL">
+        <w-win title="Evolução · Glicose">
+          <w-stat n="5,5" unit="mmol/L" mark>27/08/2026 · última coleta</w-stat>
+          <w-chip tone="ink">Sem referência</w-chip>
+          <w-line band="70-99" unit="mg/dL" min="60" max="115">
+            <w-pt n="94">03/06</w-pt>
+            <w-pt n="102">15/07</w-pt>
+            <w-pt n="99">02/08</w-pt>
+            <w-pt off mark pin="1">27/08</w-pt>
+          </w-line>
+        </w-win>
+        <w-callout label="Header" strong mark>o papel, como veio</w-callout>
+        <w-callout pin="1" mark>27/08 não plota</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="O que mora no header e o que some da linha?" id="mora">
+      <d-cols n="2">
+        <d-note tone="ok" label="Mora aqui">Header: 5,5 mmol/L, 27/08, Sem referência. O papel fica intacto.</d-note>
+        <d-note tone="err" label="Some daqui">A linha só tem ponto em mg/dL. 27/08 é um traço vazio: não é zero, não é 99 convertido.</d-note>
+      </d-cols>
+    </d-part>
+
+    <d-part title="O dia ainda tem o número?" id="registrados">
+      <p>Registrados e o header guardam o ponto. A nutricionista não perde o 5,5; quem some é só o ponto da linha.</p>
+      <w-fig cap="Em Registrados, a coleta de 27/08 aparece com 5,5 mmol/L">
+        <w-win title="Registrados · Maria">
+          <w-list>
+            <w-item title="Glicose 94 mg/dL" meta="03/06" tag="Adequado" tagtone="ok"></w-item>
+            <w-item title="Glicose 102 mg/dL" meta="15/07" tag="Limítrofe alto" tagtone="warn"></w-item>
+            <w-item title="Glicose 99 mg/dL" meta="02/08" tag="Adequado" tagtone="ok"></w-item>
+            <w-item title="Glicose 5,5 mmol/L" meta="27/08" tag="Sem referência" tagtone="ink" on mark pin="1"></w-item>
+          </w-list>
+        </w-win>
+        <w-callout pin="1" mark>o dia tem o número</w-callout>
+      </w-fig>
+    </d-part>
+
+    <d-part title="Que tratamento a unidade recebe?" id="alternativas" wide>
+      <p>Três jeitos de mostrar a mesma coleta. Só o A mantém o papel e a faixa verdadeiros.</p>
+      <d-cols n="3">
+
+        <w-fig cap="A · Header fala o papel, a linha fala uma unidade: nada é julgado nem convertido">
+          <w-win title="Evolução · Glicose">
+            <w-stat n="5,5" unit="mmol/L" mark>27/08/2026</w-stat>
+            <w-chip tone="ink">Sem referência</w-chip>
+            <w-callout label="Linha">94 · 102 · 99 mg/dL</w-callout>
+          </w-win>
+          <w-callout label="A" strong mark>recomendada</w-callout>
+        </w-fig>
+
+        <w-fig cap="B · Julgar 5,5 na faixa de mg/dL: o verde vira Baixo">
+          <w-win title="Evolução · Glicose">
+            <w-stat n="5,5" unit="mmol/L">27/08/2026</w-stat>
+            <w-chip tone="err">Baixo</w-chip>
+            <w-callout label="Faixa">70–99 mg/dL</w-callout>
+          </w-win>
+        </w-fig>
+
+        <w-fig cap="C · Converter na borda: a tela mostra 99 mg/dL e o papel dizia 5,5 mmol/L">
+          <w-win title="Evolução · Glicose">
+            <w-stat n="99" unit="mg/dL">27/08/2026</w-stat>
+            <w-chip tone="ok">Adequado</w-chip>
+            <w-callout label="Papel">dizia 5,5 mmol/L</w-callout>
+          </w-win>
+        </w-fig>
+
+      </d-cols>
+      <d-note tone="mark" label="Responda no chat">É isso que você vê? A: o header fala o papel, a linha fala uma unidade, sem conversor nem faixa emprestada.</d-note>
+    </d-part>
+  </main>
+
+  <d-foot left="DietFlow · Exames" right="Maquete · 27/08/2026"></d-foot>
+
+</d-doc>

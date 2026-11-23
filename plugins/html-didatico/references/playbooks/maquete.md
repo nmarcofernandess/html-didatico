@@ -7,9 +7,9 @@ maquete pode bastar; alternativas entram quando ajudam a decidir uma estrutura.
 A aprovação expressa intenção de produto, sem comprovar implementação nem
 escolher automaticamente componentes para o produto.
 
-Leia a [receita visual](../visual/maquete.md) e abra o
-[exemplo D](../exemplos/D-prancha-unidade-exames.html). O exemplo histórico tem
-conteúdo de domínio próprio: não copie seus dados nem presuma seu estado atual.
+Parta do [maquete-ouro](../kit/ouro/maquete.html):
+`node scripts/montar.mjs --novo maquete <destino.html>`, a partir da raiz do
+plugin. Os fatos dele valem para a data dele: copie a forma, nunca os dados.
 
 ## Desenho
 
@@ -17,11 +17,12 @@ conteúdo de domínio próprio: não copie seus dados nem presuma seu estado atu
   e destino das interações; controle demonstrativo é rotulado como simulação.
 - Conteúdo indecidido usa caixas neutras e labels de função. Copy real só quando
   for conhecida ou fizer parte da decisão; nenhum texto inventado vira fato.
-- Use papel técnico, grafite, linha de construção de 1 px e uma cor de revisão
-  na região em disputa. Hachura marca a mudança; cotas explicam medidas/relações.
-  Sem numerais gigantes, sombras ou decoração de manual.
-- Tema escuro, se útil, pode usar cianotipia pelos tokens da receita; testar seus
-  estados não autoriza alterar o tema do produto.
+- A tela é wireframe dos componentes do [kit](../kit/componentes.md): `w-win`,
+  `w-field`, `w-list`, `w-text` no lugar de texto que não decide nada. A região em
+  disputa leva a caneta (`mark`, `pin`, `w-callout mark`); o resto recua em cinza.
+  Sem numerais gigantes, sombras ou decoração.
+- Nenhum UI system real: o wireframe é mais didático que a cópia do produto, e a
+  aprovação expressa intenção, não escolha de componente de produto.
 
 ## Comparação, quando pedida
 

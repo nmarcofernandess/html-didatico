@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.0.0 — 23/11/2026
+
+Breaking: o kit vira um design system único com uma biblioteca de componentes. Os dois looks (`data-look="manual"` e `"editorial"`) deixam de existir, e figura passa a ser feita de componentes, nunca desenhada à mão. Pedido de Marco: cada exemplo tinha um estilo, não havia design system, e as peças precisam ser componentes que crescem a cada documento e que, no futuro, gravam vídeo no Remotion.
+
+- **Uma identidade:** um rótulo nutricional desenhado a caneta. Fio grosso abre e fecha, fio médio separa seções, fio fino separa linhas; título em Helvetica Neue condensada preta; papel e cinzas sem matiz. Tinta preta desenha o produto em wireframe; magenta é a caneta de quem explica (marca, pino, chamada, marca-texto, carimbo) e não tem outro uso. Tokens num `:root` só, em `kit.css`; os nomes da 3.x apontam para os novos.
+- **Biblioteca de componentes em `kit.js`:** 52 componentes, `d-*` para o documento (capa, parte, passos com trilho, abas, aviso, conferência, faixa, fecho, pé) e `w-*` para a figura (janela, campo, lista, botão, segmentado, chip, mensagem, terminal, print; fluxo, barras, linha com faixa de referência, matriz, arquivos, árvore, código, camadas, linha do tempo, número, caixa de composição, critério de prova) mais a caneta (`mark`, `pin`, `click`, `w-callout`). Cada componente é uma função pura de props e filhos que devolve a marcação semântica, com grupo, resumo, props e exemplo: o mesmo contrato de uma futura versão React. Nenhum imita um UI system real.
+- **Documentação gerada do registro:** `montar.mjs` escreve a folha de peças (`pecas.html`, com tokens, a ideia e cada componente vivo com o código) e `componentes.md`, a referência para agentes. Nova entrada `--corpo <corpo.html> <destino>` monta um documento a partir de um corpo só com componentes.
+- **Exemplos-ouro reescritos com componentes,** com fonte em `ouro/<nome>.body.html` e o `.html` gerado: cartão, passo a passo, explicação, aula (o protótipo de Na tela segue funcionando), decidir. Novos: prova, montagem (blueprint) e maquete (wireframe), que substituem os históricos C, E e D como referência dessas formas.
+- **Check:** lê o DOM montado; reprova componente que não existe no kit e erro de script; avisa quando o corpo tem peça desenhada à mão; piso de texto em 12px; tokens só em `:root`.
+- **Receitas visuais removidas** (`tokens-manual`, `anatomia-manual`, `prova`, `dioramas`, `maquete`, `base`, `motion`): cada uma tinha paleta, fontes e tamanhos próprios. Playbooks de prova, maquete, montagem, cartão, aula, didático e sistemas, o contrato HTML e as skills passam a apontar para os componentes e os exemplos-ouro. `design.md` ganha a seção "Um sistema, sem looks".
+- **Históricos fora do pacote:** `references/exemplos/` (A–H) vai para `docs/historico/exemplos/`, bytes preservados, com um índice que diz qual exemplo-ouro substitui cada um. A anatomia do quadro e os padrões das aulas reais entram no playbook Aula.
+- Limites: os boards de Decidir no canvas de Design ainda usam o DietFlow DS e a moldura própria de `decisoes.css`; o HTML de Decidir já usa o kit. O ícone do plugin segue o de 2.9.2. Os exemplos de `tests/examples/` ficam como registro da época.
+
 ## 3.0.0 — 23/11/2026
 
 Breaking: as entradas passam a ser escolhidas pela pergunta de quem pede, e não pelo formato do arquivo. IDs antigos removidos, sem aliases; a tabela de migração está no README.

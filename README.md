@@ -55,17 +55,17 @@ e primitivos são carregados só para a forma em uso.
 - [Roteamento](plugins/html-didatico/references/roteamento.md): a tabela pela qual a entrada automática escolhe a forma, o ciclo e as fronteiras.
 - [Decisão](plugins/html-didatico/references/decisao.md): a gramática única de decisão e a saída conforme o host. Os [boards](plugins/html-didatico/references/decisoes/boards.md) trazem o motor (`gerar.py`), as peças do DietFlow DS (`pecas.js`, [catálogo](plugins/html-didatico/references/decisoes/pecas.md)), o [formato](plugins/html-didatico/references/decisoes/formato.md), a [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e dois arquivos de decisões reais em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/); a [maquete](plugins/html-didatico/references/playbooks/maquete.md) atende a pergunta de layout.
 - [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
-- [Kit](plugins/html-didatico/references/kit/pecas.html): tokens, dois looks e peças; [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade. Todo documento nasce de uma cópia: `node plugins/html-didatico/scripts/montar.mjs --novo <base> <destino.html>`.
+- [Kit](plugins/html-didatico/references/kit/pecas.html): um design system só, com tokens compartilhados e a biblioteca de componentes `d-*`/`w-*` ([referência](plugins/html-didatico/references/kit/componentes.md)); [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade. Todo documento nasce de uma cópia: `node plugins/html-didatico/scripts/montar.mjs --novo <base> <destino.html>`.
 - [Playbook Cartão](plugins/html-didatico/references/playbooks/cartao.md): a dúvida da conversa em uma página, com pouco texto. A [leitura pela figura](plugins/html-didatico/references/visual/design.md#leitura-pela-figura) confere, pergunta por pergunta, o que a figura e a legenda mostram sozinhas.
-- [Playbook didático](plugins/html-didatico/references/playbooks/didatico.md) e [playbook Aula](plugins/html-didatico/references/playbooks/aula.md), com as [aulas reais](plugins/html-didatico/references/exemplos/aulas/README.md): O que é um exame, Números e unidades e as três aulas do canvas de Prescrição (Fórmula magistral, Cadastrados, Tomada, limite e lâmpada).
+- [Playbook didático](plugins/html-didatico/references/playbooks/didatico.md) e [playbook Aula](plugins/html-didatico/references/playbooks/aula.md), com a anatomia do quadro e os padrões das aulas reais.
 - [Playbook Montagem](plugins/html-didatico/references/playbooks/montagem.md): do primitivo ao consumidor, com os contratos.
 - [Playbook Prova](plugins/html-didatico/references/playbooks/prova.md): pack ausente não significa renderer ausente. Nunca se fabrica prova ou edita saída oficial à mão.
 - [Guia interno de escrita](plugins/html-didatico/references/escrita/guia.md): síntese e consulta progressiva ao texto de Strunk, sem entrada pública.
 
-Os [exemplos históricos A–E](plugins/html-didatico/references/exemplos/) mantêm
-sua origem e seus bytes. São referência de gramática visual; seus status,
-comandos e APIs não comprovam o estado atual de outros projetos. Alguns citam
-prints/JSON externos que não fazem parte deste repositório.
+Os [exemplos históricos A–H](docs/historico/exemplos/README.md) mantêm sua origem
+e seus bytes, fora do pacote do plugin. São de antes do design system: o estilo
+deles é obsoleto e não deve ser copiado; seus status, comandos e APIs não
+comprovam o estado atual de outros projetos.
 
 ## Migração da 2.x
 

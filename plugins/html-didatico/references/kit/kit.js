@@ -15,7 +15,7 @@
   const paragrafo = k => (k.trim() && !/^\s*<(p|ul|ol|div|table|figure|section|h[1-6])\b/i.test(k) ? `<p>${k.trim()}</p>` : k)
 
   // Props que viram data-* na raiz: o estado que o CSS lê. Texto (título, legenda) não vai para atributo.
-  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back']
+  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status']
   const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
     const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
     const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
@@ -40,10 +40,10 @@
   })
   def('d-cover', {
     grupo: 'Documento', doc: 'A capa: o rótulo do documento. O filho é o título.',
-    props: { kind: 'a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete', subject: 'produto e assunto', date: 'dd/mm/aaaa', sub: 'o caso em uma linha, com os números', lead: 'o que o leitor consegue no fim' },
+    props: { kind: 'a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete', subject: 'produto e assunto', ref: 'código ou revisão do documento (EF-QS-001 · rev. 1.10)', date: 'dd/mm/aaaa', sub: 'o caso em uma linha, com os números', lead: 'o que o leitor consegue no fim' },
     ex: '<d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.">Que data vale num Cálculo retroativo?</d-cover>',
     html: (p, k) => raiz('header', 'd-cover cover', p,
-      `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
+      `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
       `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
   })
   def('d-part', {
@@ -304,13 +304,13 @@
   def('w-val', {
     grupo: 'Esquema', doc: 'Uma barra de w-bars. O filho é o rótulo embaixo.',
     props: { n: 'o número escrito em cima', unit: 'a unidade', off: 'existe e está vazio' },
-    html: (p, k) => raiz('div', 'w-val', p, `<b>${esc(p.n ?? '')}${p.unit ? ` ${esc(p.unit)}` : ''}</b><i></i><span>${k.trim()}</span>`, { attrs: ` data-n="${esc(p.n ?? '')}"` }),
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('div', 'w-val', p, `<b>${esc(n)}${n && p.unit ? ` ${esc(p.unit)}` : ''}</b><i></i><span>${k.trim()}</span>`, { attrs: ` data-n="${esc(n)}"` }) },
   })
   def('w-matrix', {
     grupo: 'Esquema', doc: 'Uma matriz pequena: semana, escala, permissões. Filhos: w-cell.',
-    props: { cols: 'quantas colunas', head: 'cabeçalho: A|B|C' },
+    props: { cols: 'quantas colunas', head: 'cabeçalho: A|B|C (comece com | para deixar o canto vazio)' },
     ex: '<w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell mark>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix>',
-    html: (p, k) => raiz('div', 'w-matrix matrix', p, lista(p.head).map(h => `<span class="w-cell" data-head>${esc(h)}</span>`).join('') + k, { estilo: `--cols:${esc(p.cols ?? 7)};` }),
+    html: (p, k) => raiz('div', 'w-matrix matrix', p, (p.head && p.head !== true ? String(p.head).split('|').map(x => x.trim()) : []).map(h => `<span class="w-cell" data-head>${esc(h)}</span>`).join('') + k, { estilo: `--cols:${esc(p.cols ?? 7)};` }),
   })
   def('w-cell', {
     grupo: 'Esquema', doc: 'Uma célula de w-matrix.',
@@ -328,6 +328,38 @@
     props: { path: 'o caminho', note: 'para que serve', dir: 'é pasta', i: 'recuo (nível)', off: 'existe e não é usado' },
     html: p => raiz('div', 'w-file', p, `${ico(p.dir ? 'folder' : 'file-text')}<code>${esc(p.path ?? '')}</code>${p.note ? `<span class="file__note">${esc(p.note)}</span>` : ''}`, { estilo: p.i ? `--i:${esc(p.i)};` : '' }),
   })
+  def('w-line', {
+    grupo: 'Esquema', doc: 'Uma série no tempo: pontos ligados por linha, com a faixa de referência. Filhos: w-pt.',
+    props: { band: 'a faixa de referência: 70-99', min: 'o piso do eixo (padrão: um pouco abaixo do menor)', max: 'o teto do eixo', unit: 'a unidade da faixa' },
+    ex: '<w-line band="70-99" unit="mg/dL" min="60" max="115"><w-pt n="94">03/06</w-pt><w-pt n="102">15/07</w-pt><w-pt n="99">02/08</w-pt><w-pt off mark>27/08</w-pt></w-line>',
+    html: (p, k, el) => {
+      const pts = filhos(el, '.w-pt'), ns = pts.map(q => num(q.dataset.n)).filter(v => !isNaN(v))
+      const [b0, b1] = String(p.band && p.band !== true ? p.band : '').split('-').map(num)
+      const todos = [...ns, ...[b0, b1].filter(v => !isNaN(v))]
+      const lo = num(p.min) || Math.min(...todos) - (Math.max(...todos) - Math.min(...todos)) * 0.2, hi = num(p.max) || Math.max(...todos) * 1.06
+      const y = v => 100 - ((v - lo) / (hi - lo || 1)) * 100, x = i => pts.length > 1 ? 6 + (i * 88) / (pts.length - 1) : 50
+      pts.forEach((q, i) => { const v = num(q.dataset.n), yy = isNaN(v) ? 100 : y(v); q.style.setProperty('--x', x(i) + '%'); q.style.setProperty('--y', yy + '%'); q.style.setProperty('--yn', String(yy)) })
+      const caminho = pts.map((q, i) => [x(i), num(q.dataset.n)]).filter(([, v]) => !isNaN(v)).map(([xx, v]) => `${xx},${y(v)}`).join(' ')
+      const faixa = !isNaN(b0) && !isNaN(b1) ? `<rect x="0" y="${y(b1)}" width="100" height="${y(b0) - y(b1)}" class="line__band"/>` : ''
+      const rotulo = !isNaN(b0) && !isNaN(b1) ? `<span class="line__bandlabel" style="--y:${y(b0)}%">${esc(p.band)}${p.unit ? ` ${esc(p.unit)}` : ''}</span>` : ''
+      return raiz('div', 'w-line', p, `<div class="line__plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${faixa}<polyline points="${caminho}" class="line__path"/></svg>${rotulo}${pts.map(q => q.outerHTML).join('')}</div>`)
+    },
+  })
+  def('w-pt', {
+    grupo: 'Esquema', doc: 'Um ponto de w-line. O filho é o rótulo do eixo (a data).',
+    props: { n: 'o valor (sem n: o ponto existe e não plota)', off: 'não entra na linha', mark: 'o ponto de que a parte fala' },
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('span', 'w-pt', p, `<i></i>${n ? `<b>${esc(n)}</b>` : ''}<small>${k.trim()}</small>`, { attrs: ` data-n="${esc(n)}"` }) },
+  })
+  def('w-crit', {
+    grupo: 'Esquema', doc: 'Um critério de prova com o resultado: cumprido, falhou ou não se aplica (e por quê).',
+    props: { status: 'ok | err | na', why: 'a justificativa (obrigatória em na)' },
+    ex: '<w-crit status="ok">Checkbox no fluxo, antes do visual</w-crit><w-crit status="na" why="a porta só oferece seleção e Importar">Ações individuais</w-crit>',
+    html: (p, k) => {
+      const i = { ok: 'check-circle-fill', err: 'x-circle-fill', na: 'info-fill' }[p.status] ?? 'info-fill'
+      const nome = { ok: 'cumprido', err: 'falhou', na: 'não se aplica' }[p.status] ?? ''
+      return raiz('div', 'w-crit', p, `${ico(i)}<span class="crit__text">${k.trim()}${p.why ? `<small>${esc(p.why)}</small>` : ''}</span><span class="crit__status">${nome}</span>`)
+    },
+  })
   def('w-tree', {
     grupo: 'Esquema', doc: 'Onde cada responsabilidade mora: listas aninhadas com code e um texto curto.',
     props: {},
@@ -336,7 +368,7 @@
   })
   def('w-code', {
     grupo: 'Esquema', doc: 'O trecho literal da fonte, com número de linha. Escreva < como &lt;.',
-    props: { from: 'o número da primeira linha', mark: 'linhas marcadas pela caneta, contadas a partir de from: 3,4' },
+    props: { from: 'o número da primeira linha', mark: 'linhas marcadas pela caneta, contadas a partir de from: 3,4', wrap: 'quebra linha longa em vez de rolar (o recuo da quebra fica pendurado)' },
     ex: '<w-code from="40" mark="41">const max = 999\nif (v > max) return erro</w-code>',
     html: (p, k) => {
       const linhas = k.replace(/^\n+|\s+$/g, '').split('\n')
@@ -375,9 +407,9 @@
   })
   def('w-box', {
     grupo: 'Esquema', doc: 'Caixa de composição: quem contém quem. Contínua existe; tracejada é slot; magenta é proposta.',
-    props: { title: 'o nome da peça', meta: 'de onde vem (pacote, arquivo)', kind: 'slot | new | off', row: 'filhos lado a lado' },
+    props: { title: 'o nome da peça', meta: 'de onde vem (pacote, arquivo)', role: 'selo do papel na hierarquia (P1, F2, E1, T1)', kind: 'slot | new | off', row: 'filhos lado a lado' },
     ex: '<w-box title="Busca" meta="ui/SmartAutocomplete.tsx"><w-box title="Autocomplete" kind="slot"></w-box><w-box title="Filtro por grupo" kind="new"></w-box></w-box>',
-    html: (p, k) => raiz('div', 'w-box', p, `${p.title || p.meta ? `<div class="box__head">${p.title ? `<b>${esc(p.title)}</b>` : ''}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</div>` : ''}${k}`),
+    html: (p, k) => raiz('div', 'w-box', p, `${p.title || p.meta || p.role ? `<div class="box__head">${p.role ? `<span class="box__role">${esc(p.role)}</span>` : ''}${p.title ? `<b>${esc(p.title)}</b>` : ''}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</div>` : ''}${k}`),
   })
 
   // ── Montagem ─────────────────────────────────────────────────────────────
@@ -435,12 +467,18 @@
   if (typeof window !== 'undefined') window.HD = HD
   if (typeof document === 'undefined') return
   document.documentElement.classList.add('js')
-  montarTudo()
-  ligar()
+  // Com o script no <head>, a página ainda está sendo lida: montar antes do fim perderia os filhos
+  // que o leitor ainda não leu. Então a primeira montagem espera o documento inteiro.
+  const iniciar = () => { montarTudo(); ligar() }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar, { once: true })
+  else iniciar()
   // Componente inserido depois (um protótipo, um player) monta sozinho ao entrar na página.
   if (window.customElements) for (const tag of TAGS) if (!customElements.get(tag)) {
     customElements.define(tag, class extends HTMLElement {
-      connectedCallback() { queueMicrotask(() => { if (!this.isConnected) return; montarTudo(this); montar(this); ligar() }) }
+      connectedCallback() {
+        if (document.readyState === 'loading') return
+        queueMicrotask(() => { if (!this.isConnected) return; montarTudo(this); montar(this); ligar() })
+      }
     })
   }
 })()

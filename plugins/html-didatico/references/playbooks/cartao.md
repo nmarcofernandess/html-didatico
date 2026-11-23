@@ -47,7 +47,7 @@ raiz do plugin:
 node scripts/montar.mjs --novo cartao <destino.html>
 ```
 
-Troque o título, a capa e o conteúdo do `<main>`; o bloco do kit e o sprite ficam
+Troque o título, a capa e o conteúdo do corpo; o bloco do kit, o sprite e o script ficam
 como estão. Sem Node, copie o arquivo com `cp`. Página escrita do zero não é
 cartão: o [check](../../scripts/check.mjs) reprova documento fora do kit.
 
@@ -55,12 +55,12 @@ cartão: o [check](../../scripts/check.mjs) reprova documento fora do kit.
 
 | Peça | O que é | Marcação |
 |---|---|---|
-| A pergunta | O título, como a pessoa a faria, em até oito palavras | `h1` na `cover` |
-| O caso | Uma linha: quem, o quê e quando, com os números que as telas usam | `cover__sub` |
-| As telas | De uma a três, lado a lado, na ordem em que acontecem | `cols` ou `cols cols--3`, uma `fig` por tela |
-| A anotação | Ao lado da tela, o que ela não diz sozinha: de onde vem o valor, o que fica igual | `link` com `chip` |
-| A legenda | O que a tela mostra, em até doze palavras | `figcaption` |
-| O estado | Uma linha: o que foi visto rodando, o que foi lido, o que falta no produto e a data da leitura | `src` |
+| A pergunta | O título, como a pessoa a faria, em até oito palavras | o filho de `<d-cover kind="Cartão">` em `<d-doc card>` |
+| O caso | Uma linha: quem, o quê e quando, com os números que as telas usam | `sub` da `d-cover` |
+| As telas | De uma a três, lado a lado, na ordem em que acontecem | `<d-cols n="3">`, uma `w-fig` por tela |
+| A anotação | Ao lado da tela, o que ela não diz sozinha: de onde vem o valor, o que fica igual | `w-callout`; com `mark` e `pin`, a caneta no dado |
+| A legenda | O que a tela mostra, em até doze palavras | `cap` da `w-fig` |
+| O estado | Uma linha: o que foi visto rodando, o que foi lido, o que falta no produto e a data da leitura | `d-src` |
 
 ## Texto
 
@@ -87,7 +87,7 @@ lista de fontes ficam na conversa: quem quiser, pergunta.
 | Parágrafos explicando o que a tela mostraria | A tela, com a anotação curta |
 | Esquema genérico no lugar da tela do produto | O editor, o modal e o card reais, com os nomes deles |
 | Uma tela por caso diferente | O mesmo caso atravessa todas |
-| Página própria, fora do kit | `--novo cartao`, e só o `<main>` muda |
+| Página própria, fora do kit, ou tela desenhada à mão | `--novo cartao`; só o corpo muda, e cada tela é feita de componentes `w-*` |
 | Cartão feito sem ler o sistema | Entender, no Núcleo, antes |
 | Fato tirado de resumo ou de memória | O fato relido na fonte |
 | Dor ou virada inventada para um assunto que só pede apresentação | O que existe, como existe |

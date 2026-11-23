@@ -169,6 +169,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .d-cover .plate { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-tied) var(--s-3); padding-top: var(--s-3); border-top: var(--line-heavy) solid var(--color-ink); font: 400 var(--text-micro)/1.4 var(--font-body); color: var(--color-ink-2); }
 .d-cover .plate__kind { padding: var(--s-1) var(--s-2); background: var(--color-ink); color: var(--color-on-ink); font: var(--title-weight) var(--text-small)/1 var(--font-display); font-stretch: var(--display-stretch); letter-spacing: 0.01em; }
 .d-cover .plate__subject { color: var(--color-ink); font-weight: 700; }
+.d-cover .plate__ref { font-family: var(--font-mono); }
 .d-cover .plate__date { margin-left: auto; }
 .d-cover h1 { margin-top: var(--gap-block); max-width: 18ch; font-size: var(--text-display); font-weight: var(--display-weight); font-stretch: var(--display-stretch); line-height: 0.92; letter-spacing: -0.012em; overflow-wrap: break-word;
   /* Registro de risografia: a cópia magenta escapa meio ponto. É o único enfeite da página. */
@@ -297,7 +298,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 :where(.w-win, .w-field, .w-item, .w-btn, .w-seg, .w-chip, .w-toggle, .w-avatar, .w-kv, .w-msg, .w-toast, .w-menu, .w-term, .w-callout, .w-flow, .w-node, .w-bars, .w-val, .w-matrix, .w-cell, .w-files, .w-file, .w-tree, .w-code, .w-layers, .w-layer, .w-timeline, .w-when, .w-stat, .w-text, .w-grid, .w-list, .w-box) { min-width: 0; }
 :where(.w-win, .w-field, .w-list, .w-grid, .w-kv, .w-msg, .w-menu, .w-term, .w-flow, .w-bars, .w-matrix, .w-files, .w-tree, .w-code, .w-layers, .w-timeline, .w-stat, .w-box, .w-text) { display: grid; }
 
-.w-win { position: relative; align-content: start; overflow: hidden; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
+.w-win { position: relative; align-content: start; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
 .w-win > .win__bar { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--gap-inside); min-height: 2.25rem; padding: var(--s-2) var(--inset-piece); border-bottom: var(--line) solid var(--color-rule); color: var(--color-ink); font-weight: 700; }
 .w-win > .win__bar > .grow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .w-win[data-tone="warn"] > .win__bar .ico { color: var(--color-warn); }
@@ -305,7 +306,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-win > .win__body { display: grid; align-content: start; gap: var(--gap-pieces); min-width: 0; padding: var(--inset-surface); }
 .w-win .win__title { font: 700 var(--text-body)/1.3 var(--font-body); color: var(--color-ink); }
 .w-win[data-split] { grid-template-columns: var(--side, 10.5rem) minmax(0, 1fr); grid-template-rows: auto 1fr; }
-.w-win > .win__side { display: grid; align-content: start; gap: 2px; padding: var(--s-2); border-right: var(--line) solid var(--color-rule); background: var(--color-paper); }
+.w-win > .win__side { display: grid; align-content: start; gap: 2px; padding: var(--s-2); border-right: var(--line) solid var(--color-rule); border-bottom-left-radius: calc(var(--radius-m) - 1px); background: var(--color-paper); }
 .w-win > .win__side > span { display: flex; align-items: center; gap: var(--gap-inside); padding: var(--s-2); border-radius: var(--radius-s); color: var(--color-ink-2); }
 .w-win > .win__side > span.is-on { background: var(--color-paper-2); color: var(--color-ink); font-weight: 700; }
 
@@ -352,9 +353,11 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-btn[data-kind="danger"] { border-color: var(--color-err); color: var(--color-err); }
 .w-btn[data-off] { border-style: dashed; color: var(--color-ink-3); background: none; }
 
-.w-seg { display: inline-flex; width: fit-content; max-width: 100%; overflow: hidden; border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); }
+.w-seg { position: relative; display: inline-flex; width: fit-content; max-width: 100%; border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); }
 .w-seg > span { padding: var(--s-2) var(--inset-piece); color: var(--color-ink-2); font-weight: 700; line-height: 1; white-space: nowrap; }
 .w-seg > span + span { border-left: var(--line) solid var(--color-wire); }
+.w-seg > span:first-child { border-radius: calc(var(--radius-s) - 1px) 0 0 calc(var(--radius-s) - 1px); }
+.w-seg > span:nth-last-child(1 of span) { border-radius: 0 calc(var(--radius-s) - 1px) calc(var(--radius-s) - 1px) 0; }
 .w-seg > span.is-on { background: var(--color-ink); color: var(--color-on-ink); }
 
 .w-chip { display: inline-flex; align-items: center; gap: var(--gap-tied); flex: none; width: fit-content; padding: var(--s-1) var(--s-2); border: var(--line) solid var(--color-wire); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-ink-2); font: 400 var(--ui-meta)/1 var(--font-body); white-space: nowrap; }
@@ -419,6 +422,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 
 /* Pino: um número magenta no canto do que a legenda ou o texto cita. */
 .pin { position: absolute; top: -0.625rem; right: -0.625rem; z-index: 4; display: grid; place-items: center; min-width: 1.25rem; height: 1.25rem; padding: 0 var(--s-1); border: 2px solid var(--color-surface); border-radius: var(--radius-pill); background: var(--color-mark); color: var(--color-on-mark); font: 700 var(--ui-meta)/1 var(--font-body); }
+[data-pin] > .pin, .callout__label > .pin { background: var(--color-mark); color: var(--color-on-mark); font: 700 var(--ui-meta)/1 var(--font-body); letter-spacing: 0; text-decoration: none; }
 .w-field > .pin { top: calc(var(--ui-meta) * 1.4 - 0.5rem); }
 .w-chip > .pin, .w-btn > .pin { top: -0.75rem; right: -0.75rem; }
 
@@ -491,6 +495,8 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-code > span { counter-increment: ln; display: flex; white-space: pre; padding-right: var(--inset-piece); }
 .w-code > span::before { content: counter(ln); flex: none; width: 2.75rem; padding-right: var(--s-3); text-align: right; color: var(--color-ink-3); }
 .w-code > span.is-mark { background: var(--color-mark-soft); }
+.w-code[data-wrap] > span { white-space: pre-wrap; overflow-wrap: anywhere; padding-left: 2ch; text-indent: -2ch; }
+.w-code[data-wrap] > span::before { text-indent: 0; margin-left: -2ch; }
 .w-code > span.is-mark::before { color: var(--color-mark-ink); font-weight: 700; }
 
 /* Camadas: o que acontece antes de quê. Numeram sozinhas; o chip diz o estado de cada uma. */
@@ -521,6 +527,33 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   .w-when + .w-when { border-left: 6px solid var(--tick); border-top: var(--line) solid var(--color-rule); }
 }
 
+/* Linha: a série no tempo. A faixa de referência é um poço; o ponto que não plota fica no chão, vazado. */
+.w-line { --plot-h: 9rem; position: relative; padding: var(--s-5) var(--s-2) var(--s-6); }
+.w-line > .line__plot { position: relative; height: var(--plot-h); border-bottom: var(--line) solid var(--color-ink); }
+.w-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.w-line .line__band { fill: var(--color-paper-2); }
+.w-line .line__path { fill: none; stroke: var(--color-ink); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.w-line .line__bandlabel { position: absolute; right: var(--s-1); top: var(--y); transform: translateY(-100%); padding: var(--s-1) 0; font: 400 var(--ui-meta)/1 var(--font-body); color: var(--color-ink-3); }
+.w-pt { position: absolute; left: var(--x); top: var(--y); width: 0; height: 0; }
+.w-pt > i { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border: 2px solid var(--color-ink); border-radius: 50%; background: var(--color-ink); }
+.w-pt > b { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); font: 700 var(--ui-text)/1 var(--font-body); color: var(--color-ink); white-space: nowrap; }
+.w-pt > small { position: absolute; left: 50%; top: calc((100 - var(--yn, 100)) / 100 * var(--plot-h)); transform: translate(-50%, var(--s-2)); font: 400 var(--ui-meta)/1 var(--font-body); color: var(--color-ink-3); white-space: nowrap; }
+.w-pt > .pin { top: -2rem; right: auto; left: -0.625rem; }
+.w-pt[data-off] > i { background: var(--color-surface); border-style: dashed; border-color: var(--color-ink-3); }
+.w-pt[data-mark] > i { border-color: var(--color-mark); }
+.w-pt[data-mark][data-off] > i { border-style: dashed; border-color: var(--color-mark); }
+.w-pt[data-mark] > b, .w-pt[data-mark] > small { color: var(--color-mark-ink); font-weight: 700; }
+
+/* Critério de prova: o resultado à direita, em palavras; o ícone só repete. */
+.w-crit { position: relative; display: flex; align-items: flex-start; gap: var(--gap-inside); padding: var(--s-2) 0; border-top: var(--line) solid var(--color-rule); font: 400 var(--ui-text)/1.4 var(--font-body); color: var(--color-ink); }
+.w-crit:first-child { border-top: 0; }
+.w-crit > .ico { margin-top: 0.1rem; color: var(--color-ink-3); }
+.w-crit > .crit__text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.w-crit > .crit__text > small { font-size: var(--ui-meta); color: var(--color-ink-2); }
+.w-crit > .crit__status { flex: none; font: 700 var(--ui-meta)/1.6 var(--font-body); color: var(--color-ink-2); }
+.w-crit[data-status="ok"] > .ico, .w-crit[data-status="ok"] > .crit__status { color: var(--color-ok); }
+.w-crit[data-status="err"] > .ico, .w-crit[data-status="err"] > .crit__status { color: var(--color-err); }
+
 /* Número: o único número grande da cena. */
 .w-stat { position: relative; gap: var(--gap-tied); }
 .w-stat > b { font: var(--display-weight) 2.5rem/0.9 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
@@ -534,6 +567,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .w-box { position: relative; align-content: start; gap: var(--gap-pieces); padding: var(--s-3); border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
 .w-box > .box__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--gap-inside); }
 .w-box > .box__head > b { color: var(--color-ink); font-weight: 700; }
+.w-box > .box__head > .box__role { align-self: center; padding: 1px var(--s-1); border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); color: var(--color-ink); font: 700 var(--ui-meta)/1 var(--font-mono); }
 .w-box > .box__head > small { font: 400 var(--ui-meta)/1.4 var(--font-mono); color: var(--color-ink-3); }
 .w-box[data-kind="slot"] { border-style: dashed; border-color: var(--color-ink-3); background: none; }
 .w-box[data-kind="new"] { border: 2px solid var(--color-mark); }
@@ -705,7 +739,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   const paragrafo = k => (k.trim() && !/^\s*<(p|ul|ol|div|table|figure|section|h[1-6])\b/i.test(k) ? `<p>${k.trim()}</p>` : k)
 
   // Props que viram data-* na raiz: o estado que o CSS lê. Texto (título, legenda) não vai para atributo.
-  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back']
+  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status']
   const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
     const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
     const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
@@ -730,10 +764,10 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   })
   def('d-cover', {
     grupo: 'Documento', doc: 'A capa: o rótulo do documento. O filho é o título.',
-    props: { kind: 'a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete', subject: 'produto e assunto', date: 'dd/mm/aaaa', sub: 'o caso em uma linha, com os números', lead: 'o que o leitor consegue no fim' },
+    props: { kind: 'a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete', subject: 'produto e assunto', ref: 'código ou revisão do documento (EF-QS-001 · rev. 1.10)', date: 'dd/mm/aaaa', sub: 'o caso em uma linha, com os números', lead: 'o que o leitor consegue no fim' },
     ex: '<d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.">Que data vale num Cálculo retroativo?</d-cover>',
     html: (p, k) => raiz('header', 'd-cover cover', p,
-      `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
+      `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
       `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
   })
   def('d-part', {
@@ -994,13 +1028,13 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   def('w-val', {
     grupo: 'Esquema', doc: 'Uma barra de w-bars. O filho é o rótulo embaixo.',
     props: { n: 'o número escrito em cima', unit: 'a unidade', off: 'existe e está vazio' },
-    html: (p, k) => raiz('div', 'w-val', p, `<b>${esc(p.n ?? '')}${p.unit ? ` ${esc(p.unit)}` : ''}</b><i></i><span>${k.trim()}</span>`, { attrs: ` data-n="${esc(p.n ?? '')}"` }),
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('div', 'w-val', p, `<b>${esc(n)}${n && p.unit ? ` ${esc(p.unit)}` : ''}</b><i></i><span>${k.trim()}</span>`, { attrs: ` data-n="${esc(n)}"` }) },
   })
   def('w-matrix', {
     grupo: 'Esquema', doc: 'Uma matriz pequena: semana, escala, permissões. Filhos: w-cell.',
-    props: { cols: 'quantas colunas', head: 'cabeçalho: A|B|C' },
+    props: { cols: 'quantas colunas', head: 'cabeçalho: A|B|C (comece com | para deixar o canto vazio)' },
     ex: '<w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell mark>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix>',
-    html: (p, k) => raiz('div', 'w-matrix matrix', p, lista(p.head).map(h => `<span class="w-cell" data-head>${esc(h)}</span>`).join('') + k, { estilo: `--cols:${esc(p.cols ?? 7)};` }),
+    html: (p, k) => raiz('div', 'w-matrix matrix', p, (p.head && p.head !== true ? String(p.head).split('|').map(x => x.trim()) : []).map(h => `<span class="w-cell" data-head>${esc(h)}</span>`).join('') + k, { estilo: `--cols:${esc(p.cols ?? 7)};` }),
   })
   def('w-cell', {
     grupo: 'Esquema', doc: 'Uma célula de w-matrix.',
@@ -1018,6 +1052,38 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
     props: { path: 'o caminho', note: 'para que serve', dir: 'é pasta', i: 'recuo (nível)', off: 'existe e não é usado' },
     html: p => raiz('div', 'w-file', p, `${ico(p.dir ? 'folder' : 'file-text')}<code>${esc(p.path ?? '')}</code>${p.note ? `<span class="file__note">${esc(p.note)}</span>` : ''}`, { estilo: p.i ? `--i:${esc(p.i)};` : '' }),
   })
+  def('w-line', {
+    grupo: 'Esquema', doc: 'Uma série no tempo: pontos ligados por linha, com a faixa de referência. Filhos: w-pt.',
+    props: { band: 'a faixa de referência: 70-99', min: 'o piso do eixo (padrão: um pouco abaixo do menor)', max: 'o teto do eixo', unit: 'a unidade da faixa' },
+    ex: '<w-line band="70-99" unit="mg/dL" min="60" max="115"><w-pt n="94">03/06</w-pt><w-pt n="102">15/07</w-pt><w-pt n="99">02/08</w-pt><w-pt off mark>27/08</w-pt></w-line>',
+    html: (p, k, el) => {
+      const pts = filhos(el, '.w-pt'), ns = pts.map(q => num(q.dataset.n)).filter(v => !isNaN(v))
+      const [b0, b1] = String(p.band && p.band !== true ? p.band : '').split('-').map(num)
+      const todos = [...ns, ...[b0, b1].filter(v => !isNaN(v))]
+      const lo = num(p.min) || Math.min(...todos) - (Math.max(...todos) - Math.min(...todos)) * 0.2, hi = num(p.max) || Math.max(...todos) * 1.06
+      const y = v => 100 - ((v - lo) / (hi - lo || 1)) * 100, x = i => pts.length > 1 ? 6 + (i * 88) / (pts.length - 1) : 50
+      pts.forEach((q, i) => { const v = num(q.dataset.n), yy = isNaN(v) ? 100 : y(v); q.style.setProperty('--x', x(i) + '%'); q.style.setProperty('--y', yy + '%'); q.style.setProperty('--yn', String(yy)) })
+      const caminho = pts.map((q, i) => [x(i), num(q.dataset.n)]).filter(([, v]) => !isNaN(v)).map(([xx, v]) => `${xx},${y(v)}`).join(' ')
+      const faixa = !isNaN(b0) && !isNaN(b1) ? `<rect x="0" y="${y(b1)}" width="100" height="${y(b0) - y(b1)}" class="line__band"/>` : ''
+      const rotulo = !isNaN(b0) && !isNaN(b1) ? `<span class="line__bandlabel" style="--y:${y(b0)}%">${esc(p.band)}${p.unit ? ` ${esc(p.unit)}` : ''}</span>` : ''
+      return raiz('div', 'w-line', p, `<div class="line__plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${faixa}<polyline points="${caminho}" class="line__path"/></svg>${rotulo}${pts.map(q => q.outerHTML).join('')}</div>`)
+    },
+  })
+  def('w-pt', {
+    grupo: 'Esquema', doc: 'Um ponto de w-line. O filho é o rótulo do eixo (a data).',
+    props: { n: 'o valor (sem n: o ponto existe e não plota)', off: 'não entra na linha', mark: 'o ponto de que a parte fala' },
+    html: (p, k) => { const n = p.n === true ? '' : p.n ?? ''; return raiz('span', 'w-pt', p, `<i></i>${n ? `<b>${esc(n)}</b>` : ''}<small>${k.trim()}</small>`, { attrs: ` data-n="${esc(n)}"` }) },
+  })
+  def('w-crit', {
+    grupo: 'Esquema', doc: 'Um critério de prova com o resultado: cumprido, falhou ou não se aplica (e por quê).',
+    props: { status: 'ok | err | na', why: 'a justificativa (obrigatória em na)' },
+    ex: '<w-crit status="ok">Checkbox no fluxo, antes do visual</w-crit><w-crit status="na" why="a porta só oferece seleção e Importar">Ações individuais</w-crit>',
+    html: (p, k) => {
+      const i = { ok: 'check-circle-fill', err: 'x-circle-fill', na: 'info-fill' }[p.status] ?? 'info-fill'
+      const nome = { ok: 'cumprido', err: 'falhou', na: 'não se aplica' }[p.status] ?? ''
+      return raiz('div', 'w-crit', p, `${ico(i)}<span class="crit__text">${k.trim()}${p.why ? `<small>${esc(p.why)}</small>` : ''}</span><span class="crit__status">${nome}</span>`)
+    },
+  })
   def('w-tree', {
     grupo: 'Esquema', doc: 'Onde cada responsabilidade mora: listas aninhadas com code e um texto curto.',
     props: {},
@@ -1026,7 +1092,7 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   })
   def('w-code', {
     grupo: 'Esquema', doc: 'O trecho literal da fonte, com número de linha. Escreva < como &lt;.',
-    props: { from: 'o número da primeira linha', mark: 'linhas marcadas pela caneta, contadas a partir de from: 3,4' },
+    props: { from: 'o número da primeira linha', mark: 'linhas marcadas pela caneta, contadas a partir de from: 3,4', wrap: 'quebra linha longa em vez de rolar (o recuo da quebra fica pendurado)' },
     ex: '<w-code from="40" mark="41">const max = 999\nif (v > max) return erro</w-code>',
     html: (p, k) => {
       const linhas = k.replace(/^\n+|\s+$/g, '').split('\n')
@@ -1065,9 +1131,9 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   })
   def('w-box', {
     grupo: 'Esquema', doc: 'Caixa de composição: quem contém quem. Contínua existe; tracejada é slot; magenta é proposta.',
-    props: { title: 'o nome da peça', meta: 'de onde vem (pacote, arquivo)', kind: 'slot | new | off', row: 'filhos lado a lado' },
+    props: { title: 'o nome da peça', meta: 'de onde vem (pacote, arquivo)', role: 'selo do papel na hierarquia (P1, F2, E1, T1)', kind: 'slot | new | off', row: 'filhos lado a lado' },
     ex: '<w-box title="Busca" meta="ui/SmartAutocomplete.tsx"><w-box title="Autocomplete" kind="slot"></w-box><w-box title="Filtro por grupo" kind="new"></w-box></w-box>',
-    html: (p, k) => raiz('div', 'w-box', p, `${p.title || p.meta ? `<div class="box__head">${p.title ? `<b>${esc(p.title)}</b>` : ''}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</div>` : ''}${k}`),
+    html: (p, k) => raiz('div', 'w-box', p, `${p.title || p.meta || p.role ? `<div class="box__head">${p.role ? `<span class="box__role">${esc(p.role)}</span>` : ''}${p.title ? `<b>${esc(p.title)}</b>` : ''}${p.meta ? `<small>${esc(p.meta)}</small>` : ''}</div>` : ''}${k}`),
   })
 
   // ── Montagem ─────────────────────────────────────────────────────────────
@@ -1125,12 +1191,18 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   if (typeof window !== 'undefined') window.HD = HD
   if (typeof document === 'undefined') return
   document.documentElement.classList.add('js')
-  montarTudo()
-  ligar()
+  // Com o script no <head>, a página ainda está sendo lida: montar antes do fim perderia os filhos
+  // que o leitor ainda não leu. Então a primeira montagem espera o documento inteiro.
+  const iniciar = () => { montarTudo(); ligar() }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar, { once: true })
+  else iniciar()
   // Componente inserido depois (um protótipo, um player) monta sozinho ao entrar na página.
   if (window.customElements) for (const tag of TAGS) if (!customElements.get(tag)) {
     customElements.define(tag, class extends HTMLElement {
-      connectedCallback() { queueMicrotask(() => { if (!this.isConnected) return; montarTudo(this); montar(this); ligar() }) }
+      connectedCallback() {
+        if (document.readyState === 'loading') return
+        queueMicrotask(() => { if (!this.isConnected) return; montarTudo(this); montar(this); ligar() })
+      }
     })
   }
 })()

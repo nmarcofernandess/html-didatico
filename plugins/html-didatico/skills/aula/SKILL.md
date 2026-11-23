@@ -17,14 +17,15 @@ Um assunto inteiro fica de pé: quem lê uma vez sai sabendo explicar.
    [playbook didático](../../references/playbooks/didatico.md). Organização de
    sistemas soma o [modo sistemas](../../references/playbooks/sistemas.md). Um
    assunto em construção, com protótipo, dúvidas e decisões tomadas, soma o
-   [playbook Aula](../../references/playbooks/aula.md); abra as
-   [aulas reais](../../references/exemplos/aulas/README.md) antes de escrever.
+   [playbook Aula](../../references/playbooks/aula.md) e parte da
+   [aula-ouro](../../references/kit/ouro/aula.html).
 3. **Base.** O arquivo nasce de uma cópia do kit, feita pelo
    [montar](../../scripts/montar.mjs): `node scripts/montar.mjs --novo <passo-a-passo|explicacao|aula|starter> <destino.html>`,
-   a partir da raiz do plugin. Só o `<main>` muda, conforme o
+   a partir da raiz do plugin. Só o corpo muda, escrito com os
+   [componentes](../../references/kit/componentes.md), conforme o
    [contrato HTML](../../references/html-portatil.md).
 4. **Figuras e revisão.** Cada pergunta ganha a representação em que a resposta
-   se vê, montada com as peças do kit. Antes de entregar, faça a
+   se vê, montada com os componentes do kit (`w-*`), nunca desenhada à mão. Antes de entregar, faça a
    [leitura pela figura](../../references/visual/design.md#leitura-pela-figura).
    Entregue um HTML só e, na resposta, o que foi visto rodando, o que foi lido e
    a objeção mais forte. O [check](../../scripts/check.mjs) e a inspeção visual

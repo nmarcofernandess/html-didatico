@@ -48,11 +48,11 @@ Crie o arquivo pela cópia do [decidir-ouro](kit/ouro/decidir.html), a partir da
 node scripts/montar.mjs --novo decidir <destino.html>
 ```
 
-- **Uma aba por decisão** (peça `tabs`), numeradas de 1 a n, com o nome curto da decisão. Cada painel tem `id="duvida-n"`, para o link e para a resposta "2A". Com uma decisão só e nenhuma lei, a página é a decisão, sem barra de abas.
-- **Dentro da aba,** a pergunta no `h2` e três partes: "O que acontece"; "Comparando", com as opções em `cols` (três opções, `cols cols--3`) e uma `fig` por opção; "Sua resposta", com a tabela das opções, o chip "Recomendada" e um `note` com "Responda no chat".
+- **Uma aba por decisão** (`d-tabs` com um `d-tab` por decisão), numeradas de 1 a n, com o nome curto da decisão. Cada painel tem `id="duvida-n"`, para o link e para a resposta "2A". Com uma decisão só e nenhuma lei, a página é a decisão, sem barra de abas.
+- **Dentro da aba,** a pergunta como título da primeira `d-part` e três partes: "O que acontece"; "Comparando", com as opções em `<d-cols n="3">` e uma `w-fig` por opção, a recomendada com a caneta; "Sua resposta", com a tabela das opções (a linha recomendada com `class="is-mark"`), o chip "Recomendada" e uma `d-note` com "Responda no chat".
 - **A aba Leis** fecha a barra quando algo já foi decidido: uma tabela **Data | Lei | Origem**, como na [Aula](playbooks/aula.md#leis).
 - **Quando a decisão é sobre a tela,** o produto em uso entra como print, ao lado da proposta.
-- As peças são as do [kit](kit/pecas.html) e o desenho segue [Design](visual/design.md); o arquivo cumpre o [contrato HTML](html-portatil.md).
+- Os componentes são os do [kit](kit/componentes.md) e o desenho segue [Design](visual/design.md); o arquivo cumpre o [contrato HTML](html-portatil.md).
 
 Quando o [check](../scripts/check.mjs) roda, ele reprova página fora do kit, código de nota, opção sem nome e decisão sem recomendada ou sem "Responda no chat".
 
