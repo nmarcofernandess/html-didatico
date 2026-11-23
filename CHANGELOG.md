@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.1 — 23/11/2026
+
+- Ícone próprio do plugin, em `assets/icon.svg` e `assets/icon-dark.svg`: uma janela com a figura em cor de sinal e a plaqueta de figura no canto, nas cores do look manual do kit. Marco pediu para reconhecer o plugin de relance e não confundir com outra cópia.
+- O bloco de interface do Codex declara `logo`, `logoDark`, `composerIcon`, `composerIconDark`, `brandColor` e `brandColorDark`.
+
 ## 2.9.0 — 23/11/2026
 
 - **Entender, antes de tudo**, em Conteúdo: a etapa de entender o assunto na fonte (as decisões que já existem, o sistema, a fonte relida) passa a ter um dono só e vale do cartão à aula. O playbook Aula fica com o que é dela (a tab Leis e as duas linhas a mais da ficha) e o Cartão e o didático apontam para Conteúdo.
