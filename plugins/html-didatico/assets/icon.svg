@@ -1,10 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="HTML Didático">
-  <rect width="512" height="512" rx="112" fill="#f3efe6"/>
-  <rect x="92" y="108" width="328" height="296" rx="14" fill="#fcfaf5" stroke="#191613" stroke-width="20"/>
-  <path d="M92 180h328" stroke="#191613" stroke-width="20"/>
-  <circle cx="134" cy="145" r="11" fill="#191613"/>
-  <rect x="136" y="222" width="150" height="138" rx="8" fill="#bf3f0b"/>
-  <path d="M318 236h62M318 284h62M318 332h38" stroke="#191613" stroke-width="20" stroke-linecap="round"/>
-  <path d="M300 404v-34a14 14 0 0 1 14-14h106v48z" fill="#191613"/>
-  <path d="M330 381h62" stroke="#f3efe6" stroke-width="12" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" role="img" aria-label="HTML Didático">
+  <g fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="#0fa3a3" d="M7.9 5.4 3 12l4.9 6.6"/>
+    <path stroke="#f2622e" d="M16.1 5.4 21 12l-4.9 6.6"/>
+  </g>
+  <path fill="#ffc533" d="M12 6.6a4 4 0 0 1 2.3 7.3c-.3.2-.5.5-.5.9v.3h-3.6v-.3c0-.4-.2-.7-.5-.9A4 4 0 0 1 12 6.6Z"/>
+  <rect x="10.4" y="16" width="3.2" height="1.9" rx=".95" fill="#f2a000"/>
 </svg>

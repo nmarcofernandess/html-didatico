@@ -1,6 +1,6 @@
 {
   "name": "html-didatico",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "Seis resultados: HTML Didático, HTML Wireframe, HTML Blueprint, HTML Proof, Explicar com Clareza e Decisões em Boards.",
   "author": {
     "name": "Marco Antonio",
@@ -16,11 +16,8 @@
     "capabilities": [],
     "defaultPrompt": "Transforme esta explicação técnica num HTML didático autocontido: situe o leitor, mostre onde as coisas moram, como funcionam e por quê, com um diorama por seção.",
     "logo": "./assets/icon.svg",
-    "logoDark": "./assets/icon-dark.svg",
     "composerIcon": "./assets/icon.svg",
-    "composerIconDark": "./assets/icon-dark.svg",
-    "brandColor": "#BF3F0B",
-    "brandColorDark": "#F0703A"
+    "brandColor": "#F2622E"
   },
   "repository": "https://github.com/nmarcofernandess/html-didatico",
   "license": "MIT",

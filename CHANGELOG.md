@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.9.2 — 23/11/2026
+
+- Ícone refeito a pedido de Marco, que reprovou o primeiro: os dois sinais de tag, um verde-água e um laranja, com uma lâmpada amarela no meio, sem fundo. Um arquivo só, `assets/icon.svg`, serve ao tema claro e ao escuro; sai `icon-dark.svg`.
+- Claude Code: `.claude-plugin/icon.png` (512 px) e o campo `icon` no manifesto.
+
 ## 2.9.1 — 23/11/2026
 
 - Ícone próprio do plugin, em `assets/icon.svg` e `assets/icon-dark.svg`: uma janela com a figura em cor de sinal e a plaqueta de figura no canto, nas cores do look manual do kit. Marco pediu para reconhecer o plugin de relance e não confundir com outra cópia.

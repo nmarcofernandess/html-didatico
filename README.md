@@ -68,7 +68,7 @@ A versão 2.0.0 remove nomes públicos antigos; atualize chamadas salvas.
 | explain-clearly | Explicar com Clareza, preservando o ID. |
 | writing-clearly-and-concisely | Recurso interno compartilhado; texto e créditos preservados. |
 
-## Instalação da release 2.9.1
+## Instalação da release 2.9.2
 
 O repositório é privado. Use a credencial já autorizada e, no SSH, seu alias de
 conta quando necessário. Tag, versão em `main` e instalação são estados distintos.
@@ -76,7 +76,7 @@ conta quando necessário. Tag, versão em `main` e instalação são estados dis
 Codex:
 
 ```sh
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.1
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.2
 codex plugin add html-didatico@html-didatico
 codex plugin list --marketplace html-didatico --json
 ```
@@ -87,7 +87,7 @@ Preserve o mesmo remoto/alias e o escopo; não remova outros marketplaces:
 
 ```sh
 codex plugin marketplace remove html-didatico
-codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.1
+codex plugin marketplace add git@github.com:nmarcofernandess/html-didatico.git --ref v2.9.2
 codex plugin marketplace upgrade html-didatico
 codex plugin add html-didatico@html-didatico
 ```
@@ -99,7 +99,7 @@ os comandos a outra versão.
 Claude Code:
 
 ```sh
-claude plugin marketplace add nmarcofernandess/html-didatico#v2.9.1
+claude plugin marketplace add nmarcofernandess/html-didatico#v2.9.2
 claude plugin install html-didatico@html-didatico
 claude plugin list
 ```
@@ -115,7 +115,7 @@ um erro de origem precisa ser resolvido na declaração responsável.
 Cursor, quando disponível:
 
 ```sh
-agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.9.1
+agent plugin marketplace add https://github.com/nmarcofernandess/html-didatico --git-ref v2.9.2
 ```
 
 Depois instale/atualize em `/plugin`, no escopo user, e confira a versão efetiva.
