@@ -24,7 +24,7 @@ Este arquivo é dono da gramática. A tab Dúvidas da [Aula](playbooks/aula.md#d
 ## Levantar e apurar
 
 1. **Levante as decisões.** Leia a fonte: a spec, o canvas, os cartões, a conversa. Cartão que junta várias perguntas vira várias decisões. O que já foi decidido não volta à mesa: vai para Leis, com data e origem.
-2. **Apure o estado atual antes de desenhar.** Para cada decisão, confirme na fonte a peça que a tela usa, os rótulos e os dados reais (nomes, faixas, condições). No DietFlow, a fonte é `origin/dev`, só leitura: `git show origin/dev:<arquivo>`, `git grep … origin/dev`. Fato não confirmado fica fora e vira lacuna dita no chat.
+2. **Apure o estado atual antes de desenhar.** Para cada decisão, confirme na fonte a peça que a tela usa, os rótulos e os dados reais (nomes, faixas, condições). A fonte é o código e os dados da versão que o produto usa, só leitura (por exemplo, `git show <branch>:<arquivo>` e `git grep … <branch>`). A tela entra remontada em wireframe, como em [O produto de quem pede](visual/design.md#o-produto-de-quem-pede). Fato não confirmado fica fora e vira lacuna dita no chat.
 3. **Ordene.** Primeiro as que mudam o sistema, depois as que ficam como estão, depois arrumação.
 
 ## A saída
@@ -36,7 +36,7 @@ Este arquivo é dono da gramática. A tab Dúvidas da [Aula](playbooks/aula.md#d
 | A decisão nasce dentro de uma aula | A tab Dúvidas da aula | [Playbook Aula](playbooks/aula.md#dúvidas) |
 | A pergunta é de layout: onde fica, como se organiza, como ficaria a tela | Maquete, com as alternativas lado a lado quando há mais de uma | [Playbook Maquete](playbooks/maquete.md) |
 
-Em "Comparando", o HTML põe as opções lado a lado. O board, vertical, mostra as mesmas saídas em quadros seguidos, "Em dev" e "Com a recomendação". A maquete mantém o mesmo esqueleto nas alternativas e destaca só a diferença.
+Em "Comparando", o HTML põe as opções lado a lado. O board, vertical, mostra as mesmas saídas em quadros seguidos, "Hoje" e "Com a recomendação". A maquete mantém o mesmo esqueleto nas alternativas e destaca só a diferença.
 
 Fora do canvas de Design, não monte boards em HTML próprio: a saída é o HTML do kit. Os dois saem dos mesmos componentes.
 

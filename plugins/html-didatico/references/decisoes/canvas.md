@@ -26,8 +26,9 @@ files:
 ```
 
 Os boards não carregam o `bundle.js`: a marcação já chega montada. O motor recusa
-canvas sem esse registro. Um canvas pode ter também o DietFlow DS, para outras
-páginas; os boards não o usam.
+canvas sem esse registro. Se o canvas também tem o design system do próprio
+produto, ele serve às outras páginas e, quando a pergunta é sobre a aparência
+real, a uma tela ao lado do board; os boards em si são do kit.
 
 Quando o kit muda (componente novo, ajuste de CSS), o design system é publicado de
 novo (`docs/MANUTENCAO.md` no repositório) e a cópia do canvas é atualizada com
@@ -35,14 +36,11 @@ os mesmos dois arquivos.
 
 ## Fontes versionadas
 
-Baixe o `project/` do canvas para uma pasta versionada (pasta da spec, ou
-`~/devkit/.Docsdietflow/specs/<assunto>/canvas/`), com `project/ds/` e
-`artifact-type/` no `.gitignore`. O arquivo de decisões fica ao lado, em
-`gerador/decisoes.mjs`. No devkit, edite numa worktree (`git worktree add
-.worktrees/<nome> -b <nome> origin/main`): o checkout principal fica em `main` e o
-hook do DietFlow nega Write ali. Ao fim, `git push origin <nome>:main` e
-`git -C ~/devkit merge --ff-only origin/main`. Nunca `git add .`: há trabalho
-de outras sessões no devkit.
+Baixe o `project/` do canvas para uma pasta versionada do trabalho (a pasta da
+spec, o repositório da entrega), com `project/ds/` e `artifact-type/` no
+`.gitignore`. O arquivo de decisões fica ao lado, em `gerador/decisoes.mjs`.
+Siga as regras de branch e de publicação desse repositório; adicione só os
+arquivos do canvas e do gerador.
 
 ## Publicar
 

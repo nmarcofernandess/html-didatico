@@ -26,7 +26,7 @@ sem fato novo. Copie a forma, nunca o conteúdo.
   rec: 'Desejável abaixo de 175 mg/dL.',                   // recomendação curta, no mapa
   quadros: [                                               // [título, frase, figura]; 2 ou 3 quadros
     ['O que acontece', 'São dois exames: o Triglicerídeos, sem jejum, e o em jejum de 12h.', `<w-fig cap="…">…</w-fig>`],
-    ['Em dev', 'Os dois usam a mesma faixa. 160 mg/dL dá <b>Limítrofe alto</b> nos dois.', `<w-fig cap="…">…</w-fig>`],
+    ['Hoje', 'Os dois usam a mesma faixa. 160 mg/dL dá <b>Limítrofe alto</b> nos dois.', `<w-fig cap="…">…</w-fig>`],
     ['Com a recomendação', 'Sem jejum, desejável abaixo de 175. O mesmo 160 dá <b>Adequado</b>.', `<w-fig cap="…">…</w-fig>`],
   ],
   opts: [['A · Faixa própria sem jejum', 'Desejável abaixo de 175 mg/dL, pelo Consenso Brasileiro de 2016.'],
@@ -55,7 +55,7 @@ decisão sem recomendada ou sem "Responda no chat".
   letra, e o motor a monta a partir da letra.
 - Frase do quadro com o líder em negrito e o número real: "160 mg/dL dá
   **Limítrofe alto**". Uma frase; duas no máximo.
-- Valores de figura vêm do catálogo de dev (faixas, condições, nomes). Paciente de
+- Valores de figura vêm da fonte do produto (faixas, condições, nomes). Paciente de
   exemplo fixo quando a faixa depende da pessoa (ex.: mulher, 34 anos).
 - Datas absolutas (dd/mm/aaaa) nas figuras; nada de "hoje".
 - A caneta (`mark`, `pin`, `w-callout mark`) só no dado de que o quadro fala.

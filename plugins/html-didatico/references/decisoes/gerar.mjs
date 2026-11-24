@@ -21,10 +21,10 @@ const { documento, HD, preRenderizar } = await import(pathToFileURL(resolve(PLUG
 const esc = HD.esc
 
 const PASTA_DS = 'ds/hd'
-const KIND = { muda: 'Muda o sistema', fica: 'Fica como em dev', arruma: 'Arrumação' }
+const KIND = { muda: 'Muda o sistema', fica: 'Fica como está', arruma: 'Arrumação' }
 const GRUPOS = [
-  ['muda', 'Mudam o sistema', 'A recomendação troca algo que dev faz.'],
-  ['fica', 'Ficam como em dev', 'A recomendação é manter. Dá para responder o grupo de uma vez.'],
+  ['muda', 'Mudam o sistema', 'A recomendação troca algo que o sistema faz hoje.'],
+  ['fica', 'Ficam como estão', 'A recomendação é manter o que o sistema faz hoje. Dá para responder o grupo de uma vez.'],
   ['arruma', 'Arrumação', 'Regras de migração, de documentação ou de boards antigos.'],
 ]
 

@@ -102,6 +102,22 @@ Qual das duas, e qual peça, sai da pergunta que a figura responde: a tabela est
 
 As props e um exemplo de cada componente estão na [referência](../kit/componentes.md); a [folha de peças](../kit/pecas.html) mostra todos vivos.
 
+### O produto de quem pede
+
+O plugin não traz o design system de nenhum produto: ele envelhece e só serve a
+um sistema. A tela de um produto entra de dois jeitos:
+
+- **Remontada em wireframe, o padrão.** Leia como o sistema funciona na fonte (as
+  telas, os componentes que elas usam, os rótulos e os dados reais) e remonte a
+  cena com os componentes do kit, no traço do kit. Vale em qualquer host e para
+  qualquer produto.
+- **Integrada com o design system do produto, quando ele está à mão e a pergunta
+  pede.** Se o host já tem o design system do próprio produto (instalado no
+  canvas de Design, ou os componentes no repositório) e a decisão é sobre a
+  aparência real da tela, ele pode entrar: o print do produto com `w-shot`, ou a
+  tela feita no design system ao lado do wireframe. A explicação, a caneta e a
+  moldura continuam sendo do kit.
+
 ### Método da cena
 
 1. **Decida o recorte antes de montar.** Onde a história acontece: o painel, o formulário, a linha. A cena mostra esse pedaço em tamanho de leitura. Uma figura de 450px mostra um terço da tela em tamanho real.

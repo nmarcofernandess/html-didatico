@@ -24,7 +24,7 @@ Um cartão que virou assunto pede uma aula. Uma aula que abriu uma escolha pede 
 - "Me mostra isso", "desenha esse bug" ou "não entendi, quero ver", no meio de uma conversa, usam Cartão, mesmo sem a palavra HTML.
 - "Explique este sistema", sem pedido visual, começa em texto, com Explicar; "explique em HTML" usa Aula.
 - "Faça uma aula de X" usa Aula. Dúvidas de produto dentro dela viram a tab Dúvidas, na gramática de [Decisão](decisao.md), e não um documento à parte.
-- "Um board por decisão", "como está em dev e como ficaria" ou uma fila de códigos de decisão (C-03, R-01) de uma spec usam Decidir: boards no canvas de Design do Claude; sem canvas (Codex, Cursor), o HTML com uma aba por decisão.
+- "Um board por decisão", "como está hoje (ou em dev) e como ficaria" ou uma fila de códigos de decisão (C-03, R-01) de uma spec usam Decidir: boards no canvas de Design do Claude; sem canvas (Codex, Cursor), o HTML com uma aba por decisão.
 - "Wireframe da tela" e "maquete" usam Decidir. Uma maquete sem alternativa também: a decisão é aprovar ou ajustar a proposta. Uma escolha visual pontual (dois ícones, duas palavras) cabe numa maquete, com as duas lado a lado.
 - "Blueprint do layout" usa Decidir se a pergunta é onde ficam as regiões; Montagem se é como as peças se compõem. "Compare as APIs destes componentes" usa Montagem quando o eixo é contrato; "compare duas formas de organizar a tela" usa Decidir.
 - "Wireframe de prova" pertence a Prova. Uma explicação que cita um pack continua explicação; o link não a torna prova.

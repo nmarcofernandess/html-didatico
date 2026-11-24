@@ -1,5 +1,14 @@
 # Changelog
 
+## 4.0.1 — 24/11/2026
+
+O plugin deixa de trazer instrução de um produto só. Pedido de Marco: canvas e design system do DietFlow são muita coisa para um plugin, envelhecem e não servem a outros propósitos; o fluxo próprio do DietFlow fica no ambiente dele.
+
+- **O produto de quem pede**, seção nova em `visual/design.md`, dona da regra: a tela de um produto entra remontada em wireframe com os componentes do kit, a partir da leitura de como o sistema funciona; o design system do próprio produto só entra integrado quando já está no host (canvas, repositório) e a pergunta é sobre a aparência real. Decisão, boards e canvas apontam para ela.
+- **Sem DietFlow nas instruções:** saem `origin/dev`, o devkit e seu hook, o `.context` do DietFlow na montagem e os caminhos de prova do DietFlow; ficam as regras gerais (ler a fonte da versão em uso, só leitura; ler o que o projeto mantém sobre si; o contrato do renderer do próprio projeto).
+- **Boards com nomes gerais:** o grupo "Ficam como em dev" vira "Ficam como estão", e o quadro "Em dev" vira "Hoje", conferido na fonte.
+- Os exemplos-ouro continuam usando casos do DietFlow como conteúdo; não são instrução.
+
 ## 4.0.0 — 24/11/2026
 
 Breaking: o kit vira um design system único com uma biblioteca de componentes. Os dois looks (`data-look="manual"` e `"editorial"`) deixam de existir, e figura passa a ser feita de componentes, nunca desenhada à mão. Pedido de Marco: cada exemplo tinha um estilo, não havia design system, e as peças precisam ser componentes que crescem a cada documento e que, no futuro, gravam vídeo no Remotion.

@@ -18,8 +18,8 @@ forma, nunca nomes, props ou arquitetura sem conferir o projeto de destino.
 Comece pelo componente específico e siga seus imports, JSX e contratos até
 as peças fundamentais. Depois desenhe a montagem no sentido inverso.
 
-No DietFlow, leia primeiro o mapa de componentes em `.context`, os patterns
-aplicáveis e as pastas `components`. Localize os caminhos reais: não suponha
+Leia primeiro o que o projeto mantém sobre si: mapa de componentes, patterns,
+pastas de contexto e de componentes. Localize os caminhos reais: não suponha
 que todo projeto usa a mesma árvore. Cruze mapa e patterns com os exports,
 implementações, tipos e consumidores atuais. Registre branch, commit e data.
 Um documento descreve intenção; um símbolo implementado comprova existência.
@@ -62,7 +62,7 @@ rotulado `composição`, sem sugerir um nó DOM adicional. Portals, fragments,
 render props e slots mantêm a topologia real, mesmo que ela não forme uma
 árvore simples. Uma região invisível ou condicional continua identificada.
 
-No exemplo `BaseModal → Section → Section.Grid → campos`, cada seta precisa
+No exemplo `Modal → Section → Section.Grid → campos`, cada seta precisa
 ser comprovada no JSX. Se `Section.Grid` não existir, mostre o layout real.
 Se `density` chegar por prop, escreva `prop`; só escreva `herdado` quando o
 provider e o consumidor forem encontrados. Não complete lacunas com a imagem

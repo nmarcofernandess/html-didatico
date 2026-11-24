@@ -15,11 +15,8 @@ apresente HTML manual como prova oficial.
 - HTML oficial é gerado. Nunca escreva ou edite sua saída à mão, nem altere status
   ou screenshots para fabricar prova. Ajuste template/CSS no owner do renderer
   quando o pedido for apresentação; regenere conforme o contrato.
-- No DietFlow, pontos de partida históricos são `scripts/proof/render-pack.ts`,
-  `scripts/proof/proof-pack.css`, `docs/proofs/CONTRATO-PROOF-PACK.md`,
-  `.agents/skills/proof-canonico` e `docs/ci/PROOF-NAVIGATION.md`. Verifique caminhos,
-  versão e contrato atuais; estes nomes não são universais nem garantem que o
-  renderer continue usando a mesma anatomia A/C.
+- Quando o projeto tem renderer de prova próprio, leia o contrato e os caminhos
+  atuais dele antes de qualquer coisa; nomes de outro projeto não valem aqui.
 - Um mural ou explicação extra pode citar o pack e se identifica como documento
   complementar. Prints no mural não o promovem a pack oficial.
 

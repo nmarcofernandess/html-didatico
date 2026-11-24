@@ -16,7 +16,7 @@ palavras) sai como [maquete](../playbooks/maquete.md), com as duas lado a lado.
 Uma página do canvas com:
 
 1. **Mapa** (o arquivo de `MAPA.arquivo`): como decidir em três passos e as
-   decisões em grupos — **Mudam o sistema**, **Ficam como em dev**, **Arrumação** —,
+   decisões em grupos — **Mudam o sistema**, **Ficam como estão**, **Arrumação** —,
    cada linha com a recomendação em poucas palavras e o link para o board. Embaixo,
    "Já decidido", com data, lei e origem do que não volta à mesa.
 2. **Um board por decisão** (`D01` a `Dnn`), vertical, sempre na mesma gramática:
@@ -24,18 +24,21 @@ Uma página do canvas com:
 | Quadro | Título | Mostra |
 |---|---|---|
 | 1 | O que acontece | A situação concreta, com o caso real, que faz a pergunta existir |
-| 2 | Em dev | Como o sistema faz em dev, na tela que a pessoa usa |
+| 2 | Hoje | Como o sistema faz hoje, na tela que a pessoa usa, conferido na fonte |
 | 3 | Com a recomendação | Como fica se ele aceitar |
 | 4 | Sua resposta | Opções A, B (C), a recomendada marcada, e "Responda no chat: 1A ou 1B" |
 
-Quando a recomendação é **manter dev**, o quadro 2 se chama "Em dev, que é a
-recomendação" e o 3 vira "Se fosse a outra opção": ele vê o que estaria recusando.
+Quando a recomendação é **manter o que existe**, o quadro 2 se chama "Hoje, que é
+a recomendação" e o 3 vira "Se fosse a outra opção": ele vê o que estaria recusando.
 Decisão sem tela própria (arrumação de boards, por exemplo) pode ter dois quadros
-antes da resposta. Estado de dev que não foi conferido na fonte não vira quadro
-"Em dev": o quadro mostra a opção pelo nome dela.
+antes da resposta. Estado atual que não foi conferido na fonte não vira quadro
+"Hoje": o quadro mostra a opção pelo nome dela.
 
 Cada quadro é: título, **uma frase** que diz o líder (o status, o nome, a coluna
-que muda) e uma figura de componentes do kit no estado que prova a frase. A frase
+que muda) e uma figura de componentes do kit no estado que prova a frase. A tela
+do produto entra remontada em wireframe, lida na fonte; o design system do
+próprio produto só entra quando já está no canvas e a pergunta é sobre a
+aparência real ([O produto de quem pede](../visual/design.md#o-produto-de-quem-pede)). A frase
 carrega o líder porque, no celular, a figura pode rolar para o lado.
 
 O motor compõe tudo com o kit: `d-pager` (mapa, anterior, próxima), `d-cover`
@@ -44,7 +47,7 @@ tabela das opções com a recomendada marcada e a `d-note` "Responda no chat".
 
 ## Como fazer
 
-Levantar as decisões, apurar o estado em dev e a ordem seguem [Decisão](../decisao.md#levantar-e-apurar).
+Levantar as decisões, apurar o estado atual e a ordem seguem [Decisão](../decisao.md#levantar-e-apurar).
 
 1. **Escreva cada decisão** no arquivo de decisões, no [formato](formato.md) do
    motor: a pergunta com o caso em `q`, os quadros com a figura, as opções em uma
@@ -62,8 +65,8 @@ Levantar as decisões, apurar o estado em dev e a ordem seguem [Decisão](../dec
    mesma dependência do check), escreve mapa, boards e as entradas da página no
    `canvas.json` e imprime a lista de arquivos a publicar.
 5. **Publique e confira** como em [canvas.md](canvas.md).
-6. **Versione as fontes** (arquivo de decisões e `project/`) na pasta da spec ou
-   no devkit, com push, antes de encerrar.
+6. **Versione as fontes** (arquivo de decisões e `project/`) na pasta do trabalho
+   (a spec, o repositório da entrega), com push, antes de encerrar.
 
 ## Armadilhas
 
@@ -76,15 +79,14 @@ Levantar as decisões, apurar o estado em dev e a ordem seguem [Decisão](../dec
 | Tabela cortada no celular | Muitas colunas numa figura | Tabela só com as colunas que o quadro discute; o resto vai para a frase |
 | "Fig. 1" ao lado do número 1 | Legenda repete o número do quadro | A legenda diz a conclusão da figura, nunca o número |
 | Board cortado no canvas | Altura do artboard menor que o conteúdo | Ajuste `ALTURAS` e confira no modo canvas que a "Sua resposta" aparece inteira |
-| Write negado no devkit | Hook do DietFlow bloqueia edição com a pasta em `main` | Trabalhe numa worktree do devkit (`.worktrees/<nome>`) e publique em `main` por fast-forward |
 
 ## Limites
 
-- Só leitura em `origin/dev` e no banco; nenhum código de produto muda aqui.
+- Só leitura no código e nos dados do produto; nada do produto muda aqui.
 - Copy dos boards passa por `strings-safadas`: frase invariante ou estrutura, nunca
   prosa que só vale para a amostra.
 - O board mostra o produto em wireframe, não a tela real. Quando a decisão é sobre
   a aparência de uma tela que existe, o print do produto entra com `w-shot`.
-- Canvas antigos, feitos com o DietFlow DS, continuam abrindo com a cópia própria
-  do DS; o motor daquela época está em `docs/historico/exemplos/decisoes/`, no
-  repositório.
+- Canvas feitos com o motor antigo, que montava as figuras com o design system de
+  um produto, continuam abrindo com a cópia própria dele; o motor daquela época
+  está em `docs/historico/exemplos/decisoes/`, no repositório.
