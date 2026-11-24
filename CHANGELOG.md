@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0 — 23/11/2026
+## 4.0.0 — 24/11/2026
 
 Breaking: o kit vira um design system único com uma biblioteca de componentes. Os dois looks (`data-look="manual"` e `"editorial"`) deixam de existir, e figura passa a ser feita de componentes, nunca desenhada à mão. Pedido de Marco: cada exemplo tinha um estilo, não havia design system, e as peças precisam ser componentes que crescem a cada documento e que, no futuro, gravam vídeo no Remotion.
 
