@@ -12,7 +12,7 @@ Claude Code e Cursor, conforme o suporte do host.
 | **HTML Didático** | [html-didatico](plugins/html-didatico/skills/html-didatico/SKILL.md) | Qualquer uma, sem dizer o formato | A entrada automática lê o pedido e a conversa, inclusive o que já foi decidido nela, escolhe uma das formas abaixo e monta. |
 | **Cartão** | [cartao](plugins/html-didatico/skills/cartao/SKILL.md) | "Me mostra" | Uma dúvida da conversa em uma página: a pergunta, o caso em uma linha e até três telas do produto. |
 | **Aula** | [aula](plugins/html-didatico/skills/aula/SKILL.md) | "Me ensina" | Um assunto inteiro: explicação, passo a passo, mural, narrativa de sistema ou aula em quadros, com Na tela, Dúvidas, Leis e Roadmap quando o pedido pede. |
-| **Decidir** | [decidir](plugins/html-didatico/skills/decidir/SKILL.md) | "Estou entre A e B" | As opções lado a lado no mesmo caso, a recomendada e "Responda no chat". No canvas de Design do Claude com o DietFlow DS, um board por decisão; fora dele, um HTML com uma aba por decisão; maquete quando a pergunta é de layout. |
+| **Decidir** | [decidir](plugins/html-didatico/skills/decidir/SKILL.md) | "Estou entre A e B" | As opções lado a lado no mesmo caso, a recomendada e "Responda no chat". No canvas de Design do Claude, um board por decisão, com os componentes do kit; fora dele, um HTML com uma aba por decisão; maquete quando a pergunta é de layout. |
 | **Montagem** | [montagem](plugins/html-didatico/skills/montagem/SKILL.md) | "Como isso se monta" | A composição dos primitivos às features e consumidores: árvore, children, slots, types, props e contratos. |
 | **Prova** | [prova](plugins/html-didatico/skills/prova/SKILL.md) | "Funciona mesmo?" | Evidências e resultados, respeitando o renderer oficial quando existir. |
 | **Explicar** | [explicar](plugins/html-didatico/skills/explicar/SKILL.md) | "Me explica" | Texto no chat, sem arquivo: significado, causas e consequências. |
@@ -53,7 +53,7 @@ e primitivos são carregados só para a forma em uso.
 
 - [Núcleo](plugins/html-didatico/references/nucleo.md): fontes e limites, entender, o nó e o que toda entrega declara.
 - [Roteamento](plugins/html-didatico/references/roteamento.md): a tabela pela qual a entrada automática escolhe a forma, o ciclo e as fronteiras.
-- [Decisão](plugins/html-didatico/references/decisao.md): a gramática única de decisão e a saída conforme o host. Os [boards](plugins/html-didatico/references/decisoes/boards.md) trazem o motor (`gerar.py`), as peças do DietFlow DS (`pecas.js`, [catálogo](plugins/html-didatico/references/decisoes/pecas.md)), o [formato](plugins/html-didatico/references/decisoes/formato.md), a [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e dois arquivos de decisões reais em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/); a [maquete](plugins/html-didatico/references/playbooks/maquete.md) atende a pergunta de layout.
+- [Decisão](plugins/html-didatico/references/decisao.md): a gramática única de decisão e a saída conforme o host. Os [boards](plugins/html-didatico/references/decisoes/boards.md) trazem o motor (`gerar.mjs`, que pré-renderiza os componentes do kit para o canvas), as [peças](plugins/html-didatico/references/decisoes/pecas.md) por quadro, o [formato](plugins/html-didatico/references/decisoes/formato.md), a [publicação no canvas](plugins/html-didatico/references/decisoes/canvas.md) e o exemplo-ouro em [exemplos/](plugins/html-didatico/references/decisoes/exemplos/); a [maquete](plugins/html-didatico/references/playbooks/maquete.md) atende a pergunta de layout.
 - [HTML portátil e verificação visual](plugins/html-didatico/references/html-portatil.md).
 - [Kit](plugins/html-didatico/references/kit/pecas.html): um design system só, com tokens compartilhados e a biblioteca de componentes `d-*`/`w-*` ([referência](plugins/html-didatico/references/kit/componentes.md)); [conteúdo](plugins/html-didatico/references/conteudo.md) e [design](plugins/html-didatico/references/visual/design.md) dizem como usá-lo, e os [exemplos-ouro](plugins/html-didatico/references/kit/ouro/) são o padrão de qualidade. Todo documento nasce de uma cópia: `node plugins/html-didatico/scripts/montar.mjs --novo <base> <destino.html>`.
 - [Playbook Cartão](plugins/html-didatico/references/playbooks/cartao.md): a dúvida da conversa em uma página, com pouco texto. A [leitura pela figura](plugins/html-didatico/references/visual/design.md#leitura-pela-figura) confere, pergunta por pergunta, o que a figura e a legenda mostram sozinhas.
@@ -75,7 +75,7 @@ A versão 3.0.0 troca os IDs públicos; atualize chamadas salvas. Não há alias
 |---|---|
 | html-didatico | Continua, como entrada automática: escolhe a forma sozinha. Para nomear, `cartao` ou `aula`. |
 | html-wireframe | `decidir`, com a maquete como saída para pergunta de layout. |
-| decisoes-em-boards | `decidir`: boards no canvas de Design com o DietFlow DS; fora dele, HTML com uma aba por decisão. |
+| decisoes-em-boards | `decidir`: boards no canvas de Design (com o kit desde a 4.0.0); fora dele, HTML com uma aba por decisão. |
 | html-blueprint | `montagem`. |
 | html-proof | `prova`. |
 | explain-clearly | `explicar`. |

@@ -8,44 +8,9 @@
 
 import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import vm from 'node:vm'
+import { css, documento, FIM, HD, INI, js, ler, raiz, sprite } from './kit.mjs'
 
-const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const ler = p => readFileSync(resolve(raiz, p), 'utf8')
-const css = ler('references/kit/kit.css').trimEnd(), js = ler('references/kit/kit.js').trimEnd(), sprite = ler('references/kit/sprite.svg').trim()
-
-// O registro de componentes roda em Node do mesmo jeito que no navegador, sem DOM: só lemos os metadados.
-const ctx = { window: {}, queueMicrotask }
-vm.runInNewContext(js, ctx)
-const HD = ctx.window.HD
 const esc = HD.esc
-
-const INI = '/* ══ KIT ══ não edite daqui até o fim do kit; mude references/kit/kit.css e rode scripts/montar.mjs */'
-const FIM = '/* ══ FIM DO KIT ══ */'
-const pagina = '\n/* ── DESTA PÁGINA ── só o que este documento tem de único, sempre com os tokens do kit. */\n'
-
-const documento = ({ titulo, corpo, cssDaPagina = '' }) => `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${titulo}</title>
-<style>
-${INI}
-${css}
-${FIM}
-${pagina}${cssDaPagina}</style>
-</head>
-<body>
-${sprite}
-${corpo.trim()}
-<script>
-${js}
-</script>
-</body>
-</html>
-`
 
 // ── A folha de peças e a referência em texto saem do mesmo registro ──
 const GRUPOS = [

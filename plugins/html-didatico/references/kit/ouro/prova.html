@@ -33,6 +33,7 @@
   --gap-figure: var(--s-7);     /* entre a coluna de texto e a figura */
   --gap-part: var(--s-8);       /* acima e abaixo de cada parte */
   --gap-break: var(--s-9);      /* troca de assunto: depois da capa, antes do fecho */
+  --target: 2.75rem;            /* altura mínima de um alvo de toque: link de navegação */
   --inset-piece: var(--s-3);    /* recuo das palavras dentro de uma peça */
   --inset-surface: var(--s-4);  /* recuo dentro de janela, aviso, faixa */
   --inset-scene: var(--s-5);    /* calha da figura: da moldura até a cena, igual nos quatro lados */
@@ -167,6 +168,14 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
   text-shadow: 0.035em 0.03em 0 var(--color-mark-soft); }
 .d-cover .cover__sub { margin-top: var(--s-4); max-width: 44rem; font-size: var(--text-subtitle); line-height: 1.35; color: var(--color-ink); }
 .d-cover .cover__lead { margin-top: var(--s-5); max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); }
+
+/* Paginação de uma série: o índice, a anterior e a próxima. A próxima é o passo esperado, em tinta cheia. */
+.d-pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside); padding-block: var(--s-4); }
+.d-pager a { display: inline-flex; align-items: center; min-height: var(--target); padding: 0 var(--inset-piece); border: var(--line) solid var(--color-ink); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); text-decoration: none; white-space: nowrap; }
+.d-pager a:hover, .d-pager a:active { background: var(--color-paper-2); }
+.d-pager .pager__next { background: var(--color-ink); color: var(--color-on-ink); }
+.d-pager .pager__next:hover, .d-pager .pager__next:active { background: var(--color-ink-2); }
+main + .d-pager { margin-top: var(--gap-part); border-top: var(--line) solid var(--color-ink); }
 
 /* Trilho: o leitor vê onde está e para onde vai. Só em documento com quatro partes ou mais. */
 .rail { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); border-bottom: var(--line) solid var(--color-ink); }
@@ -884,6 +893,15 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
       partes.forEach((s, i) => { if (!s.id) s.id = `passo-${i + 1}` })
       const trilho = p.rail ? `<nav class="rail" aria-label="Passos">${partes.map((s, i) => `<a href="#${esc(s.id)}"><b>${i + 1}</b>${esc(s.querySelector('h2')?.textContent ?? '')}</a>`).join('')}</nav>` : ''
       return trilho + raiz('div', 'd-steps', p, el.innerHTML)
+    },
+  })
+  def('d-pager', {
+    grupo: 'Documento', doc: 'A navegação de uma série de páginas (um board por decisão, as aulas de um curso): o índice à esquerda, a anterior e a próxima à direita. Cada prop é rótulo|endereço.',
+    props: { up: 'o índice da série: Mapa|Decisoes.dc.html', prev: 'a página anterior: Anterior|D01.dc.html', next: 'a próxima, em tinta cheia: Próxima|D03.dc.html', label: 'o nome da navegação para leitor de tela, quando a página tem duas (padrão: Páginas da série)' },
+    ex: '<d-pager up="Mapa|#mapa" prev="Anterior|#d01" next="Próxima|#d03"></d-pager>',
+    html: p => {
+      const link = (v, cls) => { const [rotulo, href] = lista(v); return rotulo ? `<a class="${cls}" href="${esc(href ?? '#')}">${esc(rotulo)}</a>` : '' }
+      return raiz('nav', 'd-pager', p, `${link(p.up, 'pager__up')}<span class="grow"></span>${link(p.prev, 'pager__prev')}${link(p.next, 'pager__next')}`, { attrs: ` aria-label="${esc(p.label ?? 'Páginas da série')}"` })
     },
   })
   def('d-tabs', {

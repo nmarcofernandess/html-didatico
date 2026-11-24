@@ -1,6 +1,6 @@
 ---
 name: decidir
-description: "Entrada direta, para quando pedem pelo nome decisões, boards, maquete, wireframe de tela ou alternativas de layout, ou invocam esta skill: 'um board por decisão', 'como está em dev e como ficaria', 'decisões didáticas', uma fila de perguntas abertas de spec, canvas ou revisão (C-03, R-01). Põe cada decisão na mesa para responder vendo o caso: a pergunta com as saídas, as opções lado a lado, a recomendada e 'Responda no chat'. No canvas de Design do Claude com o DietFlow DS sai um board por decisão; fora dele, um HTML com uma aba por decisão. É a forma do 'estou entre A e B'; o pedido que não nomeia a forma entra por html-didatico."
+description: "Entrada direta, para quando pedem pelo nome decisões, boards, maquete, wireframe de tela ou alternativas de layout, ou invocam esta skill: 'um board por decisão', 'como está em dev e como ficaria', 'decisões didáticas', uma fila de perguntas abertas de spec, canvas ou revisão (C-03, R-01). Põe cada decisão na mesa para responder vendo o caso: a pergunta com as saídas, as opções lado a lado, a recomendada e 'Responda no chat'. No canvas de Design do Claude sai um board por decisão; fora dele, um HTML com uma aba por decisão; os dois com os componentes do kit. É a forma do 'estou entre A e B'; o pedido que não nomeia a forma entra por html-didatico."
 ---
 
 # Decidir
@@ -16,9 +16,8 @@ antes da resposta.
    que acontece, as opções comparadas no mesmo caso e a resposta com a
    recomendada.
 3. **Saída.** A [tabela de saídas](../../references/decisao.md#a-saída) escolhe
-   pelo host e pela pergunta: no canvas de Design do Claude com o DietFlow DS,
-   os [boards](../../references/decisoes/boards.md); sem canvas ou sem esse
-   design system, o HTML com uma aba por decisão, de
+   pelo host e pela pergunta: no canvas de Design do Claude, os
+   [boards](../../references/decisoes/boards.md); sem canvas, o HTML com uma aba por decisão, de
    `node scripts/montar.mjs --novo decidir <destino.html>`; pergunta de layout,
    a [maquete](../../references/playbooks/maquete.md).
 4. **Entrega.** O que [Decisão](../../references/decisao.md#na-resposta-do-chat)

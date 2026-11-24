@@ -31,14 +31,14 @@ Este arquivo é dono da gramática. A tab Dúvidas da [Aula](playbooks/aula.md#d
 
 | Situação | Saída | Como |
 |---|---|---|
-| Canvas de Design do Claude, com o DietFlow DS | Um mapa e um board por decisão, com os componentes reais | [Boards](decisoes/boards.md) |
-| Sem canvas, ou canvas sem esse design system: Codex, Cursor, terminal, outro produto | Um HTML com uma aba por decisão e a aba Leis | [Abaixo](#html-com-uma-aba-por-decisão) |
+| Canvas de Design do Claude | Um mapa e um board por decisão, com os componentes do kit | [Boards](decisoes/boards.md) |
+| Sem canvas: Codex, Cursor, terminal, outro produto | Um HTML com uma aba por decisão e a aba Leis | [Abaixo](#html-com-uma-aba-por-decisão) |
 | A decisão nasce dentro de uma aula | A tab Dúvidas da aula | [Playbook Aula](playbooks/aula.md#dúvidas) |
 | A pergunta é de layout: onde fica, como se organiza, como ficaria a tela | Maquete, com as alternativas lado a lado quando há mais de uma | [Playbook Maquete](playbooks/maquete.md) |
 
 Em "Comparando", o HTML põe as opções lado a lado. O board, vertical, mostra as mesmas saídas em quadros seguidos, "Em dev" e "Com a recomendação". A maquete mantém o mesmo esqueleto nas alternativas e destaca só a diferença.
 
-Fora do canvas de Design com o DietFlow DS, não monte boards em HTML próprio: a saída é o HTML do kit.
+Fora do canvas de Design, não monte boards em HTML próprio: a saída é o HTML do kit. Os dois saem dos mesmos componentes.
 
 ## HTML com uma aba por decisão
 

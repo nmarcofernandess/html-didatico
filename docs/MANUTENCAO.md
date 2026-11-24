@@ -11,12 +11,16 @@ O sistema visual é um design system só, com fonte em `plugins/html-didatico/re
   e carrega grupo, resumo, props e um exemplo;
 - `sprite.svg`: os ícones (Phosphor).
 
-Tudo o mais é gerado dela ou a lê.
+Tudo o mais é gerado dela ou a lê. Em Node, `scripts/kit.mjs` é a porta de
+entrada: lê a fonte, carrega o registro e pré-renderiza um corpo de componentes
+num navegador. `montar.mjs` e o motor dos boards (`references/decisoes/gerar.mjs`)
+usam daqui.
 
 ```
 kit.css + kit.js ──montar.mjs──▶ starter.html, pecas.html, componentes.md,
                                  ouro/<nome>.html (de ouro/<nome>.body.html)
 kit.css + kit.js ──gerar.mjs───▶ design system "HTML Didático" no Claude
+kit.css + kit.js ──decisoes/gerar.mjs──▶ boards de Decidir no canvas de Design
 ```
 
 A ideia visual, em uma frase: um rótulo nutricional desenhado a caneta. Tinta
@@ -59,6 +63,11 @@ Endereço: https://claude.ai/artifact/4qkdmqk1fvJZK58isz2Uqa
    `saida/project` no design system HTML Didático". Os ícones em `saida/icons`
    só sobem de novo quando o sprite muda.
 6. Release, como manda o `AGENTS.md`.
+
+Os boards de Decidir no canvas de Design levam a marcação pronta e se vestem com a
+cópia do `bundle.css` que cada canvas guarda em `project/ds/hd/`. Um componente
+novo ou um ajuste de CSS só aparece num canvas depois que essa cópia é atualizada
+(`references/decisoes/canvas.md`).
 
 Sem Claude Code ou sem acesso a artefatos, os passos 1 a 3 e 6 bastam para o
 plugin. O design system fica atrasado até alguém rodar o 4 e o 5.

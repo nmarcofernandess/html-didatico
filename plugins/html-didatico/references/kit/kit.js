@@ -83,6 +83,15 @@
       return trilho + raiz('div', 'd-steps', p, el.innerHTML)
     },
   })
+  def('d-pager', {
+    grupo: 'Documento', doc: 'A navegação de uma série de páginas (um board por decisão, as aulas de um curso): o índice à esquerda, a anterior e a próxima à direita. Cada prop é rótulo|endereço.',
+    props: { up: 'o índice da série: Mapa|Decisoes.dc.html', prev: 'a página anterior: Anterior|D01.dc.html', next: 'a próxima, em tinta cheia: Próxima|D03.dc.html', label: 'o nome da navegação para leitor de tela, quando a página tem duas (padrão: Páginas da série)' },
+    ex: '<d-pager up="Mapa|#mapa" prev="Anterior|#d01" next="Próxima|#d03"></d-pager>',
+    html: p => {
+      const link = (v, cls) => { const [rotulo, href] = lista(v); return rotulo ? `<a class="${cls}" href="${esc(href ?? '#')}">${esc(rotulo)}</a>` : '' }
+      return raiz('nav', 'd-pager', p, `${link(p.up, 'pager__up')}<span class="grow"></span>${link(p.prev, 'pager__prev')}${link(p.next, 'pager__next')}`, { attrs: ` aria-label="${esc(p.label ?? 'Páginas da série')}"` })
+    },
+  })
   def('d-tabs', {
     grupo: 'Documento', doc: 'Camadas do mesmo documento para leitores diferentes. Filhos: d-tab.',
     props: { sub: 'abas dentro de uma aba (as dúvidas de uma aula)' },

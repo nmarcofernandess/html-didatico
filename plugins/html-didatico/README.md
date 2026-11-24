@@ -7,7 +7,7 @@ Uma entrada automática e seis diretas, pela pergunta de quem pede:
 | HTML Didático | [html-didatico](skills/html-didatico/SKILL.md): automática. Lê o pedido e a conversa, escolhe a forma e monta. |
 | Cartão | [cartao](skills/cartao/SKILL.md): "me mostra". Uma dúvida em uma página, com as telas do caso. |
 | Aula | [aula](skills/aula/SKILL.md): "me ensina". Explicação, passo a passo, mural, sistemas e aula em quadros. |
-| Decidir | [decidir](skills/decidir/SKILL.md): "estou entre A e B". Boards no canvas de Design com o DietFlow DS, HTML com uma aba por decisão fora dele, ou maquete. |
+| Decidir | [decidir](skills/decidir/SKILL.md): "estou entre A e B". Boards no canvas de Design, HTML com uma aba por decisão fora dele, ou maquete; todos com os componentes do kit. |
 | Montagem | [montagem](skills/montagem/SKILL.md): "como isso se monta". Árvore, children, slots e contratos. |
 | Prova | [prova](skills/prova/SKILL.md): "funciona mesmo?". Evidência e renderer oficial, ou fluxo manual permitido. |
 | Explicar | [explicar](skills/explicar/SKILL.md): "me explica". Texto no chat, sem arquivo. |

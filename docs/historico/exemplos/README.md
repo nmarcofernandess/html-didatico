@@ -17,3 +17,11 @@ e parte de um [exemplo-ouro](../../../plugins/html-didatico/references/kit/ouro/
 | [D · Prancha da unidade de exames](D-prancha-unidade-exames.html) | Maquete | [maquete](../../../plugins/html-didatico/references/kit/ouro/maquete.html) |
 | [E · Blueprint de componentes](E-blueprint-componentes.html) | Montagem | [montagem](../../../plugins/html-didatico/references/kit/ouro/montagem.html) |
 | [F, G, H · Aulas reais](aulas/README.md) | Aula | [aula](../../../plugins/html-didatico/references/kit/ouro/aula.html) |
+| [Boards de decisão com o DietFlow DS](decisoes/) | Decidir, boards | [numeros-e-unidades.mjs](../../../plugins/html-didatico/references/decisoes/exemplos/numeros-e-unidades.mjs), gerado pelo motor novo |
+
+A pasta `decisoes/` guarda o motor dos boards até a 3.x (`gerar.py`, `pecas.js`,
+`decisoes.css`), que montava as figuras com componentes React do DietFlow DS, e os
+dois arquivos de decisões reais que ele gerava (cadastro de exames e favoritos da
+Prescrição). Os canvas já publicados com ele continuam abrindo, porque carregam a
+própria cópia do DietFlow DS; boards novos saem do motor com o kit.
+
