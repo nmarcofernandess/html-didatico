@@ -34,7 +34,9 @@ reaprendizado ou trabalho necessário. Uma opção ruim riscada pode explicar um
 limite concreto.
 
 A recomendação e o fecho seguem [Decisão](../decisao.md#a-gramática): a
-recomendada marcada e "Responda no chat". Sem decisão pendente, registre o
+recomendada marcada e "Responda no chat", num `<d-answer>` com a pergunta em
+`q`, para a resposta copiada levar a pergunta junto
+([Padrões](../padroes.md#resposta-copiável-leva-a-origem)). Sem decisão pendente, registre o
 resultado e seus limites em vez de fabricar uma pergunta. Em nova revisão,
 acrescente “o que mudou”.
 

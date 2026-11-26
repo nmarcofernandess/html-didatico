@@ -26,7 +26,7 @@ Uma página do canvas com:
 | 1 | O que acontece | A situação concreta, com o caso real, que faz a pergunta existir |
 | 2 | Hoje | Como o sistema faz hoje, na tela que a pessoa usa, conferido na fonte |
 | 3 | Com a recomendação | Como fica se ele aceitar |
-| 4 | Sua resposta | Opções A, B (C), a recomendada marcada, e "Responda no chat: 1A ou 1B" |
+| 4 | Sua resposta | Opções A, B (C), a recomendada marcada, e "Responda no chat: 1A ou 1B", num `<d-answer>` |
 
 Quando a recomendação é **manter o que existe**, o quadro 2 se chama "Hoje, que é
 a recomendação" e o 3 vira "Se fosse a outra opção": ele vê o que estaria recusando.
@@ -43,7 +43,10 @@ carrega o líder porque, no celular, a figura pode rolar para o lado.
 
 O motor compõe tudo com o kit: `d-pager` (mapa, anterior, próxima), `d-cover`
 (decisão n de N, o grupo e a data), `d-steps` com um `d-part` por quadro, a
-tabela das opções com a recomendada marcada e a `d-note` "Responda no chat".
+a resposta em `<d-answer>`, com a recomendada marcada e "Responda no chat". No
+canvas, sem script, ela mostra a tabela e os códigos; aberta como HTML, ganha o
+comentário e o botão que copia a resposta com a pergunta junto
+([Padrões](../padroes.md#resposta-copiável-leva-a-origem)).
 
 ## Como fazer
 

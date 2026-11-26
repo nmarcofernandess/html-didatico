@@ -294,6 +294,14 @@ if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(s
 const duvidas = vivo.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
 const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
 if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
+// Resposta copiável leva a origem (references/padroes.md): toda dúvida responde por d-answer, cada opção com rótulo e código,
+// e nenhuma cópia é escrita à mão fora do kit, porque só o kit monta o bloco com a pergunta junto.
+const semBloco = duvidas.filter(d => !/class="d-answer\b/.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
+if (semBloco.length) falhas.push(`dúvida sem <d-answer> (${semBloco.join(', ')}): a resposta copiável leva a pergunta, o rótulo, o código e o comentário`)
+const opcaoSemCodigo = [...vivo.matchAll(/<input type="radio"[^>]*value="([^"]*)" data-label="([^"]*)"/g)].filter(m => !m[1] || !m[2]).length
+if (opcaoSemCodigo) falhas.push(`opção de <d-answer> sem code ou label (${opcaoSemCodigo}): cada li leva code="1A" e label="A · o que faz"`)
+const foraDoKit = html.replace(/<script>\s*\/\/ html-didatico · kit\b[\s\S]*?<\/script>/g, '')
+if (/navigator\.clipboard|execCommand\(\s*['"]copy/.test(foraDoKit)) falhas.push('cópia escrita à mão: use <d-answer> e <d-answers>, que copiam o bloco com a pergunta junto')
 // Contrato do cartão: a pergunta, o caso em uma linha e as telas; pouco texto, uma página.
 const cartao = /class="[^"]*\bpage--card\b/.test(vivo)
 if (cartao) {

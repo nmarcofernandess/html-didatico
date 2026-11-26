@@ -14,7 +14,8 @@ antes da resposta.
 2. **Gramática.** Siga [Decisão](../../references/decisao.md): levante as
    decisões, apure o estado atual na fonte e escreva cada uma com a pergunta, o
    que acontece, as opções comparadas no mesmo caso e a resposta com a
-   recomendada.
+   recomendada. A resposta é um `<d-answer>`, e o texto copiado leva a pergunta
+   junto, como manda [Padrões](../../references/padroes.md).
 3. **Saída.** A [tabela de saídas](../../references/decisao.md#a-saída) escolhe
    pelo host e pela pergunta: no canvas de Design do Claude, os
    [boards](../../references/decisoes/boards.md); sem canvas, o HTML com uma aba por decisão, de

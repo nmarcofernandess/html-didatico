@@ -227,6 +227,23 @@ main + .d-pager { margin-top: var(--gap-part); border-top: var(--line) solid var
 .d-check label > span { flex: 1; color: var(--color-ink); }
 .d-check input:checked + span { color: var(--color-ink-3); text-decoration: line-through; text-decoration-color: var(--color-mark); text-decoration-thickness: 2px; }
 
+/* Sua resposta: a opção marcada, o comentário e a prévia exata do que o botão copia. */
+.d-answer { display: grid; gap: var(--s-4); max-width: var(--measure); }
+.d-answer .answer__opt { display: inline-flex; align-items: center; gap: var(--s-2); cursor: pointer; }
+.d-answer .answer__opt input { appearance: none; flex: none; width: 1.125rem; height: 1.125rem; margin: 0; border: 2px solid var(--color-ink); border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
+.d-answer .answer__opt input:checked::after { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-ink); }
+.d-answer .answer__comment { display: grid; gap: var(--gap-tied); font-size: var(--text-small); font-weight: 700; color: var(--color-ink); }
+.d-answer textarea { width: 100%; min-height: 3.5rem; padding: var(--s-2) var(--s-3); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); color: var(--color-ink); font: 400 var(--text-small)/1.5 var(--font-body); resize: vertical; }
+.answer__preview { margin: 0; padding: var(--s-3); border: var(--line) dashed var(--color-wire); background: var(--color-surface); color: var(--color-ink); font: 400 var(--text-small)/1.5 var(--font-body); white-space: pre-wrap; overflow-wrap: anywhere; }
+.answer__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+.answer__copy { min-height: 2.25rem; padding: 0 var(--s-4); border: var(--line-mid) solid var(--color-ink); border-radius: var(--radius-s); background: var(--color-ink); color: var(--color-on-ink); font: 700 var(--text-small)/1 var(--font-body); cursor: pointer; }
+.answer__copy:disabled { border-color: var(--color-wire); background: var(--color-surface); color: var(--color-ink-3); cursor: not-allowed; }
+.answer__status { font-size: var(--text-small); color: var(--color-ink); }
+html:not(.js) .answer__comment, html:not(.js) .answer__preview, html:not(.js) .answer__actions, html:not(.js) .answer__hint { display: none; }
+html:not(.js) .d-answers { display: none; }
+.d-answers { display: grid; gap: var(--s-3); max-width: var(--measure); padding: var(--s-4) var(--inset-surface); border-top: var(--line-mid) solid var(--color-ink); background: var(--color-paper-2); }
+.d-answers .answers__head { font: var(--title-weight) var(--text-lead)/1.2 var(--font-display); font-stretch: var(--display-stretch); color: var(--color-ink); }
+
 /* Faixa: muda o papel para um caminho alternativo. No máximo uma por documento. */
 .d-band { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: var(--gap-block) var(--gap-figure); margin-block: var(--gap-part); padding: var(--s-7) var(--s-6); background: var(--color-ink); color: var(--color-on-ink-2); }
 .d-band h2 { color: var(--color-on-ink); max-width: 26rem; }

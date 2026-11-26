@@ -5,7 +5,7 @@
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.0.0'
+  const VERSAO = '4.1.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
@@ -163,6 +163,42 @@
     props: { left: 'produto e assunto', right: 'o documento e a data' },
     ex: '<d-foot left="DietFlow · Cálculo" right="Data clínica · 22/11/2026"></d-foot>',
     html: (p, k) => raiz('footer', 'd-foot foot', p, `<span>${esc(p.left ?? '')}</span><span>${esc(p.right ?? '')}</span>${k}`),
+  })
+
+  // Resposta copiável: o texto colado no chat se entende sem abrir a página (references/padroes.md#resposta-copiável-leva-a-origem).
+  // Cada item vira um bloco com a pergunta, o rótulo e o código da opção e o comentário. A função mora aqui e é a única.
+  const bloco = ({ ref, q, label, code, comment }) => {
+    const nota = String(comment ?? '').trim().replace(/\n\s*\n+/g, '\n')
+    const resposta = label ? `Resposta: ${label}${code ? ` [${code}]` : ''}` : 'Resposta: nenhuma opção marcada'
+    return [`${ref ? `${ref} · ` : ''}${q ?? ''}`.trim(), resposta, nota && `Comentário: ${nota}`].filter(Boolean).join('\n')
+  }
+  const blocos = itens => itens.map(bloco).join('\n\n')
+  let respostas = 0
+  def('d-answer', {
+    grupo: 'Documento', doc: 'Sua resposta: as opções com a recomendada, um comentário e o botão que copia a resposta com a pergunta junto. Filhos: li, uma opção cada; o texto do li diz o que a opção faz.',
+    props: { ref: 'o identificador da pergunta, como a página o mostra (padrão: Decisão N no painel duvida-N, Dúvida N dentro da aba Dúvidas, Pergunta N fora deles)', q: 'a pergunta completa (padrão: o título da primeira parte do painel)', 'li code': 'o código da opção: 1A', 'li label': 'o rótulo da opção: A · Sem teto', 'li rec': 'a opção recomendada' },
+    ex: '<d-answer ref="Decisão 1" q="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?"><li code="1A" label="A · Sem teto" rec>O limite diário e o aviso de milhar protegem.</li><li code="1B" label="B · Aviso acima de 999 mcg">Aceita e avisa uma vez.</li></d-answer>',
+    html: (p, k, el) => {
+      const n = ++respostas, nome = `resposta-${n}`
+      const opts = [...el.querySelectorAll('li')].map(li => ({ code: li.getAttribute('code') ?? '', label: li.getAttribute('label') ?? '', rec: li.hasAttribute('rec'), txt: li.innerHTML.trim() }))
+      const linhas = opts.map(o => `<tr${o.rec ? ' class="is-mark"' : ''}><td><label class="answer__opt"><input type="radio" name="${nome}" value="${esc(o.code)}" data-label="${esc(o.label)}"><span>${esc(o.label)}</span></label>${o.rec ? ` ${C['w-chip'].html({ tone: 'ink' }, 'Recomendada')}` : ''}</td><td data-th="O que faz">${o.txt}</td></tr>`).join('')
+      const codigos = opts.map(o => o.code).filter(Boolean)
+      const ou = codigos.length > 1 ? `${codigos.slice(0, -1).join(', ')} ou ${codigos.at(-1)}` : codigos[0] ?? ''
+      const attrs = `${p.ref && p.ref !== true ? ` data-ref="${esc(p.ref)}"` : ''}${p.q && p.q !== true ? ` data-q="${esc(p.q)}"` : ''}`
+      return raiz('div', 'd-answer answer', p,
+        `<table class="table"><thead><tr><th>Opção</th><th>O que faz</th></tr></thead><tbody>${linhas}</tbody></table>` +
+        `<label class="answer__comment"><span>Comentário</span><textarea rows="2" name="${nome}-comentario"></textarea></label>` +
+        `<div class="d-note note answer__out"><p class="note__label">${ico('info-fill')}Responda no chat</p><p>${esc(ou)}${ou ? '.' : ''}<span class="answer__hint"> O botão copia a resposta com a pergunta junto.</span></p>` +
+        `<pre class="answer__preview" aria-label="O que vai ser copiado" aria-live="polite"></pre><p class="answer__actions"><button type="button" class="answer__copy">Copiar esta resposta</button><span class="answer__status" role="status"></span></p></div>`,
+        { attrs })
+    },
+  })
+  def('d-answers', {
+    grupo: 'Documento', doc: 'Copiar respostas: junta as respostas da página, na ordem, num texto só, com a prévia exata do que vai ser copiado. Uma por documento, depois das decisões.',
+    props: { title: 'o título (padrão: Copiar respostas)' },
+    ex: '<d-answers></d-answers>',
+    html: p => raiz('div', 'd-answers answers', p,
+      `<p class="answers__head">${esc(p.title ?? 'Copiar respostas')}</p><pre class="answer__preview" aria-label="O que vai ser copiado" aria-live="polite"></pre><p class="answer__actions"><button type="button" class="answer__copy">Copiar respostas</button><span class="answer__status" role="status"></span></p>`),
   })
 
   // ── Figura e tela (wireframe) ────────────────────────────────────────────
@@ -473,6 +509,60 @@
     }
     if (rolar) alvo.scrollIntoView()
   }
+  // Respostas: a pergunta e o identificador vêm da página quando não vieram por prop, para o texto copiado
+  // repetir exatamente o que o leitor vê. A prévia é o texto que o botão copia, recalculado a cada mudança.
+  const itemDe = a => {
+    const marcada = a.querySelector('input[type=radio]:checked')
+    return { ref: a.dataset.ref, q: a.dataset.q, label: marcada?.dataset.label, code: marcada?.value, comment: a.querySelector('textarea')?.value }
+  }
+  const respondida = i => Boolean(i.label || String(i.comment ?? '').trim())
+  const copiar = async (texto, botao) => {
+    const status = botao.parentElement.querySelector('.answer__status')
+    let ok = false
+    try { await navigator.clipboard.writeText(texto); ok = true } catch {
+      // Sem a API (iframe sem permissão, arquivo local), a cópia clássica por seleção ainda funciona.
+      const t = document.createElement('textarea')
+      t.value = texto; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'
+      document.body.append(t); t.select()
+      try { ok = document.execCommand('copy') } catch { ok = false }
+      t.remove()
+    }
+    if (!ok) { const pre = botao.closest('.d-answer, .d-answers')?.querySelector('.answer__preview'); if (pre) getSelection().selectAllChildren(pre) }
+    if (status) { status.textContent = ok ? 'Copiado' : 'Texto selecionado: copie com Ctrl+C ou ⌘C'; clearTimeout(status._t); status._t = setTimeout(() => { status.textContent = '' }, 2500) }
+  }
+  const atualizarRespostas = () => {
+    const todas = [...document.querySelectorAll('.d-answer')]
+    for (const a of todas) {
+      const i = itemDe(a)
+      a.querySelector('.answer__preview').textContent = respondida(i) ? bloco(i) : 'Marque uma opção ou escreva um comentário para ver o que vai ser copiado.'
+      a.querySelector('.answer__copy').disabled = !respondida(i)
+    }
+    const prontas = todas.map(itemDe).filter(respondida)
+    for (const r of document.querySelectorAll('.d-answers')) {
+      r.querySelector('.answer__preview').textContent = prontas.length ? blocos(prontas) : 'Nenhuma resposta marcada ainda.'
+      r.querySelector('.answer__copy').disabled = !prontas.length
+    }
+  }
+  const ligarRespostas = () => {
+    let novas = false
+    const todas = [...document.querySelectorAll('.d-answer')]
+    for (const a of todas) {
+      if (a.dataset.ligado) continue
+      a.dataset.ligado = novas = '1'
+      const num = a.closest('[id^="duvida-"]')?.id.match(/^duvida-(\d+)$/)?.[1]
+      if (!a.dataset.ref) a.dataset.ref = num ? `${a.closest('#duvidas') ? 'Dúvida' : 'Decisão'} ${num}` : `Pergunta ${todas.indexOf(a) + 1}`
+      if (!a.dataset.q) a.dataset.q = (a.closest('.tabs__panel')?.querySelector('h2') ?? document.querySelector('.d-cover h1'))?.textContent.trim() ?? ''
+      a.addEventListener('input', atualizarRespostas)
+      a.addEventListener('change', atualizarRespostas)
+      a.querySelector('.answer__copy').addEventListener('click', e => copiar(bloco(itemDe(a)), e.currentTarget))
+    }
+    for (const r of document.querySelectorAll('.d-answers')) {
+      if (r.dataset.ligado) continue
+      r.dataset.ligado = novas = '1'
+      r.querySelector('.answer__copy').addEventListener('click', e => copiar(blocos([...document.querySelectorAll('.d-answer')].map(itemDe).filter(respondida)), e.currentTarget))
+    }
+    if (novas) atualizarRespostas()
+  }
   // Comportamento mínimo depois da montagem: conferência, abas e endereço. Cada peça liga uma vez.
   const ligar = (rolar = false) => {
     for (const box of document.querySelectorAll('.d-check')) {
@@ -483,6 +573,7 @@
       box.addEventListener('change', conta)
       conta()
     }
+    ligarRespostas()
     for (const caixa of document.querySelectorAll('.tabs')) {
       if (caixa.dataset.ligado) continue
       caixa.dataset.ligado = '1'
@@ -494,7 +585,7 @@
     irPara(rolar)
   }
 
-  const HD = { versao: VERSAO, componentes: C, montar, montarTudo, ligar, esc }
+  const HD = { versao: VERSAO, componentes: C, montar, montarTudo, ligar, esc, bloco, blocos }
   if (typeof window !== 'undefined') window.HD = HD
   if (typeof document === 'undefined') return
   document.documentElement.classList.add('js')
