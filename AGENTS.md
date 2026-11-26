@@ -7,7 +7,9 @@ diretas. Recursos compartilhados e playbooks ficam em
 Cada regra tem um owner; carregue receitas e referências conforme a tarefa.
 O núcleo comum (`references/nucleo.md`) é o primeiro passo de toda entrada; a
 escolha da forma mora em `references/roteamento.md` e a gramática de decisão,
-em `references/decisao.md`.
+em `references/decisao.md`. Regra que atravessa todas as formas mora em
+`references/padroes.md`, com o caso que a criou, onde o kit a cumpre e o que o
+check reprova; uma regra nova desse tipo entra lá, não repetida em cada skill.
 
 O manifesto portátil `plugin.json`, os três manifestos de compatibilidade
 (`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`) e os três marketplaces da

@@ -133,6 +133,9 @@ tab, só isto:
 
 - Uma subtab por dúvida (peça `tabs tabs--sub` dentro da tab), numeradas de 1 a
   n, com `id="duvida-n"` em cada painel, para o link da Aula e para a resposta.
+- A resposta de cada dúvida é um `<d-answer>`, e a tab fecha com um `<d-answers>`
+  depois das subtabs: o texto copiado leva a pergunta junto, como manda
+  [Padrões](../padroes.md#resposta-copiável-leva-a-origem).
 - Para outro quadro da Aula, um link; nunca o número dele.
 
 Decisões fora de uma aula, ou no canvas de Design, saem pelas outras
@@ -193,7 +196,7 @@ ele reprova os quatro primeiros.
 | CSS próprio ou figura desenhada à mão: faixa de cabeçalho, cards, tabs, diorama | Copie a aula-ouro; o kit fica embutido e a figura é feita de componentes |
 | Código de nota em qualquer tab: "a 07", "PRD 03", "162/05", "D-427" | Mostre o fato; para outro quadro, um link |
 | Opção sem nome: "Uma possibilidade", "Outra possibilidade" | "A · Sem teto": a letra e o que a opção faz |
-| Dúvida sem recomendada ou sem "Responda no chat" | A tabela Sua resposta, com o chip e a nota, como em [Decisão](../decisao.md) |
+| Dúvida sem recomendada, sem "Responda no chat" ou com resposta que copia só o código | Sua resposta com `<d-answer>`, como em [Decisão](../decisao.md) e [Padrões](../padroes.md#resposta-copiável-leva-a-origem) |
 | Tab fora do roteador: resumo de PRD, "Funcionamento canônico" | O que está decidido vai para Leis; o resto fica na fonte |
 | Opção sem figura, ou figuras de casos diferentes | Uma figura por opção, todas com o mesmo caso e o mesmo número |
 | Print de estado vazio ou de erro como figura de quadro | A figura prova a frase do quadro; print de produto só ao lado da proposta, em Dúvidas |

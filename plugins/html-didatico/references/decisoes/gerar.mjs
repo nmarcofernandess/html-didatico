@@ -69,7 +69,6 @@ const nome = (cfg, i) => `${cfg.PREFIXO}${String(i + 1).padStart(2, '0')}.dc.htm
 const figura = fig => (/^\s*<(w-fig|d-cols)\b/.test(fig) ? fig : `<w-fig>${fig}</w-fig>`)
 // A opção se chama "A · Sem teto"; a resposta no chat é número e letra: 2A.
 const letra = o => o[0].charAt(0)
-const letras = (n, opts) => opts.slice(0, -1).map(o => `${n}${letra(o)}`).join(', ') + ` ou ${n}${letra(opts.at(-1))}`
 const tituloDe = (d, i) => `Decisão ${i + 1} · ${d.short}`
 
 const board = (cfg, i, href) => {
@@ -78,9 +77,9 @@ const board = (cfg, i, href) => {
   const topo = `<d-pager up="Mapa|${href(M.arquivo)}"${ant}${n < D.length ? ` next="Próxima|${href(nome(cfg, i + 1))}"` : ''}></d-pager>`
   const pe = `<d-pager label="Depois da resposta" up="Mapa|${href(M.arquivo)}"${ant} next="${n < D.length ? `Próxima decisão|${href(nome(cfg, i + 1))}` : `Voltar ao mapa|${href(M.arquivo)}`}"></d-pager>`
   const quadros = d.quadros.map(([titulo, frase, fig]) => `      <d-part title="${esc(titulo)}" wide>\n        <p>${frase}</p>\n        ${figura(fig)}\n      </d-part>`).join('\n')
-  const linhas = d.opts.map(([rotulo, txt], k) => k === d.pick
-    ? `<tr class="is-mark"><td>${rotulo} <w-chip tone="ink">Recomendada</w-chip></td><td data-th="O que faz">${txt}</td></tr>`
-    : `<tr><td>${rotulo}</td><td data-th="O que faz">${txt}</td></tr>`).join('')
+  // A resposta é a d-answer do kit: o texto copiado leva a pergunta, o rótulo, o código e o comentário (references/padroes.md).
+  const semTag = t => String(t).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+  const opcoes = d.opts.map(([rotulo, txt], k) => `<li code="${n}${letra([rotulo])}" label="${esc(semTag(rotulo))}"${k === d.pick ? ' rec' : ''}>${txt}</li>`).join('')
   return `<d-doc>
   ${topo}
   <d-cover kind="Decisão ${n} de ${D.length}" subject="${esc(KIND[d.kind])}" date="${esc(M.data)}">${d.q}</d-cover>
@@ -88,8 +87,7 @@ const board = (cfg, i, href) => {
     <d-steps>
 ${quadros}
       <d-part title="Sua resposta" wide>
-        <table class="table"><thead><tr><th>Opção</th><th>O que faz</th></tr></thead><tbody>${linhas}</tbody></table>
-        <d-note slot="fig" label="Responda no chat">${letras(n, d.opts)}.</d-note>
+        <d-answer ref="Decisão ${n}" q="${esc(semTag(d.q))}">${opcoes}</d-answer>
       </d-part>
     </d-steps>
   </main>

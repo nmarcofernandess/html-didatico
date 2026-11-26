@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.1.0 — 26/11/2026
+
+Resposta copiável leva a origem. Pedido de Marco: uma página de decisões copiava só o código de cada opção, um por linha ("pode deploy DEV", "dias segunda"); quem recebeu não sabia a que pergunta cada linha respondia, e o autor teve de reformatar à mão.
+
+- **`references/padroes.md`,** arquivo novo, dono das regras que atravessam todas as formas: cada padrão traz a regra, o caso que a criou, onde o kit a cumpre e o que o check reprova. O Núcleo, Decisão, os playbooks Aula e Maquete, os boards e as skills Decidir e Aula apontam para ele; o `AGENTS.md` diz que regra transversal nova entra lá.
+- **Primeiro padrão, "Resposta copiável leva a origem":** cada resposta copiada é um bloco autossuficiente, `<identificador> · <pergunta completa>`, `Resposta: <rótulo> [<código>]` e `Comentário: <texto>` quando houver; item só com comentário sai com "nenhuma opção marcada"; blocos separados por linha em branco; a prévia mostra exatamente o texto copiado.
+- **`<d-answer>` e `<d-answers>`,** componentes novos. `d-answer` é a "Sua resposta" de uma decisão: as opções (`li` com `code`, `label` e `rec`), o chip Recomendada, "Responda no chat", um comentário, a prévia e o botão que copia o bloco. `d-answers` junta todas as respostas da página num texto só. O formato sai de uma função única do kit (`HD.bloco`). O identificador e a pergunta vêm da página quando não vêm por prop. A cópia tenta a API do navegador e cai para a cópia por seleção; se as duas falham, seleciona a prévia.
+- **Exemplos-ouro e boards:** decidir, a tab Dúvidas da aula e a pergunta da maquete respondem com `d-answer`; decidir e aula fecham com `d-answers`. O motor dos boards gera `d-answer`; no canvas, sem script, a resposta mostra a tabela e os códigos.
+- **Check:** reprova dúvida (`duvida-N`) sem `<d-answer>`, opção sem `code` ou `label` e botão de copiar escrito à mão fora do kit.
+- Limites: o design system no Claude e a cópia do `bundle.css` nos canvas só mostram `d-answer` vestido depois de regerados e publicados (`docs/MANUTENCAO.md`).
+
 ## 4.0.1 — 24/11/2026
 
 O plugin deixa de trazer instrução de um produto só. Pedido de Marco: canvas e design system do DietFlow são muita coisa para um plugin, envelhecem e não servem a outros propósitos; o fluxo próprio do DietFlow fica no ambiente dele.

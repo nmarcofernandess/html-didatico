@@ -11,7 +11,7 @@ Este arquivo é dono da gramática. A tab Dúvidas da [Aula](playbooks/aula.md#d
 | A pergunta | O caso real e as saídas, na própria pergunta: "Triglicerídeos sem jejum: desejável abaixo de 150 ou de 175 mg/dL?" |
 | O que acontece | A situação concreta que faz a pergunta existir |
 | Comparando | As saídas no mesmo caso, cada uma com a figura e o resultado. O estado atual do produto é uma delas, conferido na fonte. A evidência mora aqui: a fonte, os números, como o mercado faz |
-| Sua resposta | As opções A, B e, se houver, C, uma frase cada; a recomendada marcada; "Responda no chat: 2A ou 2B" |
+| Sua resposta | As opções A, B e, se houver, C, uma frase cada; a recomendada marcada; "Responda no chat: 2A ou 2B"; o comentário e o botão que copia a resposta com a pergunta junto, num `<d-answer>` ([Padrões](padroes.md#resposta-copiável-leva-a-origem)) |
 
 - **A pergunta traz o caso.** "O Lipidograma é um exame com quatro itens ou um atalho para quatro exames?", nunca "Composto ou atalho?".
 - **Nenhum código de nota** (C-03, R-01, D04, "quadro 18", "desenho 2.2"). Se o fato vem de outra página, mostre o fato, ou leve a ele por link.
@@ -49,12 +49,13 @@ node scripts/montar.mjs --novo decidir <destino.html>
 ```
 
 - **Uma aba por decisão** (`d-tabs` com um `d-tab` por decisão), numeradas de 1 a n, com o nome curto da decisão. Cada painel tem `id="duvida-n"`, para o link e para a resposta "2A". Com uma decisão só e nenhuma lei, a página é a decisão, sem barra de abas.
-- **Dentro da aba,** a pergunta como título da primeira `d-part` e três partes: "O que acontece"; "Comparando", com as opções em `<d-cols n="3">` e uma `w-fig` por opção, a recomendada com a caneta; "Sua resposta", com a tabela das opções (a linha recomendada com `class="is-mark"`), o chip "Recomendada" e uma `d-note` com "Responda no chat".
+- **Dentro da aba,** a pergunta como título da primeira `d-part` e três partes: "O que acontece"; "Comparando", com as opções em `<d-cols n="3">` e uma `w-fig` por opção, a recomendada com a caneta; "Sua resposta", com um `<d-answer>`: um `li` por opção, com `code` ("2A"), `label` ("A · Sem teto") e `rec` na recomendada. O componente monta a tabela, o chip "Recomendada", "Responda no chat", o comentário e o botão que copia o bloco com a pergunta.
+- **Depois das abas,** um `<d-answers>` junta as respostas marcadas num texto só, com a prévia exata do que vai ser copiado.
 - **A aba Leis** fecha a barra quando algo já foi decidido: uma tabela **Data | Lei | Origem**, como na [Aula](playbooks/aula.md#leis).
 - **Quando a decisão é sobre a tela,** o produto em uso entra como print, ao lado da proposta.
 - Os componentes são os do [kit](kit/componentes.md) e o desenho segue [Design](visual/design.md); o arquivo cumpre o [contrato HTML](html-portatil.md).
 
-Quando o [check](../scripts/check.mjs) roda, ele reprova página fora do kit, código de nota, opção sem nome e decisão sem recomendada ou sem "Responda no chat".
+Quando o [check](../scripts/check.mjs) roda, ele reprova página fora do kit, código de nota, opção sem nome, decisão sem recomendada, sem "Responda no chat" ou sem `<d-answer>`, e botão de copiar escrito à mão.
 
 ## O ciclo
 

@@ -2,7 +2,7 @@
 
 Toda entrada do plugin passa por aqui antes de escolher forma, peça ou frase: o cartão, a aula, a decisão, a montagem, a prova e a explicação em texto. O tamanho da entrega muda; este caminho vale em todas, e vai até a regra do nó ficar respondida.
 
-Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md).
+Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md); as regras que atravessam todas as formas, como a resposta copiável que leva a pergunta junto, são de [Padrões](padroes.md).
 
 ## Fontes e limites
 
@@ -75,5 +75,7 @@ O contrato de cada tela, a lista de decisões e a matriz de casos são fonte. El
 ## Antes de entregar
 
 **A objeção mais forte.** Diga em uma frase o que faria a entrega estar errada e confira na fonte. Ela fica na resposta do chat, fora do documento, com o resultado da conferência; o que não deu para conferir entra como limite.
+
+**Os padrões.** Confira a entrega contra [Padrões](padroes.md): cada um diz onde a regra é cumprida e o que o check reprova.
 
 **Visto e lido.** A entrega separa o que foi observado rodando do que foi lido no código ou na spec. No cartão, isso mora no estado (`src`); nas outras formas, na resposta do chat.

@@ -46,7 +46,7 @@ título, frase e figura, as leis em três colunas, `{{` em nenhum texto (o canva
 lê como buraco), componente que o kit não conhece e nome de board que já é de
 outra página do canvas. O check, rodado na saída `--html`,
 confere o resto: componente que não existe, código de nota, opção sem nome,
-decisão sem recomendada ou sem "Responda no chat".
+decisão sem recomendada, sem "Responda no chat" ou sem `<d-answer>`.
 
 ## Escrevendo bem
 

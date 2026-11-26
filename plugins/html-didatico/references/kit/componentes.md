@@ -148,6 +148,30 @@ O pé: fecha o rótulo com fio grosso.
 <d-foot left="DietFlow · Cálculo" right="Data clínica · 22/11/2026"></d-foot>
 ```
 
+### `<d-answer>`
+
+Sua resposta: as opções com a recomendada, um comentário e o botão que copia a resposta com a pergunta junto. Filhos: li, uma opção cada; o texto do li diz o que a opção faz.
+
+- `ref`: o identificador da pergunta, como a página o mostra (padrão: Decisão N no painel duvida-N, Dúvida N dentro da aba Dúvidas, Pergunta N fora deles)
+- `q`: a pergunta completa (padrão: o título da primeira parte do painel)
+- `li code`: o código da opção: 1A
+- `li label`: o rótulo da opção: A · Sem teto
+- `li rec`: a opção recomendada
+
+```html
+<d-answer ref="Decisão 1" q="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?"><li code="1A" label="A · Sem teto" rec>O limite diário e o aviso de milhar protegem.</li><li code="1B" label="B · Aviso acima de 999 mcg">Aceita e avisa uma vez.</li></d-answer>
+```
+
+### `<d-answers>`
+
+Copiar respostas: junta as respostas da página, na ordem, num texto só, com a prévia exata do que vai ser copiado. Uma por documento, depois das decisões.
+
+- `title`: o título (padrão: Copiar respostas)
+
+```html
+<d-answers></d-answers>
+```
+
 ## Tela
 
 O wireframe do produto: janela, campo, lista, botão, mensagem. Traço preto, contexto em cinza.

@@ -33,5 +33,6 @@ Um assunto inteiro fica de pé: quem lê uma vez sai sabendo explicar.
    verificação é salvo junto do documento.
 
 Chamada pelo nome, a aula governa e tem o tamanho que o conteúdo tem. Decisões
-abertas dentro do assunto viram a tab Dúvidas; fora de uma aula, são de Decidir.
+abertas dentro do assunto viram a tab Dúvidas, com a resposta em `<d-answer>`
+([Padrões](../../references/padroes.md)); fora de uma aula, são de Decidir.
 Veja o [roteamento](../../references/roteamento.md).
