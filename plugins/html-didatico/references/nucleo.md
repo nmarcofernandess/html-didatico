@@ -14,7 +14,7 @@ Separe fato confirmado, decisão, trabalho em curso, inferência e desconhecido.
 
 Se o significado estiver técnico, incompleto, contestado ou opaco, leia [Reconstruir significado](clareza.md) antes de desenhar ou polir a frase. Use o [guia interno de escrita](escrita/guia.md) para revisar a expressão.
 
-Em documento existente, preserve navegação, figuras e estruturas que ainda representem o modelo correto. Mude o que o pedido autoriza e o que a correção semântica exige. Produzir documentação não autoriza implementar o sistema, executar sua campanha de testes nem publicar em outro destino.
+Em documento existente, preserve navegação, figuras e estruturas que ainda representem o modelo correto. Mude o que o pedido autoriza e o que a correção semântica exige. Produzir documentação não autoriza implementar o sistema, executar sua campanha de testes nem publicar em outro destino, como um commit num PR do projeto; isso só com pedido explícito.
 
 ## Entender, antes de tudo
 
@@ -80,7 +80,7 @@ Com o nó achado, e antes de escolher forma, figura ou frase, escreva para si tr
 - **Profundidade:** até onde cada coisa é explicada. Padrão: o que um dev olha para verificar o trabalho, sem entrar em código.
 - **Distância:** a lista de temas que, respondidos, dão o assunto por elucidado.
 
-Com as três, escreva a origem: onde estamos, a pergunta real e o que se pede de quem lê, na altura escolhida ([Abertura ancorada](padroes.md#abertura-ancorada)). Se a pergunta é sobre um recorte de um conjunto, a primeira figura mostra o todo com o recorte destacado ([Escopo transversal](padroes.md#escopo-transversal)).
+Se quem pediu quer ver a calibragem antes da montagem, entregue as três linhas e espere a resposta. Com as três, escreva a origem: onde estamos, a pergunta real e o que se pede de quem lê, na altura escolhida ([Abertura ancorada](padroes.md#abertura-ancorada)). Se a pergunta é sobre um recorte de um conjunto, a primeira figura mostra o todo com o recorte destacado ([Escopo transversal](padroes.md#escopo-transversal)).
 
 ## Antes de entregar
 
