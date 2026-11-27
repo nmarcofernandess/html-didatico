@@ -11,8 +11,8 @@ e parte de um [exemplo-ouro](../../../plugins/html-didatico/references/kit/ouro/
 
 | Exemplo | Forma | Exemplo-ouro que o substitui |
 |---|---|---|
-| [A · Primeira escala](A-manual-escalaflow-quickstart.html) | Passo a passo | [passo-a-passo](../../../plugins/html-didatico/references/kit/ouro/passo-a-passo.html) |
-| [B · Panorama da exportação](B-editorial-panorama-export-v2.html) | Explicação | [explicacao](../../../plugins/html-didatico/references/kit/ouro/explicacao.html) |
+| [A · Primeira escala](A-manual-escalaflow-quickstart.html) | Passo a passo | [aula](../../../plugins/html-didatico/references/kit/ouro/aula.html); o ouro de passo a passo saiu na 4.5.0 |
+| [B · Panorama da exportação](B-editorial-panorama-export-v2.html) | Explicação | [aula](../../../plugins/html-didatico/references/kit/ouro/aula.html); o ouro de explicação saiu na 4.5.0 |
 | [C · Prova da importação](C-prova-importacao.html) | Prova | [prova](../../../plugins/html-didatico/references/kit/ouro/prova.html) |
 | [D · Prancha da unidade de exames](D-prancha-unidade-exames.html) | Maquete | [maquete](../../../plugins/html-didatico/references/kit/ouro/maquete.html) |
 | [E · Blueprint de componentes](E-blueprint-componentes.html) | Montagem | [montagem](../../../plugins/html-didatico/references/kit/ouro/montagem.html) |

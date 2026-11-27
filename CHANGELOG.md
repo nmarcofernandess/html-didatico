@@ -1,5 +1,33 @@
 # Changelog
 
+## 4.5.0 — 27/11/2026
+
+Os exemplos-ouro sobem ao nível das referências aprovadas. Origem: Marco reprovou o ouro "Números no DietFlow" ao lado da aula de Exames e das outras referências; as versões anteriores mudaram regras e check, mas os ouros, que são o que os agentes copiam, continuavam os antigos. O que as referências têm e o ouro não tinha: um desenho próprio para cada conceito, a resposta em uma linha, a figura em largura total, a regra que fica, hierarquia editorial, quatro cores de papel constantes e a decisão contada em três telas inteiras.
+
+- **Kit, linguagem nova:** título e numerais em Instrument Serif (embutida em `fontes.css`, licença OFL ao lado), rótulos em mono, papel quente, figura em cartão de papel quadriculado com a legenda em plaqueta ("Fig. N —") e o estado na plaqueta de baixo. O tema escuro acompanha.
+- **`<d-part answer rule n>`:** o quadro de aula, com numeral vazado, pergunta, resposta em uma linha (`**negrito**` no trecho que decide), figura em largura total e a regra em itálico.
+- **Desenho do conceito, 17 peças novas no grupo Esquema:** `w-card` e `w-slot` (ficha de registro), `w-fork` e `w-entry` (um para muitos), `w-ruler` (o valor na régua), `w-plate` (o nome e o que foge do padrão), `w-pills`, `w-zone` e `w-it` (categorias e o que cai nelas), `w-quad`, `w-stairs` e `w-step`, `w-algo` e `w-ask` (a regra em perguntas), `w-tag`, `w-bar`; `w-stack` empilha peças numa coluna. `role` (1, 2, 3, 0) dá a cor do papel.
+- **`<d-answer>`:** as opções viram cartões A, B, C, com "Recomendo" na recomendada; a cópia para o chat não muda.
+- **Exemplos-ouro:** `aula` é agora o modelo completo, feito com o conteúdo da aula de Exames: Aula em 11 quadros, Na tela, Dúvidas, Leis e Roadmap. `decidir` é a decisão do Lipidograma em três telas inteiras. `prova` e `montagem` passam a quadros com resposta em uma linha e figura em largura total; a prova perde os vazios hachurados. `explicacao` e `passo-a-passo` saem: derivam da aula.
+- **Check:** tabela dentro de janela (`w-win`) é tela do produto, não "figura-tabela"; desenho de conceito tem teto próprio de palavras (130); as abas Leis, Decretos e Roadmap são registro (código de lei vale ali, e elas ficam fora da medida de leitura corrida); o aviso de caixa-alta sai, porque o rótulo em mono é do desenho e o tamanho mínimo já é conferido.
+- Limites: o design system no Claude e o `bundle.css` dos canvas só ganham a linguagem nova depois de regerados (`docs/MANUTENCAO.md`). O cartão e a maquete mantêm o conteúdo e ganham só o chassi novo. A folha de peças tem dois avisos aceitos (densidade do catálogo e uma caixa apertada no exemplo do garfo).
+
+## 4.4.0 — 27/11/2026
+
+A forma segue o conteúdo, e a página é vista antes de sair. Origem: o relato de campo de uma semana de uso (21 a 27/11) em regras de energia do DietFlow e as 23 anotações de Marco na aula de testes. O que falhou: todas as seções no par texto e figura, telas em fragmento sem dizer o estado, transição descrita em texto, decisão com um caso só, controle que trocava de aba, tema escuro quebrado, pergunta científica tratada como cardápio. O que destravou: matriz de todas as situações gerada do motor, a peça para mexer, recortes do documento real em três estados, versões de um botão lado a lado.
+
+- **Três padrões novos em `references/padroes.md`,** que agora abre com o índice dos nove:
+  - **A forma segue o conteúdo:** tela real inteira, uma por linha, com o estado dito; regra que é transição ou conta vira peça que o leitor mexe; comparação vira matriz gerada da fonte, nunca um caso só nem número digitado; a menor forma que responde; abas quando separam trabalhos diferentes do leitor (resolve "abas reprovadas" contra "abas que funcionaram").
+  - **Três segundos:** a página responde à pergunta com o que foi lido no sistema; toda frase tem objeto concreto; estado vem com a consequência; o desenho não é repetido em texto; nada de "leia em outro lugar"; corte de 30% a 40% da prosa.
+  - **Página vista antes da entrega:** o check deixa de ser opcional em entrega HTML.
+- **Kit:** tema escuro nos tokens (pelo sistema e por `data-theme`); `<w-states>` (transição que o leitor mexe) e `<w-sim>` com `<w-knob>` e `<w-out>` (conta que o leitor mexe); `state` em `<w-fig>` (main, dev com o commit, proposto, wireframe); `desk` em `<d-part>` (figura em largura de desktop); `study` em `<d-answer>`.
+- **Check:** roda também no tema escuro e reprova contraste abaixo do mínimo nele; abre uma página e clica cada controle, reprovando o que troca a aba aberta, a aba que não abre o painel, o estado que não aparece e a conta com erro; reprova estudo sem fonte. Avisa tela de produto sem estado numa decisão, print de produto espremido, aula com todas as partes no par texto e figura, matriz de comparação sem fonte e link para ler em outro lugar. Grava o screenshot do tema escuro.
+- **Decisão:** antes de desenhar opções, classificar a pergunta em já respondida, técnica ou científica; a científica vira estudo, com aceitar ou contestar, sem recomendada. Regra que vale para muitas situações se decide na matriz inteira.
+- **Design:** a tela de produto entra, em ordem de preferência, como print real, no design system do produto ou remontada em wireframe, sempre inteira e com o estado.
+- **Aula:** o quadro tem a forma que o conteúdo pede; Na tela é limpa e usa as peças que se mexem; pesquisa e lista de regras antes da página em assunto grande; cinco linhas novas em "O que não passa".
+- **Corte:** o parágrafo de fecho repetido nas sete skills vira uma linha que aponta para Padrões; "verificar é opcional" sai de três lugares.
+- Limites: o design system no Claude e o `bundle.css` dos canvas só ganham o tema escuro e as peças novas depois de regerados (`docs/MANUTENCAO.md`). O par de regras "número gerado da fonte" e "frase com objeto concreto" é leitura: o check não mede.
+
 ## 4.3.0 — 27/11/2026
 
 Figura desenha, tabela ordena. Pedido de Marco: a segunda versão da aula de testes do DietFlow, refeita por outro agente com o plugin 4.0.1, abriu sem origem, trocou as figuras por tabelas de frases, respondeu "Sim." a "O que o DietFlow verifica?" e usou Full, E2E, FlowUI, focal e "Full elegível" sem definir nenhum. O check da época isentava tabela da conta de palavras por figura e contava tabela como figura: a aula passou com zero falhas e zero avisos.

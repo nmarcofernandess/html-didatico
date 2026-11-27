@@ -23,7 +23,7 @@ kit.css + kit.js ──gerar.mjs───▶ design system "HTML Didático" no C
 kit.css + kit.js ──decisoes/gerar.mjs──▶ boards de Decidir no canvas de Design
 ```
 
-A ideia visual, em uma frase: um rótulo nutricional desenhado a caneta. Tinta
+A ideia visual, em uma frase: uma aula impressa em papel quadriculado: título em serifa, rótulo em mono, uma pergunta com a resposta em uma linha e a figura em largura total. Tinta
 preta desenha o produto em wireframe; magenta é a caneta de quem explica e não
 tem outro uso. Os princípios moram em `references/visual/design.md`.
 

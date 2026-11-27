@@ -10,7 +10,8 @@ import vm from 'node:vm'
 
 export const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 export const ler = p => readFileSync(resolve(raiz, p), 'utf8')
-export const css = ler('references/kit/kit.css').trimEnd()
+// As faces embutidas vêm antes dos tokens: o documento sai autocontido, sem pedir fonte à rede.
+export const css = (ler('references/kit/fontes.css') + ler('references/kit/kit.css')).trimEnd()
 export const js = ler('references/kit/kit.js').trimEnd()
 export const sprite = ler('references/kit/sprite.svg').trim()
 

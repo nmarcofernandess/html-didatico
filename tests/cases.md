@@ -10,7 +10,7 @@ aceite visual atual são os exemplos-ouro do kit.
 |---|---|---|
 | HTML Didático (automática) | “Faz um HTML didático do que a gente acabou de discutir.” | A conversa: a entrada passa pelo núcleo, recolhe a pergunta em pauta e o que já foi decidido, escolhe a forma pelo roteamento e diz, em uma linha, qual escolheu e por quê. Não devolve “cartão ou aula?”. |
 | Cartão | “Me mostra por que a idade deste Cálculo está errada.” | O [cartão-ouro](../plugins/html-didatico/references/kit/ouro/cartao.html): a pergunta, o caso em uma linha e três telas do mesmo caso. |
-| Aula | “Explique em HTML como o plugin separa suas entradas e referências.” | Estrutura do pacote; a [explicação-ouro](../plugins/html-didatico/references/kit/ouro/explicacao.html) situa fontes, escolha e leitura progressiva com componentes, sem copiar status de outro projeto. |
+| Aula | “Explique em HTML como o plugin separa suas entradas e referências.” | Estrutura do pacote; a [aula-ouro](../plugins/html-didatico/references/kit/ouro/aula.html) situa fontes, escolha e leitura progressiva com componentes, sem copiar status de outro projeto. |
 | Decidir, maquete | “Compare duas posições para a ação Salvar.” | Hipótese explicitamente proposta; a [maquete-ouro](../plugins/html-didatico/references/kit/ouro/maquete.html) usa o mesmo esqueleto em wireframe, a caneta só na região em disputa e uma recomendação, sem alegar implementação. |
 | Decidir, boards | “Transforme as perguntas abertas de Números e unidades em boards.” | [Exemplo-ouro](../plugins/html-didatico/references/decisoes/exemplos/numeros-e-unidades.mjs); com `--html`, o motor escreve mapa e boards como documentos do kit que passam no check; com a pasta `project/`, escreve os artboards pré-renderizados e o `canvas.json`, e recusa canvas sem o design system HTML Didático. |
 | Decidir, HTML | Codex, sem canvas: “decide comigo o teto de 999 mcg”. | O [decidir-ouro](../plugins/html-didatico/references/kit/ouro/decidir.html): uma aba por decisão, três opções com figura no mesmo caso, a recomendada, “Responda no chat” com `<d-answer>`, “Copiar respostas” e a aba Leis. Marcar duas respostas, uma com comentário, e colar: cada bloco traz a pergunta, o rótulo e o código e se entende sem a página. |
@@ -18,8 +18,7 @@ aceite visual atual são os exemplos-ouro do kit.
 | Prova | “Apresente o resultado da validação deste pacote.” | `python3 scripts/validate-package.py`; a [prova-ouro](../plugins/html-didatico/references/kit/ouro/prova.html) apresenta veredito, metadados e critérios observados, com `w-shot` vazio onde o print falta, sem screenshot inventado. |
 | Explicar | “Explique por que uma tag nova não atualiza uma instalação fixada na antiga, em texto.” | Referência fixa do marketplace; [resposta](examples/clareza.md) mantém cadeia causal e não gera HTML. |
 
-Os exemplos-ouro do kit, [cartão](../plugins/html-didatico/references/kit/ouro/cartao.html), [passo a passo](../plugins/html-didatico/references/kit/ouro/passo-a-passo.html),
-[explicação](../plugins/html-didatico/references/kit/ouro/explicacao.html), [aula](../plugins/html-didatico/references/kit/ouro/aula.html), [decidir](../plugins/html-didatico/references/kit/ouro/decidir.html), [prova](../plugins/html-didatico/references/kit/ouro/prova.html), [montagem](../plugins/html-didatico/references/kit/ouro/montagem.html) e [maquete](../plugins/html-didatico/references/kit/ouro/maquete.html), são o caso de regressão visual:
+Os exemplos-ouro do kit, [cartão](../plugins/html-didatico/references/kit/ouro/cartao.html), [aula](../plugins/html-didatico/references/kit/ouro/aula.html), [decidir](../plugins/html-didatico/references/kit/ouro/decidir.html), [prova](../plugins/html-didatico/references/kit/ouro/prova.html), [montagem](../plugins/html-didatico/references/kit/ouro/montagem.html) e [maquete](../plugins/html-didatico/references/kit/ouro/maquete.html), são o caso de regressão visual:
 `node plugins/html-didatico/scripts/check.mjs` termina sem falhas nos oito e na
 [folha de peças](../plugins/html-didatico/references/kit/pecas.html).
 
@@ -59,6 +58,10 @@ Os exemplos-ouro do kit, [cartão](../plugins/html-didatico/references/kit/ouro/
 | “Faz um html didático disso”, depois de uma conversa sobre escolhas, em que duas ficaram abertas e três foram decididas | Entrada automática: Decidir. As duas abertas vão para a mesa, cada uma na gramática inteira; as três decididas entram em Leis, com a frase de quem decidiu e a data. |
 | “Organiza isso pra mim”, depois de uma conversa longa sobre como um módulo funciona, sem escolha aberta | Entrada automática: Aula, pedido de apresentação. Não inventa dúvida nem dor. |
 | “Faz um html didático”, e a conversa serve tanto a um cartão quanto a uma aula | Conta as perguntas e as telas: até três telas do mesmo caso, Cartão. Só pergunta se duas leituras mudam a entrega, e pergunta pelo resultado, não pelo formato. |
+| "Como o modo muda os cenários?", com 16 situações de treino e três modos | Aula ou Decidir: a matriz inteira gerada do motor, com o `d-src` dizendo script e commit, e o caso do pedido marcado; nunca um exemplo só. A troca de modo entra em `w-states`. |
+| "A gestante precisa de quanto a mais por trimestre?" numa fila de decisões | Decidir classifica como científica: um estudo com a fonte e `<d-answer study>` (aceito ou contesto), sem opções A, B e C com recomendada. |
+| Aula com protótipo em que um botão do protótipo fecha a aba | O check clica cada controle e reprova "controle que troca a aba aberta". |
+| Página com cor literal que some no tema escuro | O check mede o contraste no tema escuro e reprova. |
 | O usuário chama `/html-didatico:aula` para o que caberia num cartão | A escolha dele governa: Aula, do tamanho que o conteúdo tem. |
 
 Avalie as rotas contra `references/roteamento.md` no pacote. Exercite a regressão

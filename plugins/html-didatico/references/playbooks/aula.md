@@ -25,9 +25,16 @@ a data dela.
 
 ### O quadro
 
-Cada quadro é uma `d-part` cujo título é a pergunta; a frase responde com o caso;
-a figura (`w-fig`, ou uma tabela com `slot="fig"`) prova a frase; a fonte entra
-em uma linha (`d-src`); a regra que se leva fecha em `<p><b>…</b></p>`.
+Cada quadro é uma `d-part` com três atributos: `title` é a pergunta, `answer` é a
+resposta em uma linha, com `**o trecho que decide**` em negrito, e `rule` é a regra
+que se leva, depois da figura. A figura vem em largura total, prova a frase e é um
+desenho próprio do conceito, feito com as peças do grupo Esquema (ficha, garfo,
+régua, plaquinha, zona, quadrante, degraus, algoritmo): se dois quadros seguidos
+usam a mesma peça, o segundo ainda não achou o seu desenho. A fonte entra no `src`
+da figura. As cores de papel (`role`) valem as mesmas do primeiro ao último quadro.
+Tela de produto inteira pede `desk`
+([Padrões](../padroes.md#a-forma-segue-o-conteúdo)). Uma aula com todos
+os quadros iguais seguiu o molde, não o assunto.
 
 ```html
 <d-part title="Quem lê o que você escreve?">
@@ -76,8 +83,10 @@ Com uma tab só, não desenhe a barra de tabs: a página é a aula.
 ## Antes de escrever: entender
 
 A aula se escreve depois de [entender](../nucleo.md#entender-antes-de-tudo)
-como a coisa funciona de verdade e de achar [o nó](../nucleo.md#o-nó).
-Na aula, somam-se dois cuidados:
+como a coisa funciona de verdade e de achar [o nó](../nucleo.md#o-nó). Num
+assunto grande, a pesquisa e a lista de regras vêm antes da página: a aula
+desenha regras já apuradas, e o que falta de base ao leitor entra antes do tema
+da conversa. Somam-se dois cuidados:
 
 1. **As leis da versão anterior** são a fonte do passo 1 de Entender: se o
    assunto já tem aula, abra a tab Leis. Mudar uma lei pede nova decisão do
@@ -100,7 +109,7 @@ nasceria.
   a resposta precisa aparecer só com a figura e a legenda.
 - **A fonte em uma linha** quando o fato vem de pesquisa. A evidência entra
   destilada: a conclusão e a origem. O percurso da pesquisa fica fora.
-- **A regra do quadro na última linha**, em negrito: o que o leitor leva dali.
+- **A regra do quadro na última linha** (`rule`): o que o leitor leva dali.
 
 Os quadros sobem em degraus: cada um parte do que o anterior deixou. Com quatro
 quadros ou mais, abra com o trilho (`rail`). O fecho tem três quadros fixos,
@@ -137,8 +146,12 @@ A origem define cada nome de suíte, etapa e prova num `li term`. O que a fonte 
 
 Um **protótipo que funciona**: o leitor clica, marca, digita e vê o resultado.
 
-- Monte com as peças de cena do kit e os dados reais da ficha. O comportamento
-  vai num `<script>` curto no fim do `<body>`, depois do script do kit.
+- A tab é limpa: só as peças para mexer, sem a explicação, que mora na Aula.
+- Transição vira `w-states` e conta vira `w-sim`, com os dados reais da ficha;
+  só o que eles não cobrem vai num `<script>` curto no fim do `<body>`, depois
+  do script do kit. Um controle muda a própria peça e mais nada na página.
+- Cada tela diz o estado em `state` (protótipo, dev com o commit, proposto) e
+  entra inteira, uma por linha (`d-part desk`).
 - Só o estado decidido. Uma opção ainda aberta fica em Dúvidas.
 - Recorte a tela em que a regra aparece, em tamanho de leitura. Várias telas,
   um protótipo por tela, cada uma com um título que a nomeia.
@@ -200,10 +213,9 @@ cada rodada; tab sem material sai.
   dúvida são componentes do kit (`d-tabs`, `d-part`, `w-fig`, `w-*`); CSS de
   página só no bloco "desta página", com os tokens do kit. Não há look a escolher.
 - Com a skill `olho-semicerrado` disponível, use-a na composição e na revisão.
-- Verificar é opcional: quando pedido, ou quando o protótipo tem comportamento
-  que só o clique confirma. O [check](../../scripts/check.mjs) lê todas as tabs,
-  uma abaixo da outra; o resto é exercitar tabs, subtabs, links `#duvida-n` e os
-  controles do protótipo. Nada disso é salvo junto da aula.
+- O [check](../../scripts/check.mjs) roda em toda aula: lê todas as tabs, uma
+  abaixo da outra, nos dois temas, e clica tabs, subtabs e cada controle do
+  protótipo. Depois, olhe os screenshots. Nada disso é salvo junto da aula.
 - A aula é um arquivo só. Bancada, boards, censo e scripts de geração não ficam
   ao lado dela: o que importa deles entra destilado nas tabs.
 
@@ -211,7 +223,7 @@ cada rodada; tab sem material sai.
 
 Cada item já apareceu numa aula entregue e a derrubou. Releia o documento
 contra a lista antes de entregar; quando o [check](../../scripts/check.mjs) roda,
-ele reprova os quatro primeiros e os três últimos.
+ele reprova os quatro primeiros e, dos seis últimos, os três primeiros, e avisa os três do fim.
 
 | Não passa | Faça |
 |---|---|
@@ -229,6 +241,11 @@ ele reprova os quatro primeiros e os três últimos.
 | Tabela de frases embrulhada em figura, ou "mapa" que é tabela com `mark` em células | Desenho de componentes, com a célula reduzida a um valor ([Padrões](../padroes.md#figura-desenha-tabela-ordena)) |
 | Frase que responde à conversa e não ao título: "O que o sistema verifica?" seguido de "Sim." | A primeira frase responde à pergunta do título, com o caso |
 | Nome de suíte, etapa ou prova que só existe no projeto, sem definição: Full, E2E, focal, "Full elegível" | Um `li term` na origem para cada um, ou o nome some |
+| Todos os quadros no par texto e figura | A forma de cada quadro sai do conteúdo: matriz, tela inteira, peça que se mexe |
+| Tela de produto em fragmento, sem dizer se é main, dev ou proposto | A tela inteira, uma por linha, com `state` |
+| Transição ou conta descrita em texto | `w-states` ou `w-sim`: o leitor mexe |
+| Controle que troca de aba, ou figura que some no tema escuro | O check clica e mede os dois temas antes da entrega |
+| Frase sem objeto ("isolar a falha"), estado sem consequência ("o lint parou") | O nome da coisa, o dado do caso e o que muda para quem lê ([Padrões](../padroes.md#três-segundos)) |
 
 ## Entrega
 

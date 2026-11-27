@@ -10,7 +10,7 @@
     <d-part title="Como fica o card da Evolução?" id="card">
       <p>Três coletas estão em mg/dL e a de 27/08 veio em mmol/L. O header guarda o que o papel diz; a linha só plota o que tem faixa. É o card que já existe, com um ponto que some.</p>
       <d-note tone="mark" label="Proposta">Header com o 5,5 mmol/L, sem alerta e sem Aviso Clínico. A coleta de 27/08 fica fora da linha.</d-note>
-      <w-fig cap="O header mostra 5,5 mmol/L; a linha plota as três coletas em mg/dL">
+      <w-fig state="proposto" cap="O header mostra 5,5 mmol/L; a linha plota as três coletas em mg/dL">
         <w-win title="Evolução · Glicose">
           <w-stat n="5,5" unit="mmol/L" mark>27/08/2026 · última coleta</w-stat>
           <w-chip tone="ink">Sem referência</w-chip>
@@ -35,7 +35,7 @@
 
     <d-part title="O dia ainda tem o número?" id="registrados">
       <p>Registrados e o header guardam o ponto. A nutricionista não perde o 5,5; quem some é só o ponto da linha.</p>
-      <w-fig cap="Em Registrados, a coleta de 27/08 aparece com 5,5 mmol/L">
+      <w-fig state="proposto" cap="Em Registrados, a coleta de 27/08 aparece com 5,5 mmol/L">
         <w-win title="Registrados · Maria">
           <w-list>
             <w-item title="Glicose 94 mg/dL" meta="03/06" tag="Adequado" tagtone="ok"></w-item>
@@ -52,7 +52,7 @@
       <p>Três jeitos de mostrar a mesma coleta. Só o A mantém o papel e a faixa verdadeiros.</p>
       <d-cols n="3">
 
-        <w-fig cap="A · Header fala o papel, a linha fala uma unidade: nada é julgado nem convertido">
+        <w-fig state="proposto" cap="A · Header fala o papel, a linha fala uma unidade: nada é julgado nem convertido">
           <w-win title="Evolução · Glicose">
             <w-stat n="5,5" unit="mmol/L" mark>27/08/2026</w-stat>
             <w-chip tone="ink">Sem referência</w-chip>
@@ -61,7 +61,7 @@
           <w-callout label="A" strong mark>recomendada</w-callout>
         </w-fig>
 
-        <w-fig cap="B · Julgar 5,5 na faixa de mg/dL: o verde vira Baixo">
+        <w-fig state="proposto" cap="B · Julgar 5,5 na faixa de mg/dL: o verde vira Baixo">
           <w-win title="Evolução · Glicose">
             <w-stat n="5,5" unit="mmol/L">27/08/2026</w-stat>
             <w-chip tone="err">Baixo</w-chip>
@@ -69,7 +69,7 @@
           </w-win>
         </w-fig>
 
-        <w-fig cap="C · Converter na borda: a tela mostra 99 mg/dL e o papel dizia 5,5 mmol/L">
+        <w-fig state="proposto" cap="C · Converter na borda: a tela mostra 99 mg/dL e o papel dizia 5,5 mmol/L">
           <w-win title="Evolução · Glicose">
             <w-stat n="99" unit="mg/dL">27/08/2026</w-stat>
             <w-chip tone="ok">Adequado</w-chip>

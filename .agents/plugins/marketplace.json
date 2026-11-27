@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "html-didatico",
-      "version": "4.3.0",
+      "version": "4.5.0",
       "description": "Você pede e a entrada automática escolhe a forma. Seis entradas diretas, pela pergunta: Cartão, Aula, Decidir, Montagem, Prova e Explicar.",
       "source": {
         "source": "local",

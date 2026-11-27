@@ -27,10 +27,10 @@ Defina quem lê, o que já sabe e o que precisa conseguir fazer quando terminar.
 | O leitor pergunta | Anatomia | Como é | Exemplo-ouro |
 |---|---|---|---|
 | O que está acontecendo aqui? Me mostra. | Cartão | Uma página: a pergunta, o caso em uma linha e as telas citadas na explicação, com pouco texto | [cartão](kit/ouro/cartao.html), com o [playbook Cartão](playbooks/cartao.md) |
-| Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | [passo a passo](kit/ouro/passo-a-passo.html) |
-| Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | [explicação](kit/ouro/explicacao.html) |
+| Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | derive da [aula](kit/ouro/aula.html): um quadro por passo |
+| Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | derive da [aula](kit/ouro/aula.html): os quadros, sem as outras abas |
 | Onde estamos? | Mural | O estado de cada frente, o que mudou desde a última vez, o que falta, a próxima ação | derive da explicação: tabela de frentes com status |
-| Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [playbook Aula](playbooks/aula.md) |
+| Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [aula](kit/ouro/aula.html), o modelo completo, com o [playbook Aula](playbooks/aula.md) |
 
 **Tamanho.** Conte as perguntas que o leitor faria e as telas que a explicação cita. Até três telas do mesmo caso cabem num cartão. Um assunto inteiro, uma operação com vários passos ou o raciocínio longo de quem pediu pedem documento, com uma parte por pergunta.
 
@@ -45,7 +45,7 @@ Antes do texto, escreva uma linha por parte: o que ela ensina de novo e em que f
 - **Uma parte tem um assunto,** um título que o nomeia e, quando ajuda, uma figura que mostra a relação. Se a parte pede "além disso", são duas partes.
 - **Uma pergunta, uma parte.** Liste as perguntas do leitor, na ordem em que nasceriam. Cada uma ganha uma parte. Duas partes que respondem à mesma pergunta viram uma. A abertura que repete o título, o "por que importa" sem dado novo e o fecho que resume as partes respondem a pergunta nenhuma: o que têm de fato vira uma frase na parte vizinha.
 - **A parte existe quando a ficha tem material para ela.** A contagem segue o conteúdo: quatro passos são quatro passos.
-- **A pergunta escolhe a representação.** Para cada pergunta, descreva em uma linha duas representações possíveis e fique com aquela em que a resposta se vê sem a prosa:
+- **A pergunta escolhe a representação,** e a representação escolhe a largura: nem toda parte é texto de um lado e figura do outro ([A forma segue o conteúdo](padroes.md#a-forma-segue-o-conteúdo)). Para cada pergunta, descreva em uma linha duas representações possíveis e fique com aquela em que a resposta se vê sem a prosa:
 
 | A pergunta | O leitor precisa ver | Representação |
 |---|---|---|
@@ -57,6 +57,10 @@ Antes do texto, escreva uma linha por parte: o que ela ensina de novo e em que f
 | Como as coisas se ligam? | Quem entrega o quê para quem | Esquema |
 | Onde mora cada responsabilidade? | O lugar de cada uma | Árvore |
 | Qual escolher? | As saídas no mesmo caso, lado a lado | Uma figura por opção |
+| A regra vale em todas as situações? | Todas as situações de uma vez, com o caso marcado | Matriz gerada da fonte |
+| O que acontece quando eu troco? | A tela antes e depois do gesto | Peça que o leitor mexe (`w-states`) |
+| Como o número é calculado? | As entradas do caso e o resultado mudando | Conta que o leitor mexe (`w-sim`) |
+| Como é essa tela? | A tela real, inteira, com o estado dito | A tela em largura de desktop |
 | O que o sistema disse? | O texto literal, o que significa e o que fazer | A mensagem e uma tabela |
 | O que muda o resultado? | A condição junto do passo que ela afeta | Aviso |
 

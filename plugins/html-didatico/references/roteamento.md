@@ -13,7 +13,7 @@ Toda entrada passa pelo [Núcleo](nucleo.md) antes. Carregue só o playbook da f
 | "Funciona mesmo?": evidências, resultados, pack, proof, slots de verificação futura | [Prova](../skills/prova/SKILL.md) | A evidência pelo renderer do projeto; sem renderer confirmado, verificação planejada e preenchida com dados reais | [Playbook Prova](playbooks/prova.md) |
 | "Me explica", sem pedir para ver | [Explicar](../skills/explicar/SKILL.md) | Texto no chat, sem arquivo | [Reconstruir significado](clareza.md) |
 
-O tamanho separa Cartão de Aula: conte as perguntas que o leitor faria e as telas que a explicação cita, como em [Conteúdo](conteudo.md#2-leitor-e-pergunta). Até três telas do mesmo caso cabem num cartão.
+A menor forma que responde é a certa: uma conversa longa não transforma uma dúvida em aula, e "aula" é o nome do que foi pedido como aula ([A forma segue o conteúdo](padroes.md#a-forma-segue-o-conteúdo)). O tamanho separa Cartão de Aula: conte as perguntas que o leitor faria e as telas que a explicação cita, como em [Conteúdo](conteudo.md#2-leitor-e-pergunta). Até três telas do mesmo caso cabem num cartão.
 
 ## O ciclo
 

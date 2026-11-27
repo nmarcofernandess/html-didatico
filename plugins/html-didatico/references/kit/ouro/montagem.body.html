@@ -1,5 +1,5 @@
 <!-- Montagem: o blueprint de composição, da fundação à tela. Cada passo é uma camada; a figura mostra quem contém quem
-     (meta = arquivo) e o contrato de props em w-code. A caneta aponta o que a camada acrescenta; a proposta é w-box new. -->
+     (meta = arquivo), em largura total, com o contrato de props ao lado. Cada quadro responde a uma pergunta em uma linha. A caneta aponta o que a camada acrescenta; a proposta é w-box new. -->
 <d-doc>
 
   <d-cover kind="Montagem" subject="DietFlow · Exames" date="07/11/2026" sub="Um grupo de exames na tela do paciente, lido em dev @ 4d6ba60: seis camadas, do campo de busca ao editor." lead="Ao fim você sabe quem contém quem, por onde entra cada prop e onde fica o slot que o domínio preenche.">Como um grupo de exames se monta</d-cover>
@@ -10,9 +10,8 @@
 
   <main>
 
-    <d-part title="Onde mora" id="onde">
-      <p>Os arquivos que a montagem usa, em <code>src/components</code>. A letra liga o arquivo à camada: P é primitivo, F é composição, E é o específico, T é a tela.</p>
-      <w-fig slot="fig" cap="Onze arquivos, cinco pastas; as camadas descem da base ao consumidor">
+    <d-part title="Onde moram as peças?" id="onde" answer="Em **onze arquivos de cinco pastas**. A letra liga o arquivo à camada: P é primitivo, F é composição, E é o específico, T é a tela.">
+      <w-fig cap="Onze arquivos, cinco pastas; as camadas descem da base ao consumidor">
         <w-files>
           <w-file path="ui/" dir></w-file>
           <w-file path="autocomplete/SmartAutocomplete" i="1" note="P1"></w-file>
@@ -32,9 +31,8 @@
       </w-fig>
     </d-part>
 
-    <d-part title="Como ler os desenhos" id="leitura">
-      <p>Uma caixa dentro da outra é composição: quem contém quem. O nome em cima é a peça e o cinza embaixo é o arquivo ou o pacote de onde ela vem.</p>
-      <w-fig slot="fig" cap="Três traços: o que existe, onde o consumidor encaixa e o que se propõe">
+    <d-part title="Como ler os desenhos?" id="leitura" answer="Caixa dentro de caixa é **quem contém quem**. O nome é a peça; o cinza é o arquivo ou o pacote de onde ela vem.">
+      <w-fig cap="Três traços: o que existe, onde o consumidor encaixa e o que se propõe">
         <w-box title="Existe" meta="arquivo.tsx"></w-box>
         <w-box title="Slot ou condição" kind="slot"></w-box>
         <w-box title="Proposta" kind="new"></w-box>
@@ -43,10 +41,10 @@
 
     <d-steps rail>
 
-      <d-part title="Fundação" id="fundacao">
-        <p>A base não conhece exames. Cada primitivo embrulha uma peça de biblioteca ou HTML: a busca vem do HeroUI, a tabela é <code>table</code> com DnD.</p>
-        <p><code>TextCard</code> escolhe entre <code>Textarea</code> e <code>Input</code> por <code>singleLine</code>; os modos <code>edit</code> e <code>preview</code> já vêm no contrato.</p>
-        <w-fig slot="fig" cap="Três primitivos, cada um sobre a sua fundação externa">
+      <d-part title="O que a fundação sabe de exames?" id="fundacao" answer="**Nada.** Cada primitivo embrulha uma peça de biblioteca ou de HTML.">
+        <w-fig cap="Três primitivos, cada um sobre a sua fundação externa">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="SmartAutocomplete" meta="ui/autocomplete/SmartAutocomplete.tsx">
             <w-box title="Autocomplete" meta="@heroui/react"></w-box>
           </w-box>
@@ -56,22 +54,26 @@
           <w-box title="TextCard" meta="ui/widgets/TextCard.tsx">
             <w-box title="Textarea" meta="@heroui/react"></w-box>
           </w-box>
+          </w-stack>
           <w-code from="1" mark="3">columns: UniversalTableColumn[]
 data: UniversalTableItem[]
 mode?: UniversalTableMode
 isReadOnly?: boolean
 enableDnD?: boolean</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
-      <d-part title="Bloco" id="bloco">
-        <p>Busca e tabela formam um bloco sem domínio clínico. Duas listas entram por props separadas: <code>searchItems</code> alimenta a busca e <code>tableItems</code>, a tabela.</p>
-        <w-fig slot="fig" cap="O bloco só liga duas peças da fundação; o resto são props que passam">
+      <d-part title="O que o bloco acrescenta?" id="bloco" answer="**Liga a busca à tabela**, sem domínio clínico. Cada uma recebe a sua lista por uma prop separada.">
+        <w-fig cap="O bloco só liga duas peças da fundação; o resto são props que passam">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="AutocompleteTableBlock" meta="ui/cards/AutocompleteTableBlock.tsx" mark pin="1">
             <w-box title="SmartAutocomplete" meta="searchItems"></w-box>
             <w-box title="UniversalTable" meta="tableItems + columns"></w-box>
           </w-box>
           <w-callout pin="1" mark>o bloco acrescenta: duas listas, uma só borda</w-callout>
+          </w-stack>
           <w-code from="1" mark="3,4">TSearch extends object
 TItem extends { id: string }
 searchItems?: TSearch[]
@@ -79,18 +81,21 @@ tableItems?: TItem[]
 columns?: UniversalTableColumn[]
 onTableItemsChange?:
   (items: TItem[]) =&gt; void</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
-      <d-part title="Shell" id="shell">
-        <p><code>BaseEditableCard</code> é dono da anatomia: cabeçalho com título e operações, corpo e rodapé. O corpo é só um lugar, <code>children</code>; quem o preenche é outro.</p>
-        <w-fig slot="fig" cap="O shell reserva o corpo; ele não sabe o que vai ali dentro">
+      <d-part title="Quem é dono da anatomia do card?" id="shell" answer="O **shell**: cabeçalho, corpo e rodapé. O corpo é só um lugar, e quem o preenche é outro.">
+        <w-fig cap="O shell reserva o corpo; ele não sabe o que vai ali dentro">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="BaseEditableCard" meta="ui/cards/BaseEditableCard.tsx">
             <w-box title="Card · cabeçalho" meta="@heroui/react"></w-box>
             <w-box title="{children}" kind="slot" mark pin="1"></w-box>
             <w-box title="Rodapé" kind="slot" meta="se cardFooter"></w-box>
           </w-box>
           <w-callout pin="1" mark>o único lugar aberto</w-callout>
+          </w-stack>
           <w-code from="1" mark="6">title: string
 onTitleChange?:
   (value: string) =&gt; void
@@ -99,12 +104,14 @@ headerActions?:
 children: ReactNode
 cardFooter?: ReactNode
 titleMode?: CardTitleMode</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
-      <d-part title="Feature base" id="feature">
-        <p><code>PrescriptionBaseCard</code> põe o bloco dentro do shell. A tabela vem primeiro e o <code>children</code> da feature entra depois, no mesmo corpo. Não há herança de classe.</p>
-        <w-fig slot="fig" cap="O bloco ocupa o corpo do shell e deixa um slot logo abaixo">
+      <d-part title="Como o bloco entra no shell?" id="feature" answer="**Por composição**, sem herança: a tabela vem primeiro e o slot da feature fica logo abaixo, no mesmo corpo.">
+        <w-fig cap="O bloco ocupa o corpo do shell e deixa um slot logo abaixo">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="PrescriptionBaseCard" meta="ui/cards/PrescriptionBaseCard.tsx">
             <w-box title="BaseEditableCard" meta="dono da anatomia">
               <w-box title="AutocompleteTableBlock" meta="vem primeiro" mark pin="1">
@@ -115,6 +122,7 @@ titleMode?: CardTitleMode</w-code>
             </w-box>
           </w-box>
           <w-callout pin="1" mark>o bloco entra no corpo do shell</w-callout>
+          </w-stack>
           <w-code from="1" mark="5,6,7">&lt;BaseEditableCard
   title={title}
   onTitleChange={onTitleChange}
@@ -124,13 +132,14 @@ titleMode?: CardTitleMode</w-code>
   /&gt;
   {children}
 &lt;/BaseEditableCard&gt;</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
-      <d-part title="Específico" id="especifico">
-        <p><code>CardExamePrescricao</code> traz o domínio: exames. Passa as props do bloco e preenche o slot com uma <code>Section</code> de orientações, que existe em edição ou quando há texto.</p>
-        <p>Os três modais ficam ao lado, irmãos no Fragment, fora do card.</p>
-        <w-fig slot="fig" cap="O slot recebe a Section; os modais ficam fora da caixa do card">
+      <d-part title="Por onde o domínio entra?" id="especifico" answer="**Pelo slot.** O card de exames passa as props do bloco e preenche o slot com as orientações; os modais ficam fora do card.">
+        <w-fig cap="O slot recebe a Section; os modais ficam fora da caixa do card">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="CardExamePrescricao" meta="exames/…/CardExamePrescricao.tsx">
             <w-box title="PrescriptionBaseCard" meta="F2 · tableCardless · enableReorder">
               <w-box title="Bloco: busca + tabela" meta="F1"></w-box>
@@ -141,6 +150,7 @@ titleMode?: CardTitleMode</w-code>
             <w-box title="ModalCadastrarExame" kind="off" meta="irmão"></w-box>
           </w-box>
           <w-callout pin="1" mark>o domínio entra pelo children</w-callout>
+          </w-stack>
           <w-code from="1" mark="2,3">{showObservacoes &amp;&amp; (
   &lt;Section
     label={ORIENTATIONS}
@@ -150,13 +160,14 @@ titleMode?: CardTitleMode</w-code>
     /&gt;
   &lt;/Section&gt;
 )}</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
-      <d-part title="Tela" id="tela">
-        <p><code>ExamesMain</code> monta a tela do paciente. <code>MainGenericEditor</code> dá o shell do editor, <code>ExamesCardsBody</code> faz a lista em <code>SmartGrid</code>, e cada item vira um <code>CardExamePrescricao</code>.</p>
-        <p>O código renderiza <code>items</code>; o número de cards não é fixo.</p>
-        <w-fig slot="fig" cap="A tela só reúne os específicos; cada um é o card da camada anterior">
+      <d-part title="Quem decide quantos cards a tela tem?" id="tela" answer="**A lista.** A tela só reúne os específicos, um por item.">
+        <w-fig cap="A tela só reúne os específicos; cada um é o card da camada anterior">
+          <d-cols n="2">
+          <w-stack>
           <w-box title="ExamesMain" meta="clinical/exames/ExamesMain.tsx">
             <w-box title="MainGenericEditor" meta="F3 · children({ titleDraft })">
               <w-box title="SmartGrid" meta="P6 · layout list · renderItem" mark pin="1">
@@ -166,6 +177,7 @@ titleMode?: CardTitleMode</w-code>
             </w-box>
           </w-box>
           <w-callout pin="1" mark>a lista decide quantos cards</w-callout>
+          </w-stack>
           <w-code from="1">&lt;CardExamePrescricao
   item={item}
   markers={markers}
@@ -173,23 +185,27 @@ titleMode?: CardTitleMode</w-code>
     handleItemChange(i, updated)}
   isReadOnly={bodyReadOnly}
 /&gt;</w-code>
+          </d-cols>
         </w-fig>
       </d-part>
 
     </d-steps>
 
-    <d-part title="Uma adição proposta" id="proposta">
-      <p>Hipótese, sem código no DietFlow: o específico passaria indicadores por linha. A prop <code>rowIndicators</code> já existe no bloco; muda só o uso, no específico.</p>
-      <w-fig slot="fig" cap="Nenhum contrato novo: a proposta é a ligação do específico com o que já existe">
+    <d-part title="O que mudaria com a adição proposta?" id="proposta" answer="**Só o uso, no específico.** A prop de indicadores por linha já existe no bloco; é hipótese, sem código no DietFlow.">
+      <w-fig cap="Nenhum contrato novo: a proposta é a ligação do específico com o que já existe">
+        <d-cols n="2">
+        <w-stack>
         <w-box title="CardExamePrescricao" meta="E1">
           <w-box title="PrescriptionBaseCard" meta="F2">
             <w-box title="rowIndicators={indicadoresDoDominio}" kind="new" meta="proposta · uso novo" mark pin="1"></w-box>
           </w-box>
         </w-box>
         <w-callout pin="1" mark>só aqui algo seria acrescentado</w-callout>
+        </w-stack>
         <w-code from="1">rowIndicators?:
   readonly
   TableRowIndicator&lt;TItem&gt;[]</w-code>
+        </d-cols>
       </w-fig>
     </d-part>
 

@@ -2,7 +2,7 @@
 
 Toda entrada do plugin passa por aqui antes de escolher forma, peça ou frase: o cartão, a aula, a decisão, a montagem, a prova e a explicação em texto. O tamanho da entrega muda; este caminho vale em todas, e vai até a regra do nó ficar respondida.
 
-Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md); as regras que atravessam todas as formas, como a abertura ancorada, a calibragem e a resposta copiável que leva a pergunta junto, são de [Padrões](padroes.md); o registro de uma forma excepcional de explicar é do [Acervo](acervo.md).
+Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md); as regras que atravessam todas as formas, como a forma que segue o conteúdo, a página vista antes da entrega e a abertura ancorada, são de [Padrões](padroes.md); o registro de uma forma excepcional de explicar é do [Acervo](acervo.md).
 
 ## Fontes e limites
 
@@ -10,7 +10,7 @@ Antes de escrever, identifique leitor, pergunta, objeto e resultado desejado. Le
 
 Separe fato confirmado, decisão, trabalho em curso, inferência e desconhecido. Código comprova existência e composição; intenção de produto depende do contrato e das decisões. Desenho, teste passado e aceite humano têm alcances diferentes. Rotule exemplos hipotéticos e propostas no ponto em que aparecem. Números, mensagens, comandos e nomes reais não são preenchimento decorativo.
 
-**Resumo de conversa, memória e documento anterior são pistas: o fato que entra na entrega é relido na fonte.** A intenção, na spec e na decisão; o comportamento atual, no código vigente ou na tela.
+**Resumo de conversa, memória e documento anterior são pistas: o fato que entra na entrega é relido na fonte.** A intenção, na spec e na decisão; o comportamento atual, no código vigente ou na tela. Antes de escrever, ache no sistema o objeto que responde à pergunta (o arquivo, a tela, o registro, a saída do motor) e leia-o; refazer um documento a partir dos fatos de outro repete o defeito do primeiro ([Três segundos](padroes.md#três-segundos)).
 
 Se o significado estiver técnico, incompleto, contestado ou opaco, leia [Reconstruir significado](clareza.md) antes de desenhar ou polir a frase. Use o [guia interno de escrita](escrita/guia.md) para revisar a expressão.
 
@@ -87,6 +87,8 @@ Se quem pediu quer ver a calibragem antes da montagem, entregue as três linhas 
 **A objeção mais forte.** Diga em uma frase o que faria a entrega estar errada e confira na fonte. Ela fica na resposta do chat, fora do documento, com o resultado da conferência; o que não deu para conferir entra como limite.
 
 **Os padrões.** Confira a entrega contra [Padrões](padroes.md): cada um diz onde a regra é cumprida e o que o check reprova.
+
+**A página, vista.** Toda entrega em HTML passa pelo [check](../scripts/check.mjs) e pelos screenshots dele: desktop e celular, tema claro e escuro, cada controle clicado ([Página vista antes da entrega](padroes.md#página-vista-antes-da-entrega)). Depois, olhe só a primeira tela por cinco segundos e diga de que se trata e o que ela responde; se a frase não sai, a abertura ainda não está pronta.
 
 **O estranho e a distância.** Leia só o título, o caso e a origem como quem abre a página daqui a um mês: eles dizem de que se trata e o que se pede? Depois percorra a lista da distância: cada tema tem a sua parte, e nenhuma parte responde a tema fora da lista.
 

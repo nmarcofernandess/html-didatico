@@ -1,79 +1,87 @@
-<!-- Decidir: uma aba por decisão, a comparação com as três saídas na mesma dose e a resposta no chat, copiada com a pergunta junto.
-     A caneta (mark) fica só na opção recomendada; as outras duas são traço. -->
+<!-- Decidir: uma aba por decisão. Cada decisão é contada em três quadros de tela inteira, no mesmo caso:
+     o que acontece, como está em dev e como fica com a recomendação. Depois, a resposta em cartões, copiada com a pergunta junto.
+     A caneta (is-mark) fica só na linha de que a decisão fala. -->
 <d-doc>
 
-  <d-cover kind="Decidir" subject="DietFlow · Números e unidades" date="18/11/2026" sub="Uma decisão na mesa e as leis que já valem" lead="O teto de 999 mcg na dose, com as três saídas na mesma B12 de 1.000 mcg.">Números no DietFlow: o que falta decidir</d-cover>
+  <d-cover kind="Decidir" subject="DietFlow · Exames" date="10/11/2026" lead="Uma decisão aberta no cadastro de exames: **o que o Lipidograma é**. O mesmo HDL de 38 mg/dL, nas duas saídas.">O Lipidograma no pedido</d-cover>
 
-  <d-origin where="DietFlow, Números e unidades em 18/11/2026: as regras da aba Leis já valem; o teto da dose é a única decisão aberta." q="Uma B12 de 1.000 mcg passa de 999 mcg: o campo de dose aceita, avisa ou recusa?" ask="Comparar as três saídas na mesma dose e responder no chat."></d-origin>
+  <d-origin where="DietFlow, módulo Exames, em 10/11/2026: o pedido e o resultado estão em dev, e o cadastro de exames vai ser refeito." q="O Lipidograma é um exame com quatro itens ou um atalho que escolhe quatro exames?" ask="Ver o mesmo resultado nas duas saídas e responder no chat.">
+    <li term="TUSS">a tabela de procedimentos dos planos de saúde</li>
+    <li term="HDL · LDL">exames do catálogo, pelo nome de uso no consultório</li>
+  </d-origin>
 
   <main>
     <d-tabs>
+      <d-tab label="1 · Lipidograma" id="duvida-1">
 
-      <d-tab label="1 · Teto de 999 mcg" id="duvida-1">
-        <d-part title="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?">
-          <p><strong>O que acontece.</strong> No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto de digitação, isso recusaria doses que se prescrevem todos os dias: B12 de 1.000 mcg, vitamina A de 3.000 mcg RAE, biotina de 5.000 mcg.</p>
-          <p>O engano de mil vezes já tem duas proteções: o aviso “Lido como milhar” e o limite diário da substância.</p>
+        <d-part n="1" title="O Lipidograma é um exame com quatro itens ou um atalho para quatro exames?" answer="Você escolhe o Lipidograma no Em massa. Ele está em **Packs Sugeridos**, sem código próprio na TUSS." desk>
+          <w-fig state="hoje, em dev" cap="o que acontece: o Em massa oferece o conjunto">
+            <w-win title="Adicionar Exames em Massa" icon="list-plus">
+              <d-cols n="2">
+                <w-list>
+                  <w-item title="Lipidograma" meta="Packs sugeridos" icon="stack" on></w-item>
+                  <w-item title="Hemograma Completo" meta="Packs sugeridos" icon="stack"></w-item>
+                  <w-item title="Colesterol Total" meta="Exames individuais"></w-item>
+                  <w-item title="HDL-Colesterol" meta="Exames individuais"></w-item>
+                  <w-item title="LDL-Colesterol" meta="Exames individuais"></w-item>
+                </w-list>
+                <w-list>
+                  <w-item title="Lipidograma" meta="Colesterol Total · HDL-Colesterol · LDL-Colesterol · Triglicerídeos" tag="escolhido" tagtone="ink"></w-item>
+                </w-list>
+              </d-cols>
+            </w-win>
+          </w-fig>
         </d-part>
 
-        <d-part title="Comparando, com a mesma dose" wide>
-          <d-cols n="3">
+        <d-part n="2" title="Em dev" answer="Entra como uma linha que abre em quatro itens, **sem faixa**. O mesmo HDL, 38 mg/dL, avulso dá Baixo." desk>
+          <w-fig state="hoje, em dev" cap="o composto não tem faixa; o avulso tem">
+            <w-win title="Exames de rotina · Resultado" icon="list-bullets">
+              <table class="table">
+                <thead><tr><th>Exame</th><th>Valor</th><th>Unidade</th><th>Referência</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Lipidograma</td><td data-th="Valor" class="dim">—</td><td data-th="Unidade" class="dim">—</td><td data-th="Referência"></td><td data-th="Status"></td></tr>
+                  <tr><td class="sub">Colesterol Total</td><td data-th="Valor">= 190</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                  <tr class="is-mark"><td class="sub">HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                  <tr><td class="sub">LDL-Colesterol</td><td data-th="Valor">= 128</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                  <tr><td class="sub">Triglicerídeos</td><td data-th="Valor">= 120</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                  <tr class="is-mark"><td>HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">50–59</td><td data-th="Status"><w-chip tone="warn">Baixo</w-chip></td></tr>
+                </tbody>
+              </table>
+            </w-win>
+          </w-fig>
+        </d-part>
 
-            <w-fig cap="A · 1.000 mcg entra como está">
-              <w-win title="Vitamina B12 · dose">
-                <w-field label="Quantidade" value="1.000" unit="mcg" mark pin="1"></w-field>
-              </w-win>
-              <w-callout pin="1" mark>recomendada</w-callout>
-            </w-fig>
-
-            <w-fig cap="B · 1.000 mcg entra, com um aviso">
-              <w-win title="Vitamina B12 · dose">
-                <w-field label="Quantidade" value="1.000" unit="mcg" tone="warn"></w-field>
-                <w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>
-              </w-win>
-            </w-fig>
-
-            <w-fig cap="C · 1.000 mcg é recusado">
-              <w-win title="Vitamina B12 · dose">
-                <w-field label="Quantidade" value="1.000" unit="mcg" tone="err"></w-field>
-                <w-msg tone="err" title="Máximo de 999 mcg">Escreva 1 mg.</w-msg>
-              </w-win>
-            </w-fig>
-
-          </d-cols>
+        <d-part n="3" title="Com a recomendação" answer="Entram os quatro exames avulsos, **cada um com a sua faixa**. O Hemograma Completo continua composto: tem código TUSS próprio." desk>
+          <w-fig state="proposto" cap="o atalho escolhe os quatro avulsos de uma vez">
+            <w-win title="Exames de rotina · Resultado" icon="list-bullets">
+              <table class="table">
+                <thead><tr><th>Exame</th><th>Valor</th><th>Unidade</th><th>Referência</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Colesterol Total</td><td data-th="Valor">= 190</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–199</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                  <tr class="is-mark"><td>HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">50–59</td><td data-th="Status"><w-chip tone="warn">Baixo</w-chip></td></tr>
+                  <tr><td>LDL-Colesterol</td><td data-th="Valor">= 128</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–99</td><td data-th="Status"><w-chip tone="warn">Limítrofe alto</w-chip></td></tr>
+                  <tr><td>Triglicerídeos</td><td data-th="Valor">= 120</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–149</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                </tbody>
+              </table>
+            </w-win>
+          </w-fig>
         </d-part>
 
         <d-part title="Sua resposta" wide>
           <d-answer>
-            <li code="1A" label="A · Sem teto" rec>mcg aceita qualquer quantidade; o limite diário e o aviso de milhar protegem. A unidade é escolha de quem prescreve, e a prática escreve 1.000 mcg.</li>
-            <li code="1B" label="B · Aviso acima de 999 mcg">Aceita e mostra uma vez “Acima de 999 mcg: confira se não seria mg”.</li>
-            <li code="1C" label="C · Teto na dose">Recusa acima de 999 mcg; B12 de 1.000 mcg precisa virar 1 mg.</li>
+            <li code="1A" label="A · Atalho" rec>Sem código próprio, o conjunto só escolhe os exames avulsos de uma vez.</li>
+            <li code="1B" label="B · Composto que lê as fichas">Uma linha, com os itens lendo a faixa das fichas avulsas.</li>
+            <li code="1C" label="C · Como em dev">Composto, copiando as faixas para dentro dele.</li>
           </d-answer>
         </d-part>
-      </d-tab>
 
-      <d-tab label="Leis" id="leis">
-        <d-part title="O que já foi decidido" wide>
-          <p>Só decisões de Marco. Nada no produto contradiz uma lei sem nova decisão.</p>
-          <table class="table">
-            <thead><tr><th>Data</th><th>Lei</th><th>Origem</th></tr></thead>
-            <tbody>
-              <tr><td>17/11/2026</td><td data-th="Lei">3000 e 3.000 são três mil; a leitura é 3.000. Copiar e colar preserva o valor.</td><td data-th="Origem">Correção de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">1.000 e 1.234 são milhar: ponto seguido de grupos de três dígitos agrupa. Qualquer outro ponto é decimal: 86.3 é 86,3.</td><td data-th="Origem">Direção de Marco na decisão 5 da Prescrição; fecha a dúvida 1</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">Sem conversão automática de unidade: o nutricionista digita e escolhe a unidade.</td><td data-th="Origem">Diretriz de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">999 mcg é o máximo no contexto da unidade menor. O alcance aguarda resposta na dúvida 1; nenhum teto foi aplicado.</td><td data-th="Origem">Fala de Marco</td></tr>
-              <tr class="superada"><td>17/11/2026</td><td data-th="Lei">Resposta 10A, que recusava 3.000. Superada em 17/11/2026 pela lei do 3.000.</td><td data-th="Origem">Superada</td></tr>
-            </tbody>
-          </table>
-        </d-part>
       </d-tab>
-
     </d-tabs>
-
     <d-part wide>
       <d-answers></d-answers>
     </d-part>
   </main>
 
-  <d-foot left="DietFlow · decisões" right="Números e unidades · 18/11/2026"></d-foot>
+  <d-foot left="DietFlow · Exames" right="Decidir · 10/11/2026"></d-foot>
 
 </d-doc>

@@ -33,8 +33,7 @@ escolha e monte, sem devolver a pergunta "cartão ou aula?".
 Quem nomeia a forma usa as entradas diretas: Cartão, Aula, Decidir, Montagem,
 Prova e Explicar. Aí a escolha dele governa.
 
-Toda entrega abre ancorada e calibrada: altura, profundidade e distância
-decididas antes de montar, e a origem que situa quem não viu a conversa
-([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
-foi uma forma excepcional de explicar, registre a candidata no
-[Acervo](../../references/acervo.md).
+Toda entrega cumpre os [Padrões](../../references/padroes.md): a forma segue o
+conteúdo, a abertura situa quem não viu a conversa e a página em HTML só sai
+depois de vista, com o [check](../../scripts/check.mjs) rodado. Entregue, avalie
+o [Acervo](../../references/acervo.md).

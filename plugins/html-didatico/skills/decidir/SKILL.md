@@ -28,8 +28,7 @@ Maquete aprovada expressa intenção de produto; não comprova implementação.
 Dúvida dentro de um assunto que também precisa ser ensinado é a tab Dúvidas de
 uma Aula. Veja o [roteamento](../../references/roteamento.md).
 
-Toda entrega abre ancorada e calibrada: altura, profundidade e distância
-decididas antes de montar, e a origem que situa quem não viu a conversa
-([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
-foi uma forma excepcional de explicar, registre a candidata no
-[Acervo](../../references/acervo.md).
+Toda entrega cumpre os [Padrões](../../references/padroes.md): a forma segue o
+conteúdo, a abertura situa quem não viu a conversa e a página em HTML só sai
+depois de vista, com o [check](../../scripts/check.mjs) rodado. Entregue, avalie
+o [Acervo](../../references/acervo.md).
