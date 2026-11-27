@@ -14,7 +14,6 @@ A forma segue o conteúdo, e a página é vista antes de sair. Origem: o relato 
 - **Design:** a tela de produto entra, em ordem de preferência, como print real, no design system do produto ou remontada em wireframe, sempre inteira e com o estado.
 - **Aula:** o quadro tem a forma que o conteúdo pede; Na tela é limpa e usa as peças que se mexem; pesquisa e lista de regras antes da página em assunto grande; cinco linhas novas em "O que não passa".
 - **Corte:** o parágrafo de fecho repetido nas sete skills vira uma linha que aponta para Padrões; "verificar é opcional" sai de três lugares.
-- **Acervo:** cinco candidatas da semana (matriz de situações, recortes do documento em três estados, estudo de uma regra, versões lado a lado, board com controles), em `acervo/candidatos/`.
 - Limites: o design system no Claude e o `bundle.css` dos canvas só ganham o tema escuro e as peças novas depois de regerados (`docs/MANUTENCAO.md`). O par de regras "número gerado da fonte" e "frase com objeto concreto" é leitura: o check não mede.
 
 ## 4.3.0 — 27/11/2026
