@@ -1,8 +1,8 @@
-# Núcleo · entender, o nó e a fonte relida
+# Núcleo · entender, o nó, a calibragem e a fonte relida
 
 Toda entrada do plugin passa por aqui antes de escolher forma, peça ou frase: o cartão, a aula, a decisão, a montagem, a prova e a explicação em texto. O tamanho da entrega muda; este caminho vale em todas, e vai até a regra do nó ficar respondida.
 
-Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md); as regras que atravessam todas as formas, como a resposta copiável que leva a pergunta junto, são de [Padrões](padroes.md).
+Este arquivo é dono das fontes e seus limites, da etapa de entender, do nó e do que toda entrega declara. A escolha da forma é do [roteamento](roteamento.md); voz, ordem e quantidade do documento são de [Conteúdo](conteudo.md); reconstruir um significado opaco é de [Reconstruir significado](clareza.md); a revisão de frase é do [guia de escrita](escrita/guia.md); as regras que atravessam todas as formas, como a abertura ancorada, a calibragem e a resposta copiável que leva a pergunta junto, são de [Padrões](padroes.md); o registro de uma forma excepcional de explicar é do [Acervo](acervo.md).
 
 ## Fontes e limites
 
@@ -72,10 +72,24 @@ O contrato de cada tela, a lista de decisões e a matriz de casos são fonte. El
 
 **O material de quem pediu fica.** Quando o pedido traz a explicação de quem domina o assunto, ela é a fonte principal: a ordem do raciocínio, os nomes e os exemplos são dela. Num documento, cada exemplo vira uma figura, desenhada como a tela em que ele acontece. A revisão tira repetição; o raciocínio fica inteiro, e a entrega tem o tamanho que ele tem.
 
+## Calibrar
+
+Com o nó achado, e antes de escolher forma, figura ou frase, escreva para si três linhas, como manda [Calibrar antes de montar](padroes.md#calibrar-antes-de-montar):
+
+- **Altura:** até que pergunta ou decisão a entrega sobe.
+- **Profundidade:** até onde cada coisa é explicada. Padrão: o que um dev olha para verificar o trabalho, sem entrar em código.
+- **Distância:** a lista de temas que, respondidos, dão o assunto por elucidado.
+
+Com as três, escreva a origem: onde estamos, a pergunta real e o que se pede de quem lê, na altura escolhida ([Abertura ancorada](padroes.md#abertura-ancorada)). Se a pergunta é sobre um recorte de um conjunto, a primeira figura mostra o todo com o recorte destacado ([Escopo transversal](padroes.md#escopo-transversal)).
+
 ## Antes de entregar
 
 **A objeção mais forte.** Diga em uma frase o que faria a entrega estar errada e confira na fonte. Ela fica na resposta do chat, fora do documento, com o resultado da conferência; o que não deu para conferir entra como limite.
 
 **Os padrões.** Confira a entrega contra [Padrões](padroes.md): cada um diz onde a regra é cumprida e o que o check reprova.
 
+**O estranho e a distância.** Leia só o título, o caso e a origem como quem abre a página daqui a um mês: eles dizem de que se trata e o que se pede? Depois percorra a lista da distância: cada tema tem a sua parte, e nenhuma parte responde a tema fora da lista.
+
 **Visto e lido.** A entrega separa o que foi observado rodando do que foi lido no código ou na spec. No cartão, isso mora no estado (`src`); nas outras formas, na resposta do chat.
+
+**O acervo.** Entregue, pergunte-se se alguma coisa ali foi uma forma excepcional de explicar: uma figura que acabou com a discussão, uma ordem que tornou o assunto óbvio, um componente que faltava. Se sim, registre a candidata como manda o [Acervo](acervo.md). Se não, siga sem comentar.

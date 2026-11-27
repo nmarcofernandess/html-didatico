@@ -34,6 +34,19 @@ A capa: o rótulo do documento. O filho é o título.
 <d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.">Que data vale num Cálculo retroativo?</d-cover>
 ```
 
+### `<d-origin>`
+
+A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.
+
+- `where`: onde estamos: o sistema, a frente e o estado, com a data
+- `q`: a pergunta real em jogo, com o caso
+- `ask`: o que se pede de quem lê: decidir, conferir, aprender a fazer
+- `li term`: o termo interno, como a página o usa; o texto do li o define
+
+```html
+<d-origin where="DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção." q="Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?" ask="Conferir o recorte e decidir o que entra na rodada."><li term="Full">a suíte que roda todos os proofs de módulo em sequência</li></d-origin>
+```
+
 ### `<d-part>`
 
 Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.

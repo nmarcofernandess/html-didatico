@@ -10,6 +10,10 @@ Este playbook soma ao [didático](didatico.md): ficha, kit, figuras e leitura
 seguem de lá. Aqui ficam o roteador das tabs e a gramática de cada uma; a da
 dúvida é de [Decisão](../decisao.md).
 
+A aula abre pela origem (`<d-origin>`), na altura da pergunta de quem pediu: o
+fundamento do tema só entra quando ele é o tema. A tab Aula percorre a lista da
+distância, um quadro por tema. Veja [Padrões](../padroes.md#abertura-ancorada).
+
 ## Exemplos
 
 A base de toda aula é a [aula-ouro](../kit/ouro/aula.html): o kit embutido, as

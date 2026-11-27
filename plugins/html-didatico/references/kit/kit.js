@@ -5,7 +5,7 @@
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.1.0'
+  const VERSAO = '4.2.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
@@ -56,6 +56,19 @@
     html: (p, k) => raiz('header', 'd-cover cover', p,
       `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
       `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
+  })
+  def('d-origin', {
+    grupo: 'Documento', doc: 'A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.',
+    props: { where: 'onde estamos: o sistema, a frente e o estado, com a data', q: 'a pergunta real em jogo, com o caso', ask: 'o que se pede de quem lê: decidir, conferir, aprender a fazer', 'li term': 'o termo interno, como a página o usa; o texto do li o define' },
+    ex: '<d-origin where="DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção." q="Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?" ask="Conferir o recorte e decidir o que entra na rodada."><li term="Full">a suíte que roda todos os proofs de módulo em sequência</li></d-origin>',
+    html: (p, k, el) => {
+      const linha = (rotulo, v) => (v && v !== true ? `<div class="origin__row"><dt>${rotulo}</dt><dd>${esc(v)}</dd></div>` : '')
+      const termos = el ? [...el.querySelectorAll('li[term]')] : []
+      const glossario = termos.length
+        ? `<div class="origin__row origin__terms"><dt>Termos</dt><dd><dl>${termos.map(li => `<div><dt>${esc(li.getAttribute('term'))}</dt><dd>${li.innerHTML}</dd></div>`).join('')}</dl></dd></div>`
+        : ''
+      return raiz('section', 'd-origin origin', p, `<dl>${linha('Onde estamos', p.where)}${linha('A pergunta', p.q)}${linha('O que se pede', p.ask)}${glossario}</dl>`, { attrs: ' aria-label="Origem"' })
+    },
   })
   def('d-part', {
     grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',

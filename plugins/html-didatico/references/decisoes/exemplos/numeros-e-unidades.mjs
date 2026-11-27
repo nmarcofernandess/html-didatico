@@ -15,6 +15,8 @@ export const MAPA = {
   olho: 'DietFlow · Números e unidades',
   data: '18/11/2026',
   depois: 'A resposta vira lei, com data e origem, e sai da mesa. Nada muda no produto antes dela.',
+  onde: 'DietFlow, Números e unidades em 18/11/2026: as leis já valem; duas decisões seguem abertas, uma da Evolução e uma da dose.',
+  pergunta: 'Como o card da Evolução trata uma glicose em mmol/L num cadastro só em mg/dL, e se a dose acima de 999 mcg ganha teto.',
 }
 
 export const DECISOES = [

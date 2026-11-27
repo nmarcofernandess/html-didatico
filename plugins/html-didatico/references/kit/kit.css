@@ -161,6 +161,19 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .d-cover .cover__sub { margin-top: var(--s-4); max-width: 44rem; font-size: var(--text-subtitle); line-height: 1.35; color: var(--color-ink); }
 .d-cover .cover__lead { margin-top: var(--s-5); max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); }
 
+/* Origem: logo abaixo da capa. Três linhas de ficha (onde estamos, a pergunta, o que se pede) e os termos internos.
+   É o que situa quem abre a página daqui a um mês sem ter visto a conversa. */
+.d-origin { padding-block: var(--gap-block); border-bottom: var(--line) solid var(--color-ink); }
+.d-origin > dl { display: grid; gap: var(--gap-pieces); max-width: 48rem; }
+.d-origin .origin__row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; padding-top: var(--gap-pieces); border-top: var(--line) solid var(--color-rule); }
+.d-origin .origin__row:first-child { padding-top: 0; border-top: 0; }
+.d-origin .origin__row > dt { font: 700 var(--text-small)/1.4 var(--font-body); color: var(--color-ink-3); }
+.d-origin .origin__row > dd { font-size: var(--text-body); line-height: 1.5; color: var(--color-ink); }
+.d-origin .origin__terms dl { display: grid; gap: var(--gap-tied); }
+.d-origin .origin__terms dl > div { display: flex; flex-wrap: wrap; gap: 0 var(--gap-inside); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-2); }
+.d-origin .origin__terms dl dt { font-weight: 700; color: var(--color-ink); }
+@media (max-width: 40rem) { .d-origin .origin__row { grid-template-columns: minmax(0, 1fr); gap: var(--gap-tied); } }
+
 /* Paginação de uma série: o índice, a anterior e a próxima. A próxima é o passo esperado, em tinta cheia. */
 .d-pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside); padding-block: var(--s-4); }
 .d-pager a { display: inline-flex; align-items: center; min-height: var(--target); padding: 0 var(--inset-piece); border: var(--line) solid var(--color-ink); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); text-decoration: none; white-space: nowrap; }

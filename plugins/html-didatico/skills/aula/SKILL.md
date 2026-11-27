@@ -36,3 +36,9 @@ Chamada pelo nome, a aula governa e tem o tamanho que o conteúdo tem. Decisões
 abertas dentro do assunto viram a tab Dúvidas, com a resposta em `<d-answer>`
 ([Padrões](../../references/padroes.md)); fora de uma aula, são de Decidir.
 Veja o [roteamento](../../references/roteamento.md).
+
+Toda entrega abre ancorada e calibrada: altura, profundidade e distância
+decididas antes de montar, e a origem que situa quem não viu a conversa
+([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
+foi uma forma excepcional de explicar, registre a candidata no
+[Acervo](../../references/acervo.md).

@@ -10,7 +10,7 @@ sem fato novo. Copie a forma, nunca o conteúdo.
 | Nome | Obrigatório | O que é |
 |---|---|---|
 | `PAGINA` | sim | `{ id, nome, depois_de }`: página do canvas; criada depois da página `depois_de` se ainda não existir |
-| `MAPA` | sim | `{ arquivo, titulo, titulo_canvas, olho, data, depois, links }`: nome do arquivo do mapa, título da capa, título no canvas, produto e assunto, data absoluta (dd/mm/aaaa), frase do passo 3 ("o que acontece depois das respostas"), `links: [[rótulo, arquivo]]` com no máximo um link, para a página-índice do canvas (a aula, o roadmap) |
+| `MAPA` | sim | `{ arquivo, titulo, titulo_canvas, olho, data, depois, onde, pergunta, links }`: nome do arquivo do mapa, título da capa, título no canvas, produto e assunto, data absoluta (dd/mm/aaaa), frase do passo 3 ("o que acontece depois das respostas"), a origem do mapa em `onde` (o sistema, a frente e o estado, com a data) e `pergunta` (a pergunta real que as decisões respondem juntas), como manda [Padrões](../padroes.md#abertura-ancorada), `links: [[rótulo, arquivo]]` com no máximo um link, para a página-índice do canvas (a aula, o roadmap) |
 | `DECISOES` | sim | Lista de decisões, na ordem do mapa (muda, fica, arruma) |
 | `JA_DECIDIDO` | não | Leis que não voltam à mesa: `[[data, lei, origem]]`, como a tabela Leis da [Aula](../playbooks/aula.md#leis) |
 | `ALTURAS` | não | `{ mapa: 1700, D01: 3100, … }`: altura de cada artboard no canvas (padrão 3000; mapa 2200) |
@@ -39,7 +39,7 @@ A figura é marcação do kit: uma `w-fig` com a cena, ou um `d-cols` com uma
 `w-fig` por lado. Outra marcação sai embrulhada numa `w-fig`. A frase e as
 opções são HTML: `<b>` para o líder, `&lt;` para o sinal de menor.
 
-O motor confere: as variáveis obrigatórias em texto, `MAPA.arquivo` terminado em
+O motor confere: as variáveis obrigatórias em texto (com `MAPA.onde` e `MAPA.pergunta`), `MAPA.arquivo` terminado em
 `.dc.html`, `MAPA.data` em dd/mm/aaaa, `kind` válido, ao menos duas opções com
 rótulo "A · …", "B · …" em ordem, `pick` dentro delas, 2 ou 3 quadros com
 título, frase e figura, as leis em três colunas, `{{` em nenhum texto (o canvas o

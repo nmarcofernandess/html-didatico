@@ -7,6 +7,12 @@ com erro ou ambiente indisponível também não autorizam um substituto manual.
 Se a existência do renderer não puder ser determinada, exponha a lacuna e não
 apresente HTML manual como prova oficial.
 
+Uma prova ou um mural de provas abre pela origem e, quando o assunto é um recorte
+(os proofs de um módulo, uma jornada entre as outras), mostra antes o conjunto
+inteiro com o recorte destacado: quantos proofs há, quais este cobre e quais
+ficam de fora. Veja [Abertura ancorada](../padroes.md#abertura-ancorada) e
+[Escopo transversal](../padroes.md#escopo-transversal).
+
 ## Com renderer oficial
 
 - Packs novos seguem o fluxo canônico do projeto, seus inputs/descriptor, ambiente,

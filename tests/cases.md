@@ -28,6 +28,8 @@ Os exemplos-ouro do kit, [cartão](../plugins/html-didatico/references/kit/ouro/
 | Pedido/contexto | Rota e resultado esperado |
 |---|---|
 | “Explique o sistema”, sem pedir visual | Explicar, em texto. |
+| No meio de uma conversa sobre rodar os testes de um módulo com a feature em construção: “faz um HTML didático disso” | Aula ou prova, aberta por `<d-origin>` na altura da pergunta (o módulo, a suíte, a dúvida de afrouxar teste ou regredir a feature), sem abrir por “o que é um teste” nem pelo último estado (“o último Full parou no lint”). A primeira figura mostra todos os proofs com o recorte destacado; cada tema da distância tem a sua parte. |
+| Uma entrega que destravou a conversa com uma forma que ainda não está no kit | Depois da entrega, uma candidata em `acervo/candidatos/` na branch `acervo`, pelo formato de [Acervo](../plugins/html-didatico/references/acervo.md); sem escrita no repositório, o bloco no fim da resposta. Nenhuma versão muda. |
 | “Explique o sistema em HTML” | Aula, modo sistemas. |
 | “Blueprint de onde fica o botão” | Decidir, como maquete: o eixo é layout. |
 | “Como este botão recebe children e props?” | Montagem: o eixo é composição/API. |

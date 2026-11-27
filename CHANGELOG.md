@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.2.0 — 27/11/2026
+
+Abertura ancorada, calibragem e acervo. Pedido de Marco: uma aula sobre os testes do DietFlow abriu no meio da conversa ("Do erro ao merge", "O último Full parou no lint"), com jargão sem origem; lida um mês depois, não dizia de que se tratava. O conserto também não era começar por "o que é um teste", porque o tema era outro: dá para rodar os testes do módulo com a feature em construção sem afrouxar teste e sem regredir a feature?
+
+- **Quatro padrões novos em `references/padroes.md`,** cada um com o caso dos testes do DietFlow:
+  - **Abertura ancorada:** toda entrega abre pela origem (onde estamos, a pergunta real, o que se pede de quem lê), na altura do assunto. Inclui o teste do estranho, título objetivo sem slogan e termo interno definido na primeira aparição.
+  - **Calibrar antes de montar:** altura, profundidade (padrão: o que um dev olha para verificar o trabalho, sem entrar em código) e distância (a lista de temas que dão o assunto por elucidado), escritas antes de montar e conferidas no fim.
+  - **Escopo transversal:** recorte de um conjunto abre com o todo e o recorte destacado com `mark`, e só então ganha profundidade.
+  - **Produto durável:** o estado leva data e revisão; a forma de explicar não depende da conversa.
+- **Núcleo:** seção nova "Calibrar", entre o nó e a montagem. "Antes de entregar" ganha o teste do estranho com a lista da distância, e o acervo.
+- **`<d-origin>`,** componente novo, logo abaixo da capa: `where`, `q`, `ask` e um `li term` por termo interno. Entra em todos os exemplos-ouro menos o cartão (lá a capa já é a origem), no starter e no mapa dos boards (`MAPA.onde` e `MAPA.pergunta`, agora obrigatórios no motor).
+- **Títulos dos exemplos-ouro:** a maquete deixa "O 5,5 aparece. A linha não mente." por "Glicose em mmol/L no card da Evolução", e a montagem deixa "Das peças à tela" por "Como um grupo de exames se monta".
+- **Check:** reprova documento sem `<d-origin>` (cartão e boards de uma série ficam de fora), origem depois da primeira parte, origem sem `where` ou `q` e capa sem data. Avisa origem com mais de 80 palavras. A origem não conta na densidade de prosa por tela.
+- **Acervo de candidatas:** `references/acervo.md` diz quando uma entrega registra uma forma excepcional de explicar, o que escreve e para onde vai: `acervo/candidatos/` na raiz do repositório, por commit direto na branch `acervo`, fora do pacote e sem release. Sem escrita no repositório, a candidata sai num bloco no fim da resposta. Toda skill termina perguntando se houve uma. O `AGENTS.md` e o validador garantem que `acervo/` nunca entra no pacote.
+- Limites: o design system no Claude e o `bundle.css` dos canvas só vestem `d-origin` depois de regerados (`docs/MANUTENCAO.md`). Boards já gerados com o motor antigo precisam de `MAPA.onde` e `MAPA.pergunta` para gerar de novo.
+
 ## 4.1.0 — 26/11/2026
 
 Resposta copiável leva a origem. Pedido de Marco: uma página de decisões copiava só o código de cada opção, um por linha ("pode deploy DEV", "dias segunda"); quem recebeu não sabia a que pergunta cada linha respondia, e o autor teve de reformatar à mão.

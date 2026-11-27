@@ -21,3 +21,9 @@ description: "Entrada direta, para quando pedem pelo nome prova, proof, pack, ev
 
 Uma explicação que cita provas não vira prova; maquete de tela é de Decidir.
 Veja o [roteamento](../../references/roteamento.md).
+
+Toda entrega abre ancorada e calibrada: altura, profundidade e distância
+decididas antes de montar, e a origem que situa quem não viu a conversa
+([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
+foi uma forma excepcional de explicar, registre a candidata no
+[Acervo](../../references/acervo.md).
