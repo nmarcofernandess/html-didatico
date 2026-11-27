@@ -221,11 +221,34 @@ for (const w of widths) {
       .filter(s => s.querySelector('h2') && !s.querySelector('figure, .fig, table')).map(s => trecho(s.querySelector('h2')))
     const palavrasForaDeTabela = prosa.filter(el => !el.closest('table')).reduce((n, el) => n + [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length, 0)
 
+    // Tabela no lugar da figura (references/padroes.md#figura-desenha-tabela-ordena): conta as palavras de cada célula.
+    // Fora da conta: a tabela da resposta (d-answer) e as abas Leis e Roadmap, que são tabelas por natureza.
+    const porNatureza = t => t.closest('.d-answer') || /^(Leis|Roadmap)$/i.test(t.closest('.tabs__panel')?.dataset.label ?? '')
+    const tabelas = [...document.querySelectorAll('table')].filter(visivel).filter(t => !porNatureza(t)).map(t => {
+      const cel = [...t.querySelectorAll('td')].map(td => td.textContent.trim().split(/\s+/).filter(Boolean).length)
+      const parte = t.closest('section.d-part')?.querySelector('h2')
+      return { parte: parte ? trecho(parte) : rotulo(t), longas: cel.filter(n => n > 15).length, maior: Math.max(0, ...cel) }
+    })
+    // Cada aba (fora de Leis e Roadmap, que são tabelas por natureza) tem ao menos uma figura desenhada com componentes.
+    const desenhada = f => !f.querySelector('table') && [...f.children].some(c => c.tagName !== 'FIGCAPTION')
+    const abasSemDesenho = [...document.querySelectorAll('.tabs__panel')].filter(p => !p.parentElement.closest('.tabs__panel'))
+      .filter(p => !/^(Leis|Roadmap)$/i.test(p.dataset.label ?? ''))
+      .filter(p => ![...p.querySelectorAll('figure')].some(desenhada)).map(p => p.dataset.label)
+    const figurasTabela = figs.filter(f => f.querySelector('table')).length + [...document.querySelectorAll('.part__fig > table, section.d-part > table')].filter(visivel).length
+    const figurasDesenhadas = figs.filter(desenhada).length
+    // Resposta que não responde ao título: pergunta aberta ("O que…?", "Quais…?") respondida com "Sim." ou "Não.".
+    const aberta = /^(?:O que|Que|Quais?|Como|Onde|Quem|Quando|Por que|Quanto|Quantos|Quantas|Até onde|De onde)\b/i
+    const respostaTorta = [...document.querySelectorAll('section.d-part')].filter(visivel).map(s => {
+      const h = s.querySelector('h2, h3'), p = s.querySelector('p')
+      return h && p && aberta.test(h.textContent.trim()) && /^(?:Sim|Não)\b[.,!:]/.test(p.textContent.trim()) ? trecho(h) : null
+    }).filter(Boolean)
+
     const infinitas = [...document.querySelectorAll('*')].filter(el => getComputedStyle(el).animationIterationCount === 'infinite' && getComputedStyle(el).animationName !== 'none').map(rotulo)
     const doc = document.documentElement
     return {
       rolagemHorizontal: doc.scrollWidth > doc.clientWidth + 1 ? doc.scrollWidth - doc.clientWidth : 0,
       pequeno, caps, contraste, apertado, medida, titulo, figuras, partes, infinitas, semFigura, palavrasForaDeTabela,
+      tabelas, abasSemDesenho, figurasTabela, figurasDesenhadas, respostaTorta,
       mono: charsTotal ? +(charsMono / charsTotal * 100).toFixed(1) : 0,
       palavrasPorTela: { max: Math.max(0, ...janelas), mediana: ordenadas[Math.floor(ordenadas.length / 2)] ?? 0 },
       palavrasDeProsa: marcas.reduce((s, m) => s + m.n, 0),
@@ -319,7 +342,8 @@ if (capa && !cartaoDoc && !daSerie) {
     if (iParte >= 0 && iOrigem > iParte) falhas.push('<d-origin> depois da primeira parte: a origem vem logo abaixo da capa')
     const falta = [['Onde estamos', 'where'], ['A pergunta', 'q']].filter(([rotulo]) => !origem.includes(`<dt>${rotulo}</dt>`)).map(([, k]) => k)
     if (falta.length) falhas.push(`<d-origin> sem ${falta.join(' e ')}: onde estamos e a pergunta real são o mínimo da origem`)
-    const palavras = origem.replace(/<dt>[^<]*<\/dt>/g, ' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
+    // Os termos são glossário, de tamanho livre: a medida vale para onde estamos, a pergunta e o que se pede.
+    const palavras = origem.replace(/<div class="origin__row origin__terms">[\s\S]*$/, ' ').replace(/<dt>[^<]*<\/dt>/g, ' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
     if (palavras > 80) avisos.push(`origem com ${palavras} palavras (referência: até 80): ela situa; a explicação mora nas partes`)
   }
 }
@@ -333,6 +357,35 @@ if (cartaoDoc) {
   if (maior.figuras.length > 3) avisos.push(`cartão com ${maior.figuras.length} figuras: um cartão responde a até três perguntas; mais que isso pede documento ou aula`)
   if (maior.semFigura.length) avisos.push(`pergunta sem figura no cartão (${maior.semFigura.length}): ${lista(maior.semFigura, t => `"${t}"`)}`)
   if (maior.palavrasForaDeTabela > 90) avisos.push(`cartão com ${maior.palavrasForaDeTabela} palavras fora das figuras (referência: até 90): o que a tela mostra sai do texto; o que sobra vira legenda`)
+}
+// Figura desenha, tabela ordena (references/padroes.md): tabela de frases não é figura, e cada aba tem um desenho.
+if (!cartaoDoc && !daSerie) {
+  const tabelaDeFrases = maior.tabelas.filter(t => t.longas >= 3)
+  if (tabelaDeFrases.length) falhas.push(`tabela de frases no lugar da figura (${tabelaDeFrases.length}): ${lista(tabelaDeFrases, t => `"${t.parte}" com ${t.longas} células acima de 15 palavras`)}; o que a tabela narra vira figura (w-*), e a tabela fica com células curtas`)
+  const longas = maior.tabelas.filter(t => t.longas > 0 && t.longas < 3)
+  if (longas.length) avisos.push(`célula de tabela com frase (${longas.length}): ${lista(longas, t => `"${t.parte}" até ${t.maior} palavras`)}; célula curta, a explicação vai para a figura`)
+  if (maior.abasSemDesenho.length) falhas.push(`aba sem figura desenhada (${maior.abasSemDesenho.join(', ')}): cada aba tem ao menos uma figura feita de componentes w-*, além das tabelas`)
+  const totalFig = maior.figurasTabela + maior.figurasDesenhadas
+  if (totalFig >= 3 && maior.figurasTabela > maior.figurasDesenhadas) falhas.push(`${maior.figurasTabela} de ${totalFig} figuras são tabelas: a maioria das perguntas tem de ser respondida por desenho (cena ou esquema do kit)`)
+}
+if (maior.respostaTorta.length) falhas.push(`resposta que não responde ao título (${maior.respostaTorta.length}): ${lista(maior.respostaTorta, t => `"${t}"`)}; pergunta aberta não se responde com Sim ou Não, e a frase responde ao título, não à conversa`)
+// Termo interno sem origem: sigla ou código (E2E, FlowUI, m6) fora da lista de termos da origem e das siglas de uso geral.
+if (capa && !cartaoDoc && !daSerie) {
+  const termosDef = [...vivo.matchAll(/<div><dt>([^<]+)<\/dt><dd>/g)].map(m => m[1].toLowerCase())
+  const assunto = (capa.match(/class="plate__subject"[^>]*>([^<]*)</)?.[1] ?? '').split(/[\s·]+/)
+  const corpoLido = vivo.replace(/<header class="d-cover\b[\s\S]*?<\/header>/, ' ').replace(/<section class="d-origin\b[\s\S]*?<\/section>/, ' ').replace(/<p class="d-src\b[\s\S]*?<\/p>|<div class="d-src\b[\s\S]*?<\/div>/g, ' ')
+    .replace(/<(code|pre|kbd)[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ')
+  const gerais = new Set(['PDF', 'HTML', 'CSS', 'JS', 'URL', 'API', 'ID', 'IDs', 'OK', 'PR', 'PRs', 'UI', 'IA', 'CPF', 'CEP', 'SQL', 'JSON', 'CSV', 'PNG', 'SVG', 'DS', 'TI', 'RG', 'SUS', 'ANVISA', 'FHIR', 'WCAG', 'IMC', 'VET', 'TMB', 'UTC', 'GB', 'MB', 'KB', 'HTTP', 'HTTPS', 'DOM', 'SHA', 'CLT', 'CI', 'LGPD', 'CRN', 'CNPJ'])
+  // Montagem fala de componentes pelo nome do código: ali o CamelCase é o assunto, e só siglas e códigos contam.
+  const camelValem = forma !== 'Montagem'
+  const siglas = [...new Set([...corpoLido.matchAll(/\b(?:[A-Z][A-Za-z]*[A-Z0-9][A-Za-z0-9]*|[a-z]\d{1,2})\b/g)].map(m => m[0]))]
+    .map(t => t.replace(/(?<=[A-Z])s$/, ''))
+    .filter(t => !gerais.has(t) && !assunto.includes(t) && !/^[A-Z]?\d+$/.test(t) && !termosDef.some(d => d.includes(t.toLowerCase())))
+    .filter(t => /\d/.test(t) || /[a-z]/.test(t) || t.length >= 3)  // duas maiúsculas soltas são iniciais (AN, BE), não sigla
+    .filter(t => camelValem || /^[A-Z0-9]+$|^[a-z]\d/.test(t))
+    .filter((t, i, a) => a.indexOf(t) === i)
+  if (siglas.length >= 4) falhas.push(`termos internos sem definição (${siglas.length}): ${lista(siglas, t => t, 8)}; cada um ganha um <li term> na origem ou some`)
+  else if (siglas.length) avisos.push(`termo interno sem definição: ${siglas.join(', ')}; defina em <li term> na origem, ou confirme que é de uso geral`)
 }
 if (transitionAll) falhas.push('transition: all no CSS; liste as propriedades')
 if (temAnimacao && !temReducedMotion) falhas.push('há animação ou transição sem bloco prefers-reduced-motion')

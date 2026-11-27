@@ -47,7 +47,7 @@ Comentário: <texto>
 
 **Onde é cumprida.** No kit, pelo `<d-origin>`, logo abaixo da capa: `where` (onde estamos), `q` (a pergunta real), `ask` (o que se pede) e um `li term` por termo interno. Veja [os componentes](kit/componentes.md#d-origin). No cartão, a capa é a origem: a pergunta é o título, o caso é o `sub` e o `subject` diz onde estamos. Nos boards, a origem mora no mapa (`MAPA.onde` e `MAPA.pergunta`, em [formato](decisoes/formato.md)), e cada board herda dele. Em Explicar, as duas primeiras frases fazem o papel da origem. Toda base de `montar.mjs --novo` já traz a peça.
 
-**O check.** Reprova documento com capa, fora do cartão e dos boards de uma série, sem `<d-origin>`; origem depois da primeira parte; origem sem `where` ou sem `q`. Avisa origem com mais de 80 palavras.
+**O check.** Reprova documento com capa, fora do cartão e dos boards de uma série, sem `<d-origin>`; origem depois da primeira parte; origem sem `where` ou sem `q`; quatro ou mais termos internos sem definição (sigla ou código como E2E, FlowUI, m6, fora dos `li term` e das siglas de uso geral); e parte cuja pergunta é aberta ("O que…?", "Quais…?") respondida com "Sim." ou "Não.", sinal de que a frase responde à conversa e não ao título. Avisa origem com mais de 80 palavras (o glossário de termos fica fora da conta) e de um a três termos sem definição.
 
 ## Calibrar antes de montar
 
@@ -95,3 +95,18 @@ Comentário: <texto>
 **Onde é cumprida.** Na capa (`date`, e `ref` quando há revisão), na origem e no [acervo](acervo.md): a forma de explicar que funcionou vira candidata a padrão, fora do ciclo de release.
 
 **O check.** Reprova capa sem data.
+
+## Figura desenha, tabela ordena
+
+**A regra.** A pergunta de cada parte se responde com um desenho feito de componentes (`w-*`): cena do produto ou esquema. Tabela é ficha: ordena valores curtos que já foram explicados, como a regra inteira no fecho, as Leis e o Roadmap. Tabela cujas células carregam frases é texto fingindo layout, e não conta como figura.
+
+- **Célula curta.** Uma célula diz um valor, um estado ou um nome: "sim", "versão anterior", "16 de 16". A frase que explica o valor vai para a figura (o `sub` de um nó, o `meta` de um item) ou para a legenda.
+- **Cada aba tem um desenho.** Fora de Leis e Roadmap, toda aba tem ao menos uma figura feita de componentes, além das tabelas.
+- **A maioria é desenho.** Com três figuras ou mais, as desenhadas são maioria.
+- **O que vira o quê.** Uma lista de casos com o mesmo atributo vira `w-list` com `tag`; uma comparação de casos contra critérios vira `w-matrix` com a coluna `who`; o que contém o quê vira `w-box`; uma escala de alcance ou de maturidade vira `w-layers`; um antes e depois vira `w-flow`.
+
+**O caso.** A segunda versão da aula de testes do DietFlow tinha nove figuras; seis eram tabelas com células de 15 a 30 palavras, embrulhadas em `w-fig`. O "mapa transversal" pedido virou uma tabela com `mark` em algumas células: o todo e o recorte não apareciam. O check da época isentava tabela da conta de palavras por figura e contava tabela como figura, e a aula passou sem nenhum aviso.
+
+**Onde é cumprida.** No playbook [Aula](playbooks/aula.md#aula-de-verificação), que traz a receita de figuras para testes, provas e CI, e nos componentes do kit. A `w-matrix` com coluna `who` deixa de ter células quadradas e aceita uma palavra por célula.
+
+**O check.** Reprova tabela com três células ou mais acima de 15 palavras, aba sem figura desenhada e documento com mais figuras-tabela que figuras desenhadas (a tabela de `<d-answer>` e as abas Leis e Roadmap ficam fora da conta). Avisa célula isolada acima de 15 palavras.

@@ -495,6 +495,10 @@ html:not(.js) .d-answers { display: none; }
 .w-cell[data-on] { border-color: var(--color-ink); background: var(--color-ink); color: var(--color-on-ink); }
 .w-cell[data-off] { border-style: dashed; background: none; color: var(--color-ink-3); }
 .w-cell[data-mark] { border-color: var(--color-mark); background: var(--color-mark); color: var(--color-on-mark); }
+/* Matriz com a coluna do nome: cada linha é um caso e as células dizem uma palavra; a célula deixa de ser quadrada. */
+.w-matrix:has(> [data-who]) { grid-template-columns: minmax(7rem, 1.6fr) repeat(calc(var(--cols, 7) - 1), minmax(0, 1fr)); line-height: 1.25; }
+.w-matrix:has(> [data-who]) > .w-cell { aspect-ratio: auto; min-height: var(--target); padding: var(--s-2) var(--s-1); text-align: center; overflow-wrap: anywhere; hyphens: auto; }
+.w-matrix:has(> [data-who]) > .w-cell[data-who] { text-align: start; padding-left: 0; hyphens: manual; overflow-wrap: normal; }
 
 /* Arquivos: o explorer de um projeto. Nome em mono; a nota diz para que serve. */
 .w-files { gap: 2px; font: 400 var(--ui-meta)/1.4 var(--font-mono); color: var(--color-ink); }
@@ -531,6 +535,7 @@ html:not(.js) .d-answers { display: none; }
 .w-layer > .w-chip { margin-left: auto; }
 .w-layer[data-mark] { background: var(--color-mark-soft); }
 .w-layer[data-mark]::before { color: var(--color-mark-ink); }
+.w-layer[data-mark] > .grow > small { color: var(--color-ink-2); }
 .w-layer[data-off] { border-style: dashed; color: var(--color-ink-3); background: none; }
 
 /* Linha do tempo: o caso real em datas absolutas. A cor do topo é o dado e vem com o texto que o explica. */

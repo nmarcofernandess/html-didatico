@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.3.0 — 27/11/2026
+
+Figura desenha, tabela ordena. Pedido de Marco: a segunda versão da aula de testes do DietFlow, refeita por outro agente com o plugin 4.0.1, abriu sem origem, trocou as figuras por tabelas de frases, respondeu "Sim." a "O que o DietFlow verifica?" e usou Full, E2E, FlowUI, focal e "Full elegível" sem definir nenhum. O check da época isentava tabela da conta de palavras por figura e contava tabela como figura: a aula passou com zero falhas e zero avisos.
+
+- **Padrão novo em `references/padroes.md`, "Figura desenha, tabela ordena":** a pergunta se responde com desenho de componentes; tabela é ficha de valores curtos; cada aba tem um desenho; as desenhadas são maioria. Traz o mapa de qual componente substitui cada tabela de frases.
+- **Check:** reprova tabela com três células ou mais acima de 15 palavras, aba sem figura desenhada (fora de Leis e Roadmap), documento com mais figuras-tabela que desenhadas, parte de pergunta aberta respondida com "Sim." ou "Não.", e quatro ou mais termos internos (siglas e códigos) fora dos `li term` da origem. Avisa de um a três termos sem definição e célula isolada longa. O glossário da origem sai da conta de 80 palavras. A aula do agente, rodada no check novo, sai com cinco falhas; todos os exemplos-ouro passam.
+- **Playbook Aula:** seção "Aula de verificação", com a figura de cada pergunta sobre testes, provas e integração (régua de alcance em `w-layers`, cobertura da suíte em `w-box`, triagem em `w-matrix`, alinhamento das provas em `w-matrix`), e três linhas novas em "O que não passa".
+- **Núcleo:** documentação não autoriza commit em PR do projeto sem pedido explícito; quem pede para ver a calibragem antes recebe as três linhas e a montagem espera.
+- **Kit:** `w-matrix` com coluna `who` deixa as células quadradas e vira matriz de casos, com uma palavra por célula e quebra no celular; o `sub` de uma `w-layer` marcada passa no contraste.
+- **Acervo:** a aula refeita (testes da revisão de registros do DietFlow) entra como candidata a referência de aula de verificação.
+
 ## 4.2.0 — 27/11/2026
 
 Abertura ancorada, calibragem e acervo. Pedido de Marco: uma aula sobre os testes do DietFlow abriu no meio da conversa ("Do erro ao merge", "O último Full parou no lint"), com jargão sem origem; lida um mês depois, não dizia de que se tratava. O conserto também não era começar por "o que é um teste", porque o tema era outro: dá para rodar os testes do módulo com a feature em construção sem afrouxar teste e sem regredir a feature?

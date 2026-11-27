@@ -115,6 +115,24 @@ nesta ordem, quando há material:
 A Aula mostra só o que está decidido ou confirmado. Onde há dúvida aberta, o
 quadro mostra o estado atual e leva à dúvida por link (`#duvida-2`).
 
+## Aula de verificação
+
+Quando o assunto é testar, provar ou integrar uma entrega (quais testes rodaram, o que a suíte completa cobre, se as provas acompanham a arquitetura, o que fazer com um teste vermelho), a aula segue esta receita. Cada pergunta tem a sua figura; nenhuma é tabela de frases ([Padrões](../padroes.md#figura-desenha-tabela-ordena)).
+
+| A pergunta | A figura |
+|---|---|
+| O que a entrega protege? | `w-flow` com o caso real do contrato, do gesto ao registro |
+| Que verificações existem, e quais a entrega toca? | `w-box` com cada família e seus membros; o recorte com `mark`, o que não foi lido com `kind="slot"` ([Escopo transversal](../padroes.md#escopo-transversal)) |
+| Dá para testar com a feature em andamento? | `w-layers` como régua de alcance (focal, prova de módulo, suíte completa, prova conjunta), com o estado de cada degrau na `tag` |
+| A suíte completa cobre tudo? | Duas `w-box`: o que ela contém e o que roda fora dela |
+| Até onde chegou a última execução? | `w-flow` com as etapas; a que parou com `mark`, as que não rodaram com `off` |
+| O que rodou, e até onde vale? | `w-list` com o número no `meta` e o alcance na `tag` (focal, versão anterior) |
+| Um teste falhou: quem está errado? | `w-flow` da triagem e `w-matrix` causa × onde se corrige, com a garantia que fica em `mark` |
+| Isso evita afrouxar e regredir? | Um `w-flow` por caso real: o que o teste pedia, a causa, o que ele cobra agora |
+| As provas acompanham a arquitetura? | `w-matrix` prova × (roteiro cobre, rodou depois, publicada), uma palavra por célula e o detalhe na legenda |
+
+A origem define cada nome de suíte, etapa e prova num `li term`. O que a fonte não dá (o critério de uma suíte elegível, o estado de uma jornada) entra como lacuna visível: `kind="slot"` na figura ou um `d-note` com o rótulo Lacuna. A aula de referência é a dos testes da revisão de registros do DietFlow, de 27/11/2026, no acervo.
+
 ## Na tela
 
 Um **protótipo que funciona**: o leitor clica, marca, digita e vê o resultado.
@@ -193,7 +211,7 @@ cada rodada; tab sem material sai.
 
 Cada item já apareceu numa aula entregue e a derrubou. Releia o documento
 contra a lista antes de entregar; quando o [check](../../scripts/check.mjs) roda,
-ele reprova os quatro primeiros.
+ele reprova os quatro primeiros e os três últimos.
 
 | Não passa | Faça |
 |---|---|
@@ -208,6 +226,9 @@ ele reprova os quatro primeiros.
 | Inventário de fatos certos, sem o nó | A pergunta em pauta, o nó (a regra, ou o que prende) e a régua; os fatos se organizam em volta |
 | Dor ou virada inventada num assunto que só pede apresentação | O que existe, como existe: o caso do começo ao fim e a regra |
 | Fala sobre o documento: "um HTML ajuda a decidir", "comece pela 02" | O documento mostra; quem decide sabe por onde começar pelo mapa das tabs |
+| Tabela de frases embrulhada em figura, ou "mapa" que é tabela com `mark` em células | Desenho de componentes, com a célula reduzida a um valor ([Padrões](../padroes.md#figura-desenha-tabela-ordena)) |
+| Frase que responde à conversa e não ao título: "O que o sistema verifica?" seguido de "Sim." | A primeira frase responde à pergunta do título, com o caso |
+| Nome de suíte, etapa ou prova que só existe no projeto, sem definição: Full, E2E, focal, "Full elegível" | Um `li term` na origem para cada um, ou o nome some |
 
 ## Entrega
 
