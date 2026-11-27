@@ -40,7 +40,7 @@ const validar = cfg => {
   exige(P && texto(P.id) && /^[A-Za-z0-9_-]{1,40}$/.test(P.id) && texto(P.nome), 'PAGINA com id (letras, números, - e _) e nome')
   exige(M, 'falta exportar MAPA')
   if (M) {
-    for (const k of ['arquivo', 'titulo', 'olho', 'data', 'depois']) exige(texto(M[k]), `MAPA.${k} em texto`)
+    for (const k of ['arquivo', 'titulo', 'olho', 'data', 'depois', 'onde', 'pergunta']) exige(texto(M[k]), `MAPA.${k} em texto`)
     exige(/^[A-Za-z0-9_][A-Za-z0-9_.-]*\.dc\.html$/.test(M.arquivo ?? ''), 'MAPA.arquivo termina em .dc.html, sem espaço nem pasta')
     exige(/^\d{2}\/\d{2}\/\d{4}$/.test(M.data ?? ''), 'MAPA.data em dd/mm/aaaa')
     exige(!M.links || (Array.isArray(M.links) && M.links.length <= 1 && M.links.every(l => Array.isArray(l) && texto(l[0]) && texto(l[1]))), 'MAPA.links tem no máximo um link: [[rótulo, arquivo]]')
@@ -110,6 +110,7 @@ const mapa = (cfg, href) => {
   return `<d-doc>
   <d-pager${indice ? ` up="${esc(`${indice[0]}|${href(indice[1])}`)}"` : ''} next="Começar|${href(nome(cfg, 0))}"></d-pager>
   <d-cover kind="Decidir" subject="${esc(M.olho)}" date="${esc(M.data)}" sub="${D.length} ${D.length === 1 ? 'decisão' : 'decisões'} na mesa, cada uma em um board.">${M.titulo}</d-cover>
+  <d-origin where="${esc(M.onde)}" q="${esc(M.pergunta)}" ask="Abrir cada decisão, ver as saídas no mesmo caso e responder no chat."></d-origin>
   <main>
     <d-part title="Como decidir" wide>
       <ol>

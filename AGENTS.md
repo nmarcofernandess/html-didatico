@@ -22,6 +22,12 @@ instalação local pelo fluxo suportado e confira separadamente versão efetiva,
 origem e skills de cada host disponível. Não edite caches nem declare que uma
 sessão aberta recarregou o catálogo sem observação. Relate hosts indisponíveis.
 
+O acervo de candidatas fica em `acervo/`, na raiz, fora do pacote: as skills
+registram ali, por commit direto na branch `acervo`, uma forma de explicar que
+funcionou (`references/acervo.md`). Mudança só em `acervo/` não é atualização do
+plugin: não pede versão, CHANGELOG nem release. Canonizar uma candidata é, e segue
+o ciclo normal. O pacote nunca lê nem empacota `acervo/`.
+
 Exemplos históricos ficam em `docs/historico/exemplos/`, fora do pacote do
 plugin, para não ensinarem estilo obsoleto. Preserve seus bytes; não os reescreva
 para ilustrar regra nova nem trate seus status como fatos atuais. Exemplo novo é

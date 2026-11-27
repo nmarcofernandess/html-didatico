@@ -85,6 +85,11 @@ def validate():
         source = source["path"] if isinstance(source, dict) else source
         assert (ROOT / source).resolve() == PLUGIN, marketplace
 
+    # O acervo de candidatas vive na raiz, fora do pacote, e só entra no plugin pela referência que diz como registrar.
+    assert (PLUGIN / "references/acervo.md").exists()
+    assert (ROOT / "acervo/README.md").exists() and (ROOT / "acervo/candidatos").is_dir()
+    assert not [p for p in PLUGIN.rglob("*") if p.name == "acervo"], "acervo/ dentro do pacote"
+
     links = 0
     for document in packaged(ROOT, "*.md"):
         if ".git" in document.parts:

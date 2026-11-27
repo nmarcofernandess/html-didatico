@@ -27,3 +27,9 @@ antes da resposta.
 Maquete aprovada expressa intenção de produto; não comprova implementação.
 Dúvida dentro de um assunto que também precisa ser ensinado é a tab Dúvidas de
 uma Aula. Veja o [roteamento](../../references/roteamento.md).
+
+Toda entrega abre ancorada e calibrada: altura, profundidade e distância
+decididas antes de montar, e a origem que situa quem não viu a conversa
+([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
+foi uma forma excepcional de explicar, registre a candidata no
+[Acervo](../../references/acervo.md).

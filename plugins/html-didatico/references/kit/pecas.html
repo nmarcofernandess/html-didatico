@@ -169,6 +169,19 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .d-cover .cover__sub { margin-top: var(--s-4); max-width: 44rem; font-size: var(--text-subtitle); line-height: 1.35; color: var(--color-ink); }
 .d-cover .cover__lead { margin-top: var(--s-5); max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); }
 
+/* Origem: logo abaixo da capa. Três linhas de ficha (onde estamos, a pergunta, o que se pede) e os termos internos.
+   É o que situa quem abre a página daqui a um mês sem ter visto a conversa. */
+.d-origin { padding-block: var(--gap-block); border-bottom: var(--line) solid var(--color-ink); }
+.d-origin > dl { display: grid; gap: var(--gap-pieces); max-width: 48rem; }
+.d-origin .origin__row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; padding-top: var(--gap-pieces); border-top: var(--line) solid var(--color-rule); }
+.d-origin .origin__row:first-child { padding-top: 0; border-top: 0; }
+.d-origin .origin__row > dt { font: 700 var(--text-small)/1.4 var(--font-body); color: var(--color-ink-3); }
+.d-origin .origin__row > dd { font-size: var(--text-body); line-height: 1.5; color: var(--color-ink); }
+.d-origin .origin__terms dl { display: grid; gap: var(--gap-tied); }
+.d-origin .origin__terms dl > div { display: flex; flex-wrap: wrap; gap: 0 var(--gap-inside); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-2); }
+.d-origin .origin__terms dl dt { font-weight: 700; color: var(--color-ink); }
+@media (max-width: 40rem) { .d-origin .origin__row { grid-template-columns: minmax(0, 1fr); gap: var(--gap-tied); } }
+
 /* Paginação de uma série: o índice, a anterior e a próxima. A próxima é o passo esperado, em tinta cheia. */
 .d-pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside); padding-block: var(--s-4); }
 .d-pager a { display: inline-flex; align-items: center; min-height: var(--target); padding: 0 var(--inset-piece); border: var(--line) solid var(--color-ink); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); text-decoration: none; white-space: nowrap; }
@@ -713,7 +726,7 @@ html:not(.js) .d-answers { display: none; }
 </svg>
 <d-doc>
 
-  <d-cover kind="Folha de peças" subject="html-didatico" date="4.1.0" sub="Os tokens e os componentes da biblioteca. Cada peça mostra o que faz, as props e o exemplo vivo." lead="Para compor um documento, escreva componentes e parta de um exemplo-ouro em ouro/. O código de cada exemplo está embaixo dele.">Peças do kit</d-cover>
+  <d-cover kind="Folha de peças" subject="html-didatico" date="4.2.0" sub="Os tokens e os componentes da biblioteca. Cada peça mostra o que faz, as props e o exemplo vivo." lead="Para compor um documento, escreva componentes e parta de um exemplo-ouro em ouro/. O código de cada exemplo está embaixo dele.">Peças do kit</d-cover>
 
   <main>
     <d-tabs>
@@ -826,6 +839,12 @@ html:not(.js) .d-answers { display: none; }
           <table class="table peca__props"><thead><tr><th>Prop</th><th>O que faz</th></tr></thead><tbody><tr><td><code>kind</code></td><td>a forma: Cartão, Aula, Explicação, Passo a passo, Decidir, Prova, Montagem, Maquete</td></tr><tr><td><code>subject</code></td><td>produto e assunto</td></tr><tr><td><code>ref</code></td><td>código ou revisão do documento (EF-QS-001 · rev. 1.10)</td></tr><tr><td><code>date</code></td><td>dd/mm/aaaa</td></tr><tr><td><code>sub</code></td><td>o caso em uma linha, com os números</td></tr><tr><td><code>lead</code></td><td>o que o leitor consegue no fim</td></tr></tbody></table>
           
           <pre class="snippet" slot="fig">&lt;d-cover kind=&quot;Cartão&quot; subject=&quot;DietFlow · Cálculo&quot; date=&quot;22/11/2026&quot; sub=&quot;Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.&quot;&gt;Que data vale num Cálculo retroativo?&lt;/d-cover&gt;</pre>
+        </d-part>
+        <d-part title="d-origin" id="peca-d-origin">
+          <p>A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.</p>
+          <table class="table peca__props"><thead><tr><th>Prop</th><th>O que faz</th></tr></thead><tbody><tr><td><code>where</code></td><td>onde estamos: o sistema, a frente e o estado, com a data</td></tr><tr><td><code>q</code></td><td>a pergunta real em jogo, com o caso</td></tr><tr><td><code>ask</code></td><td>o que se pede de quem lê: decidir, conferir, aprender a fazer</td></tr><tr><td><code>li term</code></td><td>o termo interno, como a página o usa; o texto do li o define</td></tr></tbody></table>
+          <div slot="fig" class="peca__live"><d-origin where="DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção." q="Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?" ask="Conferir o recorte e decidir o que entra na rodada."><li term="Full">a suíte que roda todos os proofs de módulo em sequência</li></d-origin></div>
+          <pre class="snippet" slot="fig">&lt;d-origin where=&quot;DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção.&quot; q=&quot;Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?&quot; ask=&quot;Conferir o recorte e decidir o que entra na rodada.&quot;&gt;&lt;li term=&quot;Full&quot;&gt;a suíte que roda todos os proofs de módulo em sequência&lt;/li&gt;&lt;/d-origin&gt;</pre>
         </d-part>
         <d-part title="d-part" id="peca-d-part">
           <p>Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot=&quot;fig&quot;) vai para a coluna da direita.</p>
@@ -1177,7 +1196,7 @@ if (v &gt; max) return erro&lt;/w-code&gt;</pre>
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.1.0'
+  const VERSAO = '4.2.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
@@ -1228,6 +1247,19 @@ if (v &gt; max) return erro&lt;/w-code&gt;</pre>
     html: (p, k) => raiz('header', 'd-cover cover', p,
       `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
       `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
+  })
+  def('d-origin', {
+    grupo: 'Documento', doc: 'A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.',
+    props: { where: 'onde estamos: o sistema, a frente e o estado, com a data', q: 'a pergunta real em jogo, com o caso', ask: 'o que se pede de quem lê: decidir, conferir, aprender a fazer', 'li term': 'o termo interno, como a página o usa; o texto do li o define' },
+    ex: '<d-origin where="DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção." q="Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?" ask="Conferir o recorte e decidir o que entra na rodada."><li term="Full">a suíte que roda todos os proofs de módulo em sequência</li></d-origin>',
+    html: (p, k, el) => {
+      const linha = (rotulo, v) => (v && v !== true ? `<div class="origin__row"><dt>${rotulo}</dt><dd>${esc(v)}</dd></div>` : '')
+      const termos = el ? [...el.querySelectorAll('li[term]')] : []
+      const glossario = termos.length
+        ? `<div class="origin__row origin__terms"><dt>Termos</dt><dd><dl>${termos.map(li => `<div><dt>${esc(li.getAttribute('term'))}</dt><dd>${li.innerHTML}</dd></div>`).join('')}</dl></dd></div>`
+        : ''
+      return raiz('section', 'd-origin origin', p, `<dl>${linha('Onde estamos', p.where)}${linha('A pergunta', p.q)}${linha('O que se pede', p.ask)}${glossario}</dl>`, { attrs: ' aria-label="Origem"' })
+    },
   })
   def('d-part', {
     grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',

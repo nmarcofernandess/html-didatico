@@ -32,3 +32,9 @@ escolha e monte, sem devolver a pergunta "cartão ou aula?".
 
 Quem nomeia a forma usa as entradas diretas: Cartão, Aula, Decidir, Montagem,
 Prova e Explicar. Aí a escolha dele governa.
+
+Toda entrega abre ancorada e calibrada: altura, profundidade e distância
+decididas antes de montar, e a origem que situa quem não viu a conversa
+([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
+foi uma forma excepcional de explicar, registre a candidata no
+[Acervo](../../references/acervo.md).

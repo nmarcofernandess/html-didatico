@@ -23,3 +23,9 @@ description: "Entrada direta, para quando pedem pelo nome a montagem, a anatomia
 A montagem desenhada não comprova runtime. Se a pergunta é onde ficam as regiões
 da tela, use Decidir; para resultados de execução, Prova. Veja o
 [roteamento](../../references/roteamento.md).
+
+Toda entrega abre ancorada e calibrada: altura, profundidade e distância
+decididas antes de montar, e a origem que situa quem não viu a conversa
+([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
+foi uma forma excepcional de explicar, registre a candidata no
+[Acervo](../../references/acervo.md).

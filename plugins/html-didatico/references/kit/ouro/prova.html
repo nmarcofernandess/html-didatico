@@ -169,6 +169,19 @@ mark { background: linear-gradient(transparent 38%, var(--color-mark-soft) 38%, 
 .d-cover .cover__sub { margin-top: var(--s-4); max-width: 44rem; font-size: var(--text-subtitle); line-height: 1.35; color: var(--color-ink); }
 .d-cover .cover__lead { margin-top: var(--s-5); max-width: 36rem; font-size: var(--text-lead); line-height: 1.5; color: var(--color-ink-2); }
 
+/* Origem: logo abaixo da capa. Três linhas de ficha (onde estamos, a pergunta, o que se pede) e os termos internos.
+   É o que situa quem abre a página daqui a um mês sem ter visto a conversa. */
+.d-origin { padding-block: var(--gap-block); border-bottom: var(--line) solid var(--color-ink); }
+.d-origin > dl { display: grid; gap: var(--gap-pieces); max-width: 48rem; }
+.d-origin .origin__row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--gap-pieces); align-items: baseline; padding-top: var(--gap-pieces); border-top: var(--line) solid var(--color-rule); }
+.d-origin .origin__row:first-child { padding-top: 0; border-top: 0; }
+.d-origin .origin__row > dt { font: 700 var(--text-small)/1.4 var(--font-body); color: var(--color-ink-3); }
+.d-origin .origin__row > dd { font-size: var(--text-body); line-height: 1.5; color: var(--color-ink); }
+.d-origin .origin__terms dl { display: grid; gap: var(--gap-tied); }
+.d-origin .origin__terms dl > div { display: flex; flex-wrap: wrap; gap: 0 var(--gap-inside); font-size: var(--text-small); line-height: 1.5; color: var(--color-ink-2); }
+.d-origin .origin__terms dl dt { font-weight: 700; color: var(--color-ink); }
+@media (max-width: 40rem) { .d-origin .origin__row { grid-template-columns: minmax(0, 1fr); gap: var(--gap-tied); } }
+
 /* Paginação de uma série: o índice, a anterior e a próxima. A próxima é o passo esperado, em tinta cheia. */
 .d-pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside); padding-block: var(--s-4); }
 .d-pager a { display: inline-flex; align-items: center; min-height: var(--target); padding: 0 var(--inset-piece); border: var(--line) solid var(--color-ink); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); text-decoration: none; white-space: nowrap; }
@@ -695,6 +708,10 @@ html:not(.js) .d-answers { display: none; }
 
   <d-cover kind="Prova" subject="DietFlow · Importação" date="27/09/2026" sub="14 de 14 passos passaram, o gate de validade fechou com 0 disparos e a revisão visual deu passed. Importar favorito ficou fora." lead="Saber quais regimes de importação foram percorridos no browser, o que cada passo prova e o que ficou de fora.">Importação: regimes sem fonte favorito</d-cover>
 
+  <d-origin where="DietFlow, importação entre módulos do paciente, percorrida no build de produção em 27/09/2026." q="Os regimes de importação sem fonte favorito funcionam pela porta real, do catálogo às relações entre módulos?" ask="Conferir o veredito, o que cada passo prova e o que ficou de fora antes de dar a importação por coberta.">
+    <li term="Gate de validade">os seis sinais de página quebrada que derrubam o veredito mesmo com todos os passos verdes</li>
+  </d-origin>
+
   <main>
 
     <d-part title="O que foi provado" id="veredito">
@@ -834,7 +851,7 @@ html:not(.js) .d-answers { display: none; }
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.1.0'
+  const VERSAO = '4.2.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
@@ -885,6 +902,19 @@ html:not(.js) .d-answers { display: none; }
     html: (p, k) => raiz('header', 'd-cover cover', p,
       `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
       `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
+  })
+  def('d-origin', {
+    grupo: 'Documento', doc: 'A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.',
+    props: { where: 'onde estamos: o sistema, a frente e o estado, com a data', q: 'a pergunta real em jogo, com o caso', ask: 'o que se pede de quem lê: decidir, conferir, aprender a fazer', 'li term': 'o termo interno, como a página o usa; o texto do li o define' },
+    ex: '<d-origin where="DietFlow, testes do módulo Dieta em 27/11/2026: a ficha ainda está em construção." q="Dá para rodar os testes do módulo agora sem afrouxar teste e sem a feature regredir?" ask="Conferir o recorte e decidir o que entra na rodada."><li term="Full">a suíte que roda todos os proofs de módulo em sequência</li></d-origin>',
+    html: (p, k, el) => {
+      const linha = (rotulo, v) => (v && v !== true ? `<div class="origin__row"><dt>${rotulo}</dt><dd>${esc(v)}</dd></div>` : '')
+      const termos = el ? [...el.querySelectorAll('li[term]')] : []
+      const glossario = termos.length
+        ? `<div class="origin__row origin__terms"><dt>Termos</dt><dd><dl>${termos.map(li => `<div><dt>${esc(li.getAttribute('term'))}</dt><dd>${li.innerHTML}</dd></div>`).join('')}</dl></dd></div>`
+        : ''
+      return raiz('section', 'd-origin origin', p, `<dl>${linha('Onde estamos', p.where)}${linha('A pergunta', p.q)}${linha('O que se pede', p.ask)}${glossario}</dl>`, { attrs: ' aria-label="Origem"' })
+    },
   })
   def('d-part', {
     grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',

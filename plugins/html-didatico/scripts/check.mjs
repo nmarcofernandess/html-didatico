@@ -203,7 +203,8 @@ for (const w of widths) {
     })
 
     // densidade de leitura: palavras de prosa por tela (janela de 900px), fora de figura e navegação
-    const prosa = comTexto.filter(el => !naFigura(el) && !el.closest('nav, footer'))
+    // A origem é ficha, como a capa de um cartão: tem medida própria, conferida fora daqui.
+    const prosa = comTexto.filter(el => !naFigura(el) && !el.closest('nav, footer, .d-origin'))
     const marcas = prosa.map(el => ({ y: el.getBoundingClientRect().top + scrollY, n: [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').split(/\s+/).filter(Boolean).length }))
     const alturaDoc = document.documentElement.scrollHeight
     const janelas = []
@@ -302,9 +303,28 @@ const opcaoSemCodigo = [...vivo.matchAll(/<input type="radio"[^>]*value="([^"]*)
 if (opcaoSemCodigo) falhas.push(`opção de <d-answer> sem code ou label (${opcaoSemCodigo}): cada li leva code="1A" e label="A · o que faz"`)
 const foraDoKit = html.replace(/<script>\s*\/\/ html-didatico · kit\b[\s\S]*?<\/script>/g, '')
 if (/navigator\.clipboard|execCommand\(\s*['"]copy/.test(foraDoKit)) falhas.push('cópia escrita à mão: use <d-answer> e <d-answers>, que copiam o bloco com a pergunta junto')
+// Abertura ancorada e produto durável (references/padroes.md): a capa leva a data do estado, e todo documento que não é
+// cartão abre com <d-origin> antes da primeira parte, com onde estamos e a pergunta real. O cartão se ancora na própria
+// capa (a pergunta é o título, o caso é o sub). O board de uma série ("Decisão N de M") herda a origem do mapa.
+const capa = vivo.match(/<header class="d-cover\b[\s\S]*?<\/header>/)?.[0] ?? ''
+const forma = capa.match(/class="plate__kind"[^>]*>([^<]*)</)?.[1].trim() ?? ''
+if (capa && !/class="plate__date"/.test(capa)) falhas.push('capa sem data (date em d-cover): o estado envelhece, e a data diz de quando ele é')
+const cartaoDoc = /class="[^"]*\bpage--card\b/.test(vivo)
+const daSerie = /^Decisão \d+ de \d+$/.test(forma) || forma === 'Folha de peças'
+if (capa && !cartaoDoc && !daSerie) {
+  const origem = vivo.match(/<section class="d-origin\b[\s\S]*?<\/section>/)?.[0]
+  const iOrigem = vivo.search(/class="d-origin\b/), iParte = vivo.search(/class="d-part\b/)
+  if (!origem) falhas.push('documento sem origem: abra com <d-origin where="…" q="…" ask="…"> logo abaixo da capa, para quem não viu a conversa')
+  else {
+    if (iParte >= 0 && iOrigem > iParte) falhas.push('<d-origin> depois da primeira parte: a origem vem logo abaixo da capa')
+    const falta = [['Onde estamos', 'where'], ['A pergunta', 'q']].filter(([rotulo]) => !origem.includes(`<dt>${rotulo}</dt>`)).map(([, k]) => k)
+    if (falta.length) falhas.push(`<d-origin> sem ${falta.join(' e ')}: onde estamos e a pergunta real são o mínimo da origem`)
+    const palavras = origem.replace(/<dt>[^<]*<\/dt>/g, ' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
+    if (palavras > 80) avisos.push(`origem com ${palavras} palavras (referência: até 80): ela situa; a explicação mora nas partes`)
+  }
+}
 // Contrato do cartão: a pergunta, o caso em uma linha e as telas; pouco texto, uma página.
-const cartao = /class="[^"]*\bpage--card\b/.test(vivo)
-if (cartao) {
+if (cartaoDoc) {
   const caso = vivo.match(/class="cover__sub"[^>]*>([\s\S]*?)<\/p>/)?.[1].replace(/<[^>]+>/g, ' ').trim().split(/\s+/).filter(Boolean) ?? []
   if (!caso.length) falhas.push('cartão sem o caso em uma linha (cover__sub): quem, o quê e quando, com os números que as telas usam')
   else if (caso.length > 30) avisos.push(`o caso do cartão tem ${caso.length} palavras (referência: uma linha, até 30): o resto vai para as telas`)
@@ -328,7 +348,7 @@ if (maior.mono > 12) avisos.push(`${maior.mono}% do texto em mono fora de códig
 if (maior.medida.length) avisos.push(`linha longa demais (${maior.medida.length}): ${lista(maior.medida, i => `${i.caracteresPorLinha} caracteres "${i.texto}"`)}`)
 if (maior.titulo.length) avisos.push(`título mais perto do bloco anterior do que do seu (${maior.titulo.length}): ${lista(maior.titulo, i => `"${i.texto}" ${i.acima}/${i.abaixo}px`)}`)
 // O cartão tem medida própria (o total da página), então a medida por tela não se aplica a ele.
-if (!cartao && maior.palavrasPorTela.max > 150) avisos.push(`tela mais carregada tem ${maior.palavrasPorTela.max} palavras de prosa: reparta a parte ou passe conteúdo para a figura`)
+if (!cartaoDoc && maior.palavrasPorTela.max > 150) avisos.push(`tela mais carregada tem ${maior.palavrasPorTela.max} palavras de prosa: reparta a parte ou passe conteúdo para a figura`)
 if (literaisDeCor.length) avisos.push(`${literaisDeCor.length} cores literais fora dos tokens: ${[...new Set(literaisDeCor)].slice(0, 6).join(' ')}`)
 if (espacoCru.length > 3) avisos.push(`${espacoCru.length} espaçamentos em px fora da escala: ${[...new Set(espacoCru.map(d => d.valor))].slice(0, 8).join(' | ')}`)
 if (maior.infinitas.length) avisos.push(`animação em loop infinito: ${[...new Set(maior.infinitas)].join(', ')}`)
