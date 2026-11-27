@@ -17,6 +17,7 @@ HTML e assets como pacote. Não altere saída gerada para satisfazer esta receit
 - Prefira SVG/CSS e imagens embutidas. Prints de proof podem ser assets relativos
   do pacote: entregue-os juntos. Caminhos absolutos do computador ou `/img/...`
   não são portáteis; links de fonte publicados podem usar HTTPS.
+- Tema claro e escuro: cor só pelos tokens do kit, que têm os dois.
 - Cabeçalhos semânticos, links descritivos, foco visível e teclado nos controles.
   Cor acompanha rótulo/forma; cada fundo define cor legível do texto.
 - Movimento é opcional: no máximo uma microanimação narrativa além das entradas.
@@ -24,13 +25,13 @@ HTML e assets como pacote. Não altere saída gerada para satisfazer esta receit
   embutido. Respeite `prefers-reduced-motion`; na impressão,
   desligue animações/reveal e preserve figuras, contratos e legendas essenciais.
 
-## Verificação, quando pedida ou necessária
+## Verificação
 
-Verificar não é etapa obrigatória de toda entrega. Verifique quando o usuário
-pedir, ou quando o risco só aparece no render: layout novo, protótipo com
-comportamento, conteúdo que pode cortar no celular. Escolha só o passo que
-responde ao risco. Screenshots, JSON e relatórios de verificação ficam fora da
-pasta da entrega, salvo pedido; o documento entregue é o HTML.
+Todo HTML é visto antes de sair
+([Padrões](padroes.md#página-vista-antes-da-entrega)): o
+[check](../scripts/check.mjs) renderiza em três larguras e nos dois temas e clica
+cada controle. Screenshots, JSON e relatórios de verificação ficam fora da pasta
+da entrega, salvo pedido; o documento entregue é o HTML.
 
 1. Abra o exemplo do formato antes de desenhar e o resultado real depois.
    Exemplos antigos documentam a gramática, não o estado atual de seus projetos;

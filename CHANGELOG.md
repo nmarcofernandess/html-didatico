@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.4.0 — 27/11/2026
+
+A forma segue o conteúdo, e a página é vista antes de sair. Origem: o relato de campo de uma semana de uso (21 a 27/11) em regras de energia do DietFlow e as 23 anotações de Marco na aula de testes. O que falhou: todas as seções no par texto e figura, telas em fragmento sem dizer o estado, transição descrita em texto, decisão com um caso só, controle que trocava de aba, tema escuro quebrado, pergunta científica tratada como cardápio. O que destravou: matriz de todas as situações gerada do motor, a peça para mexer, recortes do documento real em três estados, versões de um botão lado a lado.
+
+- **Três padrões novos em `references/padroes.md`,** que agora abre com o índice dos nove:
+  - **A forma segue o conteúdo:** tela real inteira, uma por linha, com o estado dito; regra que é transição ou conta vira peça que o leitor mexe; comparação vira matriz gerada da fonte, nunca um caso só nem número digitado; a menor forma que responde; abas quando separam trabalhos diferentes do leitor (resolve "abas reprovadas" contra "abas que funcionaram").
+  - **Três segundos:** a página responde à pergunta com o que foi lido no sistema; toda frase tem objeto concreto; estado vem com a consequência; o desenho não é repetido em texto; nada de "leia em outro lugar"; corte de 30% a 40% da prosa.
+  - **Página vista antes da entrega:** o check deixa de ser opcional em entrega HTML.
+- **Kit:** tema escuro nos tokens (pelo sistema e por `data-theme`); `<w-states>` (transição que o leitor mexe) e `<w-sim>` com `<w-knob>` e `<w-out>` (conta que o leitor mexe); `state` em `<w-fig>` (main, dev com o commit, proposto, wireframe); `desk` em `<d-part>` (figura em largura de desktop); `study` em `<d-answer>`.
+- **Check:** roda também no tema escuro e reprova contraste abaixo do mínimo nele; abre uma página e clica cada controle, reprovando o que troca a aba aberta, a aba que não abre o painel, o estado que não aparece e a conta com erro; reprova estudo sem fonte. Avisa tela de produto sem estado numa decisão, print de produto espremido, aula com todas as partes no par texto e figura, matriz de comparação sem fonte e link para ler em outro lugar. Grava o screenshot do tema escuro.
+- **Decisão:** antes de desenhar opções, classificar a pergunta em já respondida, técnica ou científica; a científica vira estudo, com aceitar ou contestar, sem recomendada. Regra que vale para muitas situações se decide na matriz inteira.
+- **Design:** a tela de produto entra, em ordem de preferência, como print real, no design system do produto ou remontada em wireframe, sempre inteira e com o estado.
+- **Aula:** o quadro tem a forma que o conteúdo pede; Na tela é limpa e usa as peças que se mexem; pesquisa e lista de regras antes da página em assunto grande; cinco linhas novas em "O que não passa".
+- **Corte:** o parágrafo de fecho repetido nas sete skills vira uma linha que aponta para Padrões; "verificar é opcional" sai de três lugares.
+- **Acervo:** cinco candidatas da semana (matriz de situações, recortes do documento em três estados, estudo de uma regra, versões lado a lado, board com controles), em `acervo/candidatos/`.
+- Limites: o design system no Claude e o `bundle.css` dos canvas só ganham o tema escuro e as peças novas depois de regerados (`docs/MANUTENCAO.md`). O par de regras "número gerado da fonte" e "frase com objeto concreto" é leitura: o check não mede.
+
 ## 4.3.0 — 27/11/2026
 
 Figura desenha, tabela ordena. Pedido de Marco: a segunda versão da aula de testes do DietFlow, refeita por outro agente com o plugin 4.0.1, abriu sem origem, trocou as figuras por tabelas de frases, respondeu "Sim." a "O que o DietFlow verifica?" e usou Full, E2E, FlowUI, focal e "Full elegível" sem definir nenhum. O check da época isentava tabela da conta de palavras por figura e contava tabela como figura: a aula passou com zero falhas e zero avisos.

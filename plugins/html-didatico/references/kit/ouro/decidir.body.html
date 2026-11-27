@@ -18,21 +18,21 @@
         <d-part title="Comparando, com a mesma dose" wide>
           <d-cols n="3">
 
-            <w-fig cap="A · 1.000 mcg entra como está">
+            <w-fig state="hoje, em dev" cap="A · 1.000 mcg entra como está">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" mark pin="1"></w-field>
               </w-win>
               <w-callout pin="1" mark>recomendada</w-callout>
             </w-fig>
 
-            <w-fig cap="B · 1.000 mcg entra, com um aviso">
+            <w-fig state="proposto" cap="B · 1.000 mcg entra, com um aviso">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" tone="warn"></w-field>
                 <w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>
               </w-win>
             </w-fig>
 
-            <w-fig cap="C · 1.000 mcg é recusado">
+            <w-fig state="proposto" cap="C · 1.000 mcg é recusado">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" tone="err"></w-field>
                 <w-msg tone="err" title="Máximo de 999 mcg">Escreva 1 mg.</w-msg>

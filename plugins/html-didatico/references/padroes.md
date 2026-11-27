@@ -6,6 +6,72 @@ Este arquivo é dono só dos padrões. O caminho de toda entrega (fontes, o nó,
 
 Cada padrão tem a mesma forma: a regra, o caso que a criou, onde ela é cumprida e como o check confere.
 
+| Padrão | Em uma linha |
+|---|---|
+| [A forma segue o conteúdo](#a-forma-segue-o-conteúdo) | O conteúdo escolhe a forma de cada parte e o tamanho da entrega; nenhum molde é padrão |
+| [Três segundos](#três-segundos) | Numa passada de olho se vê de que se trata; toda frase tem um objeto concreto |
+| [Página vista antes da entrega](#página-vista-antes-da-entrega) | Renderizada, com cada controle clicado, nos dois temas, no desktop e no celular |
+| [Abertura ancorada](#abertura-ancorada) | A origem situa quem não viu a conversa |
+| [Calibrar antes de montar](#calibrar-antes-de-montar) | Altura, profundidade e distância, decididas antes |
+| [Escopo transversal](#escopo-transversal) | O todo primeiro, com o recorte destacado |
+| [Figura desenha, tabela ordena](#figura-desenha-tabela-ordena) | Tabela de frases não é figura |
+| [Resposta copiável leva a origem](#resposta-copiável-leva-a-origem) | O texto colado se entende sem a página |
+| [Produto durável](#produto-durável) | O estado leva data; a forma de explicar dura |
+
+## A forma segue o conteúdo
+
+**A regra.** O que a parte precisa mostrar escolhe a forma dela. O par "texto de um lado, figura do outro" é uma das formas, e não o padrão: preencher o molde parte por parte produz um documento arrumado que não ensina. Antes da forma vem a profundidade: o que o leitor precisa saber de base para a pergunta fazer sentido, relido na fonte.
+
+| O conteúdo é | A forma é | No kit |
+|---|---|---|
+| Uma tela do produto | A tela real inteira, uma por linha, em largura de desktop, com o estado dito: main, dev com o commit, proposto | `<d-part desk>` com `<w-fig state="…">`; o print real em `w-shot`, ou a tela no design system do produto ([Design](visual/design.md#o-produto-de-quem-pede)) |
+| Uma regra que é transição: um modo, um gesto, antes e depois | Uma peça que o leitor mexe e vê trocar | `<w-states>` |
+| Uma regra que é conta | Uma conta com as entradas do caso, que o leitor altera | `<w-sim>`, com a fórmula copiada da fonte e a fonte no `d-src` |
+| Uma comparação entre opções, modos ou versões | A matriz com todas as situações possíveis, gerada da fonte | `w-matrix` ou tabela de valores curtos, com o `d-src` dizendo o script, o commit e a data |
+| Um caminho, uma ordem, uma causa | Um esquema | `w-flow`, `w-layers`, `w-timeline` |
+| Um conceito de quem pediu | O desenho dele como ele é no projeto real, sem pô-lo em dúvida | A fonte do projeto dá os nomes e as partes |
+
+- **A menor forma.** Uma dúvida é uma página; não vira aula porque a conversa foi longa. "Aula" é o nome do que foi pedido como aula.
+- **As abas seguem o pedido e o material.** Abas servem quando separam trabalhos diferentes do leitor: aprender (Aula), testar (Na tela, limpa), responder (Dúvidas) e consultar o que já vale (Leis). Não servem para fatiar uma resposta única nem para dar volume. Uma pergunta, uma página, sem barra de abas.
+- **Um caso atravessa a página.** A mesma pessoa e os mesmos números do começo ao fim. Número de figura vem do sistema (o motor, o script, o registro), com a origem dita; número digitado de cabeça não entra.
+- **Nunca um exemplo só numa comparação.** Com um caso não dá para ver se a regra é coerente; a matriz mostra todos, e o caso do pedido fica marcado nela.
+- **Tela de produto não é fragmento.** Um card entra inteiro. Dado solto, wireframe genérico e layout que o produto não tem fazem quem conhece o produto parar de ler. Lado a lado só o que é pequeno de verdade: três versões de um botão, o cabeçalho de um documento.
+- **Esquema só quando há fluxo.** Um fluxograma de coisas que não acontecem em sequência é enfeite; destacar um pedaço de um todo que o leitor não entendeu não ajuda.
+
+**O caso.** Numa sessão de uma semana sobre regras de energia, a aula saiu com todas as seções no par texto e figura: "você está se apegando demais ao pattern, eu queria que tivesse se apegado à profundidade do ensinamento". As telas eram fragmentos sem estado: "layout inexistente, não reconheço", "se for usar o card, usar ele na íntegra", "deixa cada card em uma linha", e não dava para saber se a figura era main, dev ou o proposto. Uma transição descrita em texto: "me dá um componente e deixa eu mexer, isso seria mil vezes melhor". Uma decisão com um caso: "se não colocar todos os cenários possíveis, não vamos saber se tem congruência". O que destravou foi o contrário de cada uma: a matriz de 16 situações nos três modos, gerada pelo motor, decidiu na hora; três versões de um botão lado a lado, em minutos; os recortes do PDF real em três estados (dev, branch, proposto) permitiram uma decisão com nuance que o texto não tinha permitido. No mesmo período, uma aula em abas foi reprovada onde a pergunta pedia uma página, e as abas Aula, Na tela, Dúvidas e Leis funcionaram onde havia os quatro trabalhos.
+
+**Onde é cumprida.** Na [espinha](conteudo.md#3-espinha), que escolhe a representação de cada pergunta; no [roteamento](roteamento.md), que escolhe o tamanho; no kit, pelos componentes da tabela acima.
+
+**O check.** Reprova conta de `<w-sim>` com erro e estado de `<w-states>` que não aparece. Avisa tela de produto sem `state` numa decisão, numa maquete ou na aba Na tela; print de produto com menos de 560px de largura no desktop; aula ou explicação com cinco partes ou mais, todas no par texto e figura; e matriz de comparação sem `d-src`.
+
+## Três segundos
+
+**A regra.** Quem abre a página entende, numa passada de olho, de que se trata e o que ela responde. Se não entende, para na segunda linha, e o material inteiro se perde.
+
+- **A página responde à pergunta de quem pediu,** com o que foi lido no sistema. Recontar a conversa não é resposta, e refazer um documento reaproveitando os fatos do anterior repete o defeito: volte à fonte.
+- **Toda frase tem um objeto concreto.** "Isolar a falha", "a regra vigente", "as duas versões", "a integração" não dizem qual falha, qual regra, quais versões. Escreva o nome da coisa e o dado do caso.
+- **Estado vem com a consequência.** "O lint parou" e "o servidor recusaria salvar" não servem a quem lê: diga o que aquilo protege e o que muda para ele.
+- **Termo técnico vem com o que ele protege ou faz,** em poucas palavras, na primeira aparição.
+- **O desenho fala uma vez.** O que o ícone, a cor ou a figura já mostra não se repete em texto ao lado.
+- **A página é o lugar.** Nada de "veja em", "leia em": o fato aparece aqui, e a fonte vai em uma linha no `d-src`.
+- **Menos texto.** Depois de pronto, corte de 30% a 40% da prosa; o que sobra é o que a figura não diz.
+
+**O caso.** Uma aula sobre os testes de um módulo foi devolvida com 23 anotações. A versão refeita cumpria a forma (origem, sem tabela de frases, termos definidos), passou no check e foi rejeitada do mesmo jeito: recontava a conversa em vez de responder à pergunta com o que está no repositório. As anotações apontavam frases sem objeto, estados sem consequência, texto repetindo o desenho e links mandando ler em outro lugar.
+
+**Onde é cumprida.** No [Núcleo](nucleo.md#fontes-e-limites), que manda reler o fato na fonte; em [Conteúdo](conteudo.md), na revisão de frase; e na leitura final de [Antes de entregar](nucleo.md#antes-de-entregar): cinco segundos olhando só a primeira tela, e depois dizer de que se trata.
+
+**O check.** Avisa link para fora do documento, fora do `d-src`. O resto é leitura: cumprir a forma não prova que a página responde.
+
+## Página vista antes da entrega
+
+**A regra.** Nenhum HTML é entregue sem ter sido aberto e usado: renderizado no desktop e no celular, no tema claro e no escuro, com cada controle clicado. Quem pediu não é o primeiro a descobrir que a aba troca sozinha ou que o tema escuro apaga a figura.
+
+**O caso.** Na mesma semana: "quando eu clico nos controladores, ele muda de tab, tá inusável"; um board com o tema escuro quebrado, "não consegui visualizar nada"; e quinze comentários de layout que uma olhada na página teria evitado. "Layout é importante para mim, sem isso eu não vou revisar."
+
+**Onde é cumprida.** No [check](../scripts/check.mjs), que roda em toda entrega em HTML: três larguras, os dois temas e os controles, um a um. Depois dele, olhe os screenshots que ele grava (390, 1280 e o escuro) antes de responder. O kit tem os dois temas nos tokens: cor fora de token é o que quebra no escuro.
+
+**O check.** Reprova contraste abaixo do mínimo no tema escuro, controle que troca a aba aberta, aba que não abre o próprio painel, erro de script ao clicar e rolagem horizontal. Informa quantos controles clicou.
+
 ## Resposta copiável leva a origem
 
 **A regra.** Todo texto que a página entrega para ser colado em outro lugar se entende sem abrir a página. Cada resposta copiada é um bloco autossuficiente:

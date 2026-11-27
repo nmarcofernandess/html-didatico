@@ -24,21 +24,20 @@ Um assunto inteiro fica de pé: quem lê uma vez sai sabendo explicar.
    a partir da raiz do plugin. Só o corpo muda, escrito com os
    [componentes](../../references/kit/componentes.md), conforme o
    [contrato HTML](../../references/html-portatil.md).
-4. **Figuras e revisão.** Cada pergunta ganha a representação em que a resposta
-   se vê, montada com os componentes do kit (`w-*`), nunca desenhada à mão. Antes de entregar, faça a
+4. **Figuras e revisão.** Cada pergunta ganha a forma em que a resposta se vê
+   (cena, esquema, matriz, tela inteira, peça que se mexe), montada com os componentes do kit (`w-*`), nunca desenhada à mão. Antes de entregar, faça a
    [leitura pela figura](../../references/visual/design.md#leitura-pela-figura).
-   Entregue um HTML só e, na resposta, o que foi visto rodando, o que foi lido e
-   a objeção mais forte. O [check](../../scripts/check.mjs) e a inspeção visual
-   rodam quando pedidos ou quando o risco só aparece no render; nada de
-   verificação é salvo junto do documento.
+   Rode o [check](../../scripts/check.mjs) e olhe os screenshots dele antes de
+   entregar. Entregue um HTML só e, na resposta, o que foi visto rodando, o que
+   foi lido e a objeção mais forte; nada de verificação é salvo junto do
+   documento.
 
 Chamada pelo nome, a aula governa e tem o tamanho que o conteúdo tem. Decisões
 abertas dentro do assunto viram a tab Dúvidas, com a resposta em `<d-answer>`
 ([Padrões](../../references/padroes.md)); fora de uma aula, são de Decidir.
 Veja o [roteamento](../../references/roteamento.md).
 
-Toda entrega abre ancorada e calibrada: altura, profundidade e distância
-decididas antes de montar, e a origem que situa quem não viu a conversa
-([Padrões](../../references/padroes.md#abertura-ancorada)). Entregue, se algo
-foi uma forma excepcional de explicar, registre a candidata no
-[Acervo](../../references/acervo.md).
+Toda entrega cumpre os [Padrões](../../references/padroes.md): a forma segue o
+conteúdo, a abertura situa quem não viu a conversa e a página em HTML só sai
+depois de vista, com o [check](../../scripts/check.mjs) rodado. Entregue, avalie
+o [Acervo](../../references/acervo.md).

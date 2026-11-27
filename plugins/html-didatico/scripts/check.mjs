@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // html-didatico · check
-// Renderiza o documento em três larguras, salva os screenshots e mede o que dá para medir.
+// Renderiza o documento em três larguras e no tema escuro, clica cada controle, salva os screenshots e mede o que dá para medir.
 // Também recorta cada figura e lista o que ela mostra sozinha, para a leitura pela figura (references/visual/design.md).
 // Uso: node scripts/check.mjs <arquivo.html> [--out <pasta>] [--widths 390,768,1280] [--json]
 // Sai com código 1 quando há FALHA. AVISO pede leitura: conserte ou justifique na entrega.
@@ -56,8 +56,11 @@ const porLargura = {}
 const errosDeScript = new Set(), soltos = new Set()
 let vivo = ''
 
-for (const w of widths) {
-  const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce' })
+// Cada largura no tema claro e, na maior, mais uma passada no escuro: o leitor pode estar em qualquer um dos dois.
+const larga = Math.max(...widths)
+const passadas = [...widths.map(w => ({ w, tema: 'light', chave: w })), { w: larga, tema: 'dark', chave: 'escuro' }]
+for (const { w, tema, chave } of passadas) {
+  const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, deviceScaleFactor: 2, reducedMotion: 'reduce', colorScheme: tema })
   const page = await ctx.newPage()
   page.on('pageerror', e => errosDeScript.add(e.message))
   await page.goto(pathToFileURL(resolve(file)).href)
@@ -66,11 +69,11 @@ for (const w of widths) {
   for (const t of await page.evaluate(() => [...document.querySelectorAll('*')].map(el => el.localName).filter(n => /^[dw]-[a-z]/.test(n)))) soltos.add(t)
   // Abas: o check lê todas as camadas, uma abaixo da outra, como na impressão.
   await page.evaluate(() => document.querySelectorAll('.tabs__panel[hidden]').forEach(p => { p.hidden = false }))
-  if (w === Math.max(...widths)) vivo = (await page.content()).replace(/<(script|style)[\s\S]*?<\/\1>|<svg class="sprite"[\s\S]*?<\/svg>/gi, ' ')
-  const shot = resolve(outDir, `${nome}-${w}.png`)
+  if (chave === larga) vivo = (await page.content()).replace(/<(script|style)[\s\S]*?<\/\1>|<svg class="sprite"[\s\S]*?<\/svg>/gi, ' ')
+  const shot = resolve(outDir, `${nome}-${chave}.png`)
   await page.screenshot({ path: shot, fullPage: true })
 
-  porLargura[w] = await page.evaluate(() => {
+  porLargura[chave] = await page.evaluate(() => {
     const px = v => parseFloat(v) || 0
     const visivel = el => {
       const r = el.getBoundingClientRect(), cs = getComputedStyle(el)
@@ -181,7 +184,7 @@ for (const w of widths) {
       const legenda = f.querySelector('figcaption')?.textContent.trim() || f.getAttribute('data-fig') || ''
       const fr = f.getBoundingClientRect()
       const cortaFilhos = getComputedStyle(f).overflow !== 'visible'
-      const textos = comTexto.filter(el => f.contains(el) && !el.closest('figcaption'))
+      const textos = comTexto.filter(el => f.contains(el) && !el.closest('figcaption, .fig__state'))
       f.setAttribute('data-check-fig', i + 1)
       const proprioDe = el => [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent.trim()).join(' ').replace(/\s+/g, ' ').trim()
       const leitura = textos.map(proprioDe).filter(Boolean)
@@ -243,12 +246,26 @@ for (const w of widths) {
       return h && p && aberta.test(h.textContent.trim()) && /^(?:Sim|Não)\b[.,!:]/.test(p.textContent.trim()) ? trecho(h) : null
     }).filter(Boolean)
 
+    // A forma segue o conteúdo (references/padroes.md): tela de produto com o estado dito e em largura de leitura,
+    // partes que não repetem todas o par texto e figura, comparação com a fonte ao lado.
+    const produto = f => f.querySelector('.w-win, .w-shot')
+    const emDecisao = f => f.closest('[id^="duvida-"], #na-tela')
+    const semEstado = figs.filter(f => produto(f) && emDecisao(f) && !f.querySelector(':scope > .fig__state')).map(f => f.querySelector('figcaption')?.textContent.trim().slice(0, 42) || 'sem legenda')
+    const figsSemEstadoNoDoc = figs.filter(f => produto(f) && !f.querySelector(':scope > .fig__state')).length
+    const espremida = [...document.querySelectorAll('.w-fig .w-shot > img')].filter(visivel).map(el => Math.round(el.getBoundingClientRect().width)).filter(l => l < 560)
+    const partesComTitulo = [...document.querySelectorAll('section.d-part')].filter(visivel).filter(s => s.querySelector('h2') && s.querySelector('figure'))
+    const emPar = partesComTitulo.filter(s => s.hasAttribute('data-side')).length
+    const matrizSemFonte = [...document.querySelectorAll('.w-matrix:has(> [data-who])')].filter(visivel).filter(m => !m.closest('section.d-part, .tabs__panel')?.querySelector('.d-src')).length
+    const linksFora = [...document.querySelectorAll('a[href^="http"]')].filter(visivel).filter(a => !a.closest('.d-src, footer, .d-foot')).map(a => a.textContent.trim().slice(0, 30))
+    const contaComErro = [...document.querySelectorAll('.sim__out[data-erro]')].map(o => `${o.querySelector('span')?.textContent}: ${o.dataset.erro}`)
+
     const infinitas = [...document.querySelectorAll('*')].filter(el => getComputedStyle(el).animationIterationCount === 'infinite' && getComputedStyle(el).animationName !== 'none').map(rotulo)
     const doc = document.documentElement
     return {
       rolagemHorizontal: doc.scrollWidth > doc.clientWidth + 1 ? doc.scrollWidth - doc.clientWidth : 0,
       pequeno, caps, contraste, apertado, medida, titulo, figuras, partes, infinitas, semFigura, palavrasForaDeTabela,
       tabelas, abasSemDesenho, figurasTabela, figurasDesenhadas, respostaTorta,
+      semEstado, figsSemEstadoNoDoc, espremida, partesEmPar: [emPar, partesComTitulo.length], matrizSemFonte, linksFora, contaComErro,
       mono: charsTotal ? +(charsMono / charsTotal * 100).toFixed(1) : 0,
       palavrasPorTela: { max: Math.max(0, ...janelas), mediana: ordenadas[Math.floor(ordenadas.length / 2)] ?? 0 },
       palavrasDeProsa: marcas.reduce((s, m) => s + m.n, 0),
@@ -256,20 +273,56 @@ for (const w of widths) {
       texto: prosa.map(el => [...el.childNodes].filter(c => c.nodeType === 3).map(c => c.textContent).join(' ')).join('\n'),
     }
   })
-  porLargura[w].screenshot = shot
-  if (w === Math.max(...widths)) {
-    for (const f of porLargura[w].figuras) {
+  porLargura[chave].screenshot = shot
+  if (chave === larga) {
+    for (const f of porLargura[chave].figuras) {
       f.recorte = resolve(outDir, `${nome}-fig-${f.n}.png`)
       await page.locator(`[data-check-fig="${f.n}"]`).screenshot({ path: f.recorte }).catch(() => { f.recorte = '' })
     }
   }
   await ctx.close()
 }
+// ───────────────────────── os controles, clicados ─────────────────────────
+// Página nova, na largura maior: cada botão, aba, régua, lista e campo é acionado uma vez. Um controle que não é aba
+// não pode trocar a aba aberta, uma aba tem de abrir o próprio painel, e nada pode quebrar o script.
+const ctxC = await browser.newContext({ viewport: { width: larga, height: 900 }, reducedMotion: 'reduce' })
+const pageC = await ctxC.newPage()
+pageC.on('pageerror', e => errosDeScript.add(e.message))
+await pageC.goto(pathToFileURL(resolve(file)).href)
+await pageC.waitForTimeout(250)
+const controles = await pageC.evaluate(() => {
+  const abertas = () => [...document.querySelectorAll('[role=tab][aria-selected=true]')].map(b => b.id || b.textContent.trim()).join('|')
+  const nomeDe = c => (c.getAttribute('aria-label') || c.textContent.trim() || c.name || c.type || c.tagName).replace(/\s+/g, ' ').slice(0, 32)
+  // Abre o caminho até o controle: as abas e os estados que o contêm, de fora para dentro.
+  const mostrar = c => {
+    const caminho = []
+    for (let p = c.parentElement?.closest('.tabs__panel, [role=tabpanel], .states__view'); p; p = p.parentElement?.closest('.tabs__panel, [role=tabpanel], .states__view')) caminho.unshift(p)
+    for (const p of caminho) {
+      if (p.matches('.states__view')) [...p.parentElement.querySelectorAll(':scope > .states__bar button')].find(b => b.dataset.name === p.dataset.name)?.click()
+      else document.querySelector(`[role=tab][aria-controls="${p.id}"]`)?.click()
+    }
+  }
+  const trocaAba = [], abaMorta = [], estadoMorto = []
+  const todos = [...document.querySelectorAll('button, input, select, textarea, summary')].filter(c => !c.disabled)
+  for (const c of todos) {
+    mostrar(c)
+    const antes = abertas(), aba = c.matches('[role=tab]')
+    if (c.matches('input[type=range]')) { c.value = c.value === c.max ? c.min : c.max; c.dispatchEvent(new Event('input', { bubbles: true })) }
+    else if (c.matches('select')) { c.selectedIndex = (c.selectedIndex + 1) % Math.max(1, c.options.length); c.dispatchEvent(new Event('change', { bubbles: true })) }
+    else if (c.matches('textarea, input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit])')) { c.value = '1'; c.dispatchEvent(new Event('input', { bubbles: true })) }
+    else c.click()
+    if (aba) { const painel = document.getElementById(c.getAttribute('aria-controls')); if (!painel || painel.hidden) abaMorta.push(nomeDe(c)) }
+    else if (abertas() !== antes) trocaAba.push(nomeDe(c))
+    if (c.closest('.states__bar')) { const v = [...c.closest('.w-states').querySelectorAll(':scope > .states__view')].find(x => x.dataset.name === c.dataset.name); if (!v || v.hidden) estadoMorto.push(nomeDe(c)) }
+  }
+  return { total: todos.length, trocaAba, abaMorta, estadoMorto, contaComErro: [...document.querySelectorAll('.sim__out[data-erro]')].map(o => `${o.querySelector('span')?.textContent}: ${o.dataset.erro}`) }
+})
+await ctxC.close()
 await browser.close()
 
 // ───────────────────────── tiques de texto (contáveis) ─────────────────────────
 
-const maior = porLargura[Math.max(...widths)]
+const maior = porLargura[larga], escuro = porLargura.escuro
 const texto = maior.texto
 const contar = re => [...texto.matchAll(re)].map(m => m[0].trim())
 const tiques = {
@@ -301,6 +354,13 @@ for (const w of widths) {
   if (d.apertado.length) avisos.push(`caixa apertada ${em} (${d.apertado.length}): ${lista(d.apertado, i => `${i.lado}px "${i.texto}"`)}`)
 }
 if (maior.contraste.length) falhas.push(`contraste abaixo do mínimo (${maior.contraste.length}): ${lista(maior.contraste, i => `${i.razao}:1 "${i.texto}"`)}`)
+if (escuro.contraste.length) falhas.push(`contraste abaixo do mínimo no tema escuro (${escuro.contraste.length}): ${lista(escuro.contraste, i => `${i.razao}:1 "${i.texto}"`)}; cor só por token do kit, que tem os dois temas`)
+// Página vista antes da entrega (references/padroes.md): os controles, clicados um a um.
+if (controles.trocaAba.length) falhas.push(`controle que troca a aba aberta (${controles.trocaAba.length}): ${lista(controles.trocaAba, t => `"${t}"`)}; mexer num controle muda só a peça dele`)
+if (controles.abaMorta.length) falhas.push(`aba que não abre o próprio painel (${controles.abaMorta.length}): ${lista(controles.abaMorta, t => `"${t}"`)}`)
+if (controles.estadoMorto.length) falhas.push(`estado de <w-states> que não aparece ao clicar (${controles.estadoMorto.length}): ${lista(controles.estadoMorto, t => `"${t}"`)}`)
+const contasRuins = [...new Set([...maior.contaComErro, ...controles.contaComErro])]
+if (contasRuins.length) falhas.push(`conta de <w-sim> com erro (${contasRuins.length}): ${lista(contasRuins, t => `"${t}"`)}; a expressão usa os nomes das entradas e dos resultados de cima`)
 if (tiques.residuo.length) falhas.push(`resíduo no texto: ${lista(tiques.residuo, t => `"${t}"`)}`)
 // Contrato do HTML Didático, lido no arquivo: o kit embutido, nenhum código de nota, opção com nome, dúvida com resposta.
 if (!html.includes('══ KIT ══')) falhas.push('documento fora do kit: parta do starter ou de um exemplo-ouro (montar.mjs --novo ou --corpo), com o kit embutido')
@@ -316,7 +376,11 @@ if (codigos.length) falhas.push(`código de nota no texto (${codigos.length}): $
 const semNome = [...vivo.matchAll(/<h[2-6][^>]*>\s*((?:Uma|Outra) (?:possibilidade|opção|alternativa)|Opção \d|Alternativa [A-Z\d])\s*<\/h[2-6]>/gi)].map(m => m[1])
 if (semNome.length) falhas.push(`opção sem nome (${semNome.length}): ${lista(semNome, s => `"${s}"`)}; a opção se chama pelo que faz, A · <o que muda>`)
 const duvidas = vivo.split(/(?=<[^>]+\bid="duvida-\d+")/).slice(1)
-const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || !/Recomendad/i.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
+// Pergunta que a evidência responde (<d-answer study>) não tem cardápio nem recomendada: tem a fonte, e quem decide aceita ou contesta.
+const estudo = d => /class="d-answer\b[^>]*\bdata-study/.test(d)
+const semResposta = duvidas.filter(d => !/Responda no chat/i.test(d) || (!estudo(d) && !/Recomendad/i.test(d))).map(d => d.match(/id="(duvida-\d+)"/)[1])
+const estudoSemFonte = duvidas.filter(d => estudo(d) && !/class="d-src\b/.test(d)).map(d => d.match(/id="(duvida-\d+)"/)[1])
+if (estudoSemFonte.length) falhas.push(`estudo sem fonte (${estudoSemFonte.join(', ')}): a pergunta que a evidência responde mostra de onde vem a resposta, num <d-src>`)
 if (semResposta.length) falhas.push(`dúvida sem recomendada ou sem "Responda no chat": ${semResposta.join(', ')}`)
 // Resposta copiável leva a origem (references/padroes.md): toda dúvida responde por d-answer, cada opção com rótulo e código,
 // e nenhuma cópia é escrita à mão fora do kit, porque só o kit monta o bloco com a pergunta junto.
@@ -396,6 +460,14 @@ for (const f of maior.figuras) {
   const chave = t => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
   if (f.legenda && f.tituloDaParte && chave(f.legenda) === chave(f.tituloDaParte)) avisos.push(`legenda da figura ${f.n} repete o título da parte: a legenda diz o que a figura mostra, com o dado do caso`)
 }
+// A forma segue o conteúdo (references/padroes.md).
+const decisaoDoc = /^(Decidir|Maquete)$/.test(forma) || /^Decisão \d+ de \d+$/.test(forma)
+const semEstado = decisaoDoc ? maior.figsSemEstadoNoDoc : maior.semEstado.length
+if (semEstado) avisos.push(`tela de produto sem o estado (${semEstado}): numa comparação, cada tela diz de onde é em <w-fig state="…"> (main, dev com o commit, proposto, wireframe)`)
+if (maior.espremida.length) avisos.push(`print de produto espremido (${maior.espremida.length}, o menor com ${Math.min(...maior.espremida)}px): a tela real entra inteira, uma por linha, em <d-part desk>; lado a lado só o recorte pequeno`)
+if (/^(Aula|Explicação)$/.test(forma) && maior.partesEmPar[1] >= 5 && maior.partesEmPar[0] === maior.partesEmPar[1]) avisos.push(`as ${maior.partesEmPar[1]} partes repetem o par texto e figura: a forma segue o conteúdo; matriz, tela inteira e peça que se mexe pedem largura (wide, desk)`)
+if ((decisaoDoc || forma === 'Aula') && maior.matrizSemFonte) avisos.push(`matriz sem fonte (${maior.matrizSemFonte}): comparação é gerada da fonte; diga num <d-src> de onde saiu (script, commit, data)`)
+if (maior.linksFora.length) avisos.push(`link para ler em outro lugar (${maior.linksFora.length}): ${lista(maior.linksFora, t => `"${t}"`)}; o documento mostra o fato, e a fonte vai em uma linha no <d-src>`)
 if (maior.caps.length) avisos.push(`rótulos em caixa-alta ou com tracking (${maior.caps.length}): ${lista(maior.caps, i => `"${i.texto}"`)}`)
 if (maior.mono > 12) avisos.push(`${maior.mono}% do texto em mono fora de código: mono é para código, identificador e número`)
 if (maior.medida.length) avisos.push(`linha longa demais (${maior.medida.length}): ${lista(maior.medida, i => `${i.caracteresPorLinha} caracteres "${i.texto}"`)}`)
@@ -422,13 +494,15 @@ const resumo = {
     espacosCrus: espacoCru.length,
     alturaPorLargura: Object.fromEntries(widths.map(w => [w, porLargura[w].alturaDoc])),
   },
-  screenshots: widths.map(w => porLargura[w].screenshot),
+  screenshots: [...widths.map(w => porLargura[w].screenshot), escuro.screenshot],
+  controles: controles.total,
 }
 writeFileSync(resolve(outDir, `${nome}.json`), JSON.stringify(resumo, null, 2))
 
 if (asJson) console.log(JSON.stringify(resumo, null, 2))
 else {
   console.log(`\n${file}`)
+  console.log(`${controles.total} controles clicados · tema claro e escuro · larguras ${widths.join(', ')}`)
   console.log(`${maior.palavrasDeProsa} palavras de prosa · ${maior.figuras.length} figuras · tela mais carregada ${maior.palavrasPorTela.max} palavras (mediana ${maior.palavrasPorTela.mediana}) · mono ${maior.mono}%`)
   falhas.forEach(f => console.log(`FALHA  ${f}`))
   avisos.forEach(a => console.log(`AVISO  ${a}`))

@@ -59,6 +59,10 @@ Os exemplos-ouro do kit, [cartão](../plugins/html-didatico/references/kit/ouro/
 | “Faz um html didático disso”, depois de uma conversa sobre escolhas, em que duas ficaram abertas e três foram decididas | Entrada automática: Decidir. As duas abertas vão para a mesa, cada uma na gramática inteira; as três decididas entram em Leis, com a frase de quem decidiu e a data. |
 | “Organiza isso pra mim”, depois de uma conversa longa sobre como um módulo funciona, sem escolha aberta | Entrada automática: Aula, pedido de apresentação. Não inventa dúvida nem dor. |
 | “Faz um html didático”, e a conversa serve tanto a um cartão quanto a uma aula | Conta as perguntas e as telas: até três telas do mesmo caso, Cartão. Só pergunta se duas leituras mudam a entrega, e pergunta pelo resultado, não pelo formato. |
+| "Como o modo muda os cenários?", com 16 situações de treino e três modos | Aula ou Decidir: a matriz inteira gerada do motor, com o `d-src` dizendo script e commit, e o caso do pedido marcado; nunca um exemplo só. A troca de modo entra em `w-states`. |
+| "A gestante precisa de quanto a mais por trimestre?" numa fila de decisões | Decidir classifica como científica: um estudo com a fonte e `<d-answer study>` (aceito ou contesto), sem opções A, B e C com recomendada. |
+| Aula com protótipo em que um botão do protótipo fecha a aba | O check clica cada controle e reprova "controle que troca a aba aberta". |
+| Página com cor literal que some no tema escuro | O check mede o contraste no tema escuro e reprova. |
 | O usuário chama `/html-didatico:aula` para o que caberia num cartão | A escolha dele governa: Aula, do tamanho que o conteúdo tem. |
 
 Avalie as rotas contra `references/roteamento.md` no pacote. Exercite a regressão

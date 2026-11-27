@@ -100,6 +100,34 @@
   --radius-m: 6px;
   --radius-pill: 999px;
 
+  color-scheme: light;
+}
+
+/* Tema escuro: os mesmos papéis, com o papel escuro e a tinta clara. Vale pelo sistema do leitor e por
+   data-theme na raiz (o visor de artifacts usa o atributo). Nenhum componente escolhe cor fora daqui. */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --color-paper: #141413; --color-paper-2: #242422; --color-surface: #1d1d1b; --color-fig: #191918;
+  --color-dot: rgb(255 255 255 / 0.09);
+  --color-ink: #ffffff; --color-ink-2: #d2d2cc; --color-ink-3: #a3a39c;
+  --color-rule: #3a3a36; --color-wire: #7d7d76; --color-fill: #3d3d39;
+  --color-on-ink: #141413; --color-on-ink-2: #55554f;
+  --color-mark: #ff4fa3; --color-mark-ink: #ff7ab9; --color-mark-soft: #6b0f3f; --color-on-mark: #1a0010;
+  --color-ok: #6fd49a;   --color-ok-soft: #12331f;
+  --color-warn: #f0b955; --color-warn-soft: #3a2a0a;
+  --color-err: #ff8a80;  --color-err-soft: #45160f;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #141413; --color-paper-2: #242422; --color-surface: #1d1d1b; --color-fig: #191918;
+  --color-dot: rgb(255 255 255 / 0.09);
+  --color-ink: #ffffff; --color-ink-2: #d2d2cc; --color-ink-3: #a3a39c;
+  --color-rule: #3a3a36; --color-wire: #7d7d76; --color-fill: #3d3d39;
+  --color-on-ink: #141413; --color-on-ink-2: #55554f;
+  --color-mark: #ff4fa3; --color-mark-ink: #ff7ab9; --color-mark-soft: #6b0f3f; --color-on-mark: #1a0010;
+  --color-ok: #6fd49a;   --color-ok-soft: #12331f;
+  --color-warn: #f0b955; --color-warn-soft: #3a2a0a;
+  --color-err: #ff8a80;  --color-err-soft: #45160f;
 }
 
 /* ── 2. BASE ───────────────────────────────────────────────────────────────── */
@@ -202,6 +230,9 @@ main + .d-pager { margin-top: var(--gap-part); border-top: var(--line) solid var
 .d-part + .d-part { border-top: var(--line) solid var(--color-ink); }
 .d-part[data-side] { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: var(--gap-figure); align-items: start; }
 .d-part > .part__fig { display: grid; gap: var(--gap-block); min-width: 0; }
+/* Largura de desktop: a tela de produto inteira, uma por linha, sai da coluna de leitura até 76rem. */
+.d-part[data-desk] { --desk: min(76rem, 100vw - 2 * var(--gutter)); }
+.d-part[data-desk] > .w-fig, .d-part[data-desk] > .d-cols { width: var(--desk); margin-inline: calc((100% - var(--desk)) / 2); }
 
 /* Passos: a sequência é informação, então o número é real (contador), não enfeite. */
 .d-steps { counter-reset: step; }
@@ -320,6 +351,10 @@ html:not(.js) .d-answers { display: none; }
 /* Recorte: a tela continua para fora da moldura. Só enchimento passa da borda. */
 .w-fig[data-bleed] > .fig__stage { align-content: start; padding-bottom: 0; height: var(--scene-h, 17rem); }
 .w-fig[data-bleed] > .fig__stage > .w-win { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; min-height: 100%; }
+
+/* De que estado é a tela: main, dev, proposto, wireframe. Fica acima da cena, em tinta, para ninguém adivinhar. */
+.w-fig > .fig__state { display: flex; align-items: baseline; gap: var(--gap-inside); max-width: none; padding: var(--s-2) 0; font: 700 var(--ui-text)/1.3 var(--font-body); color: var(--color-ink); }
+.w-fig > .fig__state > span { font-weight: 400; color: var(--color-ink-3); }
 
 /* ── 5. WIREFRAME: TELA (w-*) ──────────────────────────────────────────────── */
 
@@ -440,6 +475,31 @@ html:not(.js) .d-answers { display: none; }
 .w-shot { position: relative; display: grid; overflow: hidden; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); }
 .w-shot > img { display: block; width: 100%; height: auto; }
 .w-shot > .shot__falta { display: grid; place-items: center; aspect-ratio: var(--ratio, 16/10); padding: var(--inset-surface); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--color-rule) 9px 10px); color: var(--color-ink-2); font: 700 var(--ui-text)/1.4 var(--font-body); text-align: center; }
+
+/* Peças que o leitor mexe: os controles são de verdade (botão, régua, lista) e têm alvo de toque. */
+.w-states { display: grid; gap: var(--gap-pieces); min-width: 0; }
+.w-states > .states__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside) var(--gap-pieces); }
+.w-states .states__label { font: 400 var(--ui-meta)/1.3 var(--font-body); color: var(--color-ink-2); }
+.w-states .states__seg { display: inline-flex; flex-wrap: wrap; border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); background: var(--color-surface); overflow: hidden; }
+.w-states .states__seg > button { min-height: var(--target); padding: 0 var(--inset-surface); border: 0; background: none; color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); cursor: pointer; }
+.w-states .states__seg > button + button { border-left: var(--line) solid var(--color-ink); }
+.w-states .states__seg > button:hover { background: var(--color-paper-2); }
+.w-states .states__seg > button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); }
+.w-states > .states__view { display: grid; gap: var(--gap-pieces); min-width: 0; }
+.w-states > .states__view[hidden] { display: none; }
+
+.w-sim { display: grid; gap: var(--gap-pieces); min-width: 0; padding: var(--inset-surface); border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
+.w-sim > .sim__title { max-width: none; color: var(--color-ink); font-weight: 700; }
+.w-sim > .sim__knob { display: grid; grid-template-columns: minmax(6rem, 1fr) minmax(0, 2fr) minmax(4.5rem, auto); align-items: center; gap: var(--gap-pieces); min-height: var(--target); }
+.w-sim > .sim__knob > input[type="range"] { width: 100%; min-width: 0; accent-color: var(--color-ink); }
+.w-sim > .sim__knob > select { grid-column: 2 / -1; min-height: 2.25rem; padding: 0 var(--s-2); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); }
+.w-sim > .sim__knob > output { color: var(--color-ink); font-weight: 700; text-align: right; white-space: nowrap; }
+.w-sim > .sim__out { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--gap-tied) var(--gap-pieces); padding-top: var(--gap-pieces); border-top: var(--line) solid var(--color-rule); }
+.w-sim > .sim__out > b { color: var(--color-ink); font-weight: 700; text-align: right; }
+.w-sim > .sim__out[data-strong] > b { font: var(--display-weight) var(--text-subtitle)/1.1 var(--font-display); font-stretch: var(--display-stretch); }
+.w-sim > .sim__out[data-erro] > b { color: var(--color-err); }
+.w-sim > .sim__out[data-mark] > b { color: var(--color-mark-ink); }
+@container (max-width: 24rem) { .w-sim > .sim__knob { grid-template-columns: minmax(0, 1fr) auto; } .w-sim > .sim__knob > span { grid-column: 1 / -1; } }
 
 /* ── 6. A CANETA: MARCA, PINO E CHAMADA ────────────────────────────────────── */
 
@@ -726,21 +786,21 @@ html:not(.js) .d-answers { display: none; }
         <d-part title="Comparando, com a mesma dose" wide>
           <d-cols n="3">
 
-            <w-fig cap="A · 1.000 mcg entra como está">
+            <w-fig state="hoje, em dev" cap="A · 1.000 mcg entra como está">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" mark pin="1"></w-field>
               </w-win>
               <w-callout pin="1" mark>recomendada</w-callout>
             </w-fig>
 
-            <w-fig cap="B · 1.000 mcg entra, com um aviso">
+            <w-fig state="proposto" cap="B · 1.000 mcg entra, com um aviso">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" tone="warn"></w-field>
                 <w-msg tone="warn" title="Acima de 999 mcg">Confira se não seria mg.</w-msg>
               </w-win>
             </w-fig>
 
-            <w-fig cap="C · 1.000 mcg é recusado">
+            <w-fig state="proposto" cap="C · 1.000 mcg é recusado">
               <w-win title="Vitamina B12 · dose">
                 <w-field label="Quantidade" value="1.000" unit="mcg" tone="err"></w-field>
                 <w-msg tone="err" title="Máximo de 999 mcg">Escreva 1 mg.</w-msg>
@@ -793,7 +853,7 @@ html:not(.js) .d-answers { display: none; }
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.2.0'
+  const VERSAO = '4.4.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
@@ -812,7 +872,7 @@ html:not(.js) .d-answers { display: none; }
 
   // Props que viram data-* na raiz: o estado que o CSS lê (o tom, o tipo, se está marcado).
   // O texto que se lê (título, legenda, valor) vai para o miolo.
-  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status']
+  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status', 'desk', 'study']
   const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
     const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
     const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
@@ -860,11 +920,11 @@ html:not(.js) .d-answers { display: none; }
   })
   def('d-part', {
     grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',
-    props: { title: 'o título da parte, de preferência a pergunta do leitor', id: 'âncora', wide: 'empilha texto e figura em largura total' },
+    props: { title: 'o título da parte, de preferência a pergunta do leitor', id: 'âncora', wide: 'empilha texto e figura em largura total', desk: 'empilha e abre a figura até a largura de um desktop, para a tela de produto inteira, uma por linha' },
     html: (p, k, el) => {
       const fig = filhos(el, '.w-fig, table.table, [slot="fig"]')
       fig.forEach(f => f.removeAttribute('slot'))
-      const lado = fig.length && !p.wide
+      const lado = fig.length && !p.wide && !p.desk
       const resto = [...el.childNodes].filter(n => !fig.includes(n)).map(html).join('')
       const titulo = p.title ? `<h2>${esc(p.title)}</h2>` : ''
       const texto = titulo || resto.trim() ? `<div class="prose">${titulo}${resto}</div>` : ''
@@ -977,7 +1037,7 @@ html:not(.js) .d-answers { display: none; }
   let respostas = 0
   def('d-answer', {
     grupo: 'Documento', doc: 'Sua resposta: as opções com a recomendada, um comentário e o botão que copia a resposta com a pergunta junto. Filhos: li, uma opção cada; o texto do li diz o que a opção faz.',
-    props: { ref: 'o identificador da pergunta, como a página o mostra (padrão: Decisão N no painel duvida-N, Dúvida N dentro da aba Dúvidas, Pergunta N fora deles)', q: 'a pergunta completa (padrão: o título da primeira parte do painel)', 'li code': 'o código da opção: 1A', 'li label': 'o rótulo da opção: A · Sem teto', 'li rec': 'a opção recomendada' },
+    props: { ref: 'o identificador da pergunta, como a página o mostra (padrão: Decisão N no painel duvida-N, Dúvida N dentro da aba Dúvidas, Pergunta N fora deles)', q: 'a pergunta completa (padrão: o título da primeira parte do painel)', 'li code': 'o código da opção: 1A', 'li label': 'o rótulo da opção: A · Sem teto', 'li rec': 'a opção recomendada', study: 'pergunta que a evidência responde: as opções são aceitar ou contestar a conclusão, sem recomendada' },
     ex: '<d-answer ref="Decisão 1" q="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?"><li code="1A" label="A · Sem teto" rec>O limite diário e o aviso de milhar protegem.</li><li code="1B" label="B · Aviso acima de 999 mcg">Aceita e avisa uma vez.</li></d-answer>',
     html: (p, k, el) => {
       const n = ++respostas, nome = `resposta-${n}`
@@ -989,7 +1049,7 @@ html:not(.js) .d-answers { display: none; }
       return raiz('div', 'd-answer answer', p,
         `<table class="table"><thead><tr><th>Opção</th><th>O que faz</th></tr></thead><tbody>${linhas}</tbody></table>` +
         `<label class="answer__comment"><span>Comentário</span><textarea rows="2" name="${nome}-comentario"></textarea></label>` +
-        `<div class="d-note note answer__out"><p class="note__label">${ico('info-fill')}Responda no chat</p><p>${esc(ou)}${ou ? '.' : ''}<span class="answer__hint"> O botão copia a resposta com a pergunta junto.</span></p>` +
+        `<div class="d-note note answer__out"><p class="note__label">${ico('info-fill')}Responda no chat</p><p>${esc(ou)}${ou ? '.' : ''}<span class="answer__hint"> ${p.study ? 'A evidência responde; você aceita ou contesta. ' : ''}O botão copia a resposta com a pergunta junto.</span></p>` +
         `<pre class="answer__preview" aria-label="O que vai ser copiado" aria-live="polite"></pre><p class="answer__actions"><button type="button" class="answer__copy">Copiar esta resposta</button><span class="answer__status" role="status"></span></p></div>`,
         { attrs })
     },
@@ -1006,8 +1066,8 @@ html:not(.js) .d-answers { display: none; }
 
   def('w-fig', {
     grupo: 'Tela', doc: 'A moldura de toda figura: chão de prancheta e a legenda numerada embaixo.',
-    props: { cap: 'a legenda: a conclusão que a figura mostra, com o dado do caso', bleed: 'a tela continua para fora da moldura', h: 'altura do recorte com bleed (ex.: 17rem)' },
-    html: (p, k) => raiz('figure', 'w-fig fig', p, `<div class="fig__stage"${p.h ? ` style="--scene-h:${esc(p.h)}"` : ''}>${k}</div>${p.cap ? `<figcaption>${esc(p.cap)}</figcaption>` : ''}`),
+    props: { cap: 'a legenda: a conclusão que a figura mostra, com o dado do caso', state: 'de que estado é a tela: main, dev · f0b29b2, proposto, wireframe', bleed: 'a tela continua para fora da moldura', h: 'altura do recorte com bleed (ex.: 17rem)' },
+    html: (p, k) => raiz('figure', 'w-fig fig', p, `${p.state && p.state !== true ? `<p class="fig__state"><span>Estado</span>${esc(p.state)}</p>` : ''}<div class="fig__stage"${p.h ? ` style="--scene-h:${esc(p.h)}"` : ''}>${k}</div>${p.cap ? `<figcaption>${esc(p.cap)}</figcaption>` : ''}`),
   })
   def('w-win', {
     grupo: 'Tela', doc: 'Uma janela do produto em wireframe: barra com o nome da tela e o corpo.',
@@ -1126,6 +1186,48 @@ html:not(.js) .d-answers { display: none; }
     props: { src: 'o arquivo do print', alt: 'o que o print mostra', ratio: 'proporção do espaço vazio (padrão 16/10)' },
     ex: '<w-shot alt="Prescrição com o checkbox antes do card"></w-shot>',
     html: p => raiz('div', 'w-shot', p, p.src ? `<img src="${esc(p.src)}" alt="${esc(p.alt ?? '')}" loading="lazy">` : `<span class="shot__falta">${esc(p.alt ? `Print ausente: ${p.alt}` : 'Print ausente')}</span>`, { estilo: p.src ? '' : `--ratio:${esc(p.ratio ?? '16/10')};` }),
+  })
+
+  // Peças que o leitor mexe. A regra que é transição vira w-states; a que é conta vira w-sim.
+  // O comportamento é ligado em ligar(); sem script, w-states mostra o estado inicial e w-sim fica sem resultado.
+  def('w-states', {
+    grupo: 'Tela', doc: 'Uma transição que o leitor mexe: um botão por estado e, embaixo, a cena daquele estado. Filhos: w-state.',
+    props: { label: 'o nome do controle, como no produto', on: 'o estado que abre (padrão: o primeiro)' },
+    ex: '<w-states label="Regime" on="6x1"><w-state name="5x2"><w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell off>F</w-cell></w-matrix></w-state><w-state name="6x1"><w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix></w-state></w-states>',
+    html: (p, k, el) => {
+      const vistas = filhos(el, '.states__view')
+      const aberto = p.on && p.on !== true && vistas.some(v => v.dataset.name === p.on) ? p.on : vistas[0]?.dataset.name
+      vistas.forEach(v => { v.hidden = v.dataset.name !== aberto })
+      const botoes = vistas.map(v => `<button type="button" aria-pressed="${v.dataset.name === aberto}" data-name="${esc(v.dataset.name)}">${esc(v.dataset.name)}</button>`).join('')
+      return raiz('div', 'w-states states', { ...p, on: undefined }, `<div class="states__bar">${p.label && p.label !== true ? `<span class="states__label">${esc(p.label)}</span>` : ''}<span class="states__seg" role="group"${p.label && p.label !== true ? ` aria-label="${esc(p.label)}"` : ''}>${botoes}</span></div>${vistas.map(v => v.outerHTML).join('')}`)
+    },
+  })
+  def('w-state', {
+    grupo: 'Tela', doc: 'Um estado de w-states: a cena que aparece quando o leitor escolhe o botão.',
+    props: { name: 'o nome do estado, como no produto' },
+    html: (p, k) => `<div class="states__view" data-name="${esc(p.name ?? '')}">${k}</div>`,
+  })
+  def('w-sim', {
+    grupo: 'Esquema', doc: 'Uma conta que o leitor mexe: as entradas (w-knob) e os resultados (w-out), recalculados a cada mudança. A fórmula é copiada da fonte e a fonte vai no d-src da parte.',
+    props: { title: 'o nome da conta' },
+    ex: '<w-sim title="Índice de massa corporal"><w-knob name="peso" label="Peso" unit="kg" min="40" max="140" step="0.5" value="62"></w-knob><w-knob name="altura" label="Altura" unit="m" min="1.4" max="2.1" step="0.01" value="1.65"></w-knob><w-out name="imc" label="IMC" unit="kg/m²" digits="1" expr="peso / (altura * altura)" strong></w-out><w-out label="Faixa (OMS, adulto)" expr="imc < 18.5 ? \'Baixo peso\' : imc < 25 ? \'Eutrofia\' : imc < 30 ? \'Sobrepeso\' : \'Obesidade\'"></w-out></w-sim>',
+    html: (p, k) => raiz('div', 'w-sim sim', p, `${p.title && p.title !== true ? `<p class="sim__title">${esc(p.title)}</p>` : ''}${k}`),
+  })
+  def('w-knob', {
+    grupo: 'Esquema', doc: 'Uma entrada de w-sim: régua para número, lista para escolha.',
+    props: { name: 'o nome da variável na conta', label: 'o rótulo, como no produto', value: 'o valor inicial: o do caso', min: 'o menor valor', max: 'o maior valor', step: 'o passo', unit: 'a unidade', options: 'em vez da régua, uma escolha: Opção|Opção' },
+    html: p => {
+      const nome = esc(p.name ?? ''), ops = lista(p.options)
+      const controle = ops.length
+        ? `<select name="${nome}">${ops.map(o => `<option${o === p.value ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`
+        : `<input type="range" name="${nome}" min="${esc(p.min ?? 0)}" max="${esc(p.max ?? 100)}" step="${esc(p.step ?? 1)}" value="${esc(p.value ?? 0)}"><output></output>`
+      return `<label class="sim__knob"${p.unit && p.unit !== true ? ` data-unit="${esc(p.unit)}"` : ''}><span>${esc(p.label ?? p.name ?? '')}</span>${controle}</label>`
+    },
+  })
+  def('w-out', {
+    grupo: 'Esquema', doc: 'Um resultado de w-sim. A expressão usa os nomes das entradas e dos resultados de cima.',
+    props: { expr: 'a conta, em JavaScript: tmb * 0.1', name: 'o nome, para os resultados de baixo usarem', label: 'o rótulo', unit: 'a unidade', digits: 'casas decimais (padrão 0)', strong: 'o resultado de que a parte fala' },
+    html: p => raiz('div', 'sim__out', p, `<span>${esc(p.label ?? p.name ?? '')}</span><b></b>`, { attrs: ` data-expr="${esc(p.expr ?? '')}"${p.name && p.name !== true ? ` data-name="${esc(p.name)}"` : ''}${p.unit && p.unit !== true ? ` data-unit="${esc(p.unit)}"` : ''} data-digits="${esc(p.digits ?? 0)}"` }),
   })
 
   // ── A caneta ──────────────────────────────────────────────────────────────
@@ -1375,6 +1477,45 @@ html:not(.js) .d-answers { display: none; }
       conta()
     }
     ligarRespostas()
+    // Transição: o botão troca a cena do próprio w-states e mais nada na página.
+    for (const st of document.querySelectorAll('.w-states')) {
+      if (st.dataset.ligado) continue
+      st.dataset.ligado = '1'
+      const botoes = [...st.querySelectorAll(':scope > .states__bar button')], vistas = [...st.querySelectorAll(':scope > .states__view')]
+      botoes.forEach(b => b.addEventListener('click', e => {
+        e.stopPropagation()
+        botoes.forEach(o => o.setAttribute('aria-pressed', String(o === b)))
+        vistas.forEach(v => { v.hidden = v.dataset.name !== b.dataset.name })
+      }))
+    }
+    // Conta: cada resultado é a expressão avaliada com as entradas e os resultados de cima. Erro fica à vista (data-erro).
+    for (const sim of document.querySelectorAll('.w-sim')) {
+      if (sim.dataset.ligado) continue
+      sim.dataset.ligado = '1'
+      const br = (v, casas) => (typeof v === 'number' ? v.toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas }) : String(v))
+      const calcular = () => {
+        const vars = {}
+        for (const k of sim.querySelectorAll('.sim__knob')) {
+          const c = k.querySelector('input, select'), cru = c.value, n = c.type === 'range' ? parseFloat(cru) : NaN
+          vars[c.name] = isNaN(n) ? cru : n
+          const o = k.querySelector('output')
+          if (o) o.textContent = `${br(n, (String(c.step).split('.')[1] ?? '').length)}${k.dataset.unit ? ` ${k.dataset.unit}` : ''}`
+        }
+        for (const out of sim.querySelectorAll('.sim__out')) {
+          const alvo = out.querySelector('b')
+          try {
+            const v = new Function(...Object.keys(vars), `return (${out.dataset.expr})`)(...Object.values(vars))
+            if (v === undefined || (typeof v === 'number' && isNaN(v))) throw new Error('sem valor')
+            if (out.dataset.name) vars[out.dataset.name] = v
+            alvo.textContent = `${br(v, +out.dataset.digits || 0)}${out.dataset.unit ? ` ${out.dataset.unit}` : ''}`
+            delete out.dataset.erro
+          } catch (e) { alvo.textContent = 'conta com erro'; out.dataset.erro = e.message }
+        }
+      }
+      sim.addEventListener('input', calcular)
+      sim.addEventListener('change', calcular)
+      calcular()
+    }
     for (const caixa of document.querySelectorAll('.tabs')) {
       if (caixa.dataset.ligado) continue
       caixa.dataset.ligado = '1'

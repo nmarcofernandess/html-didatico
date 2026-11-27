@@ -92,6 +92,34 @@
   --radius-m: 6px;
   --radius-pill: 999px;
 
+  color-scheme: light;
+}
+
+/* Tema escuro: os mesmos papéis, com o papel escuro e a tinta clara. Vale pelo sistema do leitor e por
+   data-theme na raiz (o visor de artifacts usa o atributo). Nenhum componente escolhe cor fora daqui. */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --color-paper: #141413; --color-paper-2: #242422; --color-surface: #1d1d1b; --color-fig: #191918;
+  --color-dot: rgb(255 255 255 / 0.09);
+  --color-ink: #ffffff; --color-ink-2: #d2d2cc; --color-ink-3: #a3a39c;
+  --color-rule: #3a3a36; --color-wire: #7d7d76; --color-fill: #3d3d39;
+  --color-on-ink: #141413; --color-on-ink-2: #55554f;
+  --color-mark: #ff4fa3; --color-mark-ink: #ff7ab9; --color-mark-soft: #6b0f3f; --color-on-mark: #1a0010;
+  --color-ok: #6fd49a;   --color-ok-soft: #12331f;
+  --color-warn: #f0b955; --color-warn-soft: #3a2a0a;
+  --color-err: #ff8a80;  --color-err-soft: #45160f;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #141413; --color-paper-2: #242422; --color-surface: #1d1d1b; --color-fig: #191918;
+  --color-dot: rgb(255 255 255 / 0.09);
+  --color-ink: #ffffff; --color-ink-2: #d2d2cc; --color-ink-3: #a3a39c;
+  --color-rule: #3a3a36; --color-wire: #7d7d76; --color-fill: #3d3d39;
+  --color-on-ink: #141413; --color-on-ink-2: #55554f;
+  --color-mark: #ff4fa3; --color-mark-ink: #ff7ab9; --color-mark-soft: #6b0f3f; --color-on-mark: #1a0010;
+  --color-ok: #6fd49a;   --color-ok-soft: #12331f;
+  --color-warn: #f0b955; --color-warn-soft: #3a2a0a;
+  --color-err: #ff8a80;  --color-err-soft: #45160f;
 }
 
 /* ── 2. BASE ───────────────────────────────────────────────────────────────── */
@@ -194,6 +222,9 @@ main + .d-pager { margin-top: var(--gap-part); border-top: var(--line) solid var
 .d-part + .d-part { border-top: var(--line) solid var(--color-ink); }
 .d-part[data-side] { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: var(--gap-figure); align-items: start; }
 .d-part > .part__fig { display: grid; gap: var(--gap-block); min-width: 0; }
+/* Largura de desktop: a tela de produto inteira, uma por linha, sai da coluna de leitura até 76rem. */
+.d-part[data-desk] { --desk: min(76rem, 100vw - 2 * var(--gutter)); }
+.d-part[data-desk] > .w-fig, .d-part[data-desk] > .d-cols { width: var(--desk); margin-inline: calc((100% - var(--desk)) / 2); }
 
 /* Passos: a sequência é informação, então o número é real (contador), não enfeite. */
 .d-steps { counter-reset: step; }
@@ -312,6 +343,10 @@ html:not(.js) .d-answers { display: none; }
 /* Recorte: a tela continua para fora da moldura. Só enchimento passa da borda. */
 .w-fig[data-bleed] > .fig__stage { align-content: start; padding-bottom: 0; height: var(--scene-h, 17rem); }
 .w-fig[data-bleed] > .fig__stage > .w-win { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; min-height: 100%; }
+
+/* De que estado é a tela: main, dev, proposto, wireframe. Fica acima da cena, em tinta, para ninguém adivinhar. */
+.w-fig > .fig__state { display: flex; align-items: baseline; gap: var(--gap-inside); max-width: none; padding: var(--s-2) 0; font: 700 var(--ui-text)/1.3 var(--font-body); color: var(--color-ink); }
+.w-fig > .fig__state > span { font-weight: 400; color: var(--color-ink-3); }
 
 /* ── 5. WIREFRAME: TELA (w-*) ──────────────────────────────────────────────── */
 
@@ -432,6 +467,31 @@ html:not(.js) .d-answers { display: none; }
 .w-shot { position: relative; display: grid; overflow: hidden; border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); }
 .w-shot > img { display: block; width: 100%; height: auto; }
 .w-shot > .shot__falta { display: grid; place-items: center; aspect-ratio: var(--ratio, 16/10); padding: var(--inset-surface); background: repeating-linear-gradient(135deg, transparent 0 9px, var(--color-rule) 9px 10px); color: var(--color-ink-2); font: 700 var(--ui-text)/1.4 var(--font-body); text-align: center; }
+
+/* Peças que o leitor mexe: os controles são de verdade (botão, régua, lista) e têm alvo de toque. */
+.w-states { display: grid; gap: var(--gap-pieces); min-width: 0; }
+.w-states > .states__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inside) var(--gap-pieces); }
+.w-states .states__label { font: 400 var(--ui-meta)/1.3 var(--font-body); color: var(--color-ink-2); }
+.w-states .states__seg { display: inline-flex; flex-wrap: wrap; border: var(--line) solid var(--color-ink); border-radius: var(--radius-s); background: var(--color-surface); overflow: hidden; }
+.w-states .states__seg > button { min-height: var(--target); padding: 0 var(--inset-surface); border: 0; background: none; color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); cursor: pointer; }
+.w-states .states__seg > button + button { border-left: var(--line) solid var(--color-ink); }
+.w-states .states__seg > button:hover { background: var(--color-paper-2); }
+.w-states .states__seg > button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); }
+.w-states > .states__view { display: grid; gap: var(--gap-pieces); min-width: 0; }
+.w-states > .states__view[hidden] { display: none; }
+
+.w-sim { display: grid; gap: var(--gap-pieces); min-width: 0; padding: var(--inset-surface); border: var(--line) solid var(--color-ink); border-radius: var(--radius-m); background: var(--color-surface); font: 400 var(--ui-text)/1.35 var(--font-body); color: var(--color-ink-2); }
+.w-sim > .sim__title { max-width: none; color: var(--color-ink); font-weight: 700; }
+.w-sim > .sim__knob { display: grid; grid-template-columns: minmax(6rem, 1fr) minmax(0, 2fr) minmax(4.5rem, auto); align-items: center; gap: var(--gap-pieces); min-height: var(--target); }
+.w-sim > .sim__knob > input[type="range"] { width: 100%; min-width: 0; accent-color: var(--color-ink); }
+.w-sim > .sim__knob > select { grid-column: 2 / -1; min-height: 2.25rem; padding: 0 var(--s-2); border: var(--line) solid var(--color-wire); border-radius: var(--radius-s); background: var(--color-surface); color: var(--color-ink); font: 700 var(--ui-text)/1 var(--font-body); }
+.w-sim > .sim__knob > output { color: var(--color-ink); font-weight: 700; text-align: right; white-space: nowrap; }
+.w-sim > .sim__out { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--gap-tied) var(--gap-pieces); padding-top: var(--gap-pieces); border-top: var(--line) solid var(--color-rule); }
+.w-sim > .sim__out > b { color: var(--color-ink); font-weight: 700; text-align: right; }
+.w-sim > .sim__out[data-strong] > b { font: var(--display-weight) var(--text-subtitle)/1.1 var(--font-display); font-stretch: var(--display-stretch); }
+.w-sim > .sim__out[data-erro] > b { color: var(--color-err); }
+.w-sim > .sim__out[data-mark] > b { color: var(--color-mark-ink); }
+@container (max-width: 24rem) { .w-sim > .sim__knob { grid-template-columns: minmax(0, 1fr) auto; } .w-sim > .sim__knob > span { grid-column: 1 / -1; } }
 
 /* ── 6. A CANETA: MARCA, PINO E CHAMADA ────────────────────────────────────── */
 

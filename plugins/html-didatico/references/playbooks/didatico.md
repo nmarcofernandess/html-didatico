@@ -38,12 +38,13 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    [leitura pela figura](../visual/design.md#leitura-pela-figura): para cada
    pergunta, o que se percebe só pela figura e pela legenda. Ela não depende do
    render e vale para toda entrega.
-6. **Prova, quando pedida ou necessária.** Não é passo de toda entrega: rode
-   quando o usuário pedir, ou quando o risco só aparece no render. O
+6. **A página, vista.** É passo de toda entrega em HTML
+   ([Padrões](../padroes.md#página-vista-antes-da-entrega)). O
    [check](../../scripts/check.mjs) (`node scripts/check.mjs <arquivo.html>`, a
    partir da raiz do plugin) grava seus screenshots numa pasta temporária, nunca
-   ao lado do documento. Conserte toda FALHA; conserte ou justifique cada
-   AVISO. Depois abra os screenshots de 390 e 1280 e compare com o exemplo-ouro:
+   ao lado do documento, e clica cada controle. Conserte toda FALHA; conserte ou
+   justifique cada AVISO. Depois abra os screenshots de 390, de 1280 e o do tema
+   escuro e compare com o exemplo-ouro:
    se o seu é o mais carregado, o mais vazio ou o mais chapado dos dois, esse é o
    próximo conserto. Ordem: conteúdo, enquadramento, hierarquia, acabamento. Uma
    inspeção, um lote de consertos, uma confirmação.
@@ -83,5 +84,5 @@ documento usa o mesmo [design system](../visual/design.md#um-sistema-sem-looks).
 
 Entregue o arquivo e, em poucas linhas: a anatomia escolhida, cada
 pergunta com a figura que a responde, o que foi visto rodando e o que foi lido,
-a objeção mais forte e o que a fonte não deu. Se o check rodou, os avisos que ficaram, cada um
-com o motivo; se não rodou, não é preciso dizer nada.
+a objeção mais forte e o que a fonte não deu. Dos avisos do check que ficaram, cada um
+com o motivo.

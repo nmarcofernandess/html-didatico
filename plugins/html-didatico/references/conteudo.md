@@ -45,7 +45,7 @@ Antes do texto, escreva uma linha por parte: o que ela ensina de novo e em que f
 - **Uma parte tem um assunto,** um título que o nomeia e, quando ajuda, uma figura que mostra a relação. Se a parte pede "além disso", são duas partes.
 - **Uma pergunta, uma parte.** Liste as perguntas do leitor, na ordem em que nasceriam. Cada uma ganha uma parte. Duas partes que respondem à mesma pergunta viram uma. A abertura que repete o título, o "por que importa" sem dado novo e o fecho que resume as partes respondem a pergunta nenhuma: o que têm de fato vira uma frase na parte vizinha.
 - **A parte existe quando a ficha tem material para ela.** A contagem segue o conteúdo: quatro passos são quatro passos.
-- **A pergunta escolhe a representação.** Para cada pergunta, descreva em uma linha duas representações possíveis e fique com aquela em que a resposta se vê sem a prosa:
+- **A pergunta escolhe a representação,** e a representação escolhe a largura: nem toda parte é texto de um lado e figura do outro ([A forma segue o conteúdo](padroes.md#a-forma-segue-o-conteúdo)). Para cada pergunta, descreva em uma linha duas representações possíveis e fique com aquela em que a resposta se vê sem a prosa:
 
 | A pergunta | O leitor precisa ver | Representação |
 |---|---|---|
@@ -57,6 +57,10 @@ Antes do texto, escreva uma linha por parte: o que ela ensina de novo e em que f
 | Como as coisas se ligam? | Quem entrega o quê para quem | Esquema |
 | Onde mora cada responsabilidade? | O lugar de cada uma | Árvore |
 | Qual escolher? | As saídas no mesmo caso, lado a lado | Uma figura por opção |
+| A regra vale em todas as situações? | Todas as situações de uma vez, com o caso marcado | Matriz gerada da fonte |
+| O que acontece quando eu troco? | A tela antes e depois do gesto | Peça que o leitor mexe (`w-states`) |
+| Como o número é calculado? | As entradas do caso e o resultado mudando | Conta que o leitor mexe (`w-sim`) |
+| Como é essa tela? | A tela real, inteira, com o estado dito | A tela em largura de desktop |
 | O que o sistema disse? | O texto literal, o que significa e o que fazer | A mensagem e uma tabela |
 | O que muda o resultado? | A condição junto do passo que ela afeta | Aviso |
 

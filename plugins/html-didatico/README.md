@@ -30,7 +30,7 @@ blueprint da figura ([referência](references/kit/componentes.md),
 desenhado a caneta: tinta preta desenha o produto, magenta é a caneta de quem
 explica. Cria-se o arquivo por cópia
 (`node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|prova|montagem|maquete|starter> <destino.html>`),
-escreve-se só o corpo com componentes e, quando pedido, roda-se o [check](scripts/check.mjs).
+escreve-se só o corpo com componentes e roda-se o [check](scripts/check.mjs), que renderiza nos dois temas e clica cada controle.
 [Conteúdo](references/conteudo.md) e [design](references/visual/design.md) dizem o que
 escrever e como desenhar; os [exemplos-ouro](references/kit/ouro/) são o padrão de qualidade.
 

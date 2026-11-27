@@ -230,7 +230,7 @@
         <d-part title="Teste o campo">
           <p>Escolha o campo, digite e saia com Tab ou Enter. Ao focar, o valor abre sem o ponto de milhar. Letras não entram.</p>
           <p>Os exemplos colocam um texto no campo como se fosse colado.</p>
-          <w-fig cap="Protótipo do estado decidido; não é o componente do app">
+          <w-fig state="protótipo do que já foi decidido" cap="Protótipo do estado decidido; não é o componente do app">
             <w-win title="Dose" id="proto-tela">
               <w-seg id="perfis" options="Dose|Peso|Exame" on="Dose"></w-seg>
               <w-seg id="perfis-2" options="Consulta|Porções"></w-seg>
@@ -260,18 +260,18 @@
 
             <d-part title="Comparando, com a mesma dose" wide>
               <d-cols n="3">
-                <w-fig cap="A · 1.000 mcg entra como está">
+                <w-fig state="hoje, em dev" cap="A · 1.000 mcg entra como está">
                   <w-win title="Vitamina B12 · dose">
                     <w-field label="Quantidade" value="1.000" unit="mcg" mark></w-field>
                   </w-win>
                 </w-fig>
-                <w-fig cap="B · 1.000 mcg entra, com um aviso">
+                <w-fig state="proposto" cap="B · 1.000 mcg entra, com um aviso">
                   <w-win title="Vitamina B12 · dose">
                     <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
                     <w-msg tone="warn" title="Acima de 999 mcg" mark>Confira se não seria mg.</w-msg>
                   </w-win>
                 </w-fig>
-                <w-fig cap="C · 1.000 mcg é recusado">
+                <w-fig state="proposto" cap="C · 1.000 mcg é recusado">
                   <w-win title="Vitamina B12 · dose">
                     <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
                     <w-msg tone="err" title="Máximo de 999 mcg" mark>Escreva 1 mg.</w-msg>

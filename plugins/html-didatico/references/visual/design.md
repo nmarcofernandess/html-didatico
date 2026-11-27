@@ -54,7 +54,7 @@ O espaço é escolhido pela relação entre as duas coisas. O kit dá um nome a 
 
 ### 4. Cor
 
-- **Toda cor passa por token.** Fora do bloco de tokens o CSS só usa `var(--color-…)`.
+- **Toda cor passa por token.** Fora do bloco de tokens o CSS só usa `var(--color-…)`. Os tokens têm tema claro e escuro; cor literal é o que some no escuro.
 - **Quatro camadas:** papel, tinta, neutros sem matiz, a caneta magenta.
 - **Tinta é o produto; magenta é quem explica.** O botão principal, a opção escolhida e o foco do produto ficam em tinta preta. O magenta marca só o dado de que a parte fala (`mark`, `pin`, `w-callout mark`, `<mark>` na prosa) e o carimbo. Menos de 5% de qualquer tela.
 - **Cor de status significa status:** `ok`, `warn`, `err`, sempre com rótulo ou ícone ao lado.
@@ -92,6 +92,7 @@ O documento é parado. Quando o pedido inclui movimento: um momento só, `transf
 
 Uma figura mostra uma relação. Ela é de um de dois tipos:
 
+- **Peça que se mexe:** `w-states` para a transição e `w-sim` para a conta. O leitor troca o estado ou a entrada e vê o resultado.
 - **Cena (wireframe):** um recorte da tela, para o que a pessoa vê e faz. Componentes: `w-win`, `w-field`, `w-grid`, `w-list` com `w-item`, `w-kv`, `w-btn`, `w-seg`, `w-chip`, `w-toggle`, `w-avatar`, `w-msg`, `w-toast`, `w-menu`, `w-term`, `w-text`, `w-shot`, e o cursor (`click`).
 - **Esquema (blueprint):** um desenho de como as coisas se ligam. Componentes: `w-flow` com `w-node`, `w-bars` com `w-val`, `w-matrix` com `w-cell`, `w-tree`, `w-files` com `w-file`, `w-code`, `w-layers` com `w-layer`, `w-timeline` com `w-when`, `w-stat`, `w-box` e a `table` dentro de uma `w-win`.
 - **A caneta:** `mark` e `pin` valem em qualquer componente; `w-callout` liga um nome ao que ele diz, e com `mark` é a anotação de quem explica.
@@ -105,18 +106,22 @@ As props e um exemplo de cada componente estão na [referência](../kit/componen
 ### O produto de quem pede
 
 O plugin não traz o design system de nenhum produto: ele envelhece e só serve a
-um sistema. A tela de um produto entra de dois jeitos:
+um sistema. Quem conhece o produto para de ler quando não o reconhece na figura,
+então a tela entra, nesta ordem de preferência:
 
-- **Remontada em wireframe, o padrão.** Leia como o sistema funciona na fonte (as
-  telas, os componentes que elas usam, os rótulos e os dados reais) e remonte a
-  cena com os componentes do kit, no traço do kit. Vale em qualquer host e para
-  qualquer produto.
-- **Integrada com o design system do produto, quando ele está à mão e a pergunta
-  pede.** Se o host já tem o design system do próprio produto (instalado no
-  canvas de Design, ou os componentes no repositório) e a decisão é sobre a
-  aparência real da tela, ele pode entrar: o print do produto com `w-shot`, ou a
-  tela feita no design system ao lado do wireframe. A explicação, a caneta e a
-  moldura continuam sendo do kit.
+1. **A tela real.** O print do produto rodando, ou do documento que ele gera
+   (o PDF, o e-mail), em `w-shot`, recortado no trecho de que a parte fala.
+2. **A tela no design system do produto,** quando ele está à mão (os
+   componentes no repositório, ou instalado no canvas de Design): o componente
+   inteiro, com os dados do caso.
+3. **Remontada em wireframe,** com os componentes do kit, quando nenhuma das
+   duas é possível ou a parte fala de estrutura e não de aparência. O `state`
+   diz "wireframe".
+
+Nas três: o componente inteiro e não um fragmento, uma tela por linha em largura
+de desktop (`d-part desk`), e o estado dito em `w-fig state` (main, dev com o
+commit, proposto). A explicação, a caneta e a moldura continuam sendo do kit.
+Veja [A forma segue o conteúdo](../padroes.md#a-forma-segue-o-conteúdo).
 
 ### Método da cena
 

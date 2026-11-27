@@ -54,6 +54,7 @@ Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="
 - `title`: o título da parte, de preferência a pergunta do leitor
 - `id`: âncora
 - `wide`: empilha texto e figura em largura total
+- `desk`: empilha e abre a figura até a largura de um desktop, para a tela de produto inteira, uma por linha
 
 ### `<d-steps>`
 
@@ -170,6 +171,7 @@ Sua resposta: as opções com a recomendada, um comentário e o botão que copia
 - `li code`: o código da opção: 1A
 - `li label`: o rótulo da opção: A · Sem teto
 - `li rec`: a opção recomendada
+- `study`: pergunta que a evidência responde: as opções são aceitar ou contestar a conclusão, sem recomendada
 
 ```html
 <d-answer ref="Decisão 1" q="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?"><li code="1A" label="A · Sem teto" rec>O limite diário e o aviso de milhar protegem.</li><li code="1B" label="B · Aviso acima de 999 mcg">Aceita e avisa uma vez.</li></d-answer>
@@ -194,6 +196,7 @@ O wireframe do produto: janela, campo, lista, botão, mensagem. Traço preto, co
 A moldura de toda figura: chão de prancheta e a legenda numerada embaixo.
 
 - `cap`: a legenda: a conclusão que a figura mostra, com o dado do caso
+- `state`: de que estado é a tela: main, dev · f0b29b2, proposto, wireframe
 - `bleed`: a tela continua para fora da moldura
 - `h`: altura do recorte com bleed (ex.: 17rem)
 
@@ -394,6 +397,23 @@ Um print real da tela, numa moldura. Sem src, o espaço hachurado diz que o prin
 <w-shot alt="Prescrição com o checkbox antes do card"></w-shot>
 ```
 
+### `<w-states>`
+
+Uma transição que o leitor mexe: um botão por estado e, embaixo, a cena daquele estado. Filhos: w-state.
+
+- `label`: o nome do controle, como no produto
+- `on`: o estado que abre (padrão: o primeiro)
+
+```html
+<w-states label="Regime" on="6x1"><w-state name="5x2"><w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell off>F</w-cell></w-matrix></w-state><w-state name="6x1"><w-matrix cols="7" head="D|S|T|Q|Q|S|S"><w-cell off>F</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell><w-cell on>T</w-cell></w-matrix></w-state></w-states>
+```
+
+### `<w-state>`
+
+Um estado de w-states: a cena que aparece quando o leitor escolhe o botão.
+
+- `name`: o nome do estado, como no produto
+
 ## Caneta
 
 Quem explica: marca, pino e chamada em magenta. Valem em qualquer componente (mark, pin, click).
@@ -413,6 +433,40 @@ Chamada: o nome, um fio tracejado e o que ele diz ou vira. Com mark, é a caneta
 ## Esquema
 
 O blueprint: fluxo, barras, matriz, arquivos, código, camadas, linha do tempo e composição.
+
+### `<w-sim>`
+
+Uma conta que o leitor mexe: as entradas (w-knob) e os resultados (w-out), recalculados a cada mudança. A fórmula é copiada da fonte e a fonte vai no d-src da parte.
+
+- `title`: o nome da conta
+
+```html
+<w-sim title="Índice de massa corporal"><w-knob name="peso" label="Peso" unit="kg" min="40" max="140" step="0.5" value="62"></w-knob><w-knob name="altura" label="Altura" unit="m" min="1.4" max="2.1" step="0.01" value="1.65"></w-knob><w-out name="imc" label="IMC" unit="kg/m²" digits="1" expr="peso / (altura * altura)" strong></w-out><w-out label="Faixa (OMS, adulto)" expr="imc < 18.5 ? 'Baixo peso' : imc < 25 ? 'Eutrofia' : imc < 30 ? 'Sobrepeso' : 'Obesidade'"></w-out></w-sim>
+```
+
+### `<w-knob>`
+
+Uma entrada de w-sim: régua para número, lista para escolha.
+
+- `name`: o nome da variável na conta
+- `label`: o rótulo, como no produto
+- `value`: o valor inicial: o do caso
+- `min`: o menor valor
+- `max`: o maior valor
+- `step`: o passo
+- `unit`: a unidade
+- `options`: em vez da régua, uma escolha: Opção|Opção
+
+### `<w-out>`
+
+Um resultado de w-sim. A expressão usa os nomes das entradas e dos resultados de cima.
+
+- `expr`: a conta, em JavaScript: tmb * 0.1
+- `name`: o nome, para os resultados de baixo usarem
+- `label`: o rótulo
+- `unit`: a unidade
+- `digits`: casas decimais (padrão 0)
+- `strong`: o resultado de que a parte fala
 
 ### `<w-flow>`
 
