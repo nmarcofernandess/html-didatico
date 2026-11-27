@@ -25,12 +25,15 @@ a data dela.
 
 ### O quadro
 
-Cada quadro é uma `d-part` cujo título é a pergunta; a frase responde com o caso;
-a figura prova a frase; a fonte entra em uma linha (`d-src`); a regra que se leva
-fecha em `<p><b>…</b></p>`. A figura tem a forma que o conteúdo pede
-([Padrões](../padroes.md#a-forma-segue-o-conteúdo)): ao lado do texto quando é
-um esquema pequeno; em largura total (`wide`) quando é matriz ou peça que se
-mexe; em largura de desktop (`desk`) quando é a tela inteira. Uma aula com todos
+Cada quadro é uma `d-part` com três atributos: `title` é a pergunta, `answer` é a
+resposta em uma linha, com `**o trecho que decide**` em negrito, e `rule` é a regra
+que se leva, depois da figura. A figura vem em largura total, prova a frase e é um
+desenho próprio do conceito, feito com as peças do grupo Esquema (ficha, garfo,
+régua, plaquinha, zona, quadrante, degraus, algoritmo): se dois quadros seguidos
+usam a mesma peça, o segundo ainda não achou o seu desenho. A fonte entra no `src`
+da figura. As cores de papel (`role`) valem as mesmas do primeiro ao último quadro.
+Tela de produto inteira pede `desk`
+([Padrões](../padroes.md#a-forma-segue-o-conteúdo)). Uma aula com todos
 os quadros iguais seguiu o molde, não o assunto.
 
 ```html
@@ -106,7 +109,7 @@ nasceria.
   a resposta precisa aparecer só com a figura e a legenda.
 - **A fonte em uma linha** quando o fato vem de pesquisa. A evidência entra
   destilada: a conclusão e a origem. O percurso da pesquisa fica fora.
-- **A regra do quadro na última linha**, em negrito: o que o leitor leva dali.
+- **A regra do quadro na última linha** (`rule`): o que o leitor leva dali.
 
 Os quadros sobem em degraus: cada um parte do que o anterior deixou. Com quatro
 quadros ou mais, abra com o trilho (`rail`). O fecho tem três quadros fixos,

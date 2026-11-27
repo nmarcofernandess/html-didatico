@@ -10,7 +10,7 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
 | [Conteúdo](../conteudo.md) | O que dizer, em que ordem e quanto |
 | [Design](../visual/design.md) | Como a página e as figuras são desenhadas, e por quê |
 | [Starter](../kit/starter.html) e [peças](../kit/pecas.html) | O sistema visual pronto e a marcação de cada peça |
-| [Cartão](../kit/ouro/cartao.html), [passo a passo](../kit/ouro/passo-a-passo.html), [explicação](../kit/ouro/explicacao.html), [aula](../kit/ouro/aula.html) e [decidir](../kit/ouro/decidir.html) | O padrão de qualidade: um documento completo por anatomia |
+| [Aula](../kit/ouro/aula.html), o modelo completo (Aula, Na tela, Dúvidas, Leis e Roadmap), [cartão](../kit/ouro/cartao.html) e [decidir](../kit/ouro/decidir.html) | O padrão de qualidade: um documento completo por anatomia |
 
 ## Processo
 
@@ -25,7 +25,7 @@ texto diz como a coisa é; a figura mostra o que se vê e como as partes se liga
    palavras reais. Mostre a espinha em um bloco curto no começo da resposta e
    siga; o usuário redireciona se quiser.
 3. **Base.** Crie o arquivo por cópia, a partir da raiz do plugin:
-   `node scripts/montar.mjs --novo <cartao|passo-a-passo|explicacao|aula|decidir|prova|montagem|maquete|starter> <destino.html>`.
+   `node scripts/montar.mjs --novo <cartao|aula|decidir|prova|montagem|maquete|starter> <destino.html>`.
    O kit chega inteiro e ninguém o redigita; sem Node, copie o mesmo arquivo com
    `cp`. Há um design system só: não há look a escolher.
 4. **Página.** Abra o exemplo-ouro da anatomia e copie a composição dele. Escreva

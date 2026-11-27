@@ -1,15 +1,17 @@
-<!-- Aula: um assunto consolidado em cinco abas. Cada parte é uma pergunta do leitor, a frase que a responde e a figura que a prova.
-     A caneta (mark) marca o dado de que a parte fala; o resto é traço. -->
-<style data-pagina>
-  .w-field input { flex: 1; min-width: 0; padding: 0; border: 0; outline: 0; background: none; font: inherit; color: inherit; }
-  .w-field:focus-within .field__box { border-color: var(--color-ink); box-shadow: 0 0 0 var(--line) var(--color-ink); }
-  .w-seg > span, .w-btn { cursor: pointer; }
-</style>
+<!-- Aula: o modelo completo. Cinco abas, cada uma com um trabalho do leitor: aprender a regra (Aula), ver a regra no
+     produto (Na tela), responder o que falta (Dúvidas), consultar o que já foi decidido (Leis) e saber o que vem (Roadmap).
+     Na Aula, cada quadro é uma pergunta, a resposta em uma linha, uma figura desenhada para aquele conceito e a regra que fica.
+     As quatro cores de papel (Nome, Preparo, Comentário, Não se escreve) são definidas uma vez e voltam em toda figura. -->
 <d-doc>
 
-  <d-cover kind="Aula" subject="DietFlow · Números e unidades" date="18/11/2026" sub="Digitar, conferir e calcular" lead="Como um número aparece na tela, o que a conta conserva e como cada caso foi fechado, com o porquê e o porque não.">Números no DietFlow</d-cover>
+  <d-cover kind="Aula" subject="DietFlow · Exames" date="10/11/2026" lead="Onze quadros, uma pergunta por vez. No nono, **três perguntas decidem onde mora cada informação de um pedido**. Depois, a regra na tela, a decisão que falta e o que já é lei.">O que é um exame</d-cover>
 
-  <d-origin where="DietFlow, campos de número em 18/11/2026: o que se digita, o que a tela mostra e o que a conta usa. Os casos da aba Aula estão fechados; uma decisão segue aberta em Dúvidas." q="Como um número digitado ou colado aparece na tela, e o que a conta conserva dele?" ask="Aprender a regra de cada caso, ver o protótipo em Na tela e responder a dúvida aberta."></d-origin>
+  <d-origin where="DietFlow, módulo Exames, em 10/11/2026: o pedido e o resultado estão em dev, e o cadastro de exames vai ser refeito." q="Jejum, amostra, horário e método são parte do nome do exame, do preparo ou de um comentário? Hoje cada tela responde de um jeito." ask="Aprender a regra na Aula, conferir como ela fica em Na tela e responder a decisão aberta em Dúvidas.">
+    <li term="Régua">a faixa de referência que diz se o número está bom</li>
+    <li term="TUSS">a tabela de procedimentos dos planos de saúde</li>
+    <li term="LOINC">o dicionário mundial de códigos de exames de laboratório</li>
+    <li term="HDL · LDL · TSH · PCR · PSA">exames do catálogo, pelo nome de uso no consultório</li>
+  </d-origin>
 
   <main>
     <d-tabs>
@@ -18,273 +20,335 @@
       <d-tab label="Aula" id="aula">
         <d-steps rail>
 
-          <d-part title="O que significa 3.000?" id="milhar">
-            <p>Três mil. Digitar 3000 ou colar 3.000 leva à mesma quantidade; o ponto só organiza os milhares na leitura.</p>
-            <p><b>Copiar e colar preserva o valor.</b></p>
-            <w-fig cap="Duas grafias, a mesma quantidade">
-              <w-win title="Quantidade">
-                <w-kv k="Você digita" v="3000"></w-kv>
-                <w-kv k="Você cola" v="3.000"></w-kv>
-                <w-kv k="Ao terminar" v="3.000 mg" mark></w-kv>
-              </w-win>
+          <d-part title="Onde um exame mora, oficialmente?" answer="Em três registros. **Cada um responde a uma pergunta diferente** sobre a mesma glicemia." rule="Nenhum dos três é o pedido. O pedido é a linha que você escreve, e ela conversa com os três.">
+            <w-fig cap="três registros, uma glicemia">
+              <d-cols n="3">
+                <w-card title="Quem mede" meta="LOINC · dicionário mundial dos laboratórios" code="1558-6" name="Fasting glucose [Mass/volume] in Serum or Plasma" strong>
+                  <w-slot label="componente">Glicose</w-slot><w-slot label="condição" on>após jejum</w-slot>
+                  <w-slot label="grandeza">massa por volume</w-slot><w-slot label="tempo">um instante</w-slot>
+                  <w-slot label="amostra">soro ou plasma</w-slot><w-slot label="escala">número</w-slot>
+                </w-card>
+                <w-card title="Quem paga" meta="TUSS · tabela dos planos de saúde" code="40302040" name="Glicose - pesquisa e/ou dosagem" strong>
+                  <w-slot label="componente">Glicose</w-slot><w-slot label="condição" off>não diz</w-slot>
+                  <w-slot label="amostra" off>não diz</w-slot><w-slot label="escala" off>não diz</w-slot>
+                </w-card>
+                <w-card title="Quem colhe" meta="Laboratório · folha de instrução da coleta" code="Glicemia de jejum" word name="“Manter jejum de 8-12 horas. Água é permitida.”" strong>
+                  <w-slot label="o paciente cumpre" on>jejum</w-slot><w-slot label="código" off>o da casa</w-slot>
+                </w-card>
+              </d-cols>
+              <w-bar left="O pedido do nutricionista" right="uma linha que precisa servir aos três" arrows="3">Glicemia de Jejum</w-bar>
             </w-fig>
           </d-part>
 
-          <d-part title="E se eu digitar 30.9?" id="ponto">
-            <p>O campo aceita e mostra 30,9 ao terminar: trinta vírgula nove. O ponto decimal vem de teclado e de cópia de outros sistemas, e a vírgula é a forma de ler.</p>
-            <p><b>30.9 nunca vira 309.</b></p>
-            <w-fig cap="O ponto decimal vira vírgula na leitura">
-              <w-win title="Peso medido">
-                <w-kv k="Você digita" v="30.9"></w-kv>
-                <w-kv k="Você lê" v="30,9 kg" mark></w-kv>
-              </w-win>
+          <d-part title="“Glicose” é um exame?" answer="Para quem paga, é **um**. Para quem mede, são **três**." rule="O pedido segue quem lê o resultado: separa dois exames só quando a leitura separa.">
+            <w-fig cap="um código de cobrança, três medidas">
+              <w-fork from="TUSS · quem paga" to="LOINC · quem mede">
+                <w-entry code="40302040">Glicose</w-entry>
+                <w-entry code="1558-6">em jejum</w-entry>
+                <w-entry code="1521-4">2 h após a refeição</w-entry>
+                <w-entry code="2345-7">sem condição declarada</w-entry>
+              </w-fork>
+              <d-cols n="3">
+                <w-stat n="1">código na tabela de quem paga</w-stat>
+                <w-stat n="3">códigos no dicionário de quem mede</w-stat>
+                <w-stat n="0" tone="err">procedimentos da TUSS com “jejum” no nome</w-stat>
+              </d-cols>
             </w-fig>
           </d-part>
 
-          <d-part title="E o 1.234?" id="mil-ou-decimal">
-            <p>É mil duzentos e trinta e quatro. Ponto seguido de grupos de exatamente três dígitos é milhar; qualquer outro ponto é decimal. Para o decimal, escreve-se 1,234.</p>
-            <p>Só na dose e no resultado de exame o ponto pode ser as duas coisas, e o engano seria de mil vezes: densidade urinária 1,020 contra mil e vinte. Ali, quando o ponto vira milhar, o campo diz uma vez como leu.</p>
-            <p><b>Ponto em grupo de três é milhar; o resto é decimal.</b></p>
-            <table class="table">
-              <thead><tr><th>Campo</th><th>Casas</th><th>1.234 vira</th></tr></thead>
-              <tbody>
-                <tr><td>Peso</td><td data-th="Casas">até 2</td><td data-th="1.234 vira">1.234 kg, fora da faixa: recusado</td></tr>
-                <tr><td>Valor da consulta</td><td data-th="Casas">2</td><td data-th="1.234 vira">R$ 1.234,00</td></tr>
-                <tr><td>Dose em mg</td><td data-th="Casas">até 6</td><td data-th="1.234 vira">1.234 mg, com o aviso de milhar</td></tr>
-                <tr><td>Dose em mcg</td><td data-th="Casas">até 6</td><td data-th="1.234 vira">1.234 mcg, com o aviso de milhar</td></tr>
-                <tr><td>Resultado de exame</td><td data-th="Casas">as do laudo</td><td data-th="1.234 vira">1.234, com o aviso de milhar</td></tr>
-              </tbody>
-            </table>
-          </d-part>
-
-          <d-part title="O que muda ao editar?" id="edicao">
-            <p>Em repouso o campo mostra 3.000. Ao receber o foco, abre 3000, sem o ponto, para editar sem tropeçar no separador. Sair sem digitar nada não grava nem restaura valor antigo.</p>
-            <p><b>Focar e sair não é editar.</b></p>
-            <w-fig cap="A apresentação muda; a quantidade não">
-              <w-grid>
-                <w-field label="Em repouso" value="3.000" unit="mg"></w-field>
-                <w-field label="Durante a edição" value="3000" state="caret" unit="mg" mark></w-field>
-              </w-grid>
+          <d-part title="O que separa um exame do outro?" answer="A **régua**: a faixa que diz se o número está bom. O mesmo sangue, o mesmo número, e a leitura vira." rule="Exame é um nome com uma régua. Mudou a régua, é outro exame. Não mudou, é o mesmo.">
+            <w-fig cap="160 mg/dL em duas réguas" src="Consenso Brasileiro para a Normatização da Determinação Laboratorial do Perfil Lipídico, 2016 · valores de adultos">
+              <div>
+                <w-ruler label="Triglicerídeos" tags="sem jejum" max="300" unit="mg/dL" cut="175" value="160" verdict="dentro do desejável" tone="ok"></w-ruler>
+                <w-ruler label="Triglicerídeos" tags="em jejum de 12 h" max="300" unit="mg/dL" cut="150" value="160" verdict="acima do desejável" tone="err"></w-ruler>
+                <w-ruler label="HDL-Colesterol" tags="sem jejum|em jejum" max="100" unit="mg/dL" cut="40" inv verdict="uma régua só"></w-ruler>
+              </div>
             </w-fig>
           </d-part>
 
-          <d-part title="E se eu digitar uma letra?" id="letras">
-            <p>Ela não entra. Uma colagem com letras é recusada inteira: o campo não guarda o pedaço numérico do começo. A recusa é dita uma vez, sem adorno permanente.</p>
-            <p>O resultado de exame que é texto, como “Reagente”, continua aceitando texto: a regra vale para o ramo numérico.</p>
-            <p><b>Letra não entra; colagem com letra não deixa prefixo.</b></p>
-            <w-fig cap="Colar “12 mg/dia” não grava 12 por engano">
-              <w-field label="Dose" value="12" unit="mg"></w-field>
-              <w-msg tone="warn" title="Colagem recusada" mark>“12 mg/dia” tem letras. O valor continua 12 mg.</w-msg>
+          <d-part title="Então, o que entra no nome?" answer="A substância medida e **só o que foge do padrão**. O padrão ninguém escreve." rule="O nome mínimo completo: tire uma palavra e vira outro exame; ponha uma e está repetindo o padrão.">
+            <w-fig cap="a plaquinha: o que se mede + o que foge do padrão" src="Nomes como estão no catálogo do sistema.">
+              <w-pills label="O padrão" items="sangue|uma coleta|qualquer hora|sem jejum|método de rotina"></w-pills>
+              <d-cols n="2">
+                <w-plate base="Glicemia" mark="de Jejum" note="condição"></w-plate>
+                <w-plate base="Glicemia" mark="pós-prandial" note="condição"></w-plate>
+                <w-plate base="Triglicerídeos" mark="em jejum de 12h" note="condição"></w-plate>
+                <w-plate base="Cortisol" mark="Matinal" note="hora"></w-plate>
+                <w-plate base="Cortisol" mark="Salivar Noturno" note="amostra e hora"></w-plate>
+                <w-plate base="Cortisol" mark="Urinário 24h" note="amostra e duração"></w-plate>
+                <w-plate base="PCR" mark="Ultrassensível" note="método"></w-plate>
+                <w-plate base="Testosterona" mark="Livre" note="fração"></w-plate>
+                <w-plate base="HDL-Colesterol" none="nada foge"></w-plate>
+                <w-plate base="TSH" none="nada foge"></w-plate>
+              </d-cols>
+              <w-pills strike items="HDL sem jejum|Glicemia no sangue|TSH no soro">Escrever o padrão é dizer “glicemia, não nas fezes”.</w-pills>
             </w-fig>
           </d-part>
 
-          <d-part title="O campo mostra toda a conta?" id="conta">
-            <p>Não. Lipídios de 322 kcal são 322 ÷ 9 gramas, uma dízima. O resumo mostra 35,8 g; a conta continua com o valor inteiro, e o total fica em 1.610 kcal.</p>
-            <p>Se alguém regravasse os 35,8 g como origem, o total viraria 1.610,2 kcal. Esse é o erro que a regra evita, não uma opção.</p>
-            <p><b>O resumo serve à leitura. A conta conserva a precisão.</b></p>
-            <w-fig cap="Leitura em texto; o cálculo usa 322 ÷ 9">
-              <w-win title="Distribuição de macronutrientes">
-                <w-kv k="Lipídios" v="35,8 g"></w-kv>
-                <w-kv k="Valor energético total" v="1.610 kcal" mark></w-kv>
-              </w-win>
+          <d-part title="E quando a palavra existe, mas a régua é a mesma?" answer="É **sinônimo**: serve para achar o exame, não para criar outro." rule="Troquei um pelo outro no laudo. A leitura muda? Não: sinônimo. Sim: outro exame.">
+            <w-fig cap="duas palavras, quantas réguas?">
+              <d-cols n="2">
+                <w-card title="TSH · TSH ultrassensível" meta="uma régua">
+                  <w-tag role="0">Sinônimo</w-tag>
+                  <w-it k="Um exame. A segunda palavra vira termo de busca.">TUSS 40316521: um código, sem “ultrassensível” · catálogo: um exame, TSH</w-it>
+                  <w-it k="Inferência">a faixa de referência é a mesma; dedução clínica, não conferida em fonte</w-it>
+                </w-card>
+                <w-card title="PCR · PCR ultrassensível" meta="duas réguas: inflamação e risco cardiovascular" strong>
+                  <w-tag role="1">Nome</w-tag>
+                  <w-it k="Dois exames. A marca entra no nome.">LOINC 1988-5 × 30522-7, “by High sensitivity method”</w-it>
+                  <w-it k="No catálogo">PCR Convencional e PCR Ultrassensível</w-it>
+                </w-card>
+              </d-cols>
             </w-fig>
           </d-part>
 
-          <d-part title="Todos os campos têm duas casas?" id="campos">
-            <p>Não. Cada campo tem faixa e casas próprias. A meta de peso aceita seis casas; altura, uma; o resultado de exame guarda os zeros do laudo; dinheiro sempre mostra duas e digitar 15 é quinze reais.</p>
-            <d-src>Censo do código em 17/11/2026, base <code>04b08c6</code>: 16 famílias de campos numéricos. É o que o código suporta, não necessidade clínica.</d-src>
-            <p><b>A regra pertence ao campo, não só à unidade.</b></p>
-            <table class="table">
-              <thead><tr><th>Campo</th><th>Faixa</th><th>Casas</th></tr></thead>
-              <tbody>
-                <tr><td>Peso</td><td data-th="Faixa">0,1 a 500 kg</td><td data-th="Casas">até 2</td></tr>
-                <tr><td>Altura</td><td data-th="Faixa">10 a 250 cm</td><td data-th="Casas">até 1</td></tr>
-                <tr><td>Meta de peso</td><td data-th="Faixa">aceita negativo</td><td data-th="Casas">até 6</td></tr>
-                <tr><td>Faixas do cadastro de exames</td><td data-th="Faixa">por exame</td><td data-th="Casas">até 4</td></tr>
-                <tr><td>Resultado de exame</td><td data-th="Faixa">por exame</td><td data-th="Casas">as do laudo, com zeros</td></tr>
-                <tr><td>Valor da consulta</td><td data-th="Faixa">a partir de 0</td><td data-th="Casas">2, sempre</td></tr>
-              </tbody>
-            </table>
-          </d-part>
-
-          <d-part title="E o número que vem do sistema?" id="maquina">
-            <p>Banco e API escrevem o decimal com ponto e sem milhar: “1.234” ali é um vírgula dois três quatro. Se passasse pelo leitor de quem digita, viraria mil duzentos e trinta e quatro.</p>
-            <p><b>Texto de máquina nunca passa pelo leitor de quem digita.</b></p>
-            <w-fig cap="O mesmo texto, dois donos, duas leituras">
-              <w-list>
-                <w-item title="Do banco: “1.234”" meta="leitor da máquina" tag="1,234" tagtone="ink" on mark></w-item>
-                <w-item title="Digitado: “1.234”" meta="leitor de quem digita" tag="1.234"></w-item>
-              </w-list>
+          <d-part title="E o que não muda a régua, mas alguém precisa saber?" answer="Depende de **quem cumpre** e de **quantas vezes vale**." rule="Preparo é o que faz o paciente perder a viagem. O resto é comentário, ou não se escreve.">
+            <w-fig cap="quem cumpre × quantas vezes vale" src="As gavetas seguem o padrão internacional de pedido de exame: FHIR R4, o recurso de pedido de serviço.">
+              <w-quad cols="vale **toda vez** que se faz este exame|vale **só neste pedido**" rows="O paciente:cumpre|O laboratório:executa">
+                <w-zone role="2" title="Preparo" items="Jejum 8 h|Coleta das 7 h às 9 h|Primeira urina da manhã|Coleta de 24 h|Repouso 30 min"></w-zone>
+                <w-zone role="3" title="Comentário" items="“Colher no 3º dia do ciclo.”"></w-zone>
+                <w-zone role="0" title="Não se escreve" items="tubo|centrífuga|soro ou plasma|método de rotina"></w-zone>
+                <w-zone role="3" title="Comentário" items="“Com diluição.”"></w-zone>
+              </w-quad>
             </w-fig>
           </d-part>
 
-          <d-part title="E a unidade?" id="unidade">
-            <p>Quem escolhe é o nutricionista: ele digita a quantidade e seleciona a unidade. O campo não troca 0,5 mg por 500 mcg ao sair.</p>
-            <p>No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto, isso recusaria doses comuns, como B12 de 1.000 mcg; por isso está separado para decisão na <a href="#duvida-1">dúvida 1</a>, e nenhum teto foi aplicado.</p>
-            <p><b>Sem conversão automática de unidade.</b></p>
-            <w-fig cap="A quantidade e a unidade vêm de quem prescreve">
-              <w-grid>
-                <w-field label="Dose" value="0,5"></w-field>
-                <w-field label="Unidade" value="mg" icon="caret-down" mark></w-field>
-              </w-grid>
+          <d-part title="E o jejum, mora onde?" answer="Em dois endereços. No terceiro, ele **não entra**." rule="A palavra vai no nome se muda a régua. As horas vão no preparo. “Sem jejum” não vai a lugar nenhum.">
+            <w-fig cap="os endereços do jejum" src="Os 273 exames do catálogo do sistema, pela condição usual de cada um.">
+              <d-cols n="3">
+                <w-zone role="1" title="No nome" sub="a palavra, quando muda a régua">
+                  <w-plate base="Triglicerídeos" mark="em jejum de 12h"></w-plate>
+                  <w-plate base="Glicemia" mark="de Jejum"></w-plate>
+                </w-zone>
+                <w-zone role="2" title="No preparo" sub="as horas que o paciente cumpre">
+                  <w-it k="Glicemia de Jejum" row role="2">Jejum 8 h</w-it>
+                  <w-it k="Ferritina" row role="2">Jejum 8 h</w-it>
+                  <w-it k="Insulina Basal" row role="2">Jejum 8 h</w-it>
+                  <w-it k="Triglicerídeos em jejum de 12h" row role="2">Jejum 12 h</w-it>
+                </w-zone>
+                <w-zone role="0" title="Em lugar nenhum" sub="“sem jejum” é o padrão">
+                  <w-it k="HDL-Colesterol" row off>Sem jejum</w-it>
+                  <w-it k="TSH" row off>Sem jejum</w-it>
+                  <w-it k="Hemoglobina Glicada" row off>Sem jejum</w-it>
+                  <w-it k="Hemograma Completo" row off>Sem jejum</w-it>
+                </w-zone>
+              </d-cols>
+              <d-cols n="2">
+                <w-stat n="79">exigem algo do paciente. Só jejum de 8 h: 54 · coleta de 24 h: 11 · primeira urina da manhã: 6 · hora marcada: 6 · outros: 2</w-stat>
+                <w-stat n="194">não exigem nada. A condição fica vazia: basta comparecer.</w-stat>
+              </d-cols>
             </w-fig>
           </d-part>
 
-          <d-part title="E se eu colar 3.000 e apagar um zero?" id="colagem">
-            <p>Fica 300. Uma colagem válida entra no campo do jeito que a edição abre, sem o ponto de milhar: 3000. Apagar um zero dá 300.</p>
-            <p><em>Por que não deixar o 3.000 colado como está?</em> Porque apagar um zero deixaria 3.00, e um ponto sem grupo de três é decimal: três. Normalizar ao colar fecha esse caminho. Digitar tecla por tecla continua livre até sair do campo; só a colagem inteira é lida na hora.</p>
-            <p><b>Colagem válida já entra como edição.</b></p>
-            <w-fig cap="A colagem não deixa ponto ambíguo no rascunho">
-              <w-win title="Quantidade">
-                <w-kv k="Você cola" v="3.000"></w-kv>
-                <w-kv k="No campo" v="3000"></w-kv>
-                <w-kv k="Apaga um zero" v="300 mg" mark></w-kv>
-              </w-win>
+          <d-part title="Oito, dez, doze ou catorze horas: quem manda?" answer="Três degraus. **O de cima vence.**" rule="O que é consenso o sistema já sabe. O que é da casa ou seu, escreve quem quer diferente.">
+            <w-fig cap="os três degraus das horas" src="Mínimo de 8 h: Sociedade Brasileira de Diabetes. Variação entre casas: folhas de coleta de laboratórios.">
+              <w-stairs>
+                <w-step who="1 · o sistema" title="guarda o mínimo de consenso" chips="8 h" on="8 h">Glicemia de Jejum: pelo menos 8 h sem calorias.</w-step>
+                <w-step who="2 · o laboratório" title="manda nas horas da casa" chips="8 h|10 h|12 h|14 h">Para o paciente, vale a folha de coleta do laboratório.</w-step>
+                <w-step who="3 · você" title="escreve o que quer diferente" chips="“Jejum de 12 h.”">No card de texto. Se é sempre assim, vira Meu exame.</w-step>
+              </w-stairs>
+              <w-pills label="Sem consenso" items="repouso da prolactina|abstinência do PSA">O sistema não inventa número: vale a folha do laboratório, e quem exige escreve.</w-pills>
             </w-fig>
           </d-part>
 
-          <d-part title="O 15 vira 15,00?" id="zeros">
-            <p>Só no dinheiro. O valor da consulta mostra sempre duas casas: digitar 15 é R$ 15,00, nunca R$ 0,15. Na dose e nas quantidades, nenhum zero é acrescentado: 5 mg continua 5 mg.</p>
-            <p>É a regra de segurança de prescrição: zero à direita numa dose (5,0 mg) pode ser lido como 50 mg, e dose menor que um sempre leva zero à esquerda (0,5, nunca ,5). Quem digita ,5 lê 0,5 ao sair. O laudo de exame é a exceção: guarda os zeros que o laboratório escreveu, porque ali o zero diz a precisão da medida.</p>
-            <p><em>Por que não duas casas em tudo?</em> Porque um zero que ninguém digitou vira informação falsa: 5,00 mg sugere uma precisão que a prescrição não tem.</p>
-            <p><b>Duas casas só no dinheiro; zero à esquerda sempre; o laudo guarda os seus.</b></p>
-            <w-fig cap="Zeros com significado ficam; zeros inventados não entram">
-              <w-win title="Ao sair do campo">
-                <w-kv k="Consulta 15" v="R$ 15,00" mark></w-kv>
-                <w-kv k="Dose ,5" v="0,5 mg"></w-kv>
-                <w-kv k="Dose 5,0" v="5 mg"></w-kv>
-                <w-kv k="Exame 0,00100" v="0,00100 mg/dL"></w-kv>
-              </w-win>
+          <d-part title="Qual é a regra, afinal?" answer="Três perguntas, **nesta ordem**. A primeira que der “sim” decide." rule="Nome, preparo e silêncio vêm do cadastro. Você só escreve o comentário.">
+            <w-fig cap="o algoritmo">
+              <w-algo in="uma informação sobre o exame" end="Não se escreve|É o padrão do exame ou a rotina do laboratório.">
+                <w-ask q="Muda a régua?" hint="pelo jeito de medir: jejum, amostra, momento, método" out="Nome" note="É outro exame." role="1"></w-ask>
+                <w-ask q="O paciente perde a viagem se não souber?" hint="e vale toda vez que se faz este exame" out="Preparo" note="Campo do exame. Aparece na condição." role="2"></w-ask>
+                <w-ask q="Vale só para este pedido?" hint="para este paciente, desta vez" out="Comentário" note="Texto livre, em card próprio." role="3"></w-ask>
+              </w-algo>
             </w-fig>
           </d-part>
 
-          <d-part title="E a meta calculada com mais casas que o campo?" id="meta-calculada">
-            <p>O campo abre o valor na escala dele, sem erro. O distribuidor calcula 9,0659… g de proteína para o café; o campo aceita duas casas e abre 9,07. Sair sem digitar não regrava nada: a conta continua com 9,0659… g.</p>
-            <p><em>Por que não arredondar o valor gravado?</em> Porque o total em kcal deixaria de fechar o VET, o mesmo erro do 35,8 g. <em>Por que não mostrar tudo?</em> Porque o campo acusava “até 2 casas” num número que o próprio sistema fez. A validação vale só para o que a pessoa digitou.</p>
-            <p><b>Só o que foi digitado é validado e gravado.</b></p>
-            <w-fig cap="A projeção serve à edição; o fato não muda">
-              <w-win title="Metas por refeição · Café">
-                <w-kv k="Calculado" v="9,065911… g"></w-kv>
-                <w-kv k="No campo" v="9,07 g"></w-kv>
-                <w-kv k="Sair sem digitar" v="9,065911… g, intacto" mark></w-kv>
-              </w-win>
+          <d-part title="Funciona com os casos difíceis?" answer="Dezoito informações, **quatro gavetas**." rule="Variação sem código próprio não vira dropdown: ou muda a régua e ganha nome, ou é comentário.">
+            <w-fig cap="prova real">
+              <d-cols n="4">
+                <w-zone role="1" title="Nome">
+                  <w-it k="de jejum">glicemia</w-it><w-it k="pós-prandial">glicemia</w-it><w-it k="em jejum de 12 h">triglicerídeos</w-it>
+                  <w-it k="ultrassensível">PCR</w-it><w-it k="salivar noturno">cortisol</w-it><w-it k="livre">testosterona</w-it>
+                </w-zone>
+                <w-zone role="2" title="Preparo">
+                  <w-it k="jejum de 8 h">ferritina · insulina</w-it><w-it k="coleta das 7 h às 9 h">cortisol matinal · testosterona</w-it><w-it k="2 h após a refeição">glicemia pós-prandial</w-it>
+                  <w-it k="primeira urina da manhã">microalbuminúria</w-it><w-it k="coleta de 24 h">proteínas na urina</w-it><w-it k="repouso de 30 min">GH basal</w-it>
+                </w-zone>
+                <w-zone role="3" title="Comentário">
+                  <w-it k="com diluição">testosterona · relato de consultório</w-it><w-it k="colher no 3º dia do ciclo">para esta paciente</w-it><w-it k="jejum de 12 h">quando o seu número é outro</w-it>
+                </w-zone>
+                <w-zone role="0" title="Não se escreve">
+                  <w-it k="sem jejum">HDL · TSH · hemograma</w-it><w-it k="soro ou plasma">quase todo exame de sangue</w-it><w-it k="ultrassensível">TSH · vira termo de busca</w-it>
+                </w-zone>
+              </d-cols>
             </w-fig>
           </d-part>
 
-          <d-part title="E o calculado que não cabe na coluna?" id="calculado-coluna">
-            <p>Aparece com até 8 dígitos significativos, o mesmo limite da digitação: 88888888 × 54,5% mostra 48444444. O valor inteiro, 48.444.443,96, fica na dica e ao focar a célula. A conta e o documento não mudam.</p>
-            <p>Vale para a Qtd. ativo ou da forma quando é calculada e para os dois valores da coluna UL. Decisão 8C de Marco, em 18/11/2026.</p>
-            <p><em>Por que não alargar a coluna?</em> Porque tiraria espaço de todas as linhas comuns para um caso extremo, e um valor de 12 caracteres voltaria a cortar.</p>
-            <p><b>Resumo na coluna; o valor inteiro a um toque.</b></p>
-            <w-fig cap="A coluna mostra o resumo; a conta guarda o inteiro">
-              <w-win title="Fórmula · Qtd. ativo">
-                <w-kv k="Antes" v="48444443, (cortado)"></w-kv>
-                <w-kv k="Na coluna" v="48444444" mark></w-kv>
-                <w-kv k="Na dica" v="48.444.443,96"></w-kv>
-              </w-win>
+          <d-part title="Como fica a ficha de um exame?" answer="Cadastra-se **uma vez**. No pedido, só o comentário é novo." rule="O código acha o exame e vai ao documento. Na linha, ninguém lê número.">
+            <w-fig cap="a ficha e quem lê cada parte" src="Exemplo com um exame do catálogo. ● aparece · ○ não aparece. Sinônimos e códigos acham o exame na busca sem aparecer na lista.">
+              <d-cols n="2">
+                <w-card title="Ficha do exame" meta="cadastra uma vez" strong>
+                  <w-tag role="1">Nome</w-tag>
+                  <w-it k="nome" row>Triglicerídeos em jejum de 12h</w-it>
+                  <w-it k="sinônimos" row>TG em jejum · Triglicérides em jejum</w-it>
+                  <w-it k="códigos" row>TUSS 40302547 · LOINC 3048-6</w-it>
+                  <w-tag>Régua</w-tag>
+                  <w-it k="unidade" row>mg/dL</w-it>
+                  <w-it k="desejável" row>menor que 150</w-it>
+                  <w-tag role="2">Preparo</w-tag>
+                  <w-it k="jejum" row role="2">12 h</w-it>
+                  <w-it k="horário · coleta · repouso · duração · observação" row>vazio</w-it>
+                </w-card>
+                <div>
+                  <w-matrix cols="5" head="|Busca|Pedido|Documento|Resultado">
+                    <w-cell who>Nome</w-cell><w-cell on>●</w-cell><w-cell on>●</w-cell><w-cell on>●</w-cell><w-cell on>●</w-cell>
+                    <w-cell who>Sinônimos</w-cell><w-cell>acha</w-cell><w-cell off>○</w-cell><w-cell off>○</w-cell><w-cell off>○</w-cell>
+                    <w-cell who>Códigos</w-cell><w-cell>acha</w-cell><w-cell off>○</w-cell><w-cell on>●</w-cell><w-cell off>○</w-cell>
+                    <w-cell who>Preparo</w-cell><w-cell off>○</w-cell><w-cell on>●</w-cell><w-cell on>●</w-cell><w-cell off>○</w-cell>
+                    <w-cell who>Comentário</w-cell><w-cell off>○</w-cell><w-cell on>●</w-cell><w-cell on>●</w-cell><w-cell off>○</w-cell>
+                    <w-cell who>Régua</w-cell><w-cell off>○</w-cell><w-cell off>○</w-cell><w-cell off>○</w-cell><w-cell on>●</w-cell>
+                  </w-matrix>
+                </div>
+              </d-cols>
             </w-fig>
           </d-part>
 
         </d-steps>
 
-        <d-part title="Qual é a regra, afinal?" id="regra" wide>
+        <d-part title="Até onde a aula foi conferida" wide>
           <table class="table">
-            <thead><tr><th>Situação</th><th>Resultado</th></tr></thead>
+            <thead><tr><th>Tipo</th><th>O quê</th><th>Limite</th></tr></thead>
             <tbody>
-              <tr><td>Digitar 3000 ou colar 3.000</td><td data-th="Resultado">Três mil; lê-se 3.000</td></tr>
-              <tr><td>Digitar 30.9</td><td data-th="Resultado">Trinta vírgula nove; lê-se 30,9</td></tr>
-              <tr><td>Digitar 1.234</td><td data-th="Resultado">Mil duzentos e trinta e quatro; ponto em grupo de três é milhar</td></tr>
-              <tr><td>Focar e sair sem digitar</td><td data-th="Resultado">Nada é gravado</td></tr>
-              <tr><td>Letra no campo numérico</td><td data-th="Resultado">Não entra; colagem com letra é recusada inteira</td></tr>
-              <tr><td>Colar 3.000 e apagar um zero</td><td data-th="Resultado">300; a colagem entra sem o ponto de milhar</td></tr>
-              <tr><td>Ponto lido como milhar na dose ou no exame</td><td data-th="Resultado">Aviso uma vez: “Lido como milhar”</td></tr>
-              <tr><td>15 no dinheiro; ,5 e 5,0 na dose</td><td data-th="Resultado">R$ 15,00; 0,5 mg; 5 mg</td></tr>
-              <tr><td>Quantidade calculada</td><td data-th="Resultado">Resumo na leitura; a conta conserva o valor inteiro</td></tr>
-              <tr><td>Meta calculada com mais casas que o campo</td><td data-th="Resultado">Abre na escala do campo, sem erro; sair sem digitar não regrava</td></tr>
-              <tr><td>Calculado que não cabe na coluna</td><td data-th="Resultado">Até 8 dígitos significativos; o inteiro na dica e no foco</td></tr>
-              <tr><td>Número do banco ou da API</td><td data-th="Resultado">Leitor próprio, com ponto decimal</td></tr>
-              <tr><td>Unidade</td><td data-th="Resultado">Escolhida pelo nutricionista; sem troca automática</td></tr>
+              <tr><td>Relato</td><td data-th="O quê">“Com diluição”</td><td data-th="Limite">Veio da prática de consultório. Não tem código na TUSS nem no LOINC.</td></tr>
+              <tr><td>Inferência</td><td data-th="O quê">TSH e TSH ultrassensível com a mesma faixa</td><td data-th="Limite">Dedução clínica, não conferida em fonte.</td></tr>
+              <tr><td>Fonte secundária</td><td data-th="O quê">De 8 a 14 h de jejum entre laboratórios</td><td data-th="Limite">Folhas de coleta, não uma norma.</td></tr>
+              <tr><td>Lacuna</td><td data-th="O quê">Prolactina e PSA</td><td data-th="Limite">Não têm preparo no catálogo. O PSA nem está no catálogo.</td></tr>
             </tbody>
           </table>
-        </d-part>
-
-        <d-part title="Funciona com os casos difíceis?" id="casos" wide>
-          <table class="table">
-            <thead><tr><th>Caso</th><th>Como fica</th></tr></thead>
-            <tbody>
-              <tr><td>1.234</td><td data-th="Como fica">Mil duzentos e trinta e quatro; o decimal se escreve 1,234</td></tr>
-              <tr><td>86.3</td><td data-th="Como fica">86,3: o ponto não forma grupo de três</td></tr>
-              <tr><td>0.001</td><td data-th="Como fica">0,001: zero inicial nunca forma milhar</td></tr>
-              <tr><td>1,234.56</td><td data-th="Como fica">Recusado: mistura americana; o valor confirmado continua</td></tr>
-              <tr><td>1.020 num exame</td><td data-th="Como fica">Mil e vinte, com o aviso de milhar; a densidade se escreve 1,020</td></tr>
-              <tr><td>0,00100 mg/dL num exame</td><td data-th="Como fica">Os zeros do laudo ficam</td></tr>
-              <tr><td>15 no valor da consulta</td><td data-th="Como fica">R$ 15,00, nunca R$ 0,15</td></tr>
-              <tr><td>Peso de 3.000</td><td data-th="Como fica">Três mil quilos, fora da faixa: recusado, sem virar 3</td></tr>
-            </tbody>
-          </table>
+          <d-src>Fontes: LOINC 2.83; FHIR R4; Consenso Brasileiro do Perfil Lipídico, 2016; Diretriz da Sociedade Brasileira de Diabetes; TUSS; catálogo de exames do sistema em dev, 10/11/2026.</d-src>
         </d-part>
       </d-tab>
 
       <!-- ═════════ NA TELA ═════════ -->
       <d-tab label="Na tela" id="na-tela">
-        <d-part title="Teste o campo">
-          <p>Escolha o campo, digite e saia com Tab ou Enter. Ao focar, o valor abre sem o ponto de milhar. Letras não entram.</p>
-          <p>Os exemplos colocam um texto no campo como se fosse colado.</p>
-          <w-fig state="protótipo do que já foi decidido" cap="Protótipo do estado decidido; não é o componente do app">
-            <w-win title="Dose" id="proto-tela">
-              <w-seg id="perfis" options="Dose|Peso|Exame" on="Dose"></w-seg>
-              <w-seg id="perfis-2" options="Consulta|Porções"></w-seg>
-              <w-field id="proto-campo" label="Quantidade" value="3.000" unit="mg"></w-field>
-              <w-msg id="proto-msg" tone="ok" title="Pronto">Digite ou cole um exemplo.</w-msg>
-              <w-grid id="exemplos" cols="3">
-                <w-btn>3000</w-btn><w-btn>3.000</w-btn><w-btn>30.9</w-btn>
-                <w-btn>86.3</w-btn><w-btn>1.234</w-btn><w-btn>1.020</w-btn>
-                <w-btn>0.001</w-btn><w-btn>,5</w-btn><w-btn>1,234.56</w-btn>
-                <w-btn>12 mg/dia</w-btn><w-btn>15</w-btn><w-btn>0,00100</w-btn>
+
+        <d-part n="A" title="O que cada tela mostra?" answer="O pedido mostra **o que o paciente precisa cumprir**. O resultado mostra **o que o laudo trouxe**. Só o nome do exame aparece nas duas." desk>
+          <w-fig state="proposto, com o modelo da aula" cap="o pedido: duas colunas, a condição só de leitura">
+            <w-win title="Exames de rotina · Pedido" icon="list-bullets">
+              <table class="table">
+                <thead><tr><th>Exame</th><th>Condição</th></tr></thead>
+                <tbody>
+                  <tr><td>Triglicerídeos em jejum de 12h</td><td data-th="Condição">Jejum 12 h</td></tr>
+                  <tr><td>Glicemia pós-prandial</td><td data-th="Condição" class="dim">—</td></tr>
+                  <tr><td>PCR Ultrassensível</td><td data-th="Condição" class="dim">—</td></tr>
+                  <tr><td>GH Basal</td><td data-th="Condição">Jejum 8 h · Repouso 30 min</td></tr>
+                  <tr><td>Testosterona Total</td><td data-th="Condição">Coleta das 7 h às 9 h</td></tr>
+                  <tr><td>Sangue Oculto Fecal</td><td data-th="Condição" class="dim">—</td></tr>
+                  <tr><td>Painel de ferro</td><td data-th="Condição">Jejum 8 h</td></tr>
+                  <tr><td class="sub">Ferritina</td><td data-th="Condição"></td></tr>
+                  <tr><td class="sub">Ferro Sérico</td><td data-th="Condição"></td></tr>
+                  <tr><td class="sub">Saturação de Transferrina</td><td data-th="Condição"></td></tr>
+                  <tr><td>Hemograma Completo</td><td data-th="Condição" class="dim">—</td></tr>
+                </tbody>
+              </table>
+              <w-grid cols="3">
+                <w-kv k="Preparo · jejum" v="12 h"></w-kv>
+                <w-kv k="Preparo · repouso" v="30 min"></w-kv>
+                <w-kv k="Amostras" v="Sangue · Fezes"></w-kv>
               </w-grid>
+              <w-kv k="Orientações ao paciente" v="Trazer as amostras de fezes no dia da coleta de sangue."></w-kv>
+            </w-win>
+            <w-win title="Indicação clínica · Texto" icon="text-align-left">
+              <p>Fadiga há três meses. Avaliar reserva de ferro e resposta glicêmica.</p>
+            </w-win>
+            <d-cols n="4">
+              <w-zone role="1" title="Nome" sub="a coluna Exame"></w-zone>
+              <w-zone role="2" title="Preparo" sub="a coluna Condição, só leitura, e o maior jejum no pé do card"></w-zone>
+              <w-zone role="3" title="Comentário" sub="o card de texto, depois do card de exames"></w-zone>
+              <w-zone role="0" title="Não se escreve" sub="as células com —"></w-zone>
+            </d-cols>
+          </w-fig>
+        </d-part>
+
+        <d-part n="B" title="Quem diz o que o valor significa?" answer="O **status**. O valor guarda o que o laudo escreveu, com sinal e unidade. A referência é a régua do cadastro. O status é a conta entre os dois." rule="Ninguém digita status nem referência." desk>
+          <w-fig state="proposto, com o modelo da aula" cap="o resultado: cinco colunas, sempre as mesmas">
+            <w-win title="Exames de rotina · Resultado" icon="list-bullets">
+              <table class="table">
+                <thead><tr><th>Exame</th><th>Valor</th><th>Unidade</th><th>Referência</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>Colesterol Total</td><td data-th="Valor">= 190</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–199</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                  <tr><td>HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">50–59</td><td data-th="Status"><w-chip tone="warn">Baixo</w-chip></td></tr>
+                  <tr><td>LDL-Colesterol</td><td data-th="Valor">= 128</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–99</td><td data-th="Status"><w-chip tone="warn">Limítrofe alto</w-chip></td></tr>
+                  <tr><td>Triglicerídeos</td><td data-th="Valor">= 120</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–149</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                </tbody>
+              </table>
             </w-win>
           </w-fig>
         </d-part>
+
       </d-tab>
 
       <!-- ═════════ DÚVIDAS ═════════ -->
       <d-tab label="Dúvidas · 1" id="duvidas">
         <d-tabs sub>
-          <d-tab label="1 · Teto de 999 mcg" id="duvida-1">
+          <d-tab label="1 · Lipidograma" id="duvida-1">
 
-            <d-part title="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?">
-              <h3>O que acontece</h3>
-              <p>No debate da unidade menor ficou dito que 999 mcg é o máximo. Como teto de digitação, isso recusaria doses que se prescrevem todos os dias: B12 de 1.000 mcg, vitamina A de 3.000 mcg RAE, biotina de 5.000 mcg.</p>
-              <p>O engano de mil vezes já tem duas proteções: o aviso “Lido como milhar” e o limite diário da substância.</p>
+            <d-part n="1" title="O Lipidograma é um exame com quatro itens ou um atalho para quatro exames?" answer="Você escolhe o Lipidograma no Em massa. Ele está em **Packs Sugeridos**, sem código próprio na TUSS." desk>
+              <w-fig state="hoje, em dev" cap="o que acontece: o Em massa oferece o conjunto">
+                <w-win title="Adicionar Exames em Massa" icon="list-plus">
+                  <d-cols n="2">
+                    <w-list>
+                      <w-item title="Lipidograma" meta="Packs sugeridos" icon="stack" on></w-item>
+                      <w-item title="Hemograma Completo" meta="Packs sugeridos" icon="stack"></w-item>
+                      <w-item title="Colesterol Total" meta="Exames individuais"></w-item>
+                      <w-item title="HDL-Colesterol" meta="Exames individuais"></w-item>
+                      <w-item title="LDL-Colesterol" meta="Exames individuais"></w-item>
+                    </w-list>
+                    <w-list>
+                      <w-item title="Lipidograma" meta="Colesterol Total · HDL-Colesterol · LDL-Colesterol · Triglicerídeos" tag="escolhido" tagtone="ink"></w-item>
+                    </w-list>
+                  </d-cols>
+                </w-win>
+              </w-fig>
             </d-part>
 
-            <d-part title="Comparando, com a mesma dose" wide>
-              <d-cols n="3">
-                <w-fig state="hoje, em dev" cap="A · 1.000 mcg entra como está">
-                  <w-win title="Vitamina B12 · dose">
-                    <w-field label="Quantidade" value="1.000" unit="mcg" mark></w-field>
-                  </w-win>
-                </w-fig>
-                <w-fig state="proposto" cap="B · 1.000 mcg entra, com um aviso">
-                  <w-win title="Vitamina B12 · dose">
-                    <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
-                    <w-msg tone="warn" title="Acima de 999 mcg" mark>Confira se não seria mg.</w-msg>
-                  </w-win>
-                </w-fig>
-                <w-fig state="proposto" cap="C · 1.000 mcg é recusado">
-                  <w-win title="Vitamina B12 · dose">
-                    <w-field label="Quantidade" value="1.000" unit="mcg"></w-field>
-                    <w-msg tone="err" title="Máximo de 999 mcg" mark>Escreva 1 mg.</w-msg>
-                  </w-win>
-                </w-fig>
-              </d-cols>
+            <d-part n="2" title="Em dev" answer="Entra como uma linha que abre em quatro itens, **sem faixa**. O mesmo HDL, 38 mg/dL, avulso dá Baixo." desk>
+              <w-fig state="hoje, em dev" cap="o composto não tem faixa; o avulso tem">
+                <w-win title="Exames de rotina · Resultado" icon="list-bullets">
+                  <table class="table">
+                    <thead><tr><th>Exame</th><th>Valor</th><th>Unidade</th><th>Referência</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>Lipidograma</td><td data-th="Valor" class="dim">—</td><td data-th="Unidade" class="dim">—</td><td data-th="Referência"></td><td data-th="Status"></td></tr>
+                      <tr><td class="sub">Colesterol Total</td><td data-th="Valor">= 190</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                      <tr class="is-mark"><td class="sub">HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                      <tr><td class="sub">LDL-Colesterol</td><td data-th="Valor">= 128</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                      <tr><td class="sub">Triglicerídeos</td><td data-th="Valor">= 120</td><td data-th="Unidade">mg/dL</td><td data-th="Referência" class="dim">—</td><td data-th="Status" class="dim">—</td></tr>
+                      <tr class="is-mark"><td>HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">50–59</td><td data-th="Status"><w-chip tone="warn">Baixo</w-chip></td></tr>
+                    </tbody>
+                  </table>
+                </w-win>
+              </w-fig>
+            </d-part>
+
+            <d-part n="3" title="Com a recomendação" answer="Entram os quatro exames avulsos, **cada um com a sua faixa**. O Hemograma Completo continua composto: tem código TUSS próprio." desk>
+              <w-fig state="proposto" cap="o atalho escolhe os quatro avulsos de uma vez">
+                <w-win title="Exames de rotina · Resultado" icon="list-bullets">
+                  <table class="table">
+                    <thead><tr><th>Exame</th><th>Valor</th><th>Unidade</th><th>Referência</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>Colesterol Total</td><td data-th="Valor">= 190</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–199</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                      <tr class="is-mark"><td>HDL-Colesterol</td><td data-th="Valor">= 38</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">50–59</td><td data-th="Status"><w-chip tone="warn">Baixo</w-chip></td></tr>
+                      <tr><td>LDL-Colesterol</td><td data-th="Valor">= 128</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–99</td><td data-th="Status"><w-chip tone="warn">Limítrofe alto</w-chip></td></tr>
+                      <tr><td>Triglicerídeos</td><td data-th="Valor">= 120</td><td data-th="Unidade">mg/dL</td><td data-th="Referência">0–149</td><td data-th="Status"><w-chip tone="ok">Adequado</w-chip></td></tr>
+                    </tbody>
+                  </table>
+                </w-win>
+              </w-fig>
             </d-part>
 
             <d-part title="Sua resposta" wide>
               <d-answer>
-                <li code="1A" label="A · Sem teto" rec>mcg aceita qualquer quantidade; o limite diário e o aviso de milhar protegem. A unidade é escolha de quem prescreve, e a prática escreve 1.000 mcg.</li>
-                <li code="1B" label="B · Aviso acima de 999 mcg">Aceita e mostra uma vez “Acima de 999 mcg: confira se não seria mg”.</li>
-                <li code="1C" label="C · Teto na dose">Recusa acima de 999 mcg; B12 de 1.000 mcg precisa virar 1 mg.</li>
+                <li code="1A" label="A · Atalho" rec>Sem código próprio, o conjunto só escolhe os exames avulsos de uma vez.</li>
+                <li code="1B" label="B · Composto que lê as fichas">Uma linha, com os itens lendo a faixa das fichas avulsas.</li>
+                <li code="1C" label="C · Como em dev">Composto, copiando as faixas para dentro dele.</li>
               </d-answer>
             </d-part>
 
@@ -297,21 +361,34 @@
 
       <!-- ═════════ LEIS ═════════ -->
       <d-tab label="Leis" id="leis">
-        <d-part title="O que já foi decidido" wide>
-          <p>Só decisões de Marco. Nada na aula, no protótipo ou no código contradiz uma lei sem nova decisão.</p>
+        <d-part title="O que já foi decidido" answer="Dezesseis decisões de Marco até 10/11/2026. Cada uma tem **um código**, para a spec citar. Nada na aula, na tela ou no código contradiz uma lei sem nova decisão.">
+          <w-fig cap="as três perguntas que geram as leis">
+            <d-cols n="4">
+              <w-zone role="1" title="Nome" sub="muda a régua: é outro exame" items="R-01|R-02|R-13|R-14"></w-zone>
+              <w-zone role="2" title="Preparo" sub="o paciente cumpre, toda vez" items="R-05|R-06|R-07"></w-zone>
+              <w-zone role="3" title="Comentário" sub="vale só desta vez" items="R-15"></w-zone>
+              <w-zone title="As duas telas" sub="a mesma ficha, lida por partes" items="R-03|R-04|R-08|R-09|R-10|R-11|R-12|R-16"></w-zone>
+            </d-cols>
+          </w-fig>
           <table class="table">
-            <thead><tr><th>Data</th><th>Lei</th><th>Origem</th></tr></thead>
+            <thead><tr><th>Lei</th><th>O que diz</th></tr></thead>
             <tbody>
-              <tr><td>17/11/2026</td><td data-th="Lei">3000 e 3.000 são três mil; a leitura é 3.000. Copiar e colar preserva o valor.</td><td data-th="Origem">Correção de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">30.9 é 30,9, nunca 309.</td><td data-th="Origem">Correção de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">1.000 e 1.234 são milhar: ponto seguido de grupos de três dígitos agrupa. Qualquer outro ponto é decimal: 86.3 é 86,3.</td><td data-th="Origem">Direção de Marco na decisão 5 da Prescrição; fecha a dúvida 1</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">A leitura agrupa os milhares; a edição abre sem agrupamento.</td><td data-th="Origem">Resposta 9B</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">Letra não entra em campo numérico, sem adornos excessivos.</td><td data-th="Origem">Diretriz de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">Sem conversão automática de unidade: o nutricionista digita e escolhe a unidade.</td><td data-th="Origem">Diretriz de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">999 mcg é o máximo no contexto da unidade menor. O alcance aguarda resposta na dúvida 1; nenhum teto foi aplicado.</td><td data-th="Origem">Fala de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei">A precisão interna da conta não aparece como campo do produto.</td><td data-th="Origem">Crítica de Marco a “35,77777777777778”</td></tr>
-              <tr><td>18/11/2026</td><td data-th="Lei">O valor calculado que não cabe na coluna aparece com até 8 dígitos significativos; o inteiro fica na dica e no foco.</td><td data-th="Origem">Decisão 8C de Marco</td></tr>
-              <tr><td>17/11/2026</td><td data-th="Lei"><s>Resposta 10A, que recusava 3.000.</s> Superada em 17/11/2026 pela lei do 3.000.</td><td data-th="Origem">Superada</td></tr>
+              <tr><td>R-01</td><td data-th="O que diz">Como se mede decide o exame; quem é medido decide a faixa. Jejum, amostra, momento e método que mudam a régua vão no nome. Sexo, idade e fase do ciclo escolhem a faixa.</td></tr>
+              <tr><td>R-02</td><td data-th="O que diz">Condição diferente é exame diferente. Não existe seletor de variante.</td></tr>
+              <tr><td>R-03</td><td data-th="O que diz">Pedido e resultado leem a mesma ficha do exame; cada tela usa uma parte dela.</td></tr>
+              <tr><td>R-04</td><td data-th="O que diz">A busca é a mesma no pedido, no resultado e dentro da linha. Acha por nome, sinônimo ou código; a lista mostra só o nome.</td></tr>
+              <tr><td>R-05</td><td data-th="O que diz">A Condição é só leitura. O cadastro calcula o texto com os campos do preparo, sempre na mesma ordem; sem preparo, a célula mostra —.</td></tr>
+              <tr><td>R-06</td><td data-th="O que diz">O preparo é do card e soma só o que tem uma direção: o maior jejum, o maior repouso e a lista de amostras. Horário e observação ficam na linha.</td></tr>
+              <tr><td>R-07</td><td data-th="O que diz">O pedido não tem marca de incompletude. Campo vazio quer dizer que o exame não exige aquilo.</td></tr>
+              <tr><td>R-08</td><td data-th="O que diz">O resultado é independente do pedido. Importar copia os exames, e toda linha nova chega igual, venha de onde vier.</td></tr>
+              <tr><td>R-09</td><td data-th="O que diz">O tipo do valor vem do cadastro, um por exame. A linha não troca de tipo; o que não couber vai no card de texto.</td></tr>
+              <tr><td>R-10</td><td data-th="O que diz">A unidade é sempre editável: escolhe-se do cadastro ou digita-se outra. Unidade fora do cadastro fica sem referência e sem status.</td></tr>
+              <tr><td>R-11</td><td data-th="O que diz">O sinal faz parte do valor: =, &lt;, ≤, &gt; ou ≥, em toda linha de número. Valor com sinal só recebe status quando tudo o que ele cobre cabe em uma faixa.</td></tr>
+              <tr><td>R-12</td><td data-th="O que diz">Ninguém digita status nem referência. O status é a conta entre o valor e a referência do cadastro; com valor digitado, o status vazio diz o motivo.</td></tr>
+              <tr><td>R-13</td><td data-th="O que diz">Trocar o exame recomeça a linha: tipos do exame novo, valor vazio. Exame criado pela busca vira linha base: número, unidade livre, sem faixa.</td></tr>
+              <tr><td>R-14</td><td data-th="O que diz">Cadastrar um exame que estava sem cadastro mantém o valor quando o cadastro novo é de número. Com outro tipo, a linha recomeça.</td></tr>
+              <tr><td>R-15</td><td data-th="O que diz">Texto livre mora em card de texto, igual nas duas telas. A referência impressa no laudo também vai nele. As Orientações ao paciente ficam no rodapé do card do pedido.</td></tr>
+              <tr><td>R-16</td><td data-th="O que diz">Linha simples não abre. A linha de exame composto abre em subitens.</td></tr>
             </tbody>
           </table>
         </d-part>
@@ -319,193 +396,38 @@
 
       <!-- ═════════ ROADMAP ═════════ -->
       <d-tab label="Roadmap" id="roadmap">
-        <d-part title="O que muda em dev" wide>
-          <p>Lido no código em 18/11/2026, dev <code>147ea54</code>. A implementação anda em fatias, abaixo.</p>
-          <table class="table">
-            <thead><tr><th>No produto</th><th>Muda para</th><th>Lei</th></tr></thead>
-            <tbody>
-              <tr><td>O leitor recusa 1.000 como ambíguo</td><td data-th="Muda para">Lê 1.000 e 1.234 como milhar; 86.3 como 86,3</td><td data-th="Lei">Ponto em grupo de três é milhar</td></tr>
-              <tr><td>O campo guarda a letra digitada e recusa depois</td><td data-th="Muda para">A letra não entra; colagem com letra é recusada inteira</td><td data-th="Lei">Letra não entra</td></tr>
-              <tr><td>O campo mostra 3000 em repouso</td><td data-th="Muda para">3.000 em repouso; 3000 ao editar</td><td data-th="Lei">Leitura agrupa; edição sem agrupamento</td></tr>
-              <tr><td>A colagem entra como texto cru</td><td data-th="Muda para">Colagem válida entra sem milhar; inválida é recusada inteira</td><td data-th="Lei">Copiar e colar preserva</td></tr>
-              <tr><td>Nenhum aviso quando o ponto vira milhar</td><td data-th="Muda para">“Lido como milhar” uma vez, na dose e no exame</td><td data-th="Lei">Ponto em grupo de três é milhar</td></tr>
-              <tr><td>Meta calculada abre vermelha (“até 2 casas”)</td><td data-th="Muda para">Abre na escala do campo; só o digitado é validado</td><td data-th="Lei">A precisão interna não vira campo</td></tr>
-              <tr><td>Qtd. ativo calculada corta seco</td><td data-th="Muda para">Até 8 dígitos significativos; o inteiro na dica</td><td data-th="Lei">8C</td></tr>
-              <tr><td>Texto do banco passa pelo leitor de quem digita (<code>ambiguousDot: serialized</code>)</td><td data-th="Muda para">Leitor de máquina próprio, com ponto decimal</td><td data-th="Lei">Texto de máquina nunca passa pelo leitor de quem digita</td></tr>
-            </tbody>
-          </table>
-        </d-part>
-
-        <d-part title="Onde mexer, junto" wide>
-          <p>Leitor, campo e quem grava mudam na mesma entrega por família. Mudar só a formatação e chamar de transversal não fecha.</p>
-          <table class="table">
-            <thead><tr><th>Família</th><th>Donos</th></tr></thead>
-            <tbody>
-              <tr><td>Biblioteca</td><td data-th="Donos"><code>src/lib/numeric/</code>: parse, display, range, zod</td></tr>
-              <tr><td>Campos</td><td data-th="Donos"><code>useNumericDraft</code>, <code>NumericField</code>, <code>TableNumericCell</code>, <code>DataCard</code></td></tr>
-              <tr><td>Doses e Aviar</td><td data-th="Donos"><code>TomadasSection</code>, <code>CardFormulacao</code>, <code>DoseConhecidaPanel</code>, <code>core/dose.ts</code></td></tr>
-              <tr><td>Exames</td><td data-th="Donos"><code>exam-value-drafts</code>, <code>ExamValueField</code>, <code>exam-value.ts</code></td></tr>
-              <tr><td>Medidas, metas e energia</td><td data-th="Donos">ranges de antropometria, gestação e anamnese; <code>AjusteObjetivo</code>, <code>GastoEnergeticoV2</code></td></tr>
-              <tr><td>Alimentos, receitas, dinheiro, agenda</td><td data-th="Donos"><code>food-numeric</code>, <code>refeicao-ranges</code>, <code>money-numeric</code>, <code>plano-atendimento-numeric</code></td></tr>
-              <tr><td>Saídas</td><td data-th="Donos">Exportação, PDF e Care recebem o valor e a projeção, nunca o texto do campo</td></tr>
-            </tbody>
-          </table>
-        </d-part>
-
-        <d-part title="Fatias" wide>
-          <p>Cada fatia é um PR para dev. A ordem protege o que já funciona: primeiro a regra, depois os campos, por fim cada família.</p>
-          <table class="table">
-            <thead><tr><th>Fatia</th><th>O quê</th><th>Situação</th></tr></thead>
-            <tbody>
-              <tr><td>1 · Biblioteca</td><td data-th="O quê">Leitor de quem digita com a regra do milhar, leitor de máquina, apresentação por perfil, tabela-ouro e contrato</td><td data-th="Situação">Em andamento</td></tr>
-              <tr><td>2 · Campos</td><td data-th="O quê">Repouso agrupado e edição sem milhar; letra bloqueada; colagem; aviso de milhar; validar só o digitado; Esc</td><td data-th="Situação">Depois da 1</td></tr>
-              <tr><td>3 · Famílias</td><td data-th="O quê">Dose da Prescrição, exames, dinheiro e Metas por refeição, conferidos nas telas reais</td><td data-th="Situação">Depois da 2</td></tr>
-              <tr><td>8C · Calculado na coluna</td><td data-th="O quê">Qtd. ativo e UL com 8 dígitos significativos e o inteiro na dica</td><td data-th="Situação">Em andamento</td></tr>
-            </tbody>
-          </table>
-        </d-part>
-
-        <d-part title="Como reconhecer que funcionou">
-          <ul>
-            <li>3000, 3.000 e a cópia da leitura dão três mil; focar e sair grava zero vezes.</li>
-            <li>30.9 dá 30,9; 1,234 dá 1,234.</li>
-            <li>Digitar 3. → 3.0 → 3.00 → 3.000 não grava nada no meio; o final é mil.</li>
-            <li>Letra e colagem com letra: recusa inteira, sem prefixo gravado.</li>
-            <li>Exame 0,00100 guarda o texto com os zeros; 15 em dinheiro é quinze.</li>
-            <li>“1.234” vindo da API nunca passa pelo leitor de quem digita.</li>
-            <li>Salvar com o campo em foco usa o que está digitado; Esc cancela sem gravar.</li>
-            <li>Colar 3.000 e apagar um zero dá 300.</li>
-            <li>1.020 num exame mostra “Lido como milhar” uma vez; 1.020 no peso não mostra nada.</li>
-            <li>15 no dinheiro lê R$ 15,00; ,5 na dose lê 0,5; 5,0 na dose lê 5.</li>
-            <li>A meta de 9,0659… g abre 9,07 sem erro e continua 9,0659… se ninguém digitar.</li>
-          </ul>
+        <d-part title="Do modelo ao código" answer="Cinco etapas, uma de cada vez. Em 14/11/2026 estamos na segunda: **o modelo do cadastro**.">
+          <w-fig cap="o caminho" src="Estado em 14/11/2026. A etapa 5 abre depois da Prescrição: decisão de 10/11/2026.">
+            <w-flow>
+              <w-node sub="feita">1 · Modelo do exame</w-node>
+              <w-node on sub="agora">2 · Modelo do cadastro</w-node>
+              <w-node sub="depois">3 · Recenso</w-node>
+              <w-node sub="depois">4 · Spec</w-node>
+              <w-node off sub="espera a Prescrição">5 · Código</w-node>
+            </w-flow>
+            <d-cols n="3">
+              <w-card title="1 · Modelo do exame" meta="feita">
+                <w-it k="Aula">o que é um exame e o que entra no nome</w-it>
+                <w-it k="Na tela">pedido, resultado, busca e Em massa, com as dezesseis leis</w-it>
+                <w-it k="Evidências">o que dev faz diferente e o que muda no catálogo, na Evolução e no PDF</w-it>
+              </w-card>
+              <w-card title="2 · Modelo do cadastro" meta="agora" strong>
+                <w-it k="Aula do cadastro">feita em 14/11/2026</w-it>
+                <w-it k="Quadro do cadastro">onze decisões, um board cada; falta a resposta</w-it>
+                <w-it k="Folhas de PDF">pedido, resultado e evolução no formato novo</w-it>
+              </w-card>
+              <w-card title="3 a 5 · Recenso, spec e código" meta="depois">
+                <w-it k="Recenso">os 273 exames e as pendências de dev conferidos pela regra nova</w-it>
+                <w-it k="Spec">recebe as leis e o cadastro; “tudo pode migrar”</w-it>
+                <w-it k="Código">fatias da spec; cada uma entra em dev e renova o proof</w-it>
+              </w-card>
+            </d-cols>
+          </w-fig>
         </d-part>
       </d-tab>
 
     </d-tabs>
   </main>
 
-  <d-foot left="DietFlow · aula" right="Números e unidades · 18/11/2026"></d-foot>
-
+  <d-foot left="DietFlow · Exames" right="Aula · 10/11/2026"></d-foot>
 </d-doc>
-
-<script>
-// Na tela: o campo numérico do estado decidido, sobre a marcação que w-field, w-seg, w-btn e w-msg geram.
-// Onde a leitura depende de dúvida aberta, usa a recomendação e diz qual.
-const perfis = [
-  { nome: 'Dose', rotulo: 'Quantidade', unidade: 'mg', casas: 6, min: 0, inicial: '3000' },
-  { nome: 'Peso', rotulo: 'Peso medido', unidade: 'kg', casas: 2, min: 0.1, max: 500, inicial: '68.4' },
-  { nome: 'Exame', rotulo: 'Resultado', unidade: 'mg/dL', exato: true, sinal: true, inicial: '0.00100' },
-  { nome: 'Valor da consulta', rotulo: 'Valor', unidade: 'R$', casas: 2, min: 0, max: 99999999.99, dinheiro: true, inicial: '150' },
-  { nome: 'Porções', rotulo: 'Porções da receita', unidade: 'porções', casas: 0, min: 1, max: 999, inicial: '4' },
-]
-
-addEventListener('DOMContentLoaded', () => {
-const raiz = document.getElementById('proto-campo')
-const caixa = raiz.querySelector('.field__box')
-const rotulo = raiz.querySelector('.field__label')
-const unidade = raiz.querySelector('.field__unit')
-const msg = document.getElementById('proto-msg')
-const barra = document.querySelector('#proto-tela .win__bar > span')
-const seg = [...document.querySelectorAll('#perfis > span, #perfis-2 > span')]
-
-const campo = document.createElement('input')
-campo.inputMode = 'decimal'; campo.autocomplete = 'off'; campo.spellcheck = false
-caixa.firstElementChild.replaceWith(campo)
-
-let perfil = perfis[0], confirmado = perfil.inicial, sujo = false
-
-const virgula = n => String(n).replace('.', ',')
-const leitura = (v, p, agrupar = true) => {
-  if (v === null) return ''
-  let [i, f] = v.replace('-', '').split('.')
-  if (p.dinheiro) f = (f || '').padEnd(2, '0')
-  if (agrupar) i = i.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-  return (v.startsWith('-') ? '-' : '') + i + (f ? ',' + f : '')
-}
-
-// Texto de quem digita → decimal com ponto, ou recusa com o motivo.
-function ler(bruto, p) {
-  const t = bruto.trim()
-  if (t === '') return { valor: null }
-  if (/[^0-9.,+-]/.test(t)) return { recusa: 'tem letras ou símbolos' }
-  let d, duvida = null
-  if (/^[+-]?[1-9]\d{0,2}(\.\d{3})+(,\d+)?$/.test(t)) {
-    d = t.replaceAll('.', '').replace(',', '.')
-    if (/^[+-]?[1-9]\d{0,2}\.\d{3}$/.test(t) && (p.exato || p.casas >= 3)) duvida = 'milhar'
-  } else if (t.includes(',') && t.includes('.')) {
-    return { recusa: 'mistura vírgula de milhar e ponto decimal' }
-  } else if ((t.match(/[.,]/g) || []).length > 1) {
-    return { recusa: 'formato não reconhecido' }
-  } else {
-    d = t.replace(',', '.')
-  }
-  if (!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(d)) return { recusa: 'formato não reconhecido' }
-  if (d.startsWith('-') && !p.sinal) return { recusa: 'este campo não aceita negativo' }
-  d = d.replace(/^\+/, '').replace(/^(-?)\./, '$10.').replace(/^(-?)0+(?=\d)/, '$1').replace(/\.$/, '')
-  const f = (d.split('.')[1] || '')
-  if (p.casas === 0 && f) return { recusa: 'este campo aceita só inteiros', duvida }
-  if (p.casas != null && f.length > p.casas) return { recusa: `este campo aceita até ${p.casas} casas`, duvida }
-  if (!p.exato) d = d.includes('.') ? d.replace(/0+$/, '').replace(/\.$/, '') : d
-  const n = Number(d)
-  if ((p.min != null && n < p.min) || (p.max != null && n > p.max))
-    return { recusa: `fora da faixa (${virgula(p.min)} a ${p.max != null ? leitura(String(p.max), {}) : '…'} ${p.unidade})`, duvida }
-  return { valor: d, duvida }
-}
-
-function repousar() { campo.value = leitura(confirmado, perfil); sujo = false }
-function avisar(tone, titulo, texto) {
-  msg.dataset.tone = tone
-  msg.querySelector('b').textContent = titulo
-  msg.querySelector('.msg__body').textContent = texto
-}
-const livre = () => avisar('ok', 'Pronto', 'Digite ou cole um exemplo.')
-
-function confirmar(bruto) {
-  const r = ler(bruto, perfil)
-  if ('recusa' in r) {
-    avisar('err', 'Recusado', `“${bruto}”: ${r.recusa}. O valor continua ${leitura(confirmado, perfil) || 'vazio'}.`)
-  } else {
-    confirmado = r.valor
-    if (r.duvida === 'milhar') avisar('warn', 'Lido como milhar', `${leitura(r.valor, perfil)}. Para decimal, digite ${leitura(r.valor, perfil).replace('.', ',')}.`)
-    else livre()
-  }
-  repousar()
-}
-
-function escolher(p) {
-  perfil = p; confirmado = p.inicial
-  barra.textContent = p.nome
-  rotulo.textContent = p.rotulo
-  unidade.textContent = p.unidade
-  p.dinheiro ? caixa.prepend(unidade) : caixa.append(unidade)
-  seg.forEach((s, i) => s.classList.toggle('is-on', perfis[i] === p))
-  livre(); repousar()
-}
-
-seg.forEach((s, i) => s.addEventListener('click', () => escolher(perfis[i])))
-document.querySelectorAll('#exemplos .w-btn').forEach(b => b.addEventListener('click', () => confirmar(b.textContent)))
-
-campo.addEventListener('focus', () => { campo.value = leitura(confirmado, perfil, false); sujo = false })
-campo.addEventListener('beforeinput', e => {
-  if (e.data && /[^0-9.,+-]/.test(e.data)) { e.preventDefault(); avisar('warn', 'Letra não entra', 'Este campo é numérico.') }
-})
-campo.addEventListener('paste', e => {
-  const texto = (e.clipboardData || window.clipboardData).getData('text')
-  if (/[^0-9.,+\-\s]/.test(texto)) { e.preventDefault(); confirmar(texto); campo.blur() }
-  else {
-    // Colagem válida entra sem o ponto de milhar: apagar um zero de 3.000 dá 300, não 3.
-    const r = ler(texto, perfil)
-    if (!('recusa' in r) && r.valor !== null) { e.preventDefault(); campo.value = leitura(r.valor, perfil, false); sujo = true }
-  }
-})
-campo.addEventListener('input', () => { sujo = true })
-campo.addEventListener('keydown', e => {
-  if (e.key === 'Enter') campo.blur()
-  if (e.key === 'Escape') { sujo = false; campo.blur() }
-})
-campo.addEventListener('blur', () => { if (sujo) confirmar(campo.value); else { livre(); repousar() } })
-
-escolher(perfis[0])
-})
-</script>

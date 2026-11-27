@@ -49,12 +49,19 @@ A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde e
 
 ### `<d-part>`
 
-Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.
+Uma parte: um assunto, um título, uma figura. Com answer, vira quadro de aula: o numeral, a pergunta, a resposta em uma linha, a figura em largura total e a regra que fica. Sem answer, a figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.
 
 - `title`: o título da parte, de preferência a pergunta do leitor
+- `answer`: a resposta em uma linha, com **o trecho que decide** em negrito; liga o quadro
+- `rule`: a regra que o quadro deixa, em uma frase, depois da figura
+- `n`: o marcador do quadro quando não é o número do passo (A, B, C)
 - `id`: âncora
 - `wide`: empilha texto e figura em largura total
 - `desk`: empilha e abre a figura até a largura de um desktop, para a tela de produto inteira, uma por linha
+
+```html
+<d-part title="O que separa um exame do outro?" answer="A **régua**: a faixa que diz se o número está bom." rule="Mudou a régua, é outro exame."><w-fig cap="160 mg/dL em duas réguas"><w-ruler label="Triglicerídeos" tags="sem jejum" max="300" unit="mg/dL" cut="175" value="160" verdict="dentro do desejável" tone="ok"></w-ruler></w-fig></d-part>
+```
 
 ### `<d-steps>`
 
@@ -193,10 +200,11 @@ O wireframe do produto: janela, campo, lista, botão, mensagem. Traço preto, co
 
 ### `<w-fig>`
 
-A moldura de toda figura: chão de prancheta e a legenda numerada embaixo.
+A moldura de toda figura: papel quadriculado, a legenda na plaqueta de cima e, quando há, a fonte na última linha.
 
-- `cap`: a legenda: a conclusão que a figura mostra, com o dado do caso
+- `cap`: a legenda: curta, o que a figura mostra, com o dado do caso
 - `state`: de que estado é a tela: main, dev · f0b29b2, proposto, wireframe
+- `src`: de onde vem o dado da figura, em uma linha
 - `bleed`: a tela continua para fora da moldura
 - `h`: altura do recorte com bleed (ex.: 17rem)
 
@@ -213,6 +221,16 @@ Uma janela do produto em wireframe: barra com o nome da tela e o corpo.
 
 ```html
 <w-win title="Cálculo" icon="calendar-blank" heading="Dados do Paciente"><w-text lines="2"></w-text></w-win>
+```
+
+### `<w-stack>`
+
+Uma pilha: peças uma embaixo da outra, tratadas como uma coluna. Serve para pôr duas pilhas lado a lado em d-cols.
+
+- só filhos
+
+```html
+<w-stack><w-box title="Bloco"></w-box><w-box title="Slot" kind="slot"></w-box></w-stack>
 ```
 
 ### `<w-grid>`
@@ -646,6 +664,192 @@ O único número grande da cena.
 ```html
 <w-stat n="1.610" unit="kcal">valor energético total</w-stat>
 ```
+
+### `<w-tag>`
+
+Selo de categoria: o nome de um papel, na cor dele. A página define até três papéis e a ausência, e repete as cores em toda figura.
+
+- `role`: 1 | 2 | 3: as categorias do assunto; 0: a ausência (não se aplica, não se escreve)
+
+```html
+<w-tag role="1">Nome</w-tag> <w-tag role="2">Preparo</w-tag> <w-tag role="3">Comentário</w-tag> <w-tag role="0">Não se escreve</w-tag>
+```
+
+### `<w-card>`
+
+Ficha de um registro, fonte ou endereço: quem é, de onde vem, o código e o nome. Filhos: w-slot (os eixos que ele declara), w-it, w-plate.
+
+- `title`: quem é, em serifa (Quem mede)
+- `meta`: de onde vem, em mono (LOINC · dicionário dos laboratórios)
+- `code`: o código ou o nome grande
+- `word`: o code é palavra, não número
+- `name`: o nome por extenso ou a citação
+- `strong`: sombra seca: é o sujeito da figura
+- `role`: a cor do papel no selo de dentro
+
+```html
+<w-card title="Quem mede" meta="LOINC · dicionário dos laboratórios" code="1558-6" name="Fasting glucose in Serum or Plasma" strong><w-slot label="componente">Glicose</w-slot><w-slot label="condição" on>após jejum</w-slot><w-slot label="escala" off>não diz</w-slot></w-card>
+```
+
+### `<w-slot>`
+
+Um eixo de uma ficha: o rótulo e o que o registro diz dele.
+
+- `label`: o nome do eixo
+- `on`: o eixo de que a parte fala
+- `off`: o registro não diz
+
+### `<w-bar>`
+
+Barra de tinta: a coisa única para onde as fichas de cima convergem. O filho é o nome.
+
+- `left`: o que ela é, em mono
+- `right`: a consequência, em mono
+- `arrows`: quantas setas descem até ela
+
+```html
+<w-bar left="O pedido do nutricionista" right="uma linha que serve aos três" arrows="3">Glicemia de Jejum</w-bar>
+```
+
+### `<w-fork>`
+
+Bifurcação: uma entrada de um lado, as várias do outro. Filhos: w-entry; o primeiro é a origem.
+
+- `from`: o rótulo da coluna de origem
+- `to`: o rótulo da coluna de destino
+
+```html
+<w-fork from="TUSS · quem paga" to="LOINC · quem mede"><w-entry code="40302040">Glicose</w-entry><w-entry code="1558-6">em jejum</w-entry><w-entry code="1521-4">2 h após a refeição</w-entry><w-entry code="2345-7">sem condição declarada</w-entry></w-fork>
+```
+
+### `<w-entry>`
+
+Uma entrada de registro: o código em mono e o nome.
+
+- `code`: o código
+
+### `<w-ruler>`
+
+Régua: uma faixa com o corte, o valor do caso e o veredito. Empilhe duas com o mesmo valor para mostrar que a leitura muda.
+
+- `label`: o que se mede
+- `tags`: as condições desta régua: sem jejum|em jejum
+- `min`: início da escala (padrão 0)
+- `max`: fim da escala
+- `unit`: a unidade
+- `cut`: o ponto de corte
+- `value`: o valor do caso; sem ele, a régua só mostra o corte
+- `inv`: o lado bom é o de cima do corte
+- `verdict`: o que a régua diz do valor
+- `tone`: ok | err: a cor do veredito
+
+```html
+<w-ruler label="Triglicerídeos" tags="sem jejum" max="300" unit="mg/dL" cut="175" value="160" verdict="dentro do desejável" tone="ok"></w-ruler><w-ruler label="Triglicerídeos" tags="em jejum de 12 h" max="300" unit="mg/dL" cut="150" value="160" verdict="acima do desejável" tone="err"></w-ruler>
+```
+
+### `<w-plate>`
+
+Plaquinha: o nome mínimo de uma coisa. A base e, em cor, só o trecho que a distingue do padrão.
+
+- `base`: a parte comum do nome
+- `mark`: o trecho que distingue, em cor
+- `none`: no lugar de mark, quando nada distingue (nada foge)
+- `note`: o tipo da distinção, em mono (condição, método)
+- `role`: a cor do papel (padrão 1)
+
+```html
+<w-plate base="Glicemia" mark="de Jejum" note="condição"></w-plate><w-plate base="HDL-Colesterol" none="nada foge"></w-plate>
+```
+
+### `<w-pills>`
+
+Fila de pílulas: o padrão que ninguém escreve. Com strike, o que nunca se escreve, riscado. O filho é a frase ao lado.
+
+- `label`: o nome da fila
+- `items`: as pílulas: sangue|uma coleta|sem jejum
+- `strike`: os itens saem riscados, em vermelho
+
+```html
+<w-pills label="O padrão" items="sangue|uma coleta|qualquer hora|sem jejum"></w-pills>
+```
+
+### `<w-zone>`
+
+Zona: o território de uma categoria, com o selo e o que cai nela. Em w-quad é a célula; lado a lado em w-grid são as gavetas. Filhos: w-it, w-plate.
+
+- `role`: 1 | 2 | 3 | 0: a cor do papel
+- `title`: o selo da zona
+- `sub`: a frase que explica a zona
+- `items`: o que cai nela, em etiquetas: Jejum 8 h|Repouso 30 min
+
+```html
+<w-zone role="2" title="Preparo" items="Jejum 8 h|Coleta das 7 h às 9 h|Repouso 30 min"></w-zone>
+```
+
+### `<w-it>`
+
+Um item dentro de uma zona ou ficha: o que é, em negrito, e a que se refere. Com row, vira linha de ficha (nome à esquerda, valor à direita).
+
+- `k`: o item
+- `row`: linha de ficha: nome e valor
+- `off`: o valor sai riscado: não se escreve
+- `role`: a cor do valor
+
+```html
+<w-it k="de jejum">glicemia</w-it><w-it k="ultrassensível">PCR</w-it>
+```
+
+### `<w-quad>`
+
+Quadrante: duas perguntas cruzadas. Filhos: uma w-zone por célula, linha a linha.
+
+- `cols`: as colunas: vale **toda vez**|vale **só neste pedido**
+- `rows`: as linhas, com a linha de baixo depois de dois-pontos: O paciente:cumpre|O laboratório:executa
+
+```html
+<w-quad cols="vale **toda vez**|vale **só neste pedido**" rows="O paciente:cumpre|O laboratório:executa"><w-zone role="2" title="Preparo" items="Jejum 8 h"></w-zone><w-zone role="3" title="Comentário" items="Colher no 3º dia"></w-zone><w-zone role="0" title="Não se escreve" items="tubo|centrífuga"></w-zone><w-zone role="3" title="Comentário" items="Com diluição"></w-zone></w-quad>
+```
+
+### `<w-stairs>`
+
+Degraus: quem manda sobre quem. Cada w-step sobe um degrau; o último, em tinta cheia, vence.
+
+- só filhos
+
+```html
+<w-stairs><w-step who="1 · o sistema" title="guarda o mínimo de consenso" chips="8 h" on="8 h">Pelo menos 8 h sem calorias.</w-step><w-step who="2 · o laboratório" title="manda nas horas da casa" chips="8 h|10 h|12 h">Vale a folha de coleta.</w-step><w-step who="3 · você" title="escreve o que quer diferente" chips="“Jejum de 12 h.”">No card de texto.</w-step></w-stairs>
+```
+
+### `<w-step>`
+
+Um degrau de w-stairs.
+
+- `who`: quem é, em mono
+- `title`: o que ele faz
+- `chips`: os valores dele: 8 h|10 h|12 h
+- `on`: o valor em destaque
+
+### `<w-algo>`
+
+Escada de perguntas: a regra como algoritmo. Filhos: w-ask, na ordem; a primeira que der sim decide.
+
+- `in`: o que entra na escada
+- `end`: onde cai o que respondeu não a tudo: NÃO SE ESCREVE|É o padrão do exame.
+
+```html
+<w-algo in="uma informação sobre o exame" end="Não se escreve|É o padrão do exame."><w-ask q="Muda a régua?" hint="jejum, amostra, momento, método" out="Nome" note="É outro exame." role="1"></w-ask><w-ask q="O paciente perde a viagem se não souber?" out="Preparo" note="Campo do exame." role="2"></w-ask></w-algo>
+```
+
+### `<w-ask>`
+
+Uma pergunta de w-algo e para onde vai o sim.
+
+- `q`: a pergunta
+- `hint`: como reconhecer o sim
+- `out`: o destino do sim
+- `note`: o que isso quer dizer
+- `role`: a cor do destino
+- `n`: o número (padrão: a ordem)
 
 ### `<w-box>`
 

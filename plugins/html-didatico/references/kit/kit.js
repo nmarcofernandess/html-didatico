@@ -5,11 +5,13 @@
 // e é o contrato que uma versão React (Remotion) repete: mesmo nome, mesmas props, mesma saída.
 // d-* monta o documento (capa, parte, abas). w-* desenha o wireframe e o blueprint da figura.
 ;(() => {
-  const VERSAO = '4.4.0'
+  const VERSAO = '4.5.0'
   // Um atributo sem valor chega como true. Como texto, true é vazio: value="" não escreve "true".
   const esc = s => (s === true ? '' : String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]))
   const lista = s => (s && s !== true ? String(s).split('|').map(x => x.trim()).filter(Boolean) : [])
   const slug = s => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  // Texto de prop com ênfase: **assim** vira negrito. O resto sai escapado.
+  const rico = v => esc(v).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
   const ico = n => (n && n !== true ? `<svg class="ico" aria-hidden="true"><use href="#i-${esc(n)}"/></svg>` : '')
   // Número escrito como se lê: 1.610 e 1.610,5 (ponto de milhar), 62,5 e 0.5 (decimal).
   const num = v => {
@@ -24,7 +26,7 @@
 
   // Props que viram data-* na raiz: o estado que o CSS lê (o tom, o tipo, se está marcado).
   // O texto que se lê (título, legenda, valor) vai para o miolo.
-  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status', 'desk', 'study']
+  const ESTADO = ['mark', 'pin', 'click', 'on', 'off', 'tone', 'state', 'kind', 'card', 'bleed', 'num', 'strong', 'head', 'who', 'row', 'sub', 'back', 'wrap', 'status', 'desk', 'study', 'role', 'inv', 'strike', 'quadro']
   const raiz = (tag, nome, p, miolo, { cls = '', estilo = '', attrs = '' } = {}) => {
     const dados = ESTADO.filter(k => p[k] !== undefined && p[k] !== false).map(k => (p[k] === true ? ` data-${k}` : ` data-${k}="${esc(p[k])}"`)).join('')
     const x = p.click ? `--x:${esc(p.x ?? '72%')};--y:${esc(p.y ?? '55%')};` : ''
@@ -55,7 +57,7 @@
     ex: '<d-cover kind="Cartão" subject="DietFlow · Cálculo" date="22/11/2026" sub="Ana nasceu em 15/11/1980; o Cálculo é de 05/11/2025.">Que data vale num Cálculo retroativo?</d-cover>',
     html: (p, k) => raiz('header', 'd-cover cover', p,
       `<div class="plate">${p.kind ? `<span class="plate__kind">${esc(p.kind)}</span>` : ''}${p.subject ? `<span class="plate__subject">${esc(p.subject)}</span>` : ''}${p.ref ? `<span class="plate__ref">${esc(p.ref)}</span>` : ''}${p.date ? `<span class="plate__date">${esc(p.date)}</span>` : ''}</div>` +
-      `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${esc(p.lead)}</p>` : ''}`),
+      `<h1>${k.trim()}</h1>${p.sub ? `<p class="cover__sub">${esc(p.sub)}</p>` : ''}${p.lead ? `<p class="cover__lead">${rico(p.lead)}</p>` : ''}`),
   })
   def('d-origin', {
     grupo: 'Documento', doc: 'A origem: logo abaixo da capa, situa quem chega sem ter visto a conversa. Onde estamos, a pergunta real e o que se pede de quem lê. Filhos: li com term, um termo interno cada, definido na primeira aparição.',
@@ -71,17 +73,25 @@
     },
   })
   def('d-part', {
-    grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. A figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',
-    props: { title: 'o título da parte, de preferência a pergunta do leitor', id: 'âncora', wide: 'empilha texto e figura em largura total', desk: 'empilha e abre a figura até a largura de um desktop, para a tela de produto inteira, uma por linha' },
+    grupo: 'Documento', doc: 'Uma parte: um assunto, um título, uma figura. Com answer, vira quadro de aula: o numeral, a pergunta, a resposta em uma linha, a figura em largura total e a regra que fica. Sem answer, a figura (w-fig, tabela ou slot="fig") vai para a coluna da direita.',
+    props: { title: 'o título da parte, de preferência a pergunta do leitor', answer: 'a resposta em uma linha, com **o trecho que decide** em negrito; liga o quadro', rule: 'a regra que o quadro deixa, em uma frase, depois da figura', n: 'o marcador do quadro quando não é o número do passo (A, B, C)', id: 'âncora', wide: 'empilha texto e figura em largura total', desk: 'empilha e abre a figura até a largura de um desktop, para a tela de produto inteira, uma por linha' },
+    ex: '<d-part title="O que separa um exame do outro?" answer="A **régua**: a faixa que diz se o número está bom." rule="Mudou a régua, é outro exame."><w-fig cap="160 mg/dL em duas réguas"><w-ruler label="Triglicerídeos" tags="sem jejum" max="300" unit="mg/dL" cut="175" value="160" verdict="dentro do desejável" tone="ok"></w-ruler></w-fig></d-part>',
     html: (p, k, el) => {
       const fig = filhos(el, '.w-fig, table.table, [slot="fig"]')
       fig.forEach(f => f.removeAttribute('slot'))
-      const lado = fig.length && !p.wide && !p.desk
+      const quadro = p.answer && p.answer !== true
+      const lado = fig.length && !p.wide && !p.desk && !quadro
       const resto = [...el.childNodes].filter(n => !fig.includes(n)).map(html).join('')
       const titulo = p.title ? `<h2>${esc(p.title)}</h2>` : ''
-      const texto = titulo || resto.trim() ? `<div class="prose">${titulo}${resto}</div>` : ''
       const figuras = fig.map(f => f.outerHTML).join('')
-      return raiz('section', 'd-part part', { ...p, id: p.id || (p.title ? slug(p.title) : undefined) },
+      const id = p.id || (p.title ? slug(p.title) : undefined)
+      if (quadro) {
+        const regra = p.rule && p.rule !== true ? `<p class="part__rule">${rico(p.rule)}</p>` : ''
+        return raiz('section', 'd-part part', { ...p, id, quadro: true },
+          `<span class="part__n" aria-hidden="true">${p.n && p.n !== true ? esc(p.n) : ''}</span>${titulo}<p class="part__answer">${rico(p.answer)}</p>${resto.trim() ? `<div class="prose">${resto}</div>` : ''}${figuras}${regra}`)
+      }
+      const texto = titulo || resto.trim() ? `<div class="prose">${titulo}${resto}</div>` : ''
+      return raiz('section', 'd-part part', { ...p, id },
         lado ? `${texto}<div class="part__fig">${figuras}</div>` : texto + figuras, { attrs: lado ? ' data-side' : '' })
     },
   })
@@ -192,15 +202,19 @@
     props: { ref: 'o identificador da pergunta, como a página o mostra (padrão: Decisão N no painel duvida-N, Dúvida N dentro da aba Dúvidas, Pergunta N fora deles)', q: 'a pergunta completa (padrão: o título da primeira parte do painel)', 'li code': 'o código da opção: 1A', 'li label': 'o rótulo da opção: A · Sem teto', 'li rec': 'a opção recomendada', study: 'pergunta que a evidência responde: as opções são aceitar ou contestar a conclusão, sem recomendada' },
     ex: '<d-answer ref="Decisão 1" q="B12 de 1.000 mcg: o campo aceita, avisa ou recusa?"><li code="1A" label="A · Sem teto" rec>O limite diário e o aviso de milhar protegem.</li><li code="1B" label="B · Aviso acima de 999 mcg">Aceita e avisa uma vez.</li></d-answer>',
     html: (p, k, el) => {
-      const n = ++respostas, nome = `resposta-${n}`
+      const n = ++respostas, grupoDe = `resposta-${n}`
       const opts = [...el.querySelectorAll('li')].map(li => ({ code: li.getAttribute('code') ?? '', label: li.getAttribute('label') ?? '', rec: li.hasAttribute('rec'), txt: li.innerHTML.trim() }))
-      const linhas = opts.map(o => `<tr${o.rec ? ' class="is-mark"' : ''}><td><label class="answer__opt"><input type="radio" name="${nome}" value="${esc(o.code)}" data-label="${esc(o.label)}"><span>${esc(o.label)}</span></label>${o.rec ? ` ${C['w-chip'].html({ tone: 'ink' }, 'Recomendada')}` : ''}</td><td data-th="O que faz">${o.txt}</td></tr>`).join('')
+      const cartoes = opts.map(o => {
+        const [letra, ...resto] = o.label.split(' · ')
+        const nome = resto.join(' · ')
+        return `<label class="answer__opt"${o.rec ? ' data-rec' : ''}><input type="radio" name="${grupoDe}" value="${esc(o.code)}" data-label="${esc(o.label)}"><span class="answer__letter">${esc(nome ? letra : '')}</span><span class="answer__name">${esc(nome || o.label)}</span>${o.rec ? '<span class="answer__rec w-tag" data-role="1">Recomendo</span>' : '<span></span>'}<span class="answer__txt">${o.txt}</span></label>`
+      }).join('')
       const codigos = opts.map(o => o.code).filter(Boolean)
       const ou = codigos.length > 1 ? `${codigos.slice(0, -1).join(', ')} ou ${codigos.at(-1)}` : codigos[0] ?? ''
       const attrs = `${p.ref && p.ref !== true ? ` data-ref="${esc(p.ref)}"` : ''}${p.q && p.q !== true ? ` data-q="${esc(p.q)}"` : ''}`
       return raiz('div', 'd-answer answer', p,
-        `<table class="table"><thead><tr><th>Opção</th><th>O que faz</th></tr></thead><tbody>${linhas}</tbody></table>` +
-        `<label class="answer__comment"><span>Comentário</span><textarea rows="2" name="${nome}-comentario"></textarea></label>` +
+        `<div class="answer__opts">${cartoes}</div>` +
+        `<label class="answer__comment"><span>Comentário</span><textarea rows="2" name="${grupoDe}-comentario"></textarea></label>` +
         `<div class="d-note note answer__out"><p class="note__label">${ico('info-fill')}Responda no chat</p><p>${esc(ou)}${ou ? '.' : ''}<span class="answer__hint"> ${p.study ? 'A evidência responde; você aceita ou contesta. ' : ''}O botão copia a resposta com a pergunta junto.</span></p>` +
         `<pre class="answer__preview" aria-label="O que vai ser copiado" aria-live="polite"></pre><p class="answer__actions"><button type="button" class="answer__copy">Copiar esta resposta</button><span class="answer__status" role="status"></span></p></div>`,
         { attrs })
@@ -217,9 +231,9 @@
   // ── Figura e tela (wireframe) ────────────────────────────────────────────
 
   def('w-fig', {
-    grupo: 'Tela', doc: 'A moldura de toda figura: chão de prancheta e a legenda numerada embaixo.',
-    props: { cap: 'a legenda: a conclusão que a figura mostra, com o dado do caso', state: 'de que estado é a tela: main, dev · f0b29b2, proposto, wireframe', bleed: 'a tela continua para fora da moldura', h: 'altura do recorte com bleed (ex.: 17rem)' },
-    html: (p, k) => raiz('figure', 'w-fig fig', p, `${p.state && p.state !== true ? `<p class="fig__state"><span>Estado</span>${esc(p.state)}</p>` : ''}<div class="fig__stage"${p.h ? ` style="--scene-h:${esc(p.h)}"` : ''}>${k}</div>${p.cap ? `<figcaption>${esc(p.cap)}</figcaption>` : ''}`),
+    grupo: 'Tela', doc: 'A moldura de toda figura: papel quadriculado, a legenda na plaqueta de cima e, quando há, a fonte na última linha.',
+    props: { cap: 'a legenda: curta, o que a figura mostra, com o dado do caso', state: 'de que estado é a tela: main, dev · f0b29b2, proposto, wireframe', src: 'de onde vem o dado da figura, em uma linha', bleed: 'a tela continua para fora da moldura', h: 'altura do recorte com bleed (ex.: 17rem)' },
+    html: (p, k) => raiz('figure', 'w-fig fig', p, `${p.state && p.state !== true ? `<p class="fig__state"><span>Estado</span>${esc(p.state)}</p>` : ''}<div class="fig__stage"${p.h ? ` style="--scene-h:${esc(p.h)}"` : ''}>${k}${p.src && p.src !== true ? `<p class="fig__src d-src">${esc(p.src)}</p>` : ''}</div>${p.cap ? `<figcaption>${esc(p.cap)}</figcaption>` : ''}`),
   })
   def('w-win', {
     grupo: 'Tela', doc: 'Uma janela do produto em wireframe: barra com o nome da tela e o corpo.',
@@ -231,6 +245,12 @@
       const barra = p.title ? `<div class="win__bar"><span class="grow">${esc(p.title)}</span>${ico(p.icon)}</div>` : ''
       return raiz('div', 'w-win win', p, `${barra}${lado}<div class="win__body">${p.heading ? `<div class="win__title">${esc(p.heading)}</div>` : ''}${k}</div>`, { attrs: nav.length ? ' data-split' : '' })
     },
+  })
+  def('w-stack', {
+    grupo: 'Tela', doc: 'Uma pilha: peças uma embaixo da outra, tratadas como uma coluna. Serve para pôr duas pilhas lado a lado em d-cols.',
+    props: {},
+    ex: '<w-stack><w-box title="Bloco"></w-box><w-box title="Slot" kind="slot"></w-box></w-stack>',
+    html: (p, k) => raiz('div', 'w-stack', p, k),
   })
   def('w-grid', {
     grupo: 'Tela', doc: 'Campos curtos lado a lado.',
@@ -520,6 +540,122 @@
     props: { n: 'o número', unit: 'a unidade' },
     ex: '<w-stat n="1.610" unit="kcal">valor energético total</w-stat>',
     html: (p, k) => raiz('div', 'w-stat stat', p, `<b>${esc(p.n ?? '')}${p.unit ? `<small>${esc(p.unit)}</small>` : ''}</b><span>${k.trim()}</span>`),
+  })
+  // ── Desenho do conceito: peças que desenham a ideia, não a tela ──
+  const pct = (v, min, max) => `${Math.max(0, Math.min(100, ((numOu(v, 0) - min) / (max - min || 1)) * 100)).toFixed(2)}%`
+  def('w-tag', {
+    grupo: 'Esquema', doc: 'Selo de categoria: o nome de um papel, na cor dele. A página define até três papéis e a ausência, e repete as cores em toda figura.',
+    props: { role: '1 | 2 | 3: as categorias do assunto; 0: a ausência (não se aplica, não se escreve)' },
+    ex: '<w-tag role="1">Nome</w-tag> <w-tag role="2">Preparo</w-tag> <w-tag role="3">Comentário</w-tag> <w-tag role="0">Não se escreve</w-tag>',
+    html: (p, k) => raiz('span', 'w-tag', p, k.trim()),
+  })
+  def('w-card', {
+    grupo: 'Esquema', doc: 'Ficha de um registro, fonte ou endereço: quem é, de onde vem, o código e o nome. Filhos: w-slot (os eixos que ele declara), w-it, w-plate.',
+    props: { title: 'quem é, em serifa (Quem mede)', meta: 'de onde vem, em mono (LOINC · dicionário dos laboratórios)', code: 'o código ou o nome grande', word: 'o code é palavra, não número', name: 'o nome por extenso ou a citação', strong: 'sombra seca: é o sujeito da figura', role: 'a cor do papel no selo de dentro' },
+    ex: '<w-card title="Quem mede" meta="LOINC · dicionário dos laboratórios" code="1558-6" name="Fasting glucose in Serum or Plasma" strong><w-slot label="componente">Glicose</w-slot><w-slot label="condição" on>após jejum</w-slot><w-slot label="escala" off>não diz</w-slot></w-card>',
+    html: (p, k) => raiz('article', 'w-card', p, `${p.title ? `<b class="card__title">${esc(p.title)}</b>` : ''}${p.meta ? `<span class="card__meta">${esc(p.meta)}</span>` : ''}${p.code ? `<span class="card__code"${p.word ? ' data-word' : ''}>${esc(p.code)}</span>` : ''}${p.name ? `<span class="card__name">${esc(p.name)}</span>` : ''}${k.trim() ? `<div class="card__body">${k}</div>` : ''}`),
+  })
+  def('w-slot', {
+    grupo: 'Esquema', doc: 'Um eixo de uma ficha: o rótulo e o que o registro diz dele.',
+    props: { label: 'o nome do eixo', on: 'o eixo de que a parte fala', off: 'o registro não diz' },
+    html: (p, k) => raiz('span', 'w-slot', p, `<i>${esc(p.label ?? '')}</i>${k.trim()}`),
+  })
+  def('w-bar', {
+    grupo: 'Esquema', doc: 'Barra de tinta: a coisa única para onde as fichas de cima convergem. O filho é o nome.',
+    props: { left: 'o que ela é, em mono', right: 'a consequência, em mono', arrows: 'quantas setas descem até ela' },
+    ex: '<w-bar left="O pedido do nutricionista" right="uma linha que serve aos três" arrows="3">Glicemia de Jejum</w-bar>',
+    html: (p, k) => raiz('div', 'w-bar', p, `${numOu(p.arrows, 0) ? `<div class="bar__arrows" aria-hidden="true">${'<span>↓</span>'.repeat(numOu(p.arrows, 0))}</div>` : ''}<div class="bar__body">${p.left ? `<span>${esc(p.left)}</span>` : ''}<b>${k.trim()}</b>${p.right ? `<span>${esc(p.right)}</span>` : ''}</div>`),
+  })
+  def('w-fork', {
+    grupo: 'Esquema', doc: 'Bifurcação: uma entrada de um lado, as várias do outro. Filhos: w-entry; o primeiro é a origem.',
+    props: { from: 'o rótulo da coluna de origem', to: 'o rótulo da coluna de destino' },
+    ex: '<w-fork from="TUSS · quem paga" to="LOINC · quem mede"><w-entry code="40302040">Glicose</w-entry><w-entry code="1558-6">em jejum</w-entry><w-entry code="1521-4">2 h após a refeição</w-entry><w-entry code="2345-7">sem condição declarada</w-entry></w-fork>',
+    html: (p, k, el) => {
+      const [origem, ...destinos] = filhos(el, '.w-entry').map(e => e.outerHTML)
+      const cabeca = p.from || p.to ? `<span class="fork__head">${esc(p.from ?? '')}</span><span class="fork__head"></span><span class="fork__head">${esc(p.to ?? '')}</span>` : ''
+      return raiz('div', 'w-fork', p, `${cabeca}${origem ?? ''}<div class="fork__mid" aria-hidden="true"></div><div class="fork__to">${destinos.join('')}</div>`)
+    },
+  })
+  def('w-entry', {
+    grupo: 'Esquema', doc: 'Uma entrada de registro: o código em mono e o nome.',
+    props: { code: 'o código' },
+    html: (p, k) => raiz('div', 'w-entry', p, `${p.code ? `<b>${esc(p.code)}</b>` : ''}<span>${k.trim()}</span>`),
+  })
+  def('w-ruler', {
+    grupo: 'Esquema', doc: 'Régua: uma faixa com o corte, o valor do caso e o veredito. Empilhe duas com o mesmo valor para mostrar que a leitura muda.',
+    props: { label: 'o que se mede', tags: 'as condições desta régua: sem jejum|em jejum', min: 'início da escala (padrão 0)', max: 'fim da escala', unit: 'a unidade', cut: 'o ponto de corte', value: 'o valor do caso; sem ele, a régua só mostra o corte', inv: 'o lado bom é o de cima do corte', verdict: 'o que a régua diz do valor', tone: 'ok | err: a cor do veredito' },
+    ex: '<w-ruler label="Triglicerídeos" tags="sem jejum" max="300" unit="mg/dL" cut="175" value="160" verdict="dentro do desejável" tone="ok"></w-ruler><w-ruler label="Triglicerídeos" tags="em jejum de 12 h" max="300" unit="mg/dL" cut="150" value="160" verdict="acima do desejável" tone="err"></w-ruler>',
+    html: p => {
+      const min = numOu(p.min, 0), max = numOu(p.max, 100)
+      const valor = p.value !== undefined && p.value !== true ? `<span class="ruler__pin" style="--at:${pct(p.value, min, max)}"><b>${esc(p.value)}</b></span>` : ''
+      return raiz('div', 'w-ruler', p, `<div class="ruler__head"><b>${esc(p.label ?? '')}</b>${lista(p.tags).map(t => `<span>${esc(t)}</span>`).join('')}</div><div><div class="ruler__scale">${valor}<span class="ruler__cut"><b>${esc(p.cut ?? '')}</b></span></div><div class="ruler__ends"><span>${esc(p.min ?? 0)}</span><span>${esc(p.max ?? '')}${p.unit ? ` ${esc(p.unit)}` : ''}</span></div></div>${p.verdict ? `<span class="ruler__verdict">${esc(p.verdict)}</span>` : ''}`, { estilo: `--cut:${pct(p.cut, min, max)};` })
+    },
+  })
+  def('w-plate', {
+    grupo: 'Esquema', doc: 'Plaquinha: o nome mínimo de uma coisa. A base e, em cor, só o trecho que a distingue do padrão.',
+    props: { base: 'a parte comum do nome', mark: 'o trecho que distingue, em cor', none: 'no lugar de mark, quando nada distingue (nada foge)', note: 'o tipo da distinção, em mono (condição, método)', role: 'a cor do papel (padrão 1)' },
+    ex: '<w-plate base="Glicemia" mark="de Jejum" note="condição"></w-plate><w-plate base="HDL-Colesterol" none="nada foge"></w-plate>',
+    html: p => raiz('div', 'w-plate', p, `<span class="plate__name"><span>${esc(p.base ?? '')}</span>${p.mark && p.mark !== true ? `<span class="plate__mark">${esc(p.mark)}</span>` : ''}${p.none && p.none !== true ? `<span class="plate__none">${esc(p.none)}</span>` : ''}</span>${p.note ? `<i>${esc(p.note)}</i>` : ''}`),
+  })
+  def('w-pills', {
+    grupo: 'Esquema', doc: 'Fila de pílulas: o padrão que ninguém escreve. Com strike, o que nunca se escreve, riscado. O filho é a frase ao lado.',
+    props: { label: 'o nome da fila', items: 'as pílulas: sangue|uma coleta|sem jejum', strike: 'os itens saem riscados, em vermelho' },
+    ex: '<w-pills label="O padrão" items="sangue|uma coleta|qualquer hora|sem jejum"></w-pills>',
+    html: (p, k) => raiz('div', 'w-pills', p, `${p.label ? `<b>${esc(p.label)}</b>` : ''}${lista(p.items).map(t => `<span>${esc(t)}</span>`).join('')}${k.trim() ? `<p>${k.trim()}</p>` : ''}`),
+  })
+  def('w-zone', {
+    grupo: 'Esquema', doc: 'Zona: o território de uma categoria, com o selo e o que cai nela. Em w-quad é a célula; lado a lado em w-grid são as gavetas. Filhos: w-it, w-plate.',
+    props: { role: '1 | 2 | 3 | 0: a cor do papel', title: 'o selo da zona', sub: 'a frase que explica a zona', items: 'o que cai nela, em etiquetas: Jejum 8 h|Repouso 30 min' },
+    ex: '<w-zone role="2" title="Preparo" items="Jejum 8 h|Coleta das 7 h às 9 h|Repouso 30 min"></w-zone>',
+    html: (p, k) => raiz('div', 'w-zone', p, `${p.title ? `<span class="w-tag"${p.role !== undefined ? ` data-role="${esc(p.role)}"` : ''}>${esc(p.title)}</span>` : ''}${p.sub ? `<p class="zone__sub">${esc(p.sub)}</p>` : ''}${lista(p.items).length ? `<div class="zone__chips">${lista(p.items).map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}${k}`),
+  })
+  def('w-it', {
+    grupo: 'Esquema', doc: 'Um item dentro de uma zona ou ficha: o que é, em negrito, e a que se refere. Com row, vira linha de ficha (nome à esquerda, valor à direita).',
+    props: { k: 'o item', row: 'linha de ficha: nome e valor', off: 'o valor sai riscado: não se escreve', role: 'a cor do valor' },
+    ex: '<w-it k="de jejum">glicemia</w-it><w-it k="ultrassensível">PCR</w-it>',
+    html: (p, k) => raiz('div', 'w-it', p, `<b>${esc(p.k ?? '')}</b><span>${k.trim()}</span>`),
+  })
+  def('w-quad', {
+    grupo: 'Esquema', doc: 'Quadrante: duas perguntas cruzadas. Filhos: uma w-zone por célula, linha a linha.',
+    props: { cols: 'as colunas: vale **toda vez**|vale **só neste pedido**', rows: 'as linhas, com a linha de baixo depois de dois-pontos: O paciente:cumpre|O laboratório:executa' },
+    ex: '<w-quad cols="vale **toda vez**|vale **só neste pedido**" rows="O paciente:cumpre|O laboratório:executa"><w-zone role="2" title="Preparo" items="Jejum 8 h"></w-zone><w-zone role="3" title="Comentário" items="Colher no 3º dia"></w-zone><w-zone role="0" title="Não se escreve" items="tubo|centrífuga"></w-zone><w-zone role="3" title="Comentário" items="Com diluição"></w-zone></w-quad>',
+    html: (p, k, el) => {
+      const cols = lista(p.cols), rows = lista(p.rows), zonas = filhos(el, '.w-zone').map(z => z.outerHTML)
+      const linha = (r, i) => { const [a, b] = r.split(':'); return `<span class="quad__row">${esc(a)}${b ? `<small>${esc(b)}</small>` : ''}</span>${zonas.slice(i * cols.length, (i + 1) * cols.length).join('')}` }
+      return raiz('div', 'w-quad', p, `<span class="quad__col"></span>${cols.map(c => `<span class="quad__col">${rico(c)}</span>`).join('')}${rows.map(linha).join('')}`, { estilo: `--cols:${cols.length || 2};` })
+    },
+  })
+  def('w-stairs', {
+    grupo: 'Esquema', doc: 'Degraus: quem manda sobre quem. Cada w-step sobe um degrau; o último, em tinta cheia, vence.',
+    props: {},
+    ex: '<w-stairs><w-step who="1 · o sistema" title="guarda o mínimo de consenso" chips="8 h" on="8 h">Pelo menos 8 h sem calorias.</w-step><w-step who="2 · o laboratório" title="manda nas horas da casa" chips="8 h|10 h|12 h">Vale a folha de coleta.</w-step><w-step who="3 · você" title="escreve o que quer diferente" chips="“Jejum de 12 h.”">No card de texto.</w-step></w-stairs>',
+    html: (p, k, el) => {
+      const degraus = filhos(el, '.w-step')
+      degraus.forEach((d, i) => d.style.setProperty('--i', i))
+      return raiz('div', 'w-stairs', p, degraus.map(d => d.outerHTML).join(''), { estilo: `--n:${degraus.length || 3};` })
+    },
+  })
+  def('w-step', {
+    grupo: 'Esquema', doc: 'Um degrau de w-stairs.',
+    props: { who: 'quem é, em mono', title: 'o que ele faz', chips: 'os valores dele: 8 h|10 h|12 h', on: 'o valor em destaque' },
+    html: (p, k) => raiz('div', 'w-step', { ...p, on: undefined }, `${p.who ? `<span class="step__who">${esc(p.who)}</span>` : ''}<b>${esc(p.title ?? '')}</b>${lista(p.chips).length ? `<div class="step__chips">${lista(p.chips).map(c => `<span${c === p.on ? ' class="is-on"' : ''}>${esc(c)}</span>`).join('')}</div>` : ''}${k.trim() ? `<span class="step__note">${k.trim()}</span>` : ''}`),
+  })
+  def('w-algo', {
+    grupo: 'Esquema', doc: 'Escada de perguntas: a regra como algoritmo. Filhos: w-ask, na ordem; a primeira que der sim decide.',
+    props: { in: 'o que entra na escada', end: 'onde cai o que respondeu não a tudo: NÃO SE ESCREVE|É o padrão do exame.' },
+    ex: '<w-algo in="uma informação sobre o exame" end="Não se escreve|É o padrão do exame."><w-ask q="Muda a régua?" hint="jejum, amostra, momento, método" out="Nome" note="É outro exame." role="1"></w-ask><w-ask q="O paciente perde a viagem se não souber?" out="Preparo" note="Campo do exame." role="2"></w-ask></w-algo>',
+    html: (p, k, el) => {
+      const perguntas = filhos(el, '.w-ask')
+      perguntas.forEach((a, i) => { const n = a.querySelector('.ask__n'); if (n && !n.textContent) n.textContent = i + 1 })
+      const [fim, nota] = lista(p.end)
+      const desce = '<div class="algo__no"><b>não</b></div>'
+      return raiz('div', 'w-algo', p, `${p.in ? `<span class="algo__in">${esc(p.in)}</span><div class="algo__no" aria-hidden="true"></div>` : ''}${perguntas.map(a => a.outerHTML).join(desce)}${fim ? `${desce}<div class="algo__out" data-role="0"><b>${esc(fim)}</b>${nota ? `<span>${esc(nota)}</span>` : ''}</div>` : ''}`)
+    },
+  })
+  def('w-ask', {
+    grupo: 'Esquema', doc: 'Uma pergunta de w-algo e para onde vai o sim.',
+    props: { q: 'a pergunta', hint: 'como reconhecer o sim', out: 'o destino do sim', note: 'o que isso quer dizer', role: 'a cor do destino', n: 'o número (padrão: a ordem)' },
+    html: p => raiz('div', 'w-ask', { ...p, role: undefined }, `<div class="ask__q"><span class="ask__n">${p.n && p.n !== true ? esc(p.n) : ''}</span><b>${esc(p.q ?? '')}</b><span>${esc(p.hint ?? '')}</span></div><div class="ask__yes"><b>sim</b></div><div class="algo__out"${p.role !== undefined ? ` data-role="${esc(p.role)}"` : ''}><b>${esc(p.out ?? '')}</b>${p.note ? `<span>${esc(p.note)}</span>` : ''}</div>`),
   })
   def('w-box', {
     grupo: 'Esquema', doc: 'Caixa de composição: quem contém quem. Contínua existe; tracejada é slot; magenta é proposta.',

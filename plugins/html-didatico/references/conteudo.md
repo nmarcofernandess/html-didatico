@@ -27,10 +27,10 @@ Defina quem lê, o que já sabe e o que precisa conseguir fazer quando terminar.
 | O leitor pergunta | Anatomia | Como é | Exemplo-ouro |
 |---|---|---|---|
 | O que está acontecendo aqui? Me mostra. | Cartão | Uma página: a pergunta, o caso em uma linha e as telas citadas na explicação, com pouco texto | [cartão](kit/ouro/cartao.html), com o [playbook Cartão](playbooks/cartao.md) |
-| Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | [passo a passo](kit/ouro/passo-a-passo.html) |
-| Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | [explicação](kit/ouro/explicacao.html) |
+| Como eu faço? | Passo a passo | Sequência numerada. Cada passo tem uma ação, onde ela fica e o que aparece depois | derive da [aula](kit/ouro/aula.html): um quadro por passo |
+| Como funciona? | Explicação | A coisa, um caso acompanhado do começo ao fim, a regra, as condições que mudam o resultado | derive da [aula](kit/ouro/aula.html): os quadros, sem as outras abas |
 | Onde estamos? | Mural | O estado de cada frente, o que mudou desde a última vez, o que falta, a próxima ação | derive da explicação: tabela de frentes com status |
-| Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [playbook Aula](playbooks/aula.md) |
+| Como isso deve ser, e o que falta decidir? | Aula | Quadros em pergunta, um por vez; Na tela, Dúvidas e Leis quando o pedido pede | [aula](kit/ouro/aula.html), o modelo completo, com o [playbook Aula](playbooks/aula.md) |
 
 **Tamanho.** Conte as perguntas que o leitor faria e as telas que a explicação cita. Até três telas do mesmo caso cabem num cartão. Um assunto inteiro, uma operação com vários passos ou o raciocínio longo de quem pediu pedem documento, com uma parte por pergunta.
 

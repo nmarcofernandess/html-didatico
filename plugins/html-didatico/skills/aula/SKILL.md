@@ -20,7 +20,7 @@ Um assunto inteiro fica de pé: quem lê uma vez sai sabendo explicar.
    [playbook Aula](../../references/playbooks/aula.md) e parte da
    [aula-ouro](../../references/kit/ouro/aula.html).
 3. **Base.** O arquivo nasce de uma cópia do kit, feita pelo
-   [montar](../../scripts/montar.mjs): `node scripts/montar.mjs --novo <passo-a-passo|explicacao|aula|starter> <destino.html>`,
+   [montar](../../scripts/montar.mjs): `node scripts/montar.mjs --novo <aula|starter> <destino.html>`,
    a partir da raiz do plugin. Só o corpo muda, escrito com os
    [componentes](../../references/kit/componentes.md), conforme o
    [contrato HTML](../../references/html-portatil.md).

@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.5.0 — 27/11/2026
+
+Os exemplos-ouro sobem ao nível das referências aprovadas. Origem: Marco reprovou o ouro "Números no DietFlow" ao lado da aula de Exames e das outras referências; as versões anteriores mudaram regras e check, mas os ouros, que são o que os agentes copiam, continuavam os antigos. O que as referências têm e o ouro não tinha: um desenho próprio para cada conceito, a resposta em uma linha, a figura em largura total, a regra que fica, hierarquia editorial, quatro cores de papel constantes e a decisão contada em três telas inteiras.
+
+- **Kit, linguagem nova:** título e numerais em Instrument Serif (embutida em `fontes.css`, licença OFL ao lado), rótulos em mono, papel quente, figura em cartão de papel quadriculado com a legenda em plaqueta ("Fig. N —") e o estado na plaqueta de baixo. O tema escuro acompanha.
+- **`<d-part answer rule n>`:** o quadro de aula, com numeral vazado, pergunta, resposta em uma linha (`**negrito**` no trecho que decide), figura em largura total e a regra em itálico.
+- **Desenho do conceito, 17 peças novas no grupo Esquema:** `w-card` e `w-slot` (ficha de registro), `w-fork` e `w-entry` (um para muitos), `w-ruler` (o valor na régua), `w-plate` (o nome e o que foge do padrão), `w-pills`, `w-zone` e `w-it` (categorias e o que cai nelas), `w-quad`, `w-stairs` e `w-step`, `w-algo` e `w-ask` (a regra em perguntas), `w-tag`, `w-bar`; `w-stack` empilha peças numa coluna. `role` (1, 2, 3, 0) dá a cor do papel.
+- **`<d-answer>`:** as opções viram cartões A, B, C, com "Recomendo" na recomendada; a cópia para o chat não muda.
+- **Exemplos-ouro:** `aula` é agora o modelo completo, feito com o conteúdo da aula de Exames: Aula em 11 quadros, Na tela, Dúvidas, Leis e Roadmap. `decidir` é a decisão do Lipidograma em três telas inteiras. `prova` e `montagem` passam a quadros com resposta em uma linha e figura em largura total; a prova perde os vazios hachurados. `explicacao` e `passo-a-passo` saem: derivam da aula.
+- **Check:** tabela dentro de janela (`w-win`) é tela do produto, não "figura-tabela"; desenho de conceito tem teto próprio de palavras (130); as abas Leis, Decretos e Roadmap são registro (código de lei vale ali, e elas ficam fora da medida de leitura corrida); o aviso de caixa-alta sai, porque o rótulo em mono é do desenho e o tamanho mínimo já é conferido.
+- Limites: o design system no Claude e o `bundle.css` dos canvas só ganham a linguagem nova depois de regerados (`docs/MANUTENCAO.md`). O cartão e a maquete mantêm o conteúdo e ganham só o chassi novo. A folha de peças tem dois avisos aceitos (densidade do catálogo e uma caixa apertada no exemplo do garfo).
+
 ## 4.4.0 — 27/11/2026
 
 A forma segue o conteúdo, e a página é vista antes de sair. Origem: o relato de campo de uma semana de uso (21 a 27/11) em regras de energia do DietFlow e as 23 anotações de Marco na aula de testes. O que falhou: todas as seções no par texto e figura, telas em fragmento sem dizer o estado, transição descrita em texto, decisão com um caso só, controle que trocava de aba, tema escuro quebrado, pergunta científica tratada como cardápio. O que destravou: matriz de todas as situações gerada do motor, a peça para mexer, recortes do documento real em três estados, versões de um botão lado a lado.

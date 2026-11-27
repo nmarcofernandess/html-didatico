@@ -51,7 +51,7 @@ Valem em qualquer \`w-*\`: \`mark\` (a caneta contorna ou realça; em \`w-code\`
 
 ${GRUPOS.map(([grupo, , frase]) => `## ${grupo}\n\n${frase}\n\n${Object.values(HD.componentes).filter(c => c.grupo === grupo).map(c => `### \`<${c.tag}>\`\n\n${c.doc}\n\n${Object.entries(c.props).map(([k, v]) => `- \`${k}\`: ${v}`).join('\n') || '- só filhos'}\n${c.ex ? `\n\`\`\`html\n${c.ex}\n\`\`\`\n` : ''}`).join('\n')}`).join('\n')}`
 
-const BASES = { cartao: 'ouro/cartao.html', explicacao: 'ouro/explicacao.html', 'passo-a-passo': 'ouro/passo-a-passo.html', aula: 'ouro/aula.html', decidir: 'ouro/decidir.html', prova: 'ouro/prova.html', montagem: 'ouro/montagem.html', maquete: 'ouro/maquete.html', starter: 'starter.html' }
+const BASES = { cartao: 'ouro/cartao.html', aula: 'ouro/aula.html', decidir: 'ouro/decidir.html', prova: 'ouro/prova.html', montagem: 'ouro/montagem.html', maquete: 'ouro/maquete.html', starter: 'starter.html' }
 const i = process.argv.indexOf('--atualizar'), n = process.argv.indexOf('--novo'), c = process.argv.indexOf('--corpo')
 if (c >= 0) {
   // Documento a partir de um corpo escrito só com componentes: o kit entra inteiro, o corpo como está.
